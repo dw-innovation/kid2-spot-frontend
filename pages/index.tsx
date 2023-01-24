@@ -2,7 +2,9 @@ import React from "react";
 
 const IndexPage = () => {
   return (
-      <main></main>
+      <main>
+        <h1>KID2 Overpass Turbo Prototype</h1>
+      </main>
   );
 };
 
