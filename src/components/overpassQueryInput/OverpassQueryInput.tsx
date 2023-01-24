@@ -4,6 +4,7 @@ import useSessionStore from "src/stores/useSessionStore";
 
 const OverpassQueryInput = () => {
   const setOverpassQuery = useSessionStore((state) => state.setOverpassQuery);
+  const overpassQuery = useSessionStore((state) => state.overpassQuery);
   return (
     <div>
       <textarea
@@ -11,6 +12,7 @@ const OverpassQueryInput = () => {
         rows={20}
         className="border-2"
         onChange={(e) => setOverpassQuery(e.target.value)}
+        defaultValue={overpassQuery}
       ></textarea>
       <OverpassQuerySubmit />
     </div>
