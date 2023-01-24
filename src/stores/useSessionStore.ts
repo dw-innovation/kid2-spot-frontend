@@ -13,7 +13,7 @@ interface SessionStore {
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
-  bbox: [],
+  bbox: [52.348763, 12.891769, 52.662225, 13.929977],
   setBbox: (bbox: number[]) => {
     set(
       produce((draft) => {
