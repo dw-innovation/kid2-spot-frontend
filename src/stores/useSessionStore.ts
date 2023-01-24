@@ -7,7 +7,9 @@ interface SessionStore {
   results: any[];
   setResults: (results: any[]) => void;
   overpassQuery: string;
-  serOverpassQuery: (overpassQuery: string) => void;
+  setOverpassQuery: (overpassQuery: string) => void;
+  apiLoading: boolean;
+  setApiLoading: (apiLoading: boolean) => void;
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -28,10 +30,18 @@ const useSessionStore = create<SessionStore>((set) => ({
     );
   },
   overpassQuery: "",
-  serOverpassQuery: (overpassQuery: string) => {
+  setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
         draft.overpassQuery = overpassQuery;
+      })
+    );
+  },
+  apiLoading: false,
+  setApiLoading: (apiLoading: boolean) => {
+    set(
+      produce((draft) => {
+        draft.apiLoading = apiLoading;
       })
     );
   },
