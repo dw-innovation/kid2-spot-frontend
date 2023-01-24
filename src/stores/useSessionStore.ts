@@ -10,6 +10,7 @@ interface SessionStore {
   setOverpassQuery: (overpassQuery: string) => void;
   apiLoading: boolean;
   setApiLoading: (apiLoading: boolean) => void;
+  mapCenter: number[];
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -29,7 +30,8 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  overpassQuery: '[out:json][timeout:25];\n  (\n    node["amenity"="cafe"]({{bbox}});\n  );\n  out body;\n  >;\n  out skel qt;',
+  overpassQuery:
+    '[out:json][timeout:25];\n  (\n    node["amenity"="cafe"]({{bbox}});\n  );\n  out body;\n  >;\n  out skel qt;',
   setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
@@ -45,6 +47,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
+  mapCenter: [52.541389, 13.388171],
 }));
 
 export default useSessionStore;
