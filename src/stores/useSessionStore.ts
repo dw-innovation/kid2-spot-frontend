@@ -29,7 +29,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  overpassQuery: '[out:json][timeout:25];\n  (\n    node["amenity"="cafe"](51.50241835525635,-0.09687066078186037,51.50758054572385,-0.08313775062561037);\n  );\n  out body;\n  >;\n  out skel qt;',
+  overpassQuery: '[out:json][timeout:25];\n  (\n    node["amenity"="cafe"]({{bbox}});\n  );\n  out body;\n  >;\n  out skel qt;',
   setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
