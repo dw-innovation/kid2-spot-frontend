@@ -1,6 +1,15 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import Head from "next/head";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }: AppProps) => (
+  <>
+    <Head>
+      <title>KID2 Overpass Turbo Prototype</title>
+      <meta name="description" content="KID2 Overpass Turbo Prototype" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </Head>
+    <Component {...pageProps} />
+  </>
+);
+
+export default App;
