@@ -6,6 +6,8 @@ interface SessionStore {
   setBbox: (bbox: number[]) => void;
   results: any[];
   setResults: (results: any[]) => void;
+  overpassQuery: string;
+  serOverpassQuery: (overpassQuery: string) => void;
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -22,6 +24,14 @@ const useSessionStore = create<SessionStore>((set) => ({
     set(
       produce((draft) => {
         draft.results = results;
+      })
+    );
+  },
+  overpassQuery: "",
+  serOverpassQuery: (overpassQuery: string) => {
+    set(
+      produce((draft) => {
+        draft.overpassQuery = overpassQuery;
       })
     );
   },
