@@ -69,7 +69,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  tilesServer: "osm",
+  tilesServer: "vector",
   toggleTilesServer: () => {
     set(
       produce((draft) => {
