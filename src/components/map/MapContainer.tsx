@@ -4,7 +4,6 @@ import MapEvents from "./MapEvents";
 import Markers from "./Markers";
 
 import VectorTileLayer from "react-leaflet-vector-tile-layer";
-import { env } from "process";
 
 const MapContainer = () => {
   const mapCenter = useSessionStore((state) => state.mapCenter);
