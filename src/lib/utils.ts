@@ -51,7 +51,8 @@ export const callOverpassAPI = async (): Promise<any> => {
 
 export const callGeocodeAPI = async (): Promise<any> => {
   const address = useSessionStore.getState().searchAddress;
-  const setAddressSuggestions = useSessionStore.getState().setAddressSuggestions;
+  const setAddressSuggestions =
+    useSessionStore.getState().setAddressSuggestions;
 
   await axios
     .get("/api/geocode", {
@@ -62,4 +63,15 @@ export const callGeocodeAPI = async (): Promise<any> => {
     .then((response) => {
       setAddressSuggestions(response.data);
     });
+};
+
+export const exportData = () => {
+  let markers = useSessionStore.getState().markers;
+  const fileData = JSON.stringify(markers);
+  const blob = new Blob([fileData], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.download = "export.json";
+  link.href = url;
+  link.click();
 };

@@ -4,6 +4,7 @@ import useSessionStore from "src/stores/useSessionStore";
 import DynamicMap from "@/components/map";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
+import { exportData } from "@/lib/utils";
 
 const IndexPage = () => {
   const clearMarkers = useSessionStore((state) => state.clearMarkers);
@@ -25,6 +26,13 @@ const IndexPage = () => {
               disabled={markers.length === 0}
             >
               clear markers
+            </button>
+            <button
+              onClick={() => exportData()}
+              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
+              disabled={markers.length === 0}
+            >
+              export markers
             </button>
             <button
               onClick={() => toggleTilesServer()}
