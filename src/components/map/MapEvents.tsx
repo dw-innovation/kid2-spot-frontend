@@ -1,26 +1,35 @@
 import { transformBbox } from "@/lib/utils";
-import { use, useEffect } from "react";
+import { use, useCallback, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import useSessionStore from "src/stores/useSessionStore";
 
 const MapEvents = () => {
   const setBbox = useSessionStore((state) => state.setBbox);
+  const setMapZoom = useSessionStore((state) => state.setMapZoom);
 
   const map = useMap();
 
-  useEffect(() => {
+  const updateBbox = useCallback(() => {
     // @ts-ignore
     setBbox(transformBbox(map.getBounds()));
+  }, [map, setBbox]);
 
-    map.on("moveend", () => {
-      // @ts-ignore
-      setBbox(transformBbox(map.getBounds()));
-    });
+  const updateZoom = useCallback(() => {
+    // @ts-ignore
+    setMapZoom(map.getBounds());
+  }, [map, setMapZoom]);
+
+  useEffect(() => {
+    updateZoom();
+    updateBbox();
+    map.on("moveend", () => updateBbox());
+    map.on("zoomlevelschange", () => updateZoom());
 
     return () => {
-      map.off("moveend");
+      map.off("moveend", () => updateBbox());
+      map.off("zoomlevelschange", () => updateZoom());
     };
-  }, [map, setBbox]);
+  }, [map, setBbox, updateBbox, updateZoom]);
 
   return <></>;
 };
