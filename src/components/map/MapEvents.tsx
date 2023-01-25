@@ -1,6 +1,7 @@
-import { transformBbox } from "@/lib/utils";
 import { useCallback, useEffect } from "react";
 import { useMap } from "react-leaflet";
+
+import { transformBbox } from "@/lib/utils";
 import useSessionStore from "@/stores/useSessionStore";
 
 const MapEvents = () => {

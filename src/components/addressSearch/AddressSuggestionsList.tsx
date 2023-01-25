@@ -1,7 +1,9 @@
-import React, { Fragment } from "react";
-import useSessionStore from "@/stores/useSessionStore";
-import AddressSuggestion from "./AddressSuggestion";
 import clsx from "clsx";
+import React, { Fragment } from "react";
+
+import useSessionStore from "@/stores/useSessionStore";
+
+import AddressSuggestion from "./AddressSuggestion";
 
 const AddressSuggestionsList = () => {
   const addressSuggestions = useSessionStore(

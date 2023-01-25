@@ -1,8 +1,9 @@
 import React from "react";
+import useSessionStore from "src/stores/useSessionStore";
+
+import DynamicMap from "@/components/map";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
-import DynamicMap from "@/components/map";
-import useSessionStore from "src/stores/useSessionStore";
 
 const IndexPage = () => {
   const clearMarkers = useSessionStore((state) => state.clearMarkers);

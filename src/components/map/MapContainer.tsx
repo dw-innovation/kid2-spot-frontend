@@ -1,10 +1,11 @@
 import { MapContainer as LeafletMapContainer, TileLayer } from "react-leaflet";
+import VectorTileLayer from "react-leaflet-vector-tile-layer";
 import useSessionStore from "src/stores/useSessionStore";
+
+import AddressSearchBox from "@/components/addressSearch";
+
 import MapEvents from "./MapEvents";
 import Markers from "./Markers";
-
-import VectorTileLayer from "react-leaflet-vector-tile-layer";
-import AddressSearchBox from "@/components/addressSearch";
 
 const MapContainer = () => {
   const mapCenter = useSessionStore((state) => state.mapCenter);

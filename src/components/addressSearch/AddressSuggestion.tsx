@@ -1,4 +1,5 @@
 import React from "react";
+
 import useSessionStore from "@/stores/useSessionStore";
 
 const AddressSuggestion = ({ formattedAddress, latitude, longitude }: any) => {

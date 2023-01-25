@@ -1,7 +1,8 @@
+import "@/styles/globals.css";
+import "leaflet/dist/leaflet.css";
+
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import "../src/styles/globals.css";
-import "leaflet/dist/leaflet.css";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>

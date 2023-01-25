@@ -1,9 +1,11 @@
 import React from "react";
+
+import { callGeocodeAPI } from "@/lib/utils";
+import useSessionStore from "@/stores/useSessionStore";
+
 import AddressSearchButton from "./AddressSearchButton";
 import AddressSearchInput from "./AddressSearchInput";
 import AddressSuggestionsList from "./AddressSuggestionsList";
-import { callGeocodeAPI } from "@/lib/utils";
-import useSessionStore from "@/stores/useSessionStore";
 
 const AddressSearchBox = () => {
   const toggleShowSuggestions = useSessionStore(
