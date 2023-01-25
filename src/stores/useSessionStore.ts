@@ -4,6 +4,8 @@ import { create } from "zustand";
 interface SessionStore {
   bbox: number[];
   setBbox: (bbox: number[]) => void;
+  mapZoom: number;
+  setMapZoom: (mapZoom: number) => void;
   markers: any[];
   setMarkers: (markers: any[]) => void;
   overpassQuery: string;
@@ -48,6 +50,14 @@ const useSessionStore = create<SessionStore>((set) => ({
     );
   },
   mapCenter: [52.541389, 13.388171],
+  mapZoom: 15,
+  setMapZoom: (mapZoom: number) => {
+    set(
+      produce((draft) => {
+        draft.mapZoom = mapZoom;
+      })
+    );
+  },
 }));
 
 export default useSessionStore;
