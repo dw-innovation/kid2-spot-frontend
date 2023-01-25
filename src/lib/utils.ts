@@ -22,7 +22,10 @@ export const transformBbox = (bbox: Bounds): number[] => {
 };
 
 export const callOverpassAPI = async (): Promise<any> => {
-  let setResults = useSessionStore.getState().setResults;
+  let setApiState = useSessionStore.getState().setApiState;
+  setApiState("loading");
+
+  let setMarkers = useSessionStore.getState().setMarkers;
   let bbox = useSessionStore.getState().bbox;
   let overpassQuery = useSessionStore.getState().overpassQuery;
 
@@ -36,9 +39,11 @@ export const callOverpassAPI = async (): Promise<any> => {
 
   axios(config)
     .then((response) => {
-      setResults(response.data.elements);
+      setMarkers(response.data.elements);
+      setApiState("idle");
     })
     .catch((error) => {
       console.log(error);
+      setApiState("error");
     });
 };
