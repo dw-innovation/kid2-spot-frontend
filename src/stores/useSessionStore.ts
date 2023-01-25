@@ -9,6 +9,7 @@ interface SessionStore {
   setMapZoom: (mapZoom: number) => void;
   markers: any[];
   setMarkers: (markers: any[]) => void;
+  clearMarkers: () => void;
   overpassQuery: string;
   setOverpassQuery: (overpassQuery: string) => void;
   apiState: "idle" | "loading" | "error";
@@ -33,6 +34,13 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
+  clearMarkers: () => {
+    set(
+      produce((draft) => {
+        draft.markers = [];
+      })
+    );
+  },
   overpassQuery:
     '[out:json][timeout:25];\n  (\n    node["amenity"="cafe"]({{bbox}});\n  );\n  out body;\n  >;\n  out skel qt;',
   setOverpassQuery: (overpassQuery: string) => {
@@ -50,7 +58,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  mapCenter: [47.380219, 8.529510,],
+  mapCenter: [47.380219, 8.52951],
   mapZoom: 15,
   setMapZoom: (mapZoom: number) => {
     set(

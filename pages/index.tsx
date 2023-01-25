@@ -5,7 +5,7 @@ import DynamicMap from "@/components/map";
 import useSessionStore from "src/stores/useSessionStore";
 
 const IndexPage = () => {
-  const setMarkers = useSessionStore((state) => state.setMarkers);
+  const clearMarkers = useSessionStore((state) => state.clearMarkers);
   return (
     <main className="max-h-screen h-screen bg-slate-700 p-2 flex flex-col">
       <div className="pb-3">
@@ -15,7 +15,7 @@ const IndexPage = () => {
         <div className="flex gap-2">
           <OverpassQuerySubmit />
           <button
-            onClick={() => setMarkers([])}
+            onClick={() => clearMarkers()}
             className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
           >
             clear markers
