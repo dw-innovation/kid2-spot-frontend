@@ -15,6 +15,7 @@
   "dependencies": {
     "@next/font": "13.1.5",
     "@types/node": "18.11.18",
+    "@types/node-geocoder": "^3.24.5",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "axios": "^1.2.3",
@@ -25,6 +26,7 @@
     "leaflet": "^1.9.3",
     "next": "13.1.5",
     "nextjs-basic-auth-middleware": "^2.0.0",
+    "node-geocoder": "^4.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.0",
