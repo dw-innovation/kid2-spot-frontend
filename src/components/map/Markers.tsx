@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Marker, Popup } from "react-leaflet";
 import * as L from "leaflet";
-import useSessionStore from "src/stores/useSessionStore";
+import useSessionStore from "@/stores/useSessionStore";
 
 const Markers = () => {
   const markers = useSessionStore((state) => state.markers);

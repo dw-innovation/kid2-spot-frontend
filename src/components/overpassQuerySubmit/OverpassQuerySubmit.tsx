@@ -1,8 +1,8 @@
 import React from "react";
 import { callOverpassAPI } from "@/lib/utils";
-import useSessionStore from "src/stores/useSessionStore";
+import useSessionStore from "@/stores/useSessionStore";
 import { RotatingLines } from "react-loader-spinner";
-import Triangle from "src/assets/icons/triangle";
+import Triangle from "@/assets/icons/triangle";
 import clsx from "clsx";
 
 const OverpassQuerySubmit = () => {

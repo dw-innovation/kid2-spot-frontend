@@ -1,6 +1,6 @@
 import React from "react";
 import { callGeocodeAPI } from "@/lib/utils";
-import Lens from "src/assets/icons/lens";
+import Lens from "@/assets/icons/lens";
 import useSessionStore from "@/stores/useSessionStore";
 
 const AddressSearchButton = () => {

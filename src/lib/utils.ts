@@ -1,5 +1,5 @@
 import axios from "axios";
-import useSessionStore from "src/stores/useSessionStore";
+import useSessionStore from "@/stores/useSessionStore";
 
 interface Bounds {
   _southWest: {

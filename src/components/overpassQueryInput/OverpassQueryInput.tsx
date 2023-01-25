@@ -1,5 +1,5 @@
 import React from "react";
-import useSessionStore from "src/stores/useSessionStore";
+import useSessionStore from "@/stores/useSessionStore";
 
 const OverpassQueryInput = () => {
   const setOverpassQuery = useSessionStore((state) => state.setOverpassQuery);
