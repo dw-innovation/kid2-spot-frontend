@@ -24,7 +24,7 @@ const MapContainer = () => {
       {tilesServer === "vector" && (
         <VectorTileLayer
           styleUrl={
-            "https://kid2-osm-tiles-server.onrender.com/styles/basic-preview/style.json"
+            "https://api.maptiler.com/maps/basic-v2/style.json?key=MxLldSRmmd4tNtToPzY1"
           }
         />
       )}
