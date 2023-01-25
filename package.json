@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run",
+    "e2e": "start-server-and-test start http://localhost:3000 cypress",
+    "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
     "@next/font": "13.1.5",
@@ -25,12 +29,14 @@
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.0",
     "react-loader-spinner": "^5.3.4",
+    "start-server-and-test": "^1.15.3",
     "typescript": "4.9.4",
     "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.0",
     "autoprefixer": "^10.4.13",
+    "cypress": "^12.4.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4"
   }
