@@ -1,6 +1,6 @@
 import React from "react";
 
-const LensIcon = () => (
+const Lens = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -17,4 +17,4 @@ const LensIcon = () => (
   </svg>
 );
 
-export default LensIcon;
+export default Lens;
