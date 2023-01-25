@@ -4,12 +4,12 @@ import { create } from "zustand";
 interface SessionStore {
   bbox: number[];
   setBbox: (bbox: number[]) => void;
-  results: any[];
-  setResults: (results: any[]) => void;
+  markers: any[];
+  setMarkers: (markers: any[]) => void;
   overpassQuery: string;
   setOverpassQuery: (overpassQuery: string) => void;
-  apiLoading: boolean;
-  setApiLoading: (apiLoading: boolean) => void;
+  apiState: "idle" | "loading" | "error";
+  setApiState: (state: "idle" | "loading" | "error") => void;
   mapCenter: number[];
 }
 
@@ -22,11 +22,11 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  results: [],
-  setResults: (results: any[]) => {
+  markers: [],
+  setMarkers: (markers: any[]) => {
     set(
       produce((draft) => {
-        draft.results = results;
+        draft.markers = markers;
       })
     );
   },
@@ -39,11 +39,11 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  apiLoading: false,
-  setApiLoading: (apiLoading: boolean) => {
+  apiState: "idle",
+  setApiState: (state: "idle" | "loading" | "error") => {
     set(
       produce((draft) => {
-        draft.apiLoading = apiLoading;
+        draft.apiState = state;
       })
     );
   },
