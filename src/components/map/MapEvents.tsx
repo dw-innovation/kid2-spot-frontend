@@ -34,7 +34,7 @@ const MapEvents = () => {
 
   useEffect(() => {
     // @ts-ignore
-    map.flyTo(mapCenter);
+    map.flyTo(mapCenter, undefined, { animate: true, duration: 4 });
   }, [mapCenter, map]);
 
   return <></>;
