@@ -15,8 +15,7 @@ const MapEvents = () => {
   }, [map, setBbox]);
 
   const updateZoom = useCallback(() => {
-    // @ts-ignore
-    setMapZoom(map.getBounds());
+    setMapZoom(map.getZoom());
   }, [map, setMapZoom]);
 
   useEffect(() => {

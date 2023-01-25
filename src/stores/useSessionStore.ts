@@ -1,4 +1,5 @@
 import produce from "immer";
+import { LatLngExpression } from "leaflet";
 import { create } from "zustand";
 
 interface SessionStore {
@@ -12,7 +13,7 @@ interface SessionStore {
   setOverpassQuery: (overpassQuery: string) => void;
   apiState: "idle" | "loading" | "error";
   setApiState: (state: "idle" | "loading" | "error") => void;
-  mapCenter: number[];
+  mapCenter: LatLngExpression | undefined;
 }
 
 const useSessionStore = create<SessionStore>((set) => ({

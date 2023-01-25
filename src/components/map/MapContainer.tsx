@@ -7,7 +7,6 @@ const MapContainer = () => {
   const mapCenter = useSessionStore((state) => state.mapCenter);
   const mapZoom = useSessionStore((state) => state.mapZoom);
   return (
-    // @ts-ignore
     <LeafletMapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
