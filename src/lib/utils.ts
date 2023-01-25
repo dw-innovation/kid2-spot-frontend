@@ -47,3 +47,18 @@ export const callOverpassAPI = async (): Promise<any> => {
       setApiState("error");
     });
 };
+
+export const callGeocodeAPI = async (): Promise<any> => {
+  const address = useSessionStore.getState().searchAddress;
+  const setAddressSuggestions = useSessionStore.getState().setAddressSuggestions;
+
+  await axios
+    .get("/api/geocode", {
+      params: {
+        address: address,
+      },
+    })
+    .then((response) => {
+      setAddressSuggestions(response.data);
+    });
+};

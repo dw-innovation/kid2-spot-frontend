@@ -15,8 +15,17 @@ interface SessionStore {
   apiState: "idle" | "loading" | "error";
   setApiState: (state: "idle" | "loading" | "error") => void;
   mapCenter: LatLngExpression | undefined;
+  setMapCenter: (mapCenter: LatLngExpression | undefined) => void;
   tilesServer: "osm" | "vector";
   toggleTilesServer: () => void;
+  searchAddress: string;
+  setSearchAddress: (searchAddress: string) => void;
+  currentAddress: Object;
+  setCurrentAddress: (currentAddress: Object) => void;
+  addressSuggestions: any[];
+  setAddressSuggestions: (addressSuggestions: any[]) => void;
+  showSuggestions: boolean;
+  toggleShowSuggestions: (state?: boolean) => void;
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -74,6 +83,46 @@ const useSessionStore = create<SessionStore>((set) => ({
     set(
       produce((draft) => {
         draft.tilesServer = draft.tilesServer === "osm" ? "vector" : "osm";
+      })
+    );
+  },
+  searchAddress: "",
+  setSearchAddress: (searchAddress: string) => {
+    set(
+      produce((draft) => {
+        draft.searchAddress = searchAddress;
+      })
+    );
+  },
+  addressSuggestions: [],
+  setAddressSuggestions: (addressSuggestions: any[]) => {
+    set(
+      produce((draft) => {
+        draft.addressSuggestions = addressSuggestions;
+      })
+    );
+  },
+  currentAddress: {},
+  setCurrentAddress: (currentAddress: Object) => {
+    set(
+      produce((draft) => {
+        draft.currentAddress = currentAddress;
+      })
+    );
+  },
+  setMapCenter: (mapCenter: LatLngExpression | undefined) => {
+    set(
+      produce((draft) => {
+        draft.mapCenter = mapCenter;
+      })
+    );
+  },
+  showSuggestions: false,
+  toggleShowSuggestions: (state?: boolean) => {
+    set(
+      produce((draft) => {
+        draft.showSuggestions =
+          typeof state === "undefined" ? !draft.showSuggestions : state;
       })
     );
   },

@@ -6,6 +6,7 @@ import useSessionStore from "src/stores/useSessionStore";
 const MapEvents = () => {
   const setBbox = useSessionStore((state) => state.setBbox);
   const setMapZoom = useSessionStore((state) => state.setMapZoom);
+  const mapCenter = useSessionStore((state) => state.mapCenter);
 
   const map = useMap();
 
@@ -29,6 +30,11 @@ const MapEvents = () => {
       map.off("zoomlevelschange", () => updateZoom());
     };
   }, [map, setBbox, updateBbox, updateZoom]);
+
+  useEffect(() => {
+    // @ts-ignore
+    map.flyTo(mapCenter);
+  }, [mapCenter, map]);
 
   return <></>;
 };

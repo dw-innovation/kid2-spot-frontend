@@ -38,7 +38,7 @@ const IndexPage = () => {
         <div className="col-span-1 overflow-scroll max-h-full">
           <OverpassQueryInput />
         </div>
-        <div className="col-span-1 max-h-full h-full">
+        <div className="col-span-1 max-h-full h-full relative">
           <DynamicMap />
         </div>
       </div>
