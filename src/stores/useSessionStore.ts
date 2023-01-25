@@ -15,6 +15,8 @@ interface SessionStore {
   apiState: "idle" | "loading" | "error";
   setApiState: (state: "idle" | "loading" | "error") => void;
   mapCenter: LatLngExpression | undefined;
+  tilesServer: "osm" | "vector";
+  toggleTilesServer: () => void;
 }
 
 const useSessionStore = create<SessionStore>((set) => ({
@@ -64,6 +66,14 @@ const useSessionStore = create<SessionStore>((set) => ({
     set(
       produce((draft) => {
         draft.mapZoom = mapZoom;
+      })
+    );
+  },
+  tilesServer: "osm",
+  toggleTilesServer: () => {
+    set(
+      produce((draft) => {
+        draft.tilesServer = draft.tilesServer === "osm" ? "vector" : "osm";
       })
     );
   },

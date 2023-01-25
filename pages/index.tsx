@@ -6,6 +6,9 @@ import useSessionStore from "src/stores/useSessionStore";
 
 const IndexPage = () => {
   const clearMarkers = useSessionStore((state) => state.clearMarkers);
+  const markers = useSessionStore((state) => state.markers);
+  const toggleTilesServer = useSessionStore((state) => state.toggleTilesServer);
+  const tilesServer = useSessionStore((state) => state.tilesServer);
   return (
     <main className="max-h-screen h-screen bg-slate-700 p-2 flex flex-col">
       <div className="pb-3">
@@ -14,12 +17,21 @@ const IndexPage = () => {
         </h1>
         <div className="flex gap-2">
           <OverpassQuerySubmit />
-          <button
-            onClick={() => clearMarkers()}
-            className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
-          >
-            clear markers
-          </button>
+          <div className="flex flex-1 justify-end gap-2">
+            <button
+              onClick={() => clearMarkers()}
+              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
+              disabled={markers.length === 0}
+            >
+              clear markers
+            </button>
+            <button
+              onClick={() => toggleTilesServer()}
+              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
+            >
+              {tilesServer === "osm" ? "switch to vector" : "switch to OSM"}
+            </button>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2 h-full max-h-full">
