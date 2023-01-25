@@ -9,9 +9,13 @@ if (!APP_USER || !APP_PASSWORD) {
   );
 }
 
-export const middleware = createNextAuthMiddleware({
-  users: [{ name: APP_USER, password: APP_PASSWORD }],
-});
+export const middleware = createNextAuthMiddleware(
+  process.env.ENVIRONMENT !== "development"
+    ? {
+        users: [{ name: APP_USER, password: APP_PASSWORD }],
+      }
+    : {}
+);
 
 export const config = {
   matcher: ["/(.*)", "/_next/static/chunks/(.*)"],
