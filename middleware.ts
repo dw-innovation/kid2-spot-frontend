@@ -14,5 +14,5 @@ export const middleware = createNextAuthMiddleware({
 });
 
 export const config = {
-  matcher: ["/src/(.*)", "/_next/static/chunks/(.*)"],
+  matcher: ["/(.*)", "/_next/static/chunks/(.*)"],
 };
