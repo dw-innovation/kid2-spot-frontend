@@ -1,12 +1,9 @@
 import React from "react";
-import useSessionStore from "src/stores/useSessionStore";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
 import DynamicMap from "@/components/map";
 
 const IndexPage = () => {
-  const bbox = useSessionStore((state) => state.bbox);
-  const markers = useSessionStore((state) => state.markers);
   return (
     <main className="max-h-screen h-screen bg-slate-700 p-2 flex flex-col">
       <div className="pb-3">
