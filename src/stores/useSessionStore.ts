@@ -50,7 +50,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  mapCenter: [52.541389, 13.388171],
+  mapCenter: [47.380219, 8.529510,],
   mapZoom: 15,
   setMapZoom: (mapZoom: number) => {
     set(
