@@ -13,7 +13,7 @@ const MapContainer = () => {
     <LeafletMapContainer
       center={mapCenter}
       zoom={mapZoom}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
     >
       <VectorTileLayer
         styleUrl={
