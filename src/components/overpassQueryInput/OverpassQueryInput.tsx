@@ -6,7 +6,7 @@ const OverpassQueryInput = () => {
   const overpassQuery = useSessionStore((state) => state.overpassQuery);
   return (
     <textarea
-      className="border-2 font-mono w-full h-1/2"
+      className="border-2 font-mono w-full h-1/2 text-sm"
       onChange={(e) => setOverpassQuery(e.target.value)}
       defaultValue={overpassQuery}
     ></textarea>
