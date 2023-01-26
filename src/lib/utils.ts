@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LatLng } from "leaflet";
 
 import useSessionStore from "@/stores/useSessionStore";
 
@@ -74,4 +75,12 @@ export const exportData = () => {
   link.download = "export.json";
   link.href = url;
   link.click();
+};
+
+export const getFlyToAnimationSpeed = (
+  currentMapCenter: LatLng,
+  nextMapCenter: LatLng
+): number => {
+  const distance = currentMapCenter.distanceTo(nextMapCenter) / 5000;
+  return Math.log(distance) + 1;
 };

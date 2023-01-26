@@ -5,12 +5,14 @@ import useSessionStore from "@/stores/useSessionStore";
 const AddressSuggestion = ({ formattedAddress, latitude, longitude }: any) => {
   const setCurrentAddress = useSessionStore((state) => state.setCurrentAddress);
   const setMapCenter = useSessionStore((state) => state.setMapCenter);
-  const toggleShowSuggestions = useSessionStore(state=>state.toggleShowSuggestions)
+  const toggleShowSuggestions = useSessionStore(
+    (state) => state.toggleShowSuggestions
+  );
 
   return (
     <button
       onClick={() => {
-        setMapCenter([latitude, longitude]);
+        setMapCenter({ lat: latitude, lng: longitude });
         setCurrentAddress(formattedAddress);
         toggleShowSuggestions(false);
       }}

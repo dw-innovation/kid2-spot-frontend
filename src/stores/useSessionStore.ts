@@ -1,5 +1,5 @@
 import produce from "immer";
-import { LatLngExpression } from "leaflet";
+import { LatLngLiteral } from "leaflet";
 import { create } from "zustand";
 
 interface SessionStore {
@@ -14,8 +14,8 @@ interface SessionStore {
   setOverpassQuery: (overpassQuery: string) => void;
   apiState: "idle" | "loading" | "error";
   setApiState: (state: "idle" | "loading" | "error") => void;
-  mapCenter: LatLngExpression | undefined;
-  setMapCenter: (mapCenter: LatLngExpression | undefined) => void;
+  mapCenter: LatLngLiteral | undefined;
+  setMapCenter: (mapCenter: LatLngLiteral | undefined) => void;
   tilesServer: "osm" | "vector";
   toggleTilesServer: () => void;
   searchAddress: string;
@@ -69,7 +69,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  mapCenter: [52.540906, 13.383965],
+  mapCenter: { lat: 52.540906, lng: 13.383965 },
   mapZoom: 15,
   setMapZoom: (mapZoom: number) => {
     set(
@@ -110,7 +110,7 @@ const useSessionStore = create<SessionStore>((set) => ({
       })
     );
   },
-  setMapCenter: (mapCenter: LatLngExpression | undefined) => {
+  setMapCenter: (mapCenter: LatLngLiteral | undefined) => {
     set(
       produce((draft) => {
         draft.mapCenter = mapCenter;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-import { transformBbox } from "@/lib/utils";
+import { getFlyToAnimationSpeed, transformBbox } from "@/lib/utils";
 import useSessionStore from "@/stores/useSessionStore";
 
 const MapEvents = () => {
@@ -34,7 +34,11 @@ const MapEvents = () => {
 
   useEffect(() => {
     // @ts-ignore
-    map.flyTo(mapCenter, undefined, { animate: true, duration: 4 });
+    map.flyTo(mapCenter, undefined, {
+      animate: true,
+    // @ts-ignore
+      duration: getFlyToAnimationSpeed(map.getCenter(), mapCenter),
+    });
   }, [mapCenter, map]);
 
   return <></>;
