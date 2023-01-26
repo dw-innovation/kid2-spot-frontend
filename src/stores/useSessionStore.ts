@@ -53,7 +53,7 @@ const useSessionStore = create<SessionStore>((set) => ({
     );
   },
   overpassQuery:
-    '// find all cafés that are no more than 200m away from a subway entrance\n\n[out:json][timeout:25];\n(\n  node["railway"="subway_entrance"]({{bbox}});\n  way(around:200)["amenity"="cafe"];\n);\nout body;\n>;\nout skel qt;\n',
+    '// find all cafés that are no more than 200m away from a subway entrance\n\n[out:json][timeout:25];\n(\n  node["amenity"="cafe"]({{bbox}});\n  way(around:200)["railway"="subway_entrance"];\n);\nout body;\n>;\nout skel qt;\n',
   setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
