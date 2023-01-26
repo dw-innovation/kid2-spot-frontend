@@ -12,7 +12,7 @@ const AddressSearchBox = () => {
     (state) => state.toggleShowSuggestions
   );
   return (
-    <div className="flex flex-col gap-1 justify-end">
+    <div className="flex flex-col gap-1 justify-end w-[20rem]">
       <form
         className="flex"
         onSubmit={(e) => {
