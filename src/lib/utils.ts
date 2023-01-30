@@ -91,7 +91,7 @@ export const exportQuery = ()=> {
   const blob = new Blob([overpassQuery], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.download = "export.txt";
+  link.download = "overpassQuery.txt";
   link.href = url;
   link.click();
 }
