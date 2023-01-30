@@ -66,7 +66,7 @@ export const callGeocodeAPI = async (): Promise<any> => {
     });
 };
 
-export const exportData = () => {
+export const exportMarkers = () => {
   let markers = useSessionStore.getState().markers;
   const fileData = JSON.stringify(markers);
   const blob = new Blob([fileData], { type: "text/plain" });
