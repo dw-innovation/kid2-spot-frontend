@@ -4,7 +4,7 @@ import useSessionStore from "src/stores/useSessionStore";
 import DynamicMap from "@/components/map";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
-import { exportMarkers } from "@/lib/utils";
+import { exportMarkers, exportQuery } from "@/lib/utils";
 
 const IndexPage = () => {
   const clearMarkers = useSessionStore((state) => state.clearMarkers);

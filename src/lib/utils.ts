@@ -84,3 +84,14 @@ export const getFlyToAnimationSpeed = (
   const distance = currentMapCenter.distanceTo(nextMapCenter) / 5000;
   return Math.log(distance) + 1;
 };
+
+
+export const exportQuery = ()=> {
+  let overpassQuery = useSessionStore.getState().overpassQuery;
+  const blob = new Blob([overpassQuery], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.download = "export.txt";
+  link.href = url;
+  link.click();
+}
