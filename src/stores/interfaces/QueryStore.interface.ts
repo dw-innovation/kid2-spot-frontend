@@ -1,4 +1,4 @@
 export default interface QueryStoreInterface {
-    overpassQuery: string;
-    setOverpassQuery: (overpassQuery: string) => void;
+  overpassQuery: string;
+  setOverpassQuery: (overpassQuery: string) => void;
 }
