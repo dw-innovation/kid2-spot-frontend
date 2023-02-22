@@ -16,7 +16,7 @@ const AddressSuggestion = ({ formattedAddress, latitude, longitude }: any) => {
         setCurrentAddress(formattedAddress);
         toggleShowSuggestions(false);
       }}
-      className="hover:bg-blue-200 p-2 w-full text-left"
+      className="w-full p-2 text-left hover:bg-blue-200"
     >
       {formattedAddress}
     </button>

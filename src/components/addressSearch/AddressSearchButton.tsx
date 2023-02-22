@@ -14,7 +14,7 @@ const AddressSearchButton = () => {
         callGeocodeAPI();
         toggleShowSuggestions(true);
       }}
-      className="bg-blue-400 hover:bg-blue-500 h-full p-3"
+      className="h-full p-3 bg-blue-400 hover:bg-blue-500"
       type="submit"
     >
       <Lens />

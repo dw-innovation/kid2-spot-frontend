@@ -14,7 +14,7 @@ const AddressSearchInput = () => {
 
   return (
     <input
-      className="px-2 py-1 flex-1 border-2 border-blue-400 w-64"
+      className="flex-1 w-64 px-2 py-1 border-2 border-blue-400"
       value={searchAddress}
       onChange={({ target: { value } }) => setSearchAddress(value)}
     />
