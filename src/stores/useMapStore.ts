@@ -63,7 +63,7 @@ const useMapStore = create<MapStoreInterface>((set) => ({
   removePolygonPoint: (point: LatLngLiteral) => {
     set(
       produce((draft) => {
-        draft.polygon = draft.polygon.filter((p) => p !== point);
+        draft.polygon = draft.polygon.filter((p: LatLngLiteral) => p !== point);
       })
     );
   },
