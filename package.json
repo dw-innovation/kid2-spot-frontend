@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.0",
+    "@types/lodash": "^4.14.191",
     "autoprefixer": "^10.4.13",
     "cypress": "^12.4.0",
     "eslint-plugin-simple-import-sort": "^9.0.0",
