@@ -33,12 +33,16 @@ export const callOverpassAPI = async (): Promise<any> => {
   let setMarkers = useMapStore.getState().setMarkers;
   let bbox = useMapStore.getState().bbox;
   let overpassQuery = useQueryStore.getState().overpassQuery;
+  let overpassQueryWithArea = overpassQuery.replaceAll(
+    "{{area}}",
+    bbox.join(",")
+  );
 
   var config = {
     method: "get",
     url: process.env.NEXT_PUBLIC_OVERPASS_API_URL,
     params: {
-      data: overpassQuery.replaceAll("{{bbox}}", bbox.join(",")),
+      data: overpassQueryWithArea,
     },
   };
 
