@@ -1,6 +1,6 @@
 import React from "react";
 
-const Triangle = ({ width = 20 }) => {
+const TriangleIcon = ({ width = 20 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +17,4 @@ const Triangle = ({ width = 20 }) => {
   );
 };
 
-export default Triangle;
+export default TriangleIcon;

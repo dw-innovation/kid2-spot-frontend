@@ -1,6 +1,6 @@
 import React from "react";
 
-import Lens from "@/assets/icons/lens";
+import LensIcon from "@/assets/icons/LensIcon";
 import { callGeocodeAPI } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
@@ -17,7 +17,7 @@ const AddressSearchButton = () => {
       className="h-full p-3 bg-blue-400 hover:bg-blue-500"
       type="submit"
     >
-      <Lens />
+      <LensIcon />
     </button>
   );
 };
