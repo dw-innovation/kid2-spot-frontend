@@ -55,18 +55,26 @@ export const callOverpassAPI = async (): Promise<any> => {
 
 export const callGeocodeAPI = async (): Promise<any> => {
   const address = useAddressStore.getState().searchAddress;
+  const toggleSuggestions = useAppStore.getState().toggleShowSuggestions;
   const setAddressSuggestions =
     useAddressStore.getState().setAddressSuggestions;
 
-  await axios
-    .get("/api/geocode", {
-      params: {
-        address: address,
-      },
-    })
-    .then((response) => {
-      setAddressSuggestions(response.data);
-    });
+  if (!address) return;
+
+  const response = await axios({
+    method: "GET",
+    url: `https://api.maptiler.com/geocoding/${address}.json`,
+    params: {
+      key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
+      language: "en",
+      limit: 5,
+      types:
+        "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
+    },
+  });
+
+  const { features } = await response.data;
+  setAddressSuggestions(features);
 };
 
 export const exportMarkers = () => {
