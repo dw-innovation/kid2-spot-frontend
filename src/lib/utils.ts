@@ -55,7 +55,6 @@ export const callOverpassAPI = async (): Promise<any> => {
 
 export const callGeocodeAPI = async (): Promise<any> => {
   const address = useAddressStore.getState().searchAddress;
-  const toggleSuggestions = useAppStore.getState().toggleShowSuggestions;
   const setAddressSuggestions =
     useAddressStore.getState().setAddressSuggestions;
 
