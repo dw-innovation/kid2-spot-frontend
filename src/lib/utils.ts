@@ -26,17 +26,39 @@ export const transformBbox = (bbox: Bounds): number[] => {
   ];
 };
 
+const replaceWithArea = (query: string): string => {
+  const queryArea = useQueryStore.getState().queryArea;
+  let bbox = useMapStore.getState().bbox;
+  let polygon = useMapStore.getState().polygon;
+
+  let area = "";
+  switch (queryArea) {
+    case "bbox":
+      let area = bbox.join(",");
+      break;
+
+    case "polygon":
+      let polygonString = polygon
+        .map((point: number[]) => `${point[0]},${point[1]}`)
+        .join(" ");
+      area = `(${polygonString})`;
+      break;
+
+    default:
+      area = "360,-180,360,180";
+      break;
+  }
+
+  return query.replaceAll("{{area}}", area);
+};
+
 export const callOverpassAPI = async (): Promise<any> => {
   let setApiState = useAppStore.getState().setApiState;
   setApiState("loading");
 
   let setMarkers = useMapStore.getState().setMarkers;
-  let bbox = useMapStore.getState().bbox;
   let overpassQuery = useQueryStore.getState().overpassQuery;
-  let overpassQueryWithArea = overpassQuery.replaceAll(
-    "{{area}}",
-    bbox.join(",")
-  );
+  let overpassQueryWithArea = replaceWithArea(overpassQuery);
 
   var config = {
     method: "get",
