@@ -1,6 +1,6 @@
 import React from "react";
 
-import PolygonIcon from "@/assets/icons/polygon";
+import PolygonIcon from "@/assets/icons/PolygonIcon";
 import useMapStore from "@/stores/useMapStore";
 
 import Button from "../Button";
@@ -12,7 +12,10 @@ const PolygonModeButton = ({}: Props) => {
   const polygonMode = useMapStore((state) => state.polygonMode);
 
   return (
-    <Button onClick={() => togglePolygonMode()} className={polygonMode ? "bg-green-200": ""}>
+    <Button
+      onClick={() => togglePolygonMode()}
+      className={polygonMode ? "bg-green-200" : ""}
+    >
       <PolygonIcon size={20} />
     </Button>
   );
