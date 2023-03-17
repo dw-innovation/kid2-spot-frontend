@@ -1,12 +1,15 @@
 import produce from "immer";
-import { LatLngLiteral } from "leaflet";
+import { LatLngBounds, LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
 import { create } from "zustand";
 
 import MapStoreInterface from "./interfaces/MapStore.interface";
 
 const useMapStore = create<MapStoreInterface>((set) => ({
-  bbox: [],
-  setBbox: (bbox: number[]) => {
+  bbox: [
+    [0, 0],
+    [0, 0],
+  ],
+  setBbox: (bbox: LatLngBoundsLiteral) => {
     set(
       produce((draft) => {
         draft.bbox = bbox;
@@ -71,6 +74,15 @@ const useMapStore = create<MapStoreInterface>((set) => ({
     set(
       produce((draft) => {
         draft.polygon = [];
+      })
+    );
+  },
+  polygonMode: false,
+  togglePolygonMode: (newState?: boolean) => {
+    set(
+      produce((draft) => {
+        draft.polygonMode =
+          newState !== undefined ? newState : !draft.polygonMode;
       })
     );
   },
