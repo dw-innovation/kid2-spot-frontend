@@ -56,17 +56,17 @@ const useMapStore = create<MapStoreInterface>((set) => ({
     );
   },
   polygon: [],
-  addPolygonPoint: (point: LatLngLiteral) => {
+  addPolygonPoint: (point: number[]) => {
     set(
       produce((draft) => {
         draft.polygon.push(point);
       })
     );
   },
-  removePolygonPoint: (point: LatLngLiteral) => {
+  removePolygonPoint: (point: number[]) => {
     set(
       produce((draft) => {
-        draft.polygon = draft.polygon.filter((p: LatLngLiteral) => p !== point);
+        draft.polygon = draft.polygon.filter((p: number[]) => p !== point);
       })
     );
   },
