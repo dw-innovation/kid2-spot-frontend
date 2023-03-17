@@ -12,9 +12,9 @@ export default interface MapStoreInterface {
   markers: any[];
   setMarkers: (markers: any[]) => void;
   clearMarkers: () => void;
-  polygon: LatLngLiteral[];
-  addPolygonPoint: (point: LatLngLiteral) => void;
-  removePolygonPoint: (point: LatLngLiteral) => void;
+  polygon: [number, number][];
+  addPolygonPoint: (point: [number, number]) => void;
+  removePolygonPoint: (point: [number, number]) => void;
   clearPolygon: () => void;
   polygonMode: boolean;
   togglePolygonMode: (newState?: boolean) => void;
