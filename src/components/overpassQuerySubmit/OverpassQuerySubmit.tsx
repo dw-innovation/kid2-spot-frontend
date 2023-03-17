@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
-import Triangle from "@/assets/icons/triangle";
+import TriangleIcon from "@/assets/icons/TriangleIcon";
 import { callOverpassAPI } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
@@ -34,7 +34,7 @@ const OverpassQuerySubmit = () => {
         ) : (
           <>
             <span className="text-green-600">
-              <Triangle width={20} />
+              <TriangleIcon width={20} />
             </span>{" "}
             run query
           </>
