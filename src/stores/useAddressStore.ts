@@ -20,7 +20,7 @@ const useAppStore = create<AddressStoreInterface>((set) => ({
       })
     );
   },
-  currentAddress: {},
+  currentAddress: { placeName: "", coordinates: [0, 0] },
   setCurrentAddress: (currentAddress: Object) => {
     set(
       produce((draft) => {

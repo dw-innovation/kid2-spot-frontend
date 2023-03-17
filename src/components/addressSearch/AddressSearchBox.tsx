@@ -17,7 +17,6 @@ const AddressSearchBox = () => {
         className="flex"
         onSubmit={(e) => {
           e.preventDefault();
-          callGeocodeAPI();
           toggleShowSuggestions(true);
         }}
       >
