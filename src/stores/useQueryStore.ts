@@ -13,6 +13,14 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
+  queryArea: "bbox",
+  setQueryArea: (queryArea: "bbox" | "polygon" | "world") => {
+    set(
+      produce((draft) => {
+        draft.queryArea = queryArea;
+      })
+    );
+  },
 }));
 
 export default useAppStore;
