@@ -8,7 +8,6 @@ const MapEvents = () => {
   const setBbox = useMapStore((state) => state.setBbox);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const mapCenter = useMapStore((state) => state.mapCenter);
-  const polygonMode = useMapStore((state) => state.polygonMode);
 
   const map = useMap();
 
@@ -16,8 +15,8 @@ const MapEvents = () => {
     const bounds = map.getBounds();
 
     setBbox([
-      [bounds.getSouthWest().lng, bounds.getSouthWest().lat],
-      [bounds.getNorthEast().lng, bounds.getNorthEast().lat],
+      [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
+      [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
     ]);
   }, [map, setBbox]);
 
@@ -25,43 +24,17 @@ const MapEvents = () => {
     setMapZoom(map.getZoom());
   }, [map, setMapZoom]);
 
-  const handleMapClick = useCallback(() => {
-    console.log("map clicked");
-  }, []);
-
   useEffect(() => {
     updateZoom();
     updateBbox();
     map.on("moveend", () => updateBbox());
     map.on("zoomlevelschange", () => updateZoom());
-    map.on("click", () => handleMapClick());
 
     return () => {
       map.off("moveend", () => updateBbox());
       map.off("zoomlevelschange", () => updateZoom());
-      map.off("click", () => handleMapClick());
     };
-  }, [map, setBbox, updateBbox, updateZoom, handleMapClick]);
-
-  useEffect(() => {
-    if (polygonMode) {
-      map.dragging.disable();
-      map.touchZoom.disable();
-      map.doubleClickZoom.disable();
-      map.scrollWheelZoom.disable();
-      map.boxZoom.disable();
-      map.keyboard.disable();
-      if (map.tap) map.tap.disable();
-    } else {
-      map.dragging.enable();
-      map.touchZoom.enable();
-      map.doubleClickZoom.enable();
-      map.scrollWheelZoom.enable();
-      map.boxZoom.enable();
-      map.keyboard.enable();
-      if (map.tap) map.tap.enable();
-    }
-  }, [polygonMode, map]);
+  }, [map, setBbox, updateBbox, updateZoom]);
 
   useEffect(() => {
     // @ts-ignore
