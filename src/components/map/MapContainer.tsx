@@ -5,7 +5,9 @@ import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
 import MapEvents from "./MapEvents";
+import MapTools from "./MapTools";
 import Markers from "./Markers";
+import PolygonDrawer from "./PolygonDrawer";
 
 const MapContainer = () => {
   const mapCenter = useMapStore((state) => state.mapCenter);
@@ -22,6 +24,7 @@ const MapContainer = () => {
         zoom={mapZoom}
         scrollWheelZoom={true}
         className="relative"
+        zoomControl={false}
       >
         {tilesServer === "osm" && (
           <TileLayer
@@ -35,7 +38,9 @@ const MapContainer = () => {
           />
         )}
 
+        <MapTools />
         <MapEvents />
+        <PolygonDrawer />
         <Markers />
       </LeafletMapContainer>
     </>
