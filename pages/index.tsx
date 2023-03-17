@@ -3,6 +3,7 @@ import React from "react";
 import DynamicMap from "@/components/map";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
+import QueryAreaSelector from "@/components/QueryAreaSelector";
 import { exportMarkers, exportQuery } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 
@@ -20,6 +21,7 @@ const IndexPage = () => {
         </h1>
         <div className="flex gap-2">
           <OverpassQuerySubmit />
+          <QueryAreaSelector />
           <div className="flex justify-end flex-1 gap-2">
             <button
               className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
