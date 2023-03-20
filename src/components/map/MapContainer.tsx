@@ -23,7 +23,7 @@ const MapContainer = () => {
         center={mapCenter}
         zoom={mapZoom}
         scrollWheelZoom={true}
-        className="relative"
+        className="cursor-crosshair"
         zoomControl={false}
       >
         {tilesServer === "osm" && (
