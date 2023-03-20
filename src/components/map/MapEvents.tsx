@@ -2,13 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 
 import useKeyPress from "@/lib/hooks/useKeyPress";
-import { getFlyToAnimationSpeed } from "@/lib/utils";
+import { getBoundingBoxCenter, getFlyToAnimationSpeed } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
+import { LatLngBoundsLiteral } from "leaflet";
 
 const MapEvents = () => {
   const setBbox = useMapStore((state) => state.setBbox);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const mapCenter = useMapStore((state) => state.mapCenter);
+  const mapBounds = useMapStore((state) => state.mapBounds);
   const togglePolygonMode = useMapStore((state) => state.togglePolygonMode);
   const clearPolygon = useMapStore((state) => state.clearPolygon);
 
@@ -53,17 +55,15 @@ const MapEvents = () => {
     };
   }, [handleMouseOut, handleMouseOver, map, setBbox, updateBbox, updateZoom]);
 
-  /*   useEffect(() => {
-    // @ts-ignore
-    map.flyTo(mapCenter, undefined, {
-      animate: true,
-      // @ts-ignore
-      duration: getFlyToAnimationSpeed(map.getCenter(), mapCenter),
-    });
-  }, [mapCenter, map]); */
+  useEffect(() => {
+    console.log(mapBounds);
+    //mapBounds && map.flyToBounds(mapBounds);
+  }, [map, mapBounds]);
 
   useKeyPress("p", () => isMouseOver && togglePolygonMode());
   useKeyPress("c", () => isMouseOver && clearPolygon());
+  useKeyPress("-", () => isMouseOver && map.zoomOut());
+  useKeyPress("+", () => isMouseOver && map.zoomIn());
 
   return <></>;
 };
