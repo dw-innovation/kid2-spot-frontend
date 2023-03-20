@@ -15,7 +15,7 @@ const MapTools = () => {
 
   return (
     <div
-      className="absolute top-0 left-0 z-50 flex flex-col gap-2 m-4"
+      className="absolute top-0 left-0 z-50 flex flex-col gap-2 m-2"
       style={{ zIndex: 9999 }}
     >
       <MapButton onClick={() => map.zoomIn()}>
