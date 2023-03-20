@@ -49,7 +49,7 @@ const PolygonDrawer = (props: Props) => {
 
   return (
     <>
-      {polygon.length > 2 && (
+      {polygon.length > 0 && (
         <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
       )}
     </>
