@@ -3,4 +3,6 @@ export default interface QueryStoreInterface {
   setOverpassQuery: (overpassQuery: string) => void;
   queryArea: "bbox" | "polygon";
   setQueryArea: (area: "bbox" | "polygon") => void;
+  areaBuffer: number;
+  setAreaBuffer: (areaBuffer: number) => void;
 }

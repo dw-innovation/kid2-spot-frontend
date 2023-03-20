@@ -11,6 +11,8 @@ const QueryAreaSelector = (props: Props) => {
   const polygon = useMapStore((state) => state.polygon);
   const setQueryArea = useQueryStore((state) => state.setQueryArea);
   const queryArea = useQueryStore((state) => state.queryArea);
+  const areaBuffer = useQueryStore((state) => state.areaBuffer);
+  const setAreaBuffer = useQueryStore((state) => state.setAreaBuffer);
 
   const { register, setValue } = useForm();
 
@@ -38,6 +40,20 @@ const QueryAreaSelector = (props: Props) => {
           Polygon
         </option>
       </select>
+      {queryArea === "polygon" && (
+        <span className="text-white">
+          add buffer of{" "}
+          <input
+            value={areaBuffer}
+            type="number"
+            className="w-20 p-1 text-black"
+            onChange={({ target: { value } }) =>
+              setAreaBuffer(parseFloat(value))
+            }
+          />{" "}
+          m
+        </span>
+      )}
     </div>
   );
 };

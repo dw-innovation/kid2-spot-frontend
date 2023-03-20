@@ -21,6 +21,14 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
+  areaBuffer: 500,
+  setAreaBuffer: (areaBuffer: number) => {
+    set(
+      produce((draft) => {
+        draft.areaBuffer = areaBuffer;
+      })
+    );
+  },
 }));
 
 export default useAppStore;

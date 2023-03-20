@@ -1,3 +1,4 @@
+import * as turf from "@turf/turf";
 import axios from "axios";
 import { LatLng } from "leaflet";
 
@@ -5,6 +6,8 @@ import useAddressStore from "@/stores/useAddressStore";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
+
+type Coordinate = [number, number];
 
 interface Bounds {
   _southWest: {
@@ -28,6 +31,7 @@ export const transformBbox = (bbox: Bounds): number[] => {
 
 const replaceWithArea = (query: string): string => {
   const queryArea = useQueryStore.getState().queryArea;
+  const areaBuffer = useQueryStore.getState().areaBuffer;
   let bbox = useMapStore.getState().bbox;
   let polygon = useMapStore.getState().polygon;
 
@@ -35,7 +39,9 @@ const replaceWithArea = (query: string): string => {
 
   switch (queryArea) {
     case "polygon":
-      let polygoAreaString = polygon
+      let closedPolygon = polygon.concat([polygon[0]]);
+      let enlargedPolygon = enlargePolygon(closedPolygon, areaBuffer);
+      let polygoAreaString = enlargedPolygon
         .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");
       area = `poly: "${polygoAreaString}"`;
@@ -126,4 +132,20 @@ export const exportQuery = () => {
   link.download = "overpassQuery.txt";
   link.href = url;
   link.click();
+};
+
+const enlargePolygon = (
+  polygonCoordinates: Coordinate[],
+  distance: number
+): Coordinate[] => {
+  const inputPolygon = turf.polygon([polygonCoordinates]);
+
+  const bufferedPolygon = turf.buffer(inputPolygon, distance, {
+    units: "meters",
+  });
+
+  const enlargedPolygonCoordinates = bufferedPolygon.geometry
+    .coordinates[0] as Coordinate[];
+
+  return enlargedPolygonCoordinates;
 };
