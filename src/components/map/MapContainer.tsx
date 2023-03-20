@@ -8,7 +8,7 @@ import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapTools from "./MapTools";
 import Markers from "./Markers";
-import PolygonDrawer from "./PolygonDrawer";
+import PolygonDrawer from "./polygon/PolygonDrawer";
 
 const MapContainer = () => {
   const mapCenter = useMapStore((state) => state.mapCenter);
