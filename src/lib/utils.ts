@@ -50,7 +50,7 @@ const replaceWithArea = (query: string): string => {
       break;
   }
 
-  return query.replaceAll("{{area}}", area);
+  return query.replaceAll("{{AREA}}", area);
 };
 
 export const callOverpassAPI = async (): Promise<any> => {
