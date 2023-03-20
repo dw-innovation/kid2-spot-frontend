@@ -5,6 +5,17 @@ import { create } from "zustand";
 import MapStoreInterface from "./interfaces/MapStore.interface";
 
 const useMapStore = create<MapStoreInterface>((set) => ({
+  bounds: [
+    [52.33827102775772, 13.088344819843767],
+    [52.67550876677678, 13.761160857975483],
+  ],
+  setBounds: (bounds: [number, number][]) => {
+    set(
+      produce((draft) => {
+        draft.bounds = bounds;
+      })
+    );
+  },
   bbox: [
     [0, 0],
     [0, 0],

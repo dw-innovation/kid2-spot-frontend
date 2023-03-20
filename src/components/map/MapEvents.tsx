@@ -6,6 +6,7 @@ import useMapStore from "@/stores/useMapStore";
 const MapEvents = () => {
   const setBbox = useMapStore((state) => state.setBbox);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
+  const bounds = useMapStore((state) => state.bounds);
 
   const map = useMap();
 
@@ -33,6 +34,11 @@ const MapEvents = () => {
       map.off("zoomlevelschange", () => updateZoom());
     };
   }, [map, setBbox, updateBbox, updateZoom]);
+
+  useEffect(() => {
+    console.log(bounds);
+    map.flyToBounds(bounds);
+  }, [bounds, map]);
 
   return <></>;
 };

@@ -19,4 +19,6 @@ export default interface MapStoreInterface {
   polygonMode: boolean;
   togglePolygonMode: (newState?: boolean) => void;
   updatePolygonPoint: (index: number, newPoint: [number, number]) => void;
+  bounds: [number, number][];
+  setBounds: (bounds: [number, number][]) => void;
 }
