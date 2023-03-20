@@ -18,4 +18,5 @@ export default interface MapStoreInterface {
   clearPolygon: () => void;
   polygonMode: boolean;
   togglePolygonMode: (newState?: boolean) => void;
+  updatePolygonPoint: (index: number, newPoint: [number, number]) => void;
 }

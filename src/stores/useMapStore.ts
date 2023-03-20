@@ -86,6 +86,12 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
+  updatePolygonPoint: (index: number, newLatLng: [number, number]) =>
+    set((state) => {
+      const newPolygon = [...state.polygon];
+      newPolygon[index] = newLatLng;
+      return { polygon: newPolygon };
+    }),
 }));
 
 export default useMapStore;
