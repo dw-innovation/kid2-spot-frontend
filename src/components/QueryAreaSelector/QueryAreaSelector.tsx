@@ -17,11 +17,12 @@ const QueryAreaSelector = (props: Props) => {
   useEffect(() => {
     if (polygon.length <= 2) {
       queryArea === "polygon" && setValue("queryAreaInput", "bbox");
+      setQueryArea("bbox");
       setPolygonOptionDisabled(true);
     } else {
       setPolygonOptionDisabled(false);
     }
-  }, [polygon, queryArea, setValue]);
+  }, [polygon, queryArea, setQueryArea, setValue]);
 
   return (
     <div className="flex items-center gap-2">
