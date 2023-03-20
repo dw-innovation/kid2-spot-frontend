@@ -5,6 +5,7 @@ import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
 import MapEvents from "./MapEvents";
+import MapKeyEvents from "./MapKeyEvents";
 import MapTools from "./MapTools";
 import Markers from "./Markers";
 import PolygonDrawer from "./PolygonDrawer";
@@ -40,6 +41,7 @@ const MapContainer = () => {
 
         <MapTools />
         <MapEvents />
+        <MapKeyEvents />
         <PolygonDrawer />
         <Markers />
       </LeafletMapContainer>
