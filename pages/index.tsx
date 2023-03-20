@@ -1,5 +1,6 @@
 import React from "react";
 
+import Button from "@/components/Button";
 import DynamicMap from "@/components/map";
 import OverpassQueryInput from "@/components/overpassQueryInput";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
@@ -23,32 +24,22 @@ const IndexPage = () => {
           <OverpassQuerySubmit />
           <QueryAreaSelector />
           <div className="flex justify-end flex-1 gap-2">
-            <button
-              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
-              onClick={() => exportQuery()}
-            >
-              export query
-            </button>
-            <button
+            <Button onClick={() => exportQuery()}>export query</Button>
+            <Button
               onClick={() => clearMarkers()}
-              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
               disabled={markers.length === 0}
             >
               clear markers
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => exportMarkers()}
-              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
               disabled={markers.length === 0}
             >
               export markers
-            </button>
-            <button
-              onClick={() => toggleTilesServer()}
-              className="block px-2 py-1 bg-slate-100 hover:bg-slate-300"
-            >
+            </Button>
+            <Button onClick={() => toggleTilesServer()}>
               {tilesServer === "osm" ? "switch to vector" : "switch to OSM"}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
