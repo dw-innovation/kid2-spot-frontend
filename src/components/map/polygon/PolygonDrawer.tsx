@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from "react";
-import { Polygon, useMap } from "react-leaflet";
+import { LayerGroup, Polygon, useMap } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 
-type Props = {};
+import EdgeSquare from "./EdgeSquare";
 
-const PolygonDrawer = (props: Props) => {
+const PolygonDrawer = () => {
   const map = useMap();
 
   const polygon = useMapStore((state) => state.polygon);
@@ -50,7 +50,16 @@ const PolygonDrawer = (props: Props) => {
   return (
     <>
       {polygon.length > 0 && (
-        <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
+        <LayerGroup>
+          <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
+          {polygon.map((position, index) => (
+            <EdgeSquare
+              key={`edge-square-${index}`}
+              position={position}
+              index={index}
+            />
+          ))}
+        </LayerGroup>
       )}
     </>
   );
