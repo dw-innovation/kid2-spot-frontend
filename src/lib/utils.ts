@@ -32,16 +32,17 @@ const replaceWithArea = (query: string): string => {
   let polygon = useMapStore.getState().polygon;
 
   let area = "";
+
   switch (queryArea) {
     case "bbox":
-      let area = bbox.join(",");
+      area = bbox.flatMap((innerArray) => innerArray).join(",");
       break;
 
     case "polygon":
-      let polygonString = polygon
-        .map((point: number[]) => `${point[0]},${point[1]}`)
+      let polygoAreaString = polygon
+        .map((point: number[]) => `${point[1]} ${point[0]}`)
         .join(" ");
-      area = `(${polygonString})`;
+      area = `poly: "${polygoAreaString}"`;
       break;
 
     default:
