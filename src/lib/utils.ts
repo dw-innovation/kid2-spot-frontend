@@ -34,19 +34,15 @@ const replaceWithArea = (query: string): string => {
   let area = "";
 
   switch (queryArea) {
-    case "bbox":
-      area = bbox.flatMap((innerArray) => innerArray).join(",");
-      break;
-
     case "polygon":
       let polygoAreaString = polygon
-        .map((point: number[]) => `${point[1]} ${point[0]}`)
+        .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");
       area = `poly: "${polygoAreaString}"`;
       break;
 
     default:
-      area = "360,-180,360,180";
+      area = bbox.flatMap((innerArray) => innerArray).join(",");
       break;
   }
 

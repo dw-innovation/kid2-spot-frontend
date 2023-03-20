@@ -14,7 +14,7 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
     );
   },
   queryArea: "bbox",
-  setQueryArea: (queryArea: "bbox" | "polygon" | "world") => {
+  setQueryArea: (queryArea: "bbox" | "polygon") => {
     set(
       produce((draft) => {
         draft.queryArea = queryArea;

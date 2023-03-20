@@ -36,7 +36,6 @@ const QueryAreaSelector = (props: Props) => {
         <option value="polygon" disabled={polygonOptionDisabled}>
           Polygon
         </option>
-        <option value="world">World</option>
       </select>
     </div>
   );
