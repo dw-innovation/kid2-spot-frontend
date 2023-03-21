@@ -4,6 +4,7 @@ import { LayerGroup, Polygon, useMap } from "react-leaflet";
 import useMapStore from "@/stores/useMapStore";
 
 import EdgeSquare from "./EdgeSquare";
+import PolygonBuffer from "./PolygonBuffer";
 
 const PolygonDrawer = () => {
   const map = useMap();
@@ -59,6 +60,8 @@ const PolygonDrawer = () => {
               index={index}
             />
           ))}
+          <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
+          <PolygonBuffer />
         </LayerGroup>
       )}
     </>
