@@ -1,6 +1,6 @@
 import * as L from "leaflet";
 import React, { Fragment } from "react";
-import { Marker, Popup } from "react-leaflet";
+import { FeatureGroup, LayerGroup, Marker, Popup } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 
@@ -10,8 +10,9 @@ const Markers = () => {
     iconUrl: "/images/marker-icon.png",
     iconSize: [20, 30],
   });
+
   return (
-    <>
+    <FeatureGroup>
       {markers.length > 0 &&
         markers.map(({ lat, lon, ...item }, index) =>
           lat === undefined || lon === undefined ? null : (
@@ -31,7 +32,7 @@ const Markers = () => {
             </Fragment>
           )
         )}
-    </>
+    </FeatureGroup>
   );
 };
 
