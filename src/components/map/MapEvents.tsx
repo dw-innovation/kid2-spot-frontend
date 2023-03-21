@@ -36,11 +36,10 @@ const MapEvents = () => {
   }, [map, setBbox, updateBbox, updateZoom]);
 
   useEffect(() => {
-    console.log(bounds);
     map.flyToBounds(bounds);
   }, [bounds, map]);
 
-  return <></>;
+  return null;
 };
 
 export default MapEvents;

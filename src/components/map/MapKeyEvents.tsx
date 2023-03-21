@@ -35,7 +35,7 @@ const MapKeyEvents = (props: Props) => {
   useKeyPress("-", () => isMouseOver && map.zoomOut());
   useKeyPress("+", () => isMouseOver && map.zoomIn());
 
-  return <></>;
+  return null;
 };
 
 export default MapKeyEvents;
