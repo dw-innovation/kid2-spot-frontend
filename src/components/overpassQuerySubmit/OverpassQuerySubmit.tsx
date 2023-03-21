@@ -34,7 +34,7 @@ const OverpassQuerySubmit = () => {
         ) : (
           <>
             <span className="text-green-600">
-              <TriangleIcon width={20} />
+              <TriangleIcon size={20} />
             </span>{" "}
             run query
           </>
