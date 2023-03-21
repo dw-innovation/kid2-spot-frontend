@@ -39,8 +39,7 @@ const replaceWithArea = (query: string): string => {
 
   switch (queryArea) {
     case "polygon":
-      let closedPolygon = polygon.concat([polygon[0]]);
-      let enlargedPolygon = enlargePolygon(closedPolygon, areaBuffer);
+      let enlargedPolygon = enlargePolygon(polygon, areaBuffer);
       let polygoAreaString = enlargedPolygon
         .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");
@@ -134,11 +133,13 @@ export const exportQuery = () => {
   link.click();
 };
 
-const enlargePolygon = (
+export const enlargePolygon = (
   polygonCoordinates: Coordinate[],
   distance: number
 ): Coordinate[] => {
-  const inputPolygon = turf.polygon([polygonCoordinates]);
+  const closedPolygon = polygonCoordinates.concat([polygonCoordinates[0]]);
+
+  const inputPolygon = turf.polygon([closedPolygon]);
 
   const bufferedPolygon = turf.buffer(inputPolygon, distance, {
     units: "meters",
