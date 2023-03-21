@@ -12,18 +12,11 @@ const MapTools = () => {
   const map = useMap();
   const togglePolygonMode = useMapStore((state) => state.togglePolygonMode);
   const polygonMode = useMapStore((state) => state.polygonMode);
-  const ref = useRef(null);
-  const setToolsRef = useMapStore((state) => state.setToolsRef);
-
-  useEffect(() => {
-    if (ref.current) setToolsRef(ref.current);
-  }, [ref, setToolsRef]);
 
   return (
     <div
       className="absolute top-0 left-0 z-50 flex flex-col gap-2 m-2"
       style={{ zIndex: 9999 }}
-      ref={ref}
     >
       <MapButton onClick={() => map.zoomIn()}>
         <PlusIcon />
