@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { LayerGroup, Polygon, useMap } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
+import usePolygonStore from "@/stores/usePolygonStore";
 
 import EdgeSquare from "./EdgeSquare";
 import PolygonBuffer from "./PolygonBuffer";
@@ -9,9 +10,9 @@ import PolygonBuffer from "./PolygonBuffer";
 const PolygonDrawer = () => {
   const map = useMap();
 
-  const polygon = useMapStore((state) => state.polygon);
+  const polygon = usePolygonStore((state) => state.polygon);
   const polygonMode = useMapStore((state) => state.polygonMode);
-  const addPolygonPoint = useMapStore((state) => state.addPolygonPoint);
+  const addPolygonPoint = usePolygonStore((state) => state.addPolygonPoint);
 
   const handleMapClick = useCallback(
     (e: any) => {

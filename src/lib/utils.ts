@@ -5,6 +5,7 @@ import { LatLng } from "leaflet";
 import useAddressStore from "@/stores/useAddressStore";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
+import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 
 type Coordinate = [number, number];
@@ -33,7 +34,7 @@ const replaceWithArea = (query: string): string => {
   const queryArea = useQueryStore.getState().queryArea;
   const areaBuffer = useQueryStore.getState().areaBuffer;
   let bbox = useMapStore.getState().bbox;
-  let polygon = useMapStore.getState().polygon;
+  let polygon = usePolygonStore.getState().polygon;
 
   let area = "";
 

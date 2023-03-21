@@ -2,7 +2,7 @@ import L from "leaflet";
 import React, { useCallback, useMemo } from "react";
 import { Marker } from "react-leaflet";
 
-import useMapStore from "@/stores/useMapStore";
+import usePolygonStore from "@/stores/usePolygonStore";
 
 const EdgeSquare = ({
   position,
@@ -11,7 +11,9 @@ const EdgeSquare = ({
   position: [number, number];
   index: number;
 }) => {
-  const updatePolygonPoint = useMapStore((state) => state.updatePolygonPoint);
+  const updatePolygonPoint = usePolygonStore(
+    (state) => state.updatePolygonPoint
+  );
 
   const icon = L.divIcon({
     className: "edge-square-icon",
@@ -42,7 +44,7 @@ const EdgeSquare = ({
         onDragEnd(e);
       },
     }),
-    [onDrag, onDragEnd]
+    [onDragEnd]
   );
 
   return (

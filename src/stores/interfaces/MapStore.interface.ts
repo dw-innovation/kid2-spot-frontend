@@ -12,13 +12,10 @@ export default interface MapStoreInterface {
   markers: any[];
   setMarkers: (markers: any[]) => void;
   clearMarkers: () => void;
-  polygon: [number, number][];
-  addPolygonPoint: (point: [number, number]) => void;
-  removePolygonPoint: (point: [number, number]) => void;
-  clearPolygon: () => void;
   polygonMode: boolean;
   togglePolygonMode: (newState?: boolean) => void;
-  updatePolygonPoint: (index: number, newPoint: [number, number]) => void;
   bounds: [number, number][];
   setBounds: (bounds: [number, number][]) => void;
+  toolsRef: React.MutableRefObject<Record<string, any>> | null;
+  setToolsRef: (toolsRef: React.MutableRefObject<Record<string, any>>) => void;
 }

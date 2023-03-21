@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useMapStore from "@/stores/useMapStore";
+import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 
-type Props = {};
-
-const QueryAreaSelector = (props: Props) => {
+const QueryAreaSelector = () => {
   const [polygonOptionDisabled, setPolygonOptionDisabled] = useState(false);
-  const polygon = useMapStore((state) => state.polygon);
+  const polygon = usePolygonStore((state) => state.polygon);
   const setQueryArea = useQueryStore((state) => state.setQueryArea);
   const queryArea = useQueryStore((state) => state.queryArea);
   const areaBuffer = useQueryStore((state) => state.areaBuffer);

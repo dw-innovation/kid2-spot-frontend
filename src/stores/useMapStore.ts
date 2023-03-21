@@ -1,5 +1,5 @@
 import produce from "immer";
-import { LatLngBounds, LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
+import { LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
 import { create } from "zustand";
 
 import MapStoreInterface from "./interfaces/MapStore.interface";
@@ -66,28 +66,6 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  polygon: [],
-  addPolygonPoint: (point: number[]) => {
-    set(
-      produce((draft) => {
-        draft.polygon.push(point);
-      })
-    );
-  },
-  removePolygonPoint: (point: number[]) => {
-    set(
-      produce((draft) => {
-        draft.polygon = draft.polygon.filter((p: number[]) => p !== point);
-      })
-    );
-  },
-  clearPolygon: () => {
-    set(
-      produce((draft) => {
-        draft.polygon = [];
-      })
-    );
-  },
   polygonMode: false,
   togglePolygonMode: (newState?: boolean) => {
     set(
@@ -97,12 +75,14 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  updatePolygonPoint: (index: number, newLatLng: [number, number]) =>
-    set((state) => {
-      const newPolygon = [...state.polygon];
-      newPolygon[index] = newLatLng;
-      return { polygon: newPolygon };
-    }),
+  toolsRef: null,
+  setToolsRef: (toolsRef: React.MutableRefObject<Record<string, any>>) => {
+    set(
+      produce((draft) => {
+        draft.toolsRef = toolsRef;
+      })
+    );
+  },
 }));
 
 export default useMapStore;
