@@ -16,6 +16,4 @@ export default interface MapStoreInterface {
   togglePolygonMode: (newState?: boolean) => void;
   bounds: [number, number][];
   setBounds: (bounds: [number, number][]) => void;
-  toolsRef: React.MutableRefObject<Record<string, any>> | null;
-  setToolsRef: (toolsRef: React.MutableRefObject<Record<string, any>>) => void;
 }

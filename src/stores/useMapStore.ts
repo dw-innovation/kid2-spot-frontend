@@ -75,14 +75,6 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  toolsRef: null,
-  setToolsRef: (toolsRef: React.MutableRefObject<Record<string, any>>) => {
-    set(
-      produce((draft) => {
-        draft.toolsRef = toolsRef;
-      })
-    );
-  },
 }));
 
 export default useMapStore;
