@@ -138,6 +138,8 @@ export const enlargePolygon = (
   polygonCoordinates: Coordinate[],
   distance: number
 ): Coordinate[] => {
+  if (distance === 0 || isNaN(distance)) return polygonCoordinates;
+
   const closedPolygon = polygonCoordinates.concat([polygonCoordinates[0]]);
 
   const inputPolygon = turf.polygon([closedPolygon]);
