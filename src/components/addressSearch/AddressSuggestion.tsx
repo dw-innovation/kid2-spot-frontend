@@ -23,7 +23,6 @@ const AddressSuggestion = ({
     <button
       onClick={() => {
         setMapCenter({ lat: coordinates[1], lng: coordinates[0] });
-        console.log(bbox);
         setBounds([
           [bbox[1], bbox[0]],
           [bbox[3], bbox[2]],
