@@ -61,7 +61,6 @@ const PolygonDrawer = () => {
               index={index}
             />
           ))}
-          <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
           <PolygonBuffer />
         </LayerGroup>
       )}
