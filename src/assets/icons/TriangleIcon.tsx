@@ -1,11 +1,15 @@
 import React from "react";
 
-const TriangleIcon = ({ width = 20 }) => {
+type Props = {
+  size?: number;
+};
+
+const TriangleIcon = ({ size = 20 }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
-      height={width}
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 20 20"
     >
