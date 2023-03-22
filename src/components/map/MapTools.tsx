@@ -16,6 +16,9 @@ const MapTools = () => {
   const polygonMode = useMapStore((state) => state.polygonMode);
   const polygon = usePolygonStore((state) => state.polygon);
   const clearPolygon = usePolygonStore((state) => state.clearPolygon);
+  const polygonOutsideBBox = usePolygonStore(
+    (state) => state.polygonOutsideBBox
+  );
 
   return (
     <div
@@ -28,7 +31,11 @@ const MapTools = () => {
       <MapButton onClick={() => map.zoomOut()}>
         <MinusIcon />
       </MapButton>
-      <MapButton onClick={() => togglePolygonMode()} isActive={polygonMode}>
+      <MapButton
+        onClick={() => togglePolygonMode()}
+        isActive={polygonMode}
+        className={polygonOutsideBBox ? "text-red-500" : ""}
+      >
         <PolygonIcon size={20} />
       </MapButton>
       {polygon.length > 0 && (
