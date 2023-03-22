@@ -4,4 +4,6 @@ export default interface PolygonStoreInterface {
   removePolygonPoint: (point: [number, number]) => void;
   clearPolygon: () => void;
   updatePolygonPoint: (index: number, newLatLng: [number, number]) => void;
+  polygonOutsideBBox: boolean;
+  togglePolygonOutsideBBox: (state?: boolean) => void;
 }

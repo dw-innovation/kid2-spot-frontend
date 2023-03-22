@@ -32,6 +32,15 @@ const usePolygonStore = create<PolygonStoreInterface>((set) => ({
       newPolygon[index] = newLatLng;
       return { polygon: newPolygon };
     }),
+  polygonOutsideBBox: false,
+  togglePolygonOutsideBBox: (state?: boolean) => {
+    set(
+      produce((draft) => {
+        draft.polygonOutsideBBox =
+          typeof state === undefined ? !draft.polygonOutsideBBox : state;
+      })
+    );
+  },
 }));
 
 export default usePolygonStore;
