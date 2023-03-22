@@ -12,8 +12,8 @@ const MapButton = ({ children, onClick, isActive = false }: Props) => {
     <button
       onClick={() => onClick()}
       className={clsx(
-        "block p-1 border-2 rounded-md  hover:bg-slate-100 border-slate-400",
-        isActive ? "bg-slate-100" : "bg-slate-200"
+        "block p-1 rounded-lg shadow-lg hover:bg-slate-200 transition-all duration-200",
+        isActive ? "bg-slate-300" : "bg-white"
       )}
     >
       {children}

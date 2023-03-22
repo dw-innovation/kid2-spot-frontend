@@ -82,11 +82,7 @@ export const callOverpassAPI = async (): Promise<any> => {
     });
 };
 
-export const callGeocodeAPI = async (): Promise<any> => {
-  const address = useAddressStore.getState().searchAddress;
-  const setAddressSuggestions =
-    useAddressStore.getState().setAddressSuggestions;
-
+export const callGeocodeAPI = async (address: string): Promise<any> => {
   if (!address) return;
 
   const response = await axios({
@@ -102,7 +98,7 @@ export const callGeocodeAPI = async (): Promise<any> => {
   });
 
   const { features } = await response.data;
-  setAddressSuggestions(features);
+  return features;
 };
 
 export const exportMarkers = () => {
