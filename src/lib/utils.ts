@@ -2,7 +2,6 @@ import * as turf from "@turf/turf";
 import axios from "axios";
 import { LatLng } from "leaflet";
 
-import useAddressStore from "@/stores/useAddressStore";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
@@ -20,6 +19,28 @@ interface Bounds {
     lng: number;
   };
 }
+
+export const checkPolygonBBoxIntersection = (
+  bbox: [number, number][]
+): boolean => {
+  let polygon = usePolygonStore.getState().polygon;
+  if (polygon.length === 0) return false;
+
+  let closedPolygon = polygon.concat([polygon[0]]);
+
+  let polygonFeature = turf.polygon([closedPolygon]);
+
+  let bboxFeature = turf.bboxPolygon([
+    bbox[0][0],
+    bbox[0][1],
+    bbox[1][0],
+    bbox[1][1],
+  ]);
+
+  let intersection = turf.intersect(polygonFeature, bboxFeature);
+
+  return intersection === null ? true : false;
+};
 
 export const transformBbox = (bbox: Bounds): number[] => {
   return [
@@ -61,11 +82,12 @@ export const callOverpassAPI = async (): Promise<any> => {
 
   let setMarkers = useMapStore.getState().setMarkers;
   let overpassQuery = useQueryStore.getState().overpassQuery;
+  let overpassAPI = useQueryStore.getState().overpassAPI;
   let overpassQueryWithArea = replaceWithArea(overpassQuery);
 
   var config = {
     method: "get",
-    url: process.env.NEXT_PUBLIC_OVERPASS_API_URL,
+    url: overpassAPI,
     params: {
       data: overpassQueryWithArea,
     },
