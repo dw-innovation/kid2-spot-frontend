@@ -1,12 +1,17 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 
+import { checkPolygonBBoxIntersection } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
+import usePolygonStore from "@/stores/usePolygonStore";
 
 const MapEvents = () => {
   const setBbox = useMapStore((state) => state.setBbox);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
+  const togglePolygonOutsideBBox = usePolygonStore(
+    (state) => state.togglePolygonOutsideBBox
+  );
 
   const map = useMap();
 
@@ -17,7 +22,14 @@ const MapEvents = () => {
       [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
       [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
     ]);
-  }, [map, setBbox]);
+
+    togglePolygonOutsideBBox(
+      checkPolygonBBoxIntersection([
+        [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
+        [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
+      ])
+    );
+  }, [map, setBbox, togglePolygonOutsideBBox]);
 
   const updateZoom = useCallback(() => {
     setMapZoom(map.getZoom());
