@@ -17,8 +17,9 @@ const MapButton = ({
 }: Props) => (
   <button
     onClick={(e) => {
-      DomEvent.disableClickPropagation(e.target); // avoid map click event
-      DomEvent.disableScrollPropagation(e.target); // avoid map scroll event
+      const target = e.target as HTMLElement;
+      DomEvent.disableClickPropagation(target); // avoid map click event
+      DomEvent.disableScrollPropagation(target); // avoid map scroll event
       onClick();
     }}
     className={clsx(
