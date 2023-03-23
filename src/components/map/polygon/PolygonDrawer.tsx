@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect } from "react";
-import { LayerGroup, Polygon, useMap } from "react-leaflet";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Polygon, useMap } from "react-leaflet";
+import { EditControl } from "react-leaflet-draw";
 
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
@@ -14,20 +15,32 @@ const PolygonDrawer = () => {
   const polygonMode = useMapStore((state) => state.polygonMode);
   const addPolygonPoint = usePolygonStore((state) => state.addPolygonPoint);
 
-  const handleMapClick = useCallback(
+  const handleCreated = useCallback(
     (e: any) => {
-      if (polygonMode) addPolygonPoint([e.latlng.lat, e.latlng.lng]);
+      addPolygonPoint(e.layer.getLatLngs()[0]);
     },
-    [addPolygonPoint, polygonMode]
+    [addPolygonPoint]
   );
 
-  useEffect(() => {
-    map.on("click", handleMapClick);
-
-    return () => {
-      map.off("click", handleMapClick);
-    };
-  }, [map, handleMapClick]);
+  const drawControl = useMemo(
+    () => (
+      <EditControl
+        position="topleft"
+        onCreated={handleCreated}
+        draw={{
+          polyline: false,
+          rectangle: false,
+          circle: false,
+          marker: false,
+          circlemarker: false,
+          polygon: {
+            shapeOptions: { color: "purple" },
+          },
+        }}
+      />
+    ),
+    [handleCreated]
+  );
 
   useEffect(() => {
     if (polygonMode) {
@@ -52,17 +65,12 @@ const PolygonDrawer = () => {
   return (
     <>
       {polygon.length > 0 && (
-        <LayerGroup>
+        <>
+          {drawControl}
+          <EdgeSquare position={polygon[0]} index={0} />
           <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
-          {polygon.map((position, index) => (
-            <EdgeSquare
-              key={`edge-square-${index}`}
-              position={position}
-              index={index}
-            />
-          ))}
           <PolygonBuffer />
-        </LayerGroup>
+        </>
       )}
     </>
   );
