@@ -10,6 +10,7 @@ import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import Markers from "./Markers";
 import PolygonDrawer from "./polygon/PolygonDrawer";
+import PolygonOutsideHandler from "./polygon/PolygonOutsideHandler";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -23,6 +24,7 @@ const MapContainer = () => {
   return (
     <>
       <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex">
+        <PolygonOutsideHandler />
         <AddressSearchBox />
       </div>
       <div ref={mapContainerRef} className="w-full h-full">
