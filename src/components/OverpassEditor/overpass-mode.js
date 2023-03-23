@@ -1,4 +1,3 @@
-// overpass-mode.js
 import ace from "ace-builds/src-noconflict/ace";
 
 ace.define("ace/mode/overpass", function (require, exports, module) {
