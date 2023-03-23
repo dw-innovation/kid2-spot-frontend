@@ -7,14 +7,12 @@ import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
 import { exportMarkers, exportQuery } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
-import usePolygonStore from "@/stores/usePolygonStore";
 
 const IndexPage = () => {
   const clearMarkers = useMapStore((state) => state.clearMarkers);
   const markers = useMapStore((state) => state.markers);
   const toggleTilesServer = useMapStore((state) => state.toggleTilesServer);
   const tilesServer = useMapStore((state) => state.tilesServer);
-  const polygon = usePolygonStore((state) => state.polygon);
 
   return (
     <main className="flex flex-col h-screen max-h-screen p-2 bg-slate-700">
