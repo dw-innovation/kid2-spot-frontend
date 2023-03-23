@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { DomEvent } from "leaflet";
 import React from "react";
 
 type Props = {
@@ -16,7 +17,8 @@ const MapButton = ({
 }: Props) => (
   <button
     onClick={(e) => {
-      e.stopPropagation(); // avoid map click event
+      DomEvent.disableClickPropagation(e.target); // avoid map click event
+      DomEvent.disableScrollPropagation(e.target); // avoid map scroll event
       onClick();
     }}
     className={clsx(
