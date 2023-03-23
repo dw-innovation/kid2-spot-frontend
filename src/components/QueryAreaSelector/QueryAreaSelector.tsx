@@ -6,6 +6,9 @@ import useQueryStore from "@/stores/useQueryStore";
 
 const QueryAreaSelector = () => {
   const [polygonOptionDisabled, setPolygonOptionDisabled] = useState(false);
+  const polygonOutsideBBox = usePolygonStore(
+    (state) => state.polygonOutsideBBox
+  );
   const polygon = usePolygonStore((state) => state.polygon);
   const setQueryArea = useQueryStore((state) => state.setQueryArea);
   const queryArea = useQueryStore((state) => state.queryArea);
@@ -50,6 +53,11 @@ const QueryAreaSelector = () => {
             }
           />{" "}
           m
+        </span>
+      )}
+      {polygonOutsideBBox && (
+        <span className="px-2 py-1 text-white bg-red-500 rounded-lg">
+          polygon outside current bounding box
         </span>
       )}
     </div>
