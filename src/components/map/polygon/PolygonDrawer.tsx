@@ -16,16 +16,9 @@ const PolygonDrawer = () => {
 
   const handleMapClick = useCallback(
     (e: any) => {
-      if (
-        polygonMode &&
-        e.originalEvent.target ===
-          // @ts-ignore
-          map._layers[Object.keys(map._layers)[0]]._container
-      )
-        addPolygonPoint([e.latlng.lat, e.latlng.lng]);
+      if (polygonMode) addPolygonPoint([e.latlng.lat, e.latlng.lng]);
     },
-    // @ts-ignore
-    [addPolygonPoint, map._layers, polygonMode]
+    [addPolygonPoint, polygonMode]
   );
 
   useEffect(() => {
