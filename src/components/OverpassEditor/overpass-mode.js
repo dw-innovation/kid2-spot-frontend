@@ -53,6 +53,10 @@ ace.define(
             regex: /(-?\d+)/,
           },
           {
+            token: "constant.numeric",
+            regex: /{{AREA}}/,
+          },
+          {
             token: "string",
             regex: /'.*?'/,
           },
