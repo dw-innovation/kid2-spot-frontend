@@ -1,6 +1,7 @@
 import "ace-builds/src-noconflict/ace";
-import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";
+import "./overpass-mode";
 
 import React from "react";
 import AceEditor from "react-ace";
@@ -17,8 +18,8 @@ const OverpassEditor = () => {
   return (
     <AceEditor
       value={overpassQuery}
-      mode="java"
-      theme="github"
+      mode="overpass"
+      theme="xcode"
       onChange={onChange}
       name="overpass-editor"
       editorProps={{ $blockScrolling: true }}

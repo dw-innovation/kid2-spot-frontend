@@ -1,31 +1,87 @@
-import "ace-builds/src-noconflict/ace";
-import "ace-builds/src-noconflict/mode-text";
+// overpass-mode.js
+import ace from "ace-builds/src-noconflict/ace";
 
-const ace = require("ace-builds/src-noconflict/ace");
-const TextMode = ace.require("ace/mode/text").Mode;
+ace.define("ace/mode/overpass", function (require, exports, module) {
+  const oop = require("ace/lib/oop");
+  const TextMode = require("ace/mode/text").Mode;
+  const Tokenizer = require("ace/tokenizer").Tokenizer;
+  const OverpassHighlightRules =
+    require("ace/mode/overpass_highlight_rules").OverpassHighlightRules;
 
-const OverpassHighlightRules = ace.require(
-  "ace/mode/text_highlight_rules"
-).TextHighlightRules;
+  const Mode = function () {
+    this.HighlightRules = OverpassHighlightRules;
+  };
 
-const OverpassModeRules = function () {
-  this.$rules = new TextMode().getRules();
+  oop.inherits(Mode, TextMode);
 
-  // Add your custom highlighting rules for Overpass Turbo queries here.
-  // For example, you can highlight keywords or operators.
-  this.$rules.start.push({
-    token: "keyword.operator",
-    regex: /\[.*?\]|node|way|relation|area|out/,
-  });
-};
+  (function () {
+    this.$id = "ace/mode/overpass";
+  }.call(Mode.prototype));
 
-OverpassModeRules.prototype = new OverpassHighlightRules();
+  exports.Mode = Mode;
+});
 
-const OverpassMode = function () {
-  this.HighlightRules = OverpassModeRules;
-  this.$behaviour = this.$defaultBehaviour;
-};
+ace.define(
+  "ace/mode/overpass_highlight_rules",
+  function (require, exports, module) {
+    const oop = require("ace/lib/oop");
+    const TextHighlightRules =
+      require("ace/mode/text_highlight_rules").TextHighlightRules;
 
-OverpassMode.prototype = new TextMode();
+    const OverpassHighlightRules = function () {
+      this.$rules = {
+        start: [
+          {
+            token: "keyword.operator",
+            regex: /\[.*?\]/,
+          },
+          {
+            token: "keyword",
+            regex:
+              /(node|way|relation|nwr|area|out|meta|body|tags|qt|asc|desc|skip|limit|bbox|poly|changed|newer|if|else|foreach|count|set|for|difference|break|continue|return)(?=\s|\(|\[)/,
+          },
+          {
+            token: "variable",
+            regex: /([@_][\w]+)/,
+          },
+          {
+            token: "constant.numeric",
+            regex: /(-?\d+\.\d+)/,
+          },
+          {
+            token: "constant.numeric",
+            regex: /(-?\d+)/,
+          },
+          {
+            token: "string",
+            regex: /'.*?'/,
+          },
+          {
+            token: "string",
+            regex: /".*?"/,
+          },
+          {
+            token: "paren.lparen",
+            regex: /[\[{(]/,
+          },
+          {
+            token: "paren.rparen",
+            regex: /[\]})]/,
+          },
+          {
+            token: "comment",
+            regex: /\/\/.*/,
+          },
+          {
+            token: "comment",
+            regex: /#.*/,
+          },
+        ],
+      };
+    };
 
-export default OverpassMode;
+    oop.inherits(OverpassHighlightRules, TextHighlightRules);
+
+    exports.OverpassHighlightRules = OverpassHighlightRules;
+  }
+);
