@@ -1,6 +1,8 @@
+import { bbox } from "@turf/turf";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 
@@ -14,6 +16,7 @@ const QueryAreaSelector = () => {
   const queryArea = useQueryStore((state) => state.queryArea);
   const areaBuffer = useQueryStore((state) => state.areaBuffer);
   const setAreaBuffer = useQueryStore((state) => state.setAreaBuffer);
+  const setBounds = useMapStore((state) => state.setBounds);
 
   const { register, setValue } = useForm();
 
@@ -26,6 +29,17 @@ const QueryAreaSelector = () => {
       setPolygonOptionDisabled(false);
     }
   }, [polygon, queryArea, setQueryArea, setValue]);
+
+  const handleFlyToBounds = () => {
+    let newBBox = bbox({
+      type: "Polygon",
+      coordinates: [polygon],
+    });
+    setBounds([
+      [newBBox[0], newBBox[1]],
+      [newBBox[2], newBBox[3]],
+    ]);
+  };
 
   return (
     <div className="flex items-center gap-2">
@@ -56,8 +70,14 @@ const QueryAreaSelector = () => {
         </span>
       )}
       {polygonOutsideBBox && (
-        <span className="px-2 py-1 text-white bg-red-500 rounded-lg">
-          polygon outside current bounding box
+        <span className="px-2 py-1 text-black bg-orange-400 rounded-lg">
+          polygon outside current bounding box!{" "}
+          <button
+            onClick={handleFlyToBounds}
+            className="p-1 bg-white rounded-lg hover:bg-slate-200"
+          >
+            fly to polygon
+          </button>
         </span>
       )}
     </div>
