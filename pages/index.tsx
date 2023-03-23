@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "@/components/Button";
 import DynamicMap from "@/components/map";
-import OverpassQueryInput from "@/components/overpassQueryInput";
+import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/overpassQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
 import { exportMarkers, exportQuery } from "@/lib/utils";
@@ -47,7 +47,7 @@ const IndexPage = () => {
       </div>
       <div className="grid h-full max-h-full grid-cols-2 gap-2">
         <div className="max-h-full col-span-1 overflow-scroll">
-          <OverpassQueryInput />
+          <DynamicOverpassEditor />
         </div>
         <div className="relative h-full max-h-full col-span-1">
           <DynamicMap />
