@@ -65,6 +65,7 @@ const AddressSearchBox = () => {
           highlightedIndex,
           selectedItem,
           getRootProps,
+          selectItem,
         }) => (
           <div>
             <div className="flex flex-col gap-1">
@@ -78,6 +79,24 @@ const AddressSearchBox = () => {
                     className="w-full p-2 rounded-lg"
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),
+                      onKeyDown: (e) => {
+                        if (
+                          e.key === "Enter" &&
+                          addressSuggestions.length > 0
+                        ) {
+                          const firstSuggestion = addressSuggestions[0];
+                          setBounds([
+                            [firstSuggestion.bbox[1], firstSuggestion.bbox[0]],
+                            [firstSuggestion.bbox[3], firstSuggestion.bbox[2]],
+                          ]);
+                          setCurrentAddress({
+                            placeName: firstSuggestion.place_name_en,
+                            coordinates: firstSuggestion.coordinates,
+                          });
+                          selectItem(firstSuggestion);
+                          e.preventDefault(); // Prevent form submission or other default behavior
+                        }
+                      },
                     })}
                   />
                 </div>
