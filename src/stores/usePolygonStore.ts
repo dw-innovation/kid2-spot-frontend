@@ -5,33 +5,13 @@ import PolygonStoreInterface from "./interfaces/PolygonStore.interface";
 
 const usePolygonStore = create<PolygonStoreInterface>((set) => ({
   polygon: [],
-  addPolygonPoint: (point: number[]) => {
+  setPolygon: (polygon: [number, number][]) => {
     set(
       produce((draft) => {
-        draft.polygon.push(point);
+        draft.polygon = polygon;
       })
     );
   },
-  removePolygonPoint: (point: number[]) => {
-    set(
-      produce((draft) => {
-        draft.polygon = draft.polygon.filter((p: number[]) => p !== point);
-      })
-    );
-  },
-  clearPolygon: () => {
-    set(
-      produce((draft) => {
-        draft.polygon = [];
-      })
-    );
-  },
-  updatePolygonPoint: (index: number, newLatLng: [number, number]) =>
-    set((state) => {
-      const newPolygon = [...state.polygon];
-      newPolygon[index] = newLatLng;
-      return { polygon: newPolygon };
-    }),
   polygonOutsideBBox: false,
   togglePolygonOutsideBBox: (state?: boolean) => {
     set(

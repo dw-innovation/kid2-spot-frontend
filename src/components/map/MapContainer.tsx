@@ -8,7 +8,6 @@ import useMapStore from "@/stores/useMapStore";
 
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
-import MapTools from "./MapTools";
 import Markers from "./Markers";
 import PolygonDrawer from "./polygon/PolygonDrawer";
 
@@ -32,7 +31,6 @@ const MapContainer = () => {
           zoom={mapZoom}
           scrollWheelZoom={true}
           className="cursor-crosshair"
-          zoomControl={false}
         >
           {tilesServer === "osm" && (
             <TileLayer
@@ -46,7 +44,6 @@ const MapContainer = () => {
             />
           )}
 
-          <MapTools />
           <MapEvents />
           <MapKeyEvents />
           <PolygonDrawer />

@@ -1,25 +1,31 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { Polygon, useMap } from "react-leaflet";
+import { LatLng } from "leaflet";
+import React, { useCallback, useMemo } from "react";
+import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 
-import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 
-import EdgeSquare from "./EdgeSquare";
-import PolygonBuffer from "./PolygonBuffer";
-
-const PolygonDrawer = () => {
-  const map = useMap();
-
-  const polygon = usePolygonStore((state) => state.polygon);
-  const polygonMode = useMapStore((state) => state.polygonMode);
-  const addPolygonPoint = usePolygonStore((state) => state.addPolygonPoint);
+const PolygonDrawer: React.FC = () => {
+  const setPolygon = usePolygonStore((state) => state.setPolygon);
 
   const handleCreated = useCallback(
     (e: any) => {
-      addPolygonPoint(e.layer.getLatLngs()[0]);
+      const latLngs = e.layer.getLatLngs();
+      setPolygon(latLngs[0].map((latLng: LatLng) => [latLng.lat, latLng.lng]));
     },
-    [addPolygonPoint]
+    [setPolygon]
+  );
+
+  const handleEdited = useCallback(
+    (e: any) => {
+      const layers = e.layers;
+      const polygons = layers.getLayers().map((layer: any) => {
+        const latLngs = layer.getLatLngs()[0];
+        return latLngs.map((latLng: LatLng) => [latLng.lat, latLng.lng]);
+      });
+      setPolygon(polygons[0]);
+    },
+    [setPolygon]
   );
 
   const drawControl = useMemo(
@@ -27,9 +33,10 @@ const PolygonDrawer = () => {
       <EditControl
         position="topleft"
         onCreated={handleCreated}
+        onEdited={handleEdited}
         draw={{
           polyline: false,
-          rectangle: false,
+          rectangle: true,
           circle: false,
           marker: false,
           circlemarker: false,
@@ -39,41 +46,10 @@ const PolygonDrawer = () => {
         }}
       />
     ),
-    [handleCreated]
+    [handleCreated, handleEdited]
   );
 
-  useEffect(() => {
-    if (polygonMode) {
-      map.dragging.disable();
-      map.touchZoom.disable();
-      map.doubleClickZoom.disable();
-      map.scrollWheelZoom.disable();
-      map.boxZoom.disable();
-      map.keyboard.disable();
-      if (map.tap) map.tap.disable();
-    } else {
-      map.dragging.enable();
-      map.touchZoom.enable();
-      map.doubleClickZoom.enable();
-      map.scrollWheelZoom.enable();
-      map.boxZoom.enable();
-      map.keyboard.enable();
-      if (map.tap) map.tap.enable();
-    }
-  }, [polygonMode, map]);
-
-  return (
-    <>
-      {polygon.length > 0 && (
-        <>
-          {drawControl}
-          <EdgeSquare position={polygon[0]} index={0} />
-          <Polygon positions={polygon} pathOptions={{ color: "purple" }} />
-          <PolygonBuffer />
-        </>
-      )}
-    </>
-  );
+  return <FeatureGroup>{drawControl}</FeatureGroup>;
 };
 
 export default PolygonDrawer;
