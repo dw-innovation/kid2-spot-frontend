@@ -5,4 +5,6 @@ export default interface QueryStoreInterface {
   setQueryArea: (area: "bbox" | "polygon") => void;
   areaBuffer: number;
   setAreaBuffer: (areaBuffer: number) => void;
+  overpassAPIURL: string;
+  setOverpassAPIURL: (overpassAPIURL: string) => void;
 }

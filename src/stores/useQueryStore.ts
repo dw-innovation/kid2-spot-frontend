@@ -29,6 +29,14 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
+  overpassAPIURL: "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  setOverpassAPIURL: (overpassAPIURL: string) => {
+    set(
+      produce((draft) => {
+        draft.overpassAPIURL = overpassAPIURL;
+      })
+    );
+  },
 }));
 
 export default useAppStore;
