@@ -4,7 +4,7 @@ import React from "react";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 
-const PolygonOutsideHandler = () => {
+const PolygonOutsideAlert = () => {
   const polygonOutsideBBox = usePolygonStore(
     (state) => state.polygonOutsideBBox
   );
@@ -39,4 +39,4 @@ const PolygonOutsideHandler = () => {
   );
 };
 
-export default PolygonOutsideHandler;
+export default PolygonOutsideAlert;
