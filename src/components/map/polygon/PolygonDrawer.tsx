@@ -30,12 +30,9 @@ const PolygonDrawer: React.FC = () => {
     [setPolygon]
   );
 
-  const handleDeleted = useCallback(
-    (e: any) => {
-      clearPolygon();
-    },
-    [clearPolygon]
-  );
+  const handleDeleted = useCallback(() => {
+    clearPolygon();
+  }, [clearPolygon]);
 
   const drawControl = useMemo(
     () => (
@@ -59,7 +56,7 @@ const PolygonDrawer: React.FC = () => {
         }}
       />
     ),
-    [handleCreated, handleEdited, polygon.length]
+    [handleCreated, handleDeleted, handleEdited, polygon.length]
   );
 
   return <FeatureGroup>{drawControl}</FeatureGroup>;
