@@ -2,11 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 
 import useKeyPress from "@/lib/hooks/useKeyPress";
-import useMapStore from "@/stores/useMapStore";
 
 const MapKeyEvents = () => {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const togglePolygonMode = useMapStore((state) => state.togglePolygonMode);
   const map = useMap();
 
   const handleMouseOver = useCallback(() => {
@@ -26,7 +24,6 @@ const MapKeyEvents = () => {
     };
   }, [handleMouseOut, handleMouseOver, map]);
 
-  useKeyPress("p", () => isMouseOver && togglePolygonMode());
   useKeyPress("-", () => isMouseOver && map.zoomOut());
   useKeyPress("+", () => isMouseOver && map.zoomIn());
 

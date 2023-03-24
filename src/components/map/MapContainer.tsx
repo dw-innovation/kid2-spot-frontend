@@ -3,7 +3,6 @@ import { MapContainer as LeafletMapContainer, TileLayer } from "react-leaflet";
 import VectorTileLayer from "react-leaflet-vector-tile-layer";
 
 import AddressSearchBox from "@/components/addressSearch";
-import useOnClickOutside from "@/lib/hooks/useOnClickOutside";
 import useMapStore from "@/stores/useMapStore";
 
 import MapEvents from "./MapEvents";
@@ -17,9 +16,6 @@ const MapContainer = () => {
   const mapCenter = useMapStore((state) => state.mapCenter);
   const mapZoom = useMapStore((state) => state.mapZoom);
   const tilesServer = useMapStore((state) => state.tilesServer);
-  const togglePolygonMode = useMapStore((state) => state.togglePolygonMode);
-
-  useOnClickOutside(mapContainerRef, () => togglePolygonMode(false)); // Close polygon mode when clicking outside the map
 
   return (
     <>

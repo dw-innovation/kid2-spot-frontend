@@ -66,15 +66,6 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  polygonMode: false,
-  togglePolygonMode: (newState?: boolean) => {
-    set(
-      produce((draft) => {
-        draft.polygonMode =
-          newState !== undefined ? newState : !draft.polygonMode;
-      })
-    );
-  },
 }));
 
 export default useMapStore;

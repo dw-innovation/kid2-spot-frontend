@@ -12,8 +12,6 @@ export default interface MapStoreInterface {
   markers: any[];
   setMarkers: (markers: any[]) => void;
   clearMarkers: () => void;
-  polygonMode: boolean;
-  togglePolygonMode: (newState?: boolean) => void;
   bounds: [number, number][];
   setBounds: (bounds: [number, number][]) => void;
 }
