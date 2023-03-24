@@ -37,19 +37,15 @@ ace.define(
           {
             token: "keyword",
             regex:
-              /(node|way|relation|nwr|area|out|meta|body|tags|qt|asc|desc|skip|limit|bbox|poly|changed|newer|if|else|foreach|count|set|for|difference|break|continue|return)(?=\s|\(|\[)/,
+              /\b(node|way|relation|nwr|area|out|meta|body|tags|qt|asc|desc|skip|limit|bbox|poly|changed|newer|if|else|foreach|count|set|for|difference|break|continue|return)\b/,
           },
           {
             token: "variable",
-            regex: /([@_][\w]+)/,
+            regex: /[@_]\w+/,
           },
           {
             token: "constant.numeric",
-            regex: /(-?\d+\.\d+)/,
-          },
-          {
-            token: "constant.numeric",
-            regex: /(-?\d+)/,
+            regex: /-?\d+(\.\d+)?/,
           },
           {
             token: "constant.numeric",
@@ -57,11 +53,11 @@ ace.define(
           },
           {
             token: "string",
-            regex: /'.*?'/,
+            regex: /'(?:\\.|[^'])*'/,
           },
           {
             token: "string",
-            regex: /".*?"/,
+            regex: /"(?:\\.|[^"])*"/,
           },
           {
             token: "paren.lparen",
@@ -74,10 +70,41 @@ ace.define(
           {
             token: "comment",
             regex: /\/\/.*/,
+            next: "singleLineComment",
           },
           {
             token: "comment",
             regex: /#.*/,
+            next: "singleLineComment",
+          },
+          {
+            token: "comment.start",
+            regex: /\/\*/,
+            next: "multiLineComment",
+          },
+          {
+            token: "support.function",
+            regex: /\b\w+(?=\()/,
+          },
+        ],
+        singleLineComment: [
+          {
+            token: "comment",
+            regex: /$/,
+            next: "start",
+          },
+          {
+            defaultToken: "comment",
+          },
+        ],
+        multiLineComment: [
+          {
+            token: "comment.end",
+            regex: /\*\//,
+            next: "start",
+          },
+          {
+            defaultToken: "comment",
           },
         ],
       };
