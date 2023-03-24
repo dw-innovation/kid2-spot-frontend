@@ -12,6 +12,13 @@ const usePolygonStore = create<PolygonStoreInterface>((set) => ({
       })
     );
   },
+  clearPolygon: () => {
+    set(
+      produce((draft) => {
+        draft.polygon = [];
+      })
+    );
+  },
   polygonOutsideBBox: false,
   togglePolygonOutsideBBox: (state?: boolean) => {
     set(

@@ -6,7 +6,9 @@ import { EditControl } from "react-leaflet-draw";
 import usePolygonStore from "@/stores/usePolygonStore";
 
 const PolygonDrawer: React.FC = () => {
+  const polygon = usePolygonStore((state) => state.polygon);
   const setPolygon = usePolygonStore((state) => state.setPolygon);
+  const clearPolygon = usePolygonStore((state) => state.clearPolygon);
 
   const handleCreated = useCallback(
     (e: any) => {
@@ -28,25 +30,36 @@ const PolygonDrawer: React.FC = () => {
     [setPolygon]
   );
 
+  const handleDeleted = useCallback(
+    (e: any) => {
+      clearPolygon();
+    },
+    [clearPolygon]
+  );
+
   const drawControl = useMemo(
     () => (
       <EditControl
         position="topleft"
         onCreated={handleCreated}
         onEdited={handleEdited}
+        onDeleted={handleDeleted}
         draw={{
           polyline: false,
-          rectangle: true,
+          rectangle: polygon.length === 0,
           circle: false,
           marker: false,
           circlemarker: false,
-          polygon: {
-            shapeOptions: { color: "purple" },
-          },
+          polygon:
+            polygon.length > 0
+              ? false
+              : {
+                  shapeOptions: { color: "purple" },
+                },
         }}
       />
     ),
-    [handleCreated, handleEdited]
+    [handleCreated, handleEdited, polygon.length]
   );
 
   return <FeatureGroup>{drawControl}</FeatureGroup>;
