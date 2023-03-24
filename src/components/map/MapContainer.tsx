@@ -10,6 +10,7 @@ import MapKeyEvents from "./MapKeyEvents";
 import Markers from "./Markers";
 import PolygonDrawer from "./polygon/PolygonDrawer";
 import PolygonOutsideHandler from "./polygon/PolygonOutsideHandler";
+import PolygonBuffer from "./polygon/PolygonBuffer";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -45,6 +46,7 @@ const MapContainer = () => {
           <MapEvents />
           <MapKeyEvents />
           <PolygonDrawer />
+          <PolygonBuffer />
           <Markers />
         </LeafletMapContainer>
       </div>
