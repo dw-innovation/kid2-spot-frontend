@@ -10,7 +10,7 @@ const IndexPage = () => (
       <Header />
     </div>
     <div className="grid h-full max-h-full grid-cols-2 gap-2">
-      <div className="max-h-full col-span-1 overflow-scroll">
+      <div className="max-h-full col-span-1">
         <DynamicOverpassEditor />
       </div>
       <div className="relative h-full max-h-full col-span-1">
