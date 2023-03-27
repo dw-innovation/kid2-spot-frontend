@@ -17,7 +17,7 @@ const AddressSuggestions = ({
   getItemProps,
 }: AddressSuggestionProps) => (
   <ul
-    className={`absolute w-full bg-white mt-1 shadow-md max-h-80 overflow-scroll p-0 ${
+    className={`absolute w-full bg-white mt-1 shadow-md max-h-80 p-0 ${
       !isOpen && suggestions.length === 0 && "hidden"
     }`}
   >
