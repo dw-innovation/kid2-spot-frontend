@@ -134,14 +134,6 @@ export const exportMarkers = () => {
   link.click();
 };
 
-export const getFlyToAnimationSpeed = (
-  currentMapCenter: LatLng,
-  nextMapCenter: LatLng
-): number => {
-  const distance = currentMapCenter.distanceTo(nextMapCenter) / 5000;
-  return Math.log(distance) + 1;
-};
-
 export const exportQuery = () => {
   let overpassQuery = useQueryStore.getState().overpassQuery;
   const blob = new Blob([overpassQuery], { type: "text/plain" });
