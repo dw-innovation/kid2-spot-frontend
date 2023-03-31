@@ -16,16 +16,16 @@ const IndexPage = () => {
         <Header />
       </div>
       <Allotment>
-        <Allotment.Pane>
+        <Allotment.Pane className="pr-1">
           <DynamicOverpassEditor />
         </Allotment.Pane>
-        <Allotment.Pane>
+        <Allotment.Pane className="pl-1">
           <Allotment vertical>
-            <Allotment.Pane>
+            <Allotment.Pane className="pb-1">
               <DynamicMap />
             </Allotment.Pane>
             {showStreetView && (
-              <Allotment.Pane>
+              <Allotment.Pane className="pt-1">
                 <StreetViewPane />
               </Allotment.Pane>
             )}
