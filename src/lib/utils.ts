@@ -163,3 +163,17 @@ export const enlargePolygon = (
 
   return enlargedPolygonCoordinates;
 };
+
+export const generateGoogleMapEmbedUrl = (coordinates: LatLng) => {
+  if (!coordinates) {
+    return undefined;
+  }
+
+  const baseUrl = "https://www.google.com/maps/embed/v1/streetview";
+  const coordinatesString = `${String(coordinates.lat)},${String(
+    coordinates.lng
+  )}`;
+  const url = `${baseUrl}?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&location=${coordinatesString}`;
+
+  return url;
+};
