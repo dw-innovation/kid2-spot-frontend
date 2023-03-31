@@ -5,6 +5,7 @@ import { Popup as LeafletPopup } from "react-leaflet";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Button from "../Button";
+import FeatureInfo from "./FeatureInfo";
 
 type Props = {
   item: any;
@@ -26,11 +27,7 @@ const Popup = ({ item, coordinates }: Props) => {
 
   return (
     <LeafletPopup>
-      <details>
-        <summary>JSON</summary>
-
-        <pre>{JSON.stringify(item, null, 2)}</pre>
-      </details>
+      <FeatureInfo feature={item} />
       <Button onClick={handleClick} className="bg-slate-200">
         view on Google Street View
       </Button>
