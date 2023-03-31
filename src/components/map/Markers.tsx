@@ -1,6 +1,6 @@
 import * as L from "leaflet";
-import React, { Fragment, useEffect } from "react";
-import { FeatureGroup, LayerGroup, Marker, Popup, useMap } from "react-leaflet";
+import React, { Fragment } from "react";
+import { FeatureGroup, Marker, Popup } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 
