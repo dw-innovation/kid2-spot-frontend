@@ -14,18 +14,18 @@ const MapResizeHandler = ({ mapContainerRef }: Props) => {
       map.invalidateSize();
     }, 200);
 
-    const resizeObserver = new ResizeObserver(handleResize);
     if (mapContainerRef && mapContainerRef.current) {
-      resizeObserver.observe(mapContainerRef.current);
+      const currentRef = mapContainerRef.current;
+      const resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(currentRef);
+
+      return () => {
+        handleResize.cancel();
+        resizeObserver.unobserve(currentRef);
+      };
     }
 
-    return () => {
-      handleResize.cancel();
-
-      if (mapContainerRef && mapContainerRef.current) {
-        resizeObserver.unobserve(mapContainerRef.current);
-      }
-    };
+    return undefined;
   }, [map, mapContainerRef]);
 
   return null;
