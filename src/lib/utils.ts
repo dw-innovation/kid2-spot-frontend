@@ -1,6 +1,6 @@
 import * as turf from "@turf/turf";
 import axios from "axios";
-import { LatLng } from "leaflet";
+import { LatLngLiteral } from "leaflet";
 
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
@@ -164,7 +164,7 @@ export const enlargePolygon = (
   return enlargedPolygonCoordinates;
 };
 
-export const generateGoogleMapEmbedUrl = (coordinates: LatLng) => {
+export const generateGoogleMapEmbedUrl = (coordinates: LatLngLiteral) => {
   if (!coordinates) {
     return undefined;
   }
