@@ -1,6 +1,6 @@
 import * as turf from "@turf/turf";
 import axios from "axios";
-import { LatLng } from "leaflet";
+import { LatLngLiteral } from "leaflet";
 
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
@@ -162,4 +162,18 @@ export const enlargePolygon = (
     .coordinates[0] as Coordinate[];
 
   return enlargedPolygonCoordinates;
+};
+
+export const generateGoogleMapEmbedUrl = (coordinates: LatLngLiteral) => {
+  if (!coordinates) {
+    return undefined;
+  }
+
+  const baseUrl = "https://www.google.com/maps/embed/v1/streetview";
+  const coordinatesString = `${String(coordinates.lat)},${String(
+    coordinates.lng
+  )}`;
+  const url = `${baseUrl}?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&location=${coordinatesString}`;
+
+  return url;
 };
