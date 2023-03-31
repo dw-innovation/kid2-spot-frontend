@@ -1,8 +1,10 @@
 import * as L from "leaflet";
 import React, { Fragment } from "react";
-import { FeatureGroup, Marker, Popup } from "react-leaflet";
+import { FeatureGroup, Marker } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
+
+import Popup from "./Popup";
 
 const Markers = () => {
   const markers = useMapStore((state) => state.markers);
@@ -21,16 +23,7 @@ const Markers = () => {
           lat === undefined || lon === undefined ? null : (
             <Fragment key={index}>
               <Marker position={new L.LatLng(lat, lon)} icon={icon}>
-                <Popup>
-                  <pre>{JSON.stringify(item, null, 2)}</pre>
-                  <a
-                    href={`https://maps.google.com/maps?q=&layer=c&cbll=${lat},${lon}&cbp=11,0,0,0,0`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    view on Google Street View
-                  </a>
-                </Popup>
+                <Popup item={item} coordinates={new L.LatLng(lat, lon)} />
               </Marker>
             </Fragment>
           )
