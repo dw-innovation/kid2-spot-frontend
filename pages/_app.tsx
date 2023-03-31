@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
+import "allotment/dist/style.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
