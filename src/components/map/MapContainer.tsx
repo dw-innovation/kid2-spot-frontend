@@ -7,6 +7,7 @@ import useMapStore from "@/stores/useMapStore";
 
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
+import MapResizeHandler from "./MapResizeHandler";
 import Markers from "./Markers";
 import PolygonBuffer from "./polygon/PolygonBuffer";
 import PolygonDrawer from "./polygon/PolygonDrawer";
@@ -42,7 +43,7 @@ const MapContainer = () => {
               styleUrl={`https://api.maptiler.com/maps/basic-v2/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
             />
           )}
-
+          <MapResizeHandler mapContainerRef={mapContainerRef} />
           <MapEvents />
           <MapKeyEvents />
           <PolygonDrawer />
