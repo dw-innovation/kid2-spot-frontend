@@ -20,6 +20,7 @@
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "ace-builds": "^1.16.0",
+    "allotment": "^1.18.1",
     "axios": "^1.2.4",
     "clsx": "^1.2.1",
     "downshift": "^7.6.0",
