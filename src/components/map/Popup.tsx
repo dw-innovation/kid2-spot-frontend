@@ -21,13 +21,19 @@ const Popup = ({ item, coordinates }: Props) => {
 
   const handleClick = () => {
     setStreetViewCoordinates(coordinates);
-    toggleStreetView();
+    toggleStreetView(true);
   };
 
   return (
     <LeafletPopup>
-      <pre>{JSON.stringify(item, null, 2)}</pre>
-      <Button onClick={handleClick}>view on Google Street View</Button>
+      <details>
+        <summary>JSON</summary>
+
+        <pre>{JSON.stringify(item, null, 2)}</pre>
+      </details>
+      <Button onClick={handleClick} className="bg-slate-200">
+        view on Google Street View
+      </Button>
     </LeafletPopup>
   );
 };
