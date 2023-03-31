@@ -1,3 +1,4 @@
+import debounce from "lodash/debounce";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
@@ -9,9 +10,9 @@ const MapResizeHandler = ({ mapContainerRef }: Props) => {
   const map = useMap();
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       map.invalidateSize();
-    };
+    }, 200);
 
     const resizeObserver = new ResizeObserver(handleResize);
     if (mapContainerRef && mapContainerRef.current) {
@@ -19,6 +20,8 @@ const MapResizeHandler = ({ mapContainerRef }: Props) => {
     }
 
     return () => {
+      handleResize.cancel();
+
       if (mapContainerRef && mapContainerRef.current) {
         resizeObserver.unobserve(mapContainerRef.current);
       }
