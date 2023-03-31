@@ -1,4 +1,5 @@
 import { Allotment } from "allotment";
+import clsx from "clsx";
 import React from "react";
 
 import Header from "@/components/Header";
@@ -21,7 +22,7 @@ const IndexPage = () => {
         </Allotment.Pane>
         <Allotment.Pane className="pl-1">
           <Allotment vertical>
-            <Allotment.Pane className="pb-1">
+            <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
               <DynamicMap />
             </Allotment.Pane>
             {showStreetView && (
