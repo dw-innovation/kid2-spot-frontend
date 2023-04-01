@@ -12,18 +12,19 @@ const FeatureInfo = ({ feature }: Props) => {
   };
   return (
     <div>
-      {feature.tags?.name && (
-        <h3 className="text-lg font-bold">{feature.tags.name}</h3>
+      {feature?.tags?.name && (
+        <h3 className="text-lg font-bold">{feature?.tags.name}</h3>
       )}
       <span className="block">
-        {feature.tags["addr:street"] && `${feature.tags["addr:street"]} `}
+        {feature?.tags?.["addr:street"] && `${feature?.tags?.["addr:street"]} `}
 
-        {feature.tags["addr:housenumber"] &&
-          `${feature.tags["addr:housenumber"]} `}
+        {feature?.tags?.["addr:housenumber"] &&
+          `${feature?.tags?.["addr:housenumber"]} `}
       </span>
       <span className="block">
-        {feature.tags["addr:postcode"] && `${feature.tags["addr:postcode"]} `}
-        {feature.tags["addr:city"] && feature.tags["addr:city"]}
+        {feature?.tags?.["addr:postcode"] &&
+          `${feature?.tags?.["addr:postcode"]} `}
+        {feature?.tags?.["addr:city"] && feature?.tags?.["addr:city"]}
       </span>
       <details onClick={handleClick} open={showTags} className="cursor-pointer">
         <summary>all tags</summary>
