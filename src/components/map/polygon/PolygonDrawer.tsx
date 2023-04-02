@@ -41,6 +41,11 @@ const PolygonDrawer: React.FC = () => {
         onCreated={handleCreated}
         onEdited={handleEdited}
         onDeleted={handleDeleted}
+        edit={{
+          featureGroup: true,
+          remove: polygon.length > 0,
+          edit: polygon.length > 0,
+        }}
         draw={{
           polyline: false,
           rectangle: polygon.length === 0,
