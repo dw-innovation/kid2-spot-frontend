@@ -6,12 +6,12 @@ import useMapStore from "@/stores/useMapStore";
 import Button from "../Button";
 import OverpassQuerySubmit from "../overpassQuerySubmit";
 import QueryAreaSelector from "../QueryAreaSelector";
+import Select from "../Select";
 
 const Header = () => {
   const clearMarkers = useMapStore((state) => state.clearMarkers);
+  const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const markers = useMapStore((state) => state.markers);
-  const toggleTilesServer = useMapStore((state) => state.toggleTilesServer);
-  const tilesServer = useMapStore((state) => state.tilesServer);
 
   return (
     <>
@@ -35,9 +35,19 @@ const Header = () => {
           >
             export markers
           </Button>
-          <Button onClick={() => toggleTilesServer()}>
-            {tilesServer === "osm" ? "switch to vector" : "switch to OSM"}
-          </Button>
+          <Select
+            options={[
+              { label: "Maptiler Vector", value: "mapTilerVector" },
+              { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
+              { label: "OSM default", value: "osm" },
+            ]}
+            defaultValue="mapTilerVector"
+            onSelect={({ target: { value } }) =>
+              setTilesLayer(
+                value as "osm" | "mapTilerVector" | "mapTilerHybrid"
+              )
+            }
+          />
         </div>
       </div>
     </>

@@ -17,7 +17,7 @@ const MapContainer = () => {
   const mapContainerRef = useRef(null);
   const mapCenter = useMapStore((state) => state.mapCenter);
   const mapZoom = useMapStore((state) => state.mapZoom);
-  const tilesServer = useMapStore((state) => state.tilesServer);
+  const tilesLayer = useMapStore((state) => state.tilesLayer);
 
   return (
     <>
@@ -32,15 +32,20 @@ const MapContainer = () => {
           scrollWheelZoom={true}
           className="cursor-crosshair"
         >
-          {tilesServer === "osm" && (
+          {tilesLayer === "osm" && (
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
           )}
-          {tilesServer === "vector" && (
+          {tilesLayer === "mapTilerVector" && (
             <VectorTileLayer
               styleUrl={`https://api.maptiler.com/maps/basic-v2/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
+            />
+          )}
+          {tilesLayer === "mapTilerHybrid" && (
+            <VectorTileLayer
+              styleUrl={`https://api.maptiler.com/maps/hybrid/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
             />
           )}
           <MapResizeHandler mapContainerRef={mapContainerRef} />

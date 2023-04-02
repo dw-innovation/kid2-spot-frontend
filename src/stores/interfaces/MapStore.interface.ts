@@ -3,8 +3,10 @@ import { LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
 export default interface MapStoreInterface {
   mapCenter: LatLngLiteral | undefined;
   setMapCenter: (mapCenter: LatLngLiteral | undefined) => void;
-  tilesServer: "osm" | "vector";
-  toggleTilesServer: () => void;
+  tilesLayer: "mapTilerVector" | "mapTilerHybrid" | "osm";
+  setTilesLayer: (
+    newLayer: "mapTilerVector" | "mapTilerHybrid" | "osm"
+  ) => void;
   bbox: LatLngBoundsLiteral;
   setBbox: (bbox: LatLngBoundsLiteral) => void;
   mapZoom: number;

@@ -58,11 +58,11 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  tilesServer: "vector",
-  toggleTilesServer: () => {
+  tilesLayer: "mapTilerVector",
+  setTilesLayer: (newLayer: "mapTilerVector" | "mapTilerHybrid" | "osm") => {
     set(
       produce((draft) => {
-        draft.tilesServer = draft.tilesServer === "osm" ? "vector" : "osm";
+        draft.tilesLayer = newLayer;
       })
     );
   },
