@@ -25,11 +25,9 @@ const IndexPage = () => {
             <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
               <DynamicMap />
             </Allotment.Pane>
-            {showStreetView && (
-              <Allotment.Pane className="pt-1">
-                <StreetViewPane />
-              </Allotment.Pane>
-            )}
+            <Allotment.Pane className="pt-1" visible={showStreetView}>
+              <StreetViewPane />
+            </Allotment.Pane>
           </Allotment>
         </Allotment.Pane>
       </Allotment>
