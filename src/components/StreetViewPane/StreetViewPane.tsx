@@ -1,7 +1,7 @@
 import React from "react";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
-import { generateGoogleMapEmbedUrl } from "@/lib/utils";
+import { createGoogleMapsEmbedUrl } from "@/lib/utils";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Button from "../Button";
@@ -29,7 +29,7 @@ const StreetViewPane = () => {
         </div>
       </Button>
       <iframe
-        src={generateGoogleMapEmbedUrl(streetViewCoordinates)}
+        src={createGoogleMapsEmbedUrl(streetViewCoordinates)}
         width="100%"
         height="100%"
         loading="lazy"

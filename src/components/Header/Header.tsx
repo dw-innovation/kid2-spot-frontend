@@ -1,6 +1,6 @@
 import React from "react";
 
-import { exportMarkers, exportQuery } from "@/lib/utils";
+import { exportMarkers, saveQueryToFile } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 
 import Button from "../Button";
@@ -22,7 +22,7 @@ const Header = () => {
         <OverpassQuerySubmit />
         <QueryAreaSelector />
         <div className="flex justify-end flex-1 gap-2">
-          <Button onClick={() => exportQuery()}>export query</Button>
+          <Button onClick={() => saveQueryToFile()}>export query</Button>
           <Button
             onClick={() => clearMarkers()}
             disabled={markers.length === 0}

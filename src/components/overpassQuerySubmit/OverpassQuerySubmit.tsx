@@ -3,14 +3,24 @@ import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
-import { callOverpassAPI } from "@/lib/utils";
+import { fetchGeocodeApiData } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
 const OverpassQuerySubmit = () => {
   const apiState = useAppStore((state) => state.apiState);
+
+  const handleOverpassQuerySubmit = async () => {
+    try {
+      const results = await fetchGeocodeApiData();
+      console.log(results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <button
-      onClick={() => callOverpassAPI()}
+      onClick={handleOverpassQuerySubmit}
       className={clsx(
         "block px-2 py-1",
         apiState === "idle" && "bg-slate-100 hover:bg-slate-300",

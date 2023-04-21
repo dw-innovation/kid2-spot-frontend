@@ -1,7 +1,7 @@
 import React from "react";
 import { Polygon } from "react-leaflet";
 
-import { enlargePolygon } from "@/lib/utils";
+import { expandPolygonByDistance } from "@/lib/utils";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 
@@ -13,7 +13,7 @@ const PolygonBuffer = () => {
     <>
       {polygon.length > 2 && (
         <Polygon
-          positions={enlargePolygon(polygon, areaBuffer)}
+          positions={expandPolygonByDistance(polygon, areaBuffer)}
           pathOptions={{ color: "purple", fillOpacity: 0.2, stroke: false }}
         />
       )}

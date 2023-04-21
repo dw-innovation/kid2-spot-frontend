@@ -42,7 +42,7 @@ export const checkPolygonBBoxIntersection = (
   return intersection === null ? true : false;
 };
 
-export const transformBbox = (bbox: Bounds): number[] => {
+export const convertBoundsToBboxArray = (bbox: Bounds): number[] => {
   return [
     bbox._southWest.lat,
     bbox._southWest.lng,
@@ -51,7 +51,7 @@ export const transformBbox = (bbox: Bounds): number[] => {
   ];
 };
 
-const replaceWithArea = (query: string): string => {
+const substituteAreaInQuery = (query: string): string => {
   const queryArea = useQueryStore.getState().queryArea;
   const areaBuffer = useQueryStore.getState().areaBuffer;
   let bbox = useMapStore.getState().bbox;
@@ -61,7 +61,7 @@ const replaceWithArea = (query: string): string => {
 
   switch (queryArea) {
     case "polygon":
-      let enlargedPolygon = enlargePolygon(polygon, areaBuffer);
+      let enlargedPolygon = expandPolygonByDistance(polygon, areaBuffer);
       let polygoAreaString = enlargedPolygon
         .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");
@@ -76,14 +76,13 @@ const replaceWithArea = (query: string): string => {
   return query.replaceAll("{{AREA}}", area);
 };
 
-export const callOverpassAPI = async (): Promise<any> => {
+export const fetchGeocodeApiData = async (): Promise<any> => {
   let setApiState = useAppStore.getState().setApiState;
   setApiState("loading");
 
-  let setMarkers = useMapStore.getState().setMarkers;
   let overpassQuery = useQueryStore.getState().overpassQuery;
   let overpassAPIURL = useQueryStore.getState().overpassAPIURL;
-  let overpassQueryWithArea = replaceWithArea(overpassQuery);
+  let overpassQueryWithArea = substituteAreaInQuery(overpassQuery);
 
   var config = {
     method: "get",
@@ -93,18 +92,21 @@ export const callOverpassAPI = async (): Promise<any> => {
     },
   };
 
-  axios(config)
+  const results = axios(config)
     .then((response) => {
-      setMarkers(response.data.elements);
       setApiState("idle");
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
       setApiState("error");
+      return null;
     });
+
+  return results;
 };
 
-export const callGeocodeAPI = async (address: string): Promise<any> => {
+export const fetchOverpassApiData = async (address: string): Promise<any> => {
   if (!address) return;
 
   const response = await axios({
@@ -134,7 +136,7 @@ export const exportMarkers = () => {
   link.click();
 };
 
-export const exportQuery = () => {
+export const saveQueryToFile = () => {
   let overpassQuery = useQueryStore.getState().overpassQuery;
   const blob = new Blob([overpassQuery], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
@@ -144,7 +146,7 @@ export const exportQuery = () => {
   link.click();
 };
 
-export const enlargePolygon = (
+export const expandPolygonByDistance = (
   polygonCoordinates: Coordinate[],
   distance: number
 ): Coordinate[] => {
@@ -164,7 +166,7 @@ export const enlargePolygon = (
   return enlargedPolygonCoordinates;
 };
 
-export const generateGoogleMapEmbedUrl = (coordinates: LatLngLiteral) => {
+export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {
   if (!coordinates) {
     return undefined;
   }
