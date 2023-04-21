@@ -2,7 +2,7 @@ import Downshift from "downshift";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
-import { fetchOverpassApiData } from "@/lib/utils";
+import { fetchGeocodeApiData } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -23,9 +23,9 @@ const AddressSearchBox = () => {
   const lastSearchAddressRef = useRef("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedfetchOverpassApiData = useCallback(
+  const debouncedFetchGeocodeApiData = useCallback(
     debounce(async () => {
-      const suggestions = await fetchOverpassApiData(searchAddress);
+      const suggestions = await fetchGeocodeApiData(searchAddress);
       if (suggestions) {
         setAddressSuggestions(suggestions);
       }
@@ -36,12 +36,12 @@ const AddressSearchBox = () => {
 
   useEffect(() => {
     if (searchAddress && searchAddress !== lastSearchAddressRef.current) {
-      debouncedfetchOverpassApiData();
+      debouncedFetchGeocodeApiData();
     }
     return () => {
-      debouncedfetchOverpassApiData.cancel();
+      debouncedFetchGeocodeApiData.cancel();
     };
-  }, [searchAddress, debouncedfetchOverpassApiData, lastSearchAddressRef]);
+  }, [searchAddress, debouncedFetchGeocodeApiData, lastSearchAddressRef]);
 
   return (
     <div className="flex flex-col gap-1 justify-end w-[20rem]">

@@ -1,3 +1,4 @@
+import { FeatureCollection } from "geojson";
 import produce from "immer";
 import { LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
 import { create } from "zustand";
@@ -27,29 +28,22 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
-  markers: [],
-  setMarkers: (markers: any[]) => {
+  geoJSON: null,
+  setGeoJSON: (geoJSON: FeatureCollection) => {
     set(
       produce((draft) => {
-        draft.markers = markers;
+        draft.geoJSON = geoJSON;
       })
     );
   },
-  clearMarkers: () => {
+  clearGeoJSON: () => {
     set(
       produce((draft) => {
-        draft.markers = [];
+        draft.geoJSON = null;
       })
     );
   },
   mapCenter: { lat: 52.540906, lng: 13.383965 },
-  setMapCenter: (mapCenter: LatLngLiteral | undefined) => {
-    set(
-      produce((draft) => {
-        draft.mapCenter = mapCenter;
-      })
-    );
-  },
   mapZoom: 15,
   setMapZoom: (mapZoom: number) => {
     set(

@@ -1,18 +1,27 @@
 import clsx from "clsx";
+import osmtogeojson from "osmtogeojson";
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
-import { fetchGeocodeApiData } from "@/lib/utils";
+import { fetchOverpassApiData } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
+import useMapStore from "@/stores/useMapStore";
 
 const OverpassQuerySubmit = () => {
   const apiState = useAppStore((state) => state.apiState);
+  const setGeoJSON = useMapStore((state) => state.setGeoJSON);
 
   const handleOverpassQuerySubmit = async () => {
     try {
-      const results = await fetchGeocodeApiData();
-      console.log(results);
+      const results = await fetchOverpassApiData();
+
+      if (results) {
+        let geoJSONResults = osmtogeojson(results);
+        setGeoJSON(geoJSONResults);
+      } else {
+        console.log("no results");
+      }
     } catch (error) {
       console.error(error);
     }

@@ -5,10 +5,10 @@ import VectorTileLayer from "react-leaflet-vector-tile-layer";
 import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
+import GeoJSONResults from "./GeoJSONResults";
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
-import Markers from "./Markers";
 import PolygonBuffer from "./polygon/PolygonBuffer";
 import PolygonDrawer from "./polygon/PolygonDrawer";
 import PolygonOutsideAlert from "./polygon/PolygonOutsideAlert";
@@ -53,7 +53,7 @@ const MapContainer = () => {
           <MapKeyEvents />
           <PolygonDrawer />
           <PolygonBuffer />
-          <Markers />
+          <GeoJSONResults />
         </LeafletMapContainer>
       </div>
     </>

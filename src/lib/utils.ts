@@ -76,7 +76,7 @@ const substituteAreaInQuery = (query: string): string => {
   return query.replaceAll("{{AREA}}", area);
 };
 
-export const fetchGeocodeApiData = async (): Promise<any> => {
+export const fetchOverpassApiData = async (): Promise<any> => {
   let setApiState = useAppStore.getState().setApiState;
   setApiState("loading");
 
@@ -106,7 +106,7 @@ export const fetchGeocodeApiData = async (): Promise<any> => {
   return results;
 };
 
-export const fetchOverpassApiData = async (address: string): Promise<any> => {
+export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   if (!address) return;
 
   const response = await axios({
@@ -125,9 +125,9 @@ export const fetchOverpassApiData = async (address: string): Promise<any> => {
   return features;
 };
 
-export const exportMarkers = () => {
-  let markers = useMapStore.getState().markers;
-  const fileData = JSON.stringify(markers);
+export const saveResultsToFile = () => {
+  let results = useMapStore.getState().geoJSON;
+  const fileData = JSON.stringify(results);
   const blob = new Blob([fileData], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

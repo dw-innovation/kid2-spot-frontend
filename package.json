@@ -15,6 +15,7 @@
   "dependencies": {
     "@next/font": "13.1.5",
     "@turf/turf": "^6.5.0",
+    "@types/geojson": "^7946.0.10",
     "@types/node": "18.11.18",
     "@types/node-geocoder": "^3.24.5",
     "@types/react": "18.0.27",

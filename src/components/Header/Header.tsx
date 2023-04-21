@@ -1,6 +1,6 @@
 import React from "react";
 
-import { exportMarkers, saveQueryToFile } from "@/lib/utils";
+import { saveQueryToFile, saveResultsToFile } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 
 import Button from "../Button";
@@ -9,9 +9,9 @@ import QueryAreaSelector from "../QueryAreaSelector";
 import Select from "../Select";
 
 const Header = () => {
-  const clearMarkers = useMapStore((state) => state.clearMarkers);
+  const clearGeoJSON = useMapStore((state) => state.clearGeoJSON);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
-  const markers = useMapStore((state) => state.markers);
+  const geoJSON = useMapStore((state) => state.geoJSON);
 
   return (
     <>
@@ -24,16 +24,16 @@ const Header = () => {
         <div className="flex justify-end flex-1 gap-2">
           <Button onClick={() => saveQueryToFile()}>export query</Button>
           <Button
-            onClick={() => clearMarkers()}
-            disabled={markers.length === 0}
+            onClick={() => clearGeoJSON()}
+            disabled={geoJSON ? false : true}
           >
-            clear markers
+            clear results
           </Button>
           <Button
-            onClick={() => exportMarkers()}
-            disabled={markers.length === 0}
+            onClick={() => saveResultsToFile()}
+            disabled={geoJSON ? false : true}
           >
-            export markers
+            export results
           </Button>
           <Select
             options={[
