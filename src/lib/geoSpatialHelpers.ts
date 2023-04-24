@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { FeatureCollection } from "geojson";
+import { FeatureCollection, GeoJsonProperties } from "geojson";
 
 type BoundingBox = [number, number, number, number];
 type Coordinate = [number, number];
@@ -63,4 +63,20 @@ export const expandPolygonByDistance = (
     .coordinates[0] as Coordinate[];
 
   return enlargedPolygonCoordinates;
+};
+
+export const allFeaturesWithinBoundingBox = (
+  geojson: turf.FeatureCollection<turf.Geometry, GeoJsonProperties>,
+  boundingBox: BoundingBox
+): boolean => {
+  const boundingBoxPolygon = turf.bboxPolygon(boundingBox);
+  let allFeaturesWithin = true;
+
+  turf.featureEach(geojson, (currentFeature) => {
+    if (!turf.booleanContains(boundingBoxPolygon, currentFeature)) {
+      allFeaturesWithin = false;
+    }
+  });
+
+  return allFeaturesWithin;
 };

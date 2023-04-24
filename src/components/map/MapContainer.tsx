@@ -12,6 +12,7 @@ import PolygonBuffer from "./polygon/PolygonBuffer";
 import PolygonDrawer from "./polygon/PolygonDrawer";
 import PolygonOutsideAlert from "./polygon/PolygonOutsideAlert";
 import GeoJSONResults from "./results/GeoJSONResults";
+import ResultsOutsideAlert from "./results/ResultsOutsideAlert";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -30,6 +31,7 @@ const MapContainer = () => {
         >
           <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex text-base font-sans">
             <PolygonOutsideAlert />
+            <ResultsOutsideAlert />
             <AddressSearchBox />
           </div>
           {tilesLayer === "osm" && (
