@@ -1,6 +1,6 @@
 import { FeatureCollection } from "geojson";
 import produce from "immer";
-import { LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
+import { LatLngBoundsLiteral } from "leaflet";
 import { create } from "zustand";
 
 import MapStoreInterface from "./interfaces/MapStore.interface";

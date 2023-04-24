@@ -59,7 +59,6 @@ const AddressSearchBox = () => {
         {({
           getInputProps,
           getItemProps,
-          getMenuProps,
           getToggleButtonProps,
           isOpen,
           highlightedIndex,
