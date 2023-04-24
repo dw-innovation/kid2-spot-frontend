@@ -5,7 +5,7 @@ import QueryStoreInterface from "./interfaces/QueryStore.interface";
 
 const useAppStore = create<QueryStoreInterface>((set) => ({
   overpassQuery:
-    '// find all cafés that are no more than 200m from a subway entrance\n\n[out:json][timeout:250];\n\narea({{AREA}})->.searchArea;\n(\n    node(area.searchArea)["railway"="subway_entrance"]->.subway_entrances;\n    node(around.subway_entrances:200)["amenity"="cafe"]->.cafes;\n);\n\n.cafes out body;',
+    '// find all cafés that are no more than 200m from a subway entrance\n\n[out:json][timeout:250];\n(\n    node({{AREA}})["railway"="subway_entrance"]->.subway_entrances;\n    node(around.subway_entrances:200)["amenity"="cafe"]->.cafes;\n);\n\n.cafes out geom;',
   setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
