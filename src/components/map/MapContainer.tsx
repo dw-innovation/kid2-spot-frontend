@@ -5,13 +5,13 @@ import VectorTileLayer from "react-leaflet-vector-tile-layer";
 import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
-import GeoJSONResults from "./GeoJSONResults";
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
 import PolygonBuffer from "./polygon/PolygonBuffer";
 import PolygonDrawer from "./polygon/PolygonDrawer";
 import PolygonOutsideAlert from "./polygon/PolygonOutsideAlert";
+import GeoJSONResults from "./results/GeoJSONResults";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -21,10 +21,6 @@ const MapContainer = () => {
 
   return (
     <>
-      <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex">
-        <PolygonOutsideAlert />
-        <AddressSearchBox />
-      </div>
       <div ref={mapContainerRef} className="w-full h-full">
         <LeafletMapContainer
           center={mapCenter}
@@ -32,6 +28,10 @@ const MapContainer = () => {
           scrollWheelZoom={true}
           className="cursor-crosshair"
         >
+          <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex text-base font-sans">
+            <PolygonOutsideAlert />
+            <AddressSearchBox />
+          </div>
           {tilesLayer === "osm" && (
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
