@@ -1,16 +1,16 @@
-import { bbox } from "@turf/turf";
+import { BBox, bbox } from "@turf/turf";
 import React, { useEffect, useState } from "react";
+import { useMap } from "react-leaflet";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
+import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 
 const PolygonOutsideAlert = () => {
-  const polygonOutsideBBox = usePolygonStore(
-    (state) => state.polygonOutsideBBox
-  );
   const polygon = usePolygonStore((state) => state.polygon);
   const setBounds = useMapStore((state) => state.setBounds);
+  const map = useMap();
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -19,6 +19,7 @@ const PolygonOutsideAlert = () => {
       type: "Polygon",
       coordinates: [polygon],
     });
+
     setBounds([
       [newBBox[0], newBBox[1]],
       [newBBox[2], newBBox[3]],
@@ -26,8 +27,35 @@ const PolygonOutsideAlert = () => {
   };
 
   useEffect(() => {
-    setShowAlert(polygonOutsideBBox);
-  }, [polygonOutsideBBox]);
+    const checkBounds = () => {
+      const currentMapBoundsFlat = map
+        .getBounds()
+        .toBBoxString()
+        .split(",")
+        .map(Number);
+
+      const currentMapBoundsBBox: BBox = [
+        currentMapBoundsFlat[1],
+        currentMapBoundsFlat[0],
+        currentMapBoundsFlat[3],
+        currentMapBoundsFlat[2],
+      ];
+
+      setShowAlert(!isPolygonWithinBoundingBox(polygon, currentMapBoundsBBox));
+    };
+
+    checkBounds();
+
+    const onMoveEnd = () => {
+      checkBounds();
+    };
+
+    map.on("moveend", onMoveEnd);
+
+    return () => {
+      map.off("moveend", onMoveEnd);
+    };
+  }, [polygon, map]);
 
   const handleCloseClick = () => {
     setShowAlert(false);
@@ -35,7 +63,8 @@ const PolygonOutsideAlert = () => {
 
   return (
     <>
-      {polygonOutsideBBox && showAlert && (
+      {JSON.stringify(showAlert)}
+      {showAlert && (
         <span className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
           Polygon outside bounding box!
           <button

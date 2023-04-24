@@ -1,8 +1,6 @@
 import * as turf from "@turf/turf";
 import { FeatureCollection } from "geojson";
 
-import usePolygonStore from "@/stores/usePolygonStore";
-
 type BoundingBox = [number, number, number, number];
 type Coordinate = [number, number];
 
@@ -17,26 +15,21 @@ interface Bounds {
   };
 }
 
-export const checkPolygonBBoxIntersection = (
-  bbox: [number, number][]
+export const isPolygonWithinBoundingBox = (
+  polygon: [number, number][],
+  boundingBox: turf.BBox
 ): boolean => {
-  let polygon = usePolygonStore.getState().polygon;
-  if (polygon.length === 0) return false;
+  try {
+    if (polygon.length < 3) return true;
+    const polygonFeature = turf.polygon([polygon.concat([polygon[0]])]);
+    const boundingBoxPolygon = turf.bboxPolygon(boundingBox);
 
-  let closedPolygon = polygon.concat([polygon[0]]);
-
-  let polygonFeature = turf.polygon([closedPolygon]);
-
-  let bboxFeature = turf.bboxPolygon([
-    bbox[0][0],
-    bbox[0][1],
-    bbox[1][0],
-    bbox[1][1],
-  ]);
-
-  let intersection = turf.intersect(polygonFeature, bboxFeature);
-
-  return intersection === null ? true : false;
+    const isWithin = turf.booleanContains(boundingBoxPolygon, polygonFeature);
+    return isWithin;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 
 export const convertBoundsToBboxArray = (bbox: Bounds): number[] => {
