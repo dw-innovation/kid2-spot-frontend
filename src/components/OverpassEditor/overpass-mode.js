@@ -29,32 +29,8 @@ ace.define("ace/mode/overpass_highlight_rules", function (require, exports) {
       start: [
         {
           token: "keyword.operator",
-          regex: /\[.*?\]/,
-        },
-        {
-          token: "keyword",
           regex:
-            /\b(node|way|relation|nwr|area|out|meta|body|tags|qt|asc|desc|skip|limit|bbox|poly|changed|newer|if|else|foreach|count|set|for|difference|break|continue|return)\b/,
-        },
-        {
-          token: "variable",
-          regex: /[@_]\w+/,
-        },
-        {
-          token: "constant.numeric",
-          regex: /-?\d+(\.\d+)?/,
-        },
-        {
-          token: "constant.numeric",
-          regex: /{{AREA}}/,
-        },
-        {
-          token: "string",
-          regex: /'(?:\\.|[^'])*'/,
-        },
-        {
-          token: "string",
-          regex: /"(?:\\.|[^"])*"/,
+            /\b(out|json|xml|custom|popup|timeout|maxsize|bbox|date|diff|adiff|foreach|relation|rel|way|node|is_in|area|around|user|uid|newer|changed|poly|pivot|nwr|nw|nr|wr|derived|meta|body|skel|tags|ids|count|qt|asc|center|bb|geom)\b/,
         },
         {
           token: "paren.lparen",
@@ -78,10 +54,6 @@ ace.define("ace/mode/overpass_highlight_rules", function (require, exports) {
           token: "comment.start",
           regex: /\/\*/,
           next: "multiLineComment",
-        },
-        {
-          token: "support.function",
-          regex: /\b\w+(?=\()/,
         },
       ],
       singleLineComment: [
