@@ -6,6 +6,7 @@ import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
+import useResultsStore from "@/stores/useResultsStore";
 
 const substituteAreaInQuery = (query: string): string => {
   const searchArea = useQueryStore.getState().searchArea;
@@ -82,7 +83,7 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
 };
 
 export const saveResultsToFile = () => {
-  let results = useMapStore.getState().geoJSON;
+  let results = useResultsStore.getState().geoJSON;
   const fileData = JSON.stringify(results);
   const blob = new Blob([fileData], { type: "text/plain" });
   const url = URL.createObjectURL(blob);

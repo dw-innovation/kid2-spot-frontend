@@ -6,11 +6,11 @@ import { RotatingLines } from "react-loader-spinner";
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import { fetchOverpassApiData } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
-import useMapStore from "@/stores/useMapStore";
+import useResultsStore from "@/stores/useResultsStore";
 
 const OverpassQuerySubmit = () => {
   const apiState = useAppStore((state) => state.apiState);
-  const setGeoJSON = useMapStore((state) => state.setGeoJSON);
+  const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
 
   const handleOverpassQuerySubmit = async () => {
     try {

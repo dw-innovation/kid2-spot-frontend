@@ -2,6 +2,7 @@ import React from "react";
 
 import { saveQueryToFile, saveResultsToFile } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
+import useResultsStore from "@/stores/useResultsStore";
 
 import Button from "../Button";
 import OverpassQuerySubmit from "../overpassQuerySubmit";
@@ -9,9 +10,9 @@ import QueryAreaSelector from "../QueryAreaSelector";
 import Select from "../Select";
 
 const Header = () => {
-  const clearGeoJSON = useMapStore((state) => state.clearGeoJSON);
+  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
-  const geoJSON = useMapStore((state) => state.geoJSON);
+  const geoJSON = useResultsStore((state) => state.geoJSON);
 
   return (
     <>

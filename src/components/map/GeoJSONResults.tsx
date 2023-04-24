@@ -2,12 +2,12 @@ import * as L from "leaflet";
 import React, { FC } from "react";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
-import useMapStore from "@/stores/useMapStore";
+import useResultsStore from "@/stores/useResultsStore";
 
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
-  const geoJSON = useMapStore((state) => state.geoJSON);
+  const geoJSON = useResultsStore((state) => state.geoJSON);
 
   const pointToLayer = (
     feature: GeoJSON.Feature<GeoJSON.Point>,
