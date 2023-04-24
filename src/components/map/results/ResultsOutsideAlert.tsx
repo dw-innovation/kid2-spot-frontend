@@ -29,7 +29,10 @@ const ResultsOutsideAlert = () => {
 
   useEffect(() => {
     const checkBounds = () => {
-      if (!geoJSON) return;
+      if (!geoJSON) {
+        setShowAlert(false);
+        return;
+      }
       const currentMapBoundsFlat = map
         .getBounds()
         .toBBoxString()
