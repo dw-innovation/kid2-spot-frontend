@@ -13,11 +13,11 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  queryArea: "bbox",
-  setQueryArea: (queryArea: "bbox" | "polygon") => {
+  searchArea: "bbox",
+  setSearchArea: (searchArea: "bbox" | "polygon") => {
     set(
       produce((draft) => {
-        draft.queryArea = queryArea;
+        draft.searchArea = searchArea;
       })
     );
   },

@@ -52,14 +52,14 @@ export const convertBoundsToBboxArray = (bbox: Bounds): number[] => {
 };
 
 const substituteAreaInQuery = (query: string): string => {
-  const queryArea = useQueryStore.getState().queryArea;
+  const searchArea = useQueryStore.getState().searchArea;
   const areaBuffer = useQueryStore.getState().areaBuffer;
   let bbox = useMapStore.getState().bbox;
   let polygon = usePolygonStore.getState().polygon;
 
   let area = "";
 
-  switch (queryArea) {
+  switch (searchArea) {
     case "polygon":
       let enlargedPolygon = expandPolygonByDistance(polygon, areaBuffer);
       let polygoAreaString = enlargedPolygon
