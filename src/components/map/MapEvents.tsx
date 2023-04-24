@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-import { checkPolygonBBoxIntersection } from "@/lib/utils";
+import { checkPolygonBBoxIntersection } from "@/lib/geoSpatialHelpers";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Polygon } from "react-leaflet";
 
-import { expandPolygonByDistance } from "@/lib/utils";
+import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 
