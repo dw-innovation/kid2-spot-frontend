@@ -1,6 +1,4 @@
-import { LatLng } from "leaflet";
 import React from "react";
-import { Popup as LeafletPopup } from "react-leaflet";
 
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
@@ -8,11 +6,10 @@ import Button from "../Button";
 import FeatureInfo from "./FeatureInfo";
 
 type Props = {
-  item: any;
-  coordinates: LatLng;
+  feature: any;
 };
 
-const Popup = ({ item, coordinates }: Props) => {
+const Popup = ({ feature }: Props) => {
   const setStreetViewCoordinates = useStreetViewStore(
     (state) => state.setStreetViewCoordinates
   );
@@ -21,17 +18,18 @@ const Popup = ({ item, coordinates }: Props) => {
   );
 
   const handleClick = () => {
-    setStreetViewCoordinates(coordinates);
+    console.log("click");
+    setStreetViewCoordinates(feature.geometry.coordinates);
     toggleStreetView(true);
   };
 
   return (
-    <LeafletPopup>
-      <FeatureInfo feature={item} />
+    <div>
+      <FeatureInfo feature={feature} />
       <Button onClick={handleClick} className="bg-slate-200">
         view on Google Street View
       </Button>
-    </LeafletPopup>
+    </div>
   );
 };
 

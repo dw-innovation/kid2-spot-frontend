@@ -1,12 +1,18 @@
 import * as L from "leaflet";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { render, unmountComponentAtNode } from "react-dom";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
 import useResultsStore from "@/stores/useResultsStore";
 
+import Popup from "../Popup";
+
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
+  useEffect(() => {
+    console.log("GeoJSONResults");
+  }, []);
   const geoJSON = useResultsStore((state) => state.geoJSON);
 
   const pointToLayer = (
@@ -28,15 +34,18 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
     if (feature.properties) {
-      const tags = Object.keys(feature.properties).map(
-        (key) =>
-          `<span><strong>${key}</strong>: ${feature.properties![key]}</span>`
-      );
-      const popupContent = `<h3>${feature.id}</h3><br>${tags.join("<br>")}`;
-      layer.bindPopup(popupContent);
+      const popupContainer = document.createElement("div");
+      layer.bindPopup(popupContainer);
+
+      layer.on("popupopen", () => {
+        render(<Popup feature={feature} />, popupContainer);
+      });
+
+      layer.on("popupclose", () => {
+        unmountComponentAtNode(popupContainer);
+      });
     }
   };
-
   return (
     <>
       {geoJSON && (
