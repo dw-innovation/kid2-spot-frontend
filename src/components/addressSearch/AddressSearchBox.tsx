@@ -2,12 +2,12 @@ import Downshift from "downshift";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
+import LensIcon from "@/assets/icons/LensIcon";
 import { fetchGeocodeApiData } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";
 import useMapStore from "@/stores/useMapStore";
 
 import AddressSuggestions from "./AddressSuggestions";
-import LensIcon from "@/assets/icons/LensIcon";
 
 const AddressSearchBox = () => {
   const addressSuggestions = useAddressStore(
