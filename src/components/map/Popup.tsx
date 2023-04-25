@@ -18,7 +18,6 @@ const Popup = ({ feature }: Props) => {
   );
 
   const handleClick = () => {
-    console.log("click");
     setStreetViewCoordinates({
       lat: feature.geometry.coordinates[1],
       lng: feature.geometry.coordinates[0],
