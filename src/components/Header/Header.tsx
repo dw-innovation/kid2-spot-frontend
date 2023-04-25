@@ -5,7 +5,6 @@ import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Button from "../Button";
-import OverpassQuerySubmit from "../overpassQuerySubmit";
 import QueryAreaSelector from "../QueryAreaSelector";
 import Select from "../Select";
 
@@ -20,7 +19,6 @@ const Header = () => {
         KID2 Overpass Turbo Prototype
       </h1>
       <div className="flex gap-2">
-        <OverpassQuerySubmit />
         <QueryAreaSelector />
         <div className="flex justify-end flex-1 gap-2">
           <Button onClick={() => saveQueryToFile()}>export query</Button>

@@ -30,7 +30,7 @@ const substituteAreaInQuery = (query: string): string => {
       break;
   }
 
-  return query.replaceAll("{{AREA}}", area);
+  return query.replaceAll("{{bbox}}", area);
 };
 
 export const fetchOverpassApiData = async (): Promise<any> => {
@@ -115,4 +115,17 @@ export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {
   const url = `${baseUrl}?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&location=${coordinatesString}`;
 
   return url;
+};
+
+export const fetchOverpassQuery = async (jsonQuery: string): Promise<any> => {
+  if (!jsonQuery || !JSON.parse(jsonQuery)) return;
+
+  const response = await axios({
+    method: "POST",
+    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_dict_to_op`,
+    data: JSON.parse(jsonQuery),
+  });
+
+  const result = await response.data;
+  return result;
 };

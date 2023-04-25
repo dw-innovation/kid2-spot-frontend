@@ -7,4 +7,6 @@ export default interface QueryStoreInterface {
   setAreaBuffer: (areaBuffer: number) => void;
   overpassAPIURL: string;
   setOverpassAPIURL: (overpassAPIURL: string) => void;
+  jsonQuery: any;
+  setJsonQuery: (jsonQuery: any) => void;
 }

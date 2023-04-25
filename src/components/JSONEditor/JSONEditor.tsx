@@ -1,27 +1,26 @@
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";
-import "./overpass-mode";
 
 import React from "react";
 import AceEditor from "react-ace";
 
 import useQueryStore from "@/stores/useQueryStore";
 
-const OverpassEditor = () => {
-  const overpassQuery = useQueryStore((state) => state.overpassQuery);
-  const setOverpassQuery = useQueryStore((state) => state.setOverpassQuery);
+const JSONEditor = () => {
+  const jsonQuery = useQueryStore((state) => state.jsonQuery);
+  const setJsonQuery = useQueryStore((state) => state.setJsonQuery);
   const onChange = (newValue: any) => {
-    setOverpassQuery(newValue);
+    setJsonQuery(newValue);
   };
 
   return (
     <AceEditor
-      value={overpassQuery}
-      mode="overpass"
+      value={jsonQuery}
+      mode="json"
       theme="xcode"
       onChange={onChange}
-      name="overpass-editor"
+      name="json-editor"
       editorProps={{ $blockScrolling: true }}
       setOptions={{
         enableBasicAutocompletion: true,
@@ -33,4 +32,4 @@ const OverpassEditor = () => {
   );
 };
 
-export default OverpassEditor;
+export default JSONEditor;

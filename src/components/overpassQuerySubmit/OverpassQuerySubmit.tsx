@@ -11,12 +11,14 @@ import useResultsStore from "@/stores/useResultsStore";
 const OverpassQuerySubmit = () => {
   const apiState = useAppStore((state) => state.apiState);
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
+  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
 
   const handleOverpassQuerySubmit = async () => {
     try {
       const results = await fetchOverpassApiData();
 
       if (results) {
+        clearGeoJSON();
         let geoJSONResults = osmtogeojson(results);
         setGeoJSON(geoJSONResults);
       } else {
@@ -31,7 +33,7 @@ const OverpassQuerySubmit = () => {
     <button
       onClick={handleOverpassQuerySubmit}
       className={clsx(
-        "block px-2 py-1",
+        "block px-2 py-1 w-fit",
         apiState === "idle" && "bg-slate-100 hover:bg-slate-300",
         apiState === "loading" && "bg-slate-100",
         apiState === "error" && "bg-red-100"
