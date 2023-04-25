@@ -10,7 +10,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
 
   const pointToLayer = (
-    feature: GeoJSON.Feature<GeoJSON.Point>,
+    _: GeoJSON.Feature<GeoJSON.Point>,
     latlng: L.LatLng
   ) => {
     const markerOptions: L.CircleMarkerOptions = {

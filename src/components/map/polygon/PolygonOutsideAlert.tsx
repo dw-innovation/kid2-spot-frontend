@@ -44,8 +44,6 @@ const PolygonOutsideAlert = () => {
       setShowAlert(!isPolygonWithinBoundingBox(polygon, currentMapBoundsBBox));
     };
 
-    checkBounds();
-
     const onMoveEnd = () => {
       checkBounds();
     };

@@ -54,8 +54,6 @@ const ResultsOutsideAlert = () => {
       );
     };
 
-    checkBounds();
-
     const onMoveEnd = () => {
       checkBounds();
     };

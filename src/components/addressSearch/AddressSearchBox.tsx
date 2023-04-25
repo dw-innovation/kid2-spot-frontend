@@ -7,6 +7,7 @@ import useAddressStore from "@/stores/useAddressStore";
 import useMapStore from "@/stores/useMapStore";
 
 import AddressSuggestions from "./AddressSuggestions";
+import LensIcon from "@/assets/icons/LensIcon";
 
 const AddressSearchBox = () => {
   const addressSuggestions = useAddressStore(
@@ -105,7 +106,7 @@ const AddressSearchBox = () => {
                   type="button"
                   {...getToggleButtonProps()}
                 >
-                  {isOpen ? <>&#8593;</> : <>&#8595;</>}
+                  <LensIcon />
                 </button>
               </div>
             </div>

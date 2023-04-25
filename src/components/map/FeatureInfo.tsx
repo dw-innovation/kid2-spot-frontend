@@ -10,6 +10,7 @@ const FeatureInfo = ({ feature }: Props) => {
     e.stopPropagation();
     setShowTags(!showTags);
   };
+
   return (
     <div>
       {feature?.tags?.name && (
