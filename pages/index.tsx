@@ -4,7 +4,7 @@ import React from "react";
 
 import Header from "@/components/Header";
 import DynamicJsonEditor from "@/components/JSONEditor";
-import JsonToOverpassSubmit from "@/components/jsonToOverpassSubmit/JsonToOverpassSubmit";
+import JsonToOverpassSubmit from "@/components/JsonToOverpassSubmit/JsonToOverpassSubmit";
 import DynamicMap from "@/components/map";
 import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";

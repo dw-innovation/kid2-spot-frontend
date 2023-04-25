@@ -1,3 +1,3 @@
-import OverpassQuerySubmit from "./JsonToOverpassSubmit";
+import JsonToOverpassSubmit from "./JsonToOverpassSubmit";
 
-export default OverpassQuerySubmit;
+export default JsonToOverpassSubmit;
