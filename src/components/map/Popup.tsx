@@ -19,17 +19,22 @@ const Popup = ({ feature }: Props) => {
 
   const handleClick = () => {
     console.log("click");
-    setStreetViewCoordinates(feature.geometry.coordinates);
+    setStreetViewCoordinates({
+      lat: feature.geometry.coordinates[1],
+      lng: feature.geometry.coordinates[0],
+    });
     toggleStreetView(true);
   };
 
+  console.log(feature);
+
   return (
-    <div>
+    <>
       <FeatureInfo feature={feature} />
       <Button onClick={handleClick} className="bg-slate-200">
         view on Google Street View
       </Button>
-    </div>
+    </>
   );
 };
 

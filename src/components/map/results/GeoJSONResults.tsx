@@ -35,7 +35,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
     if (feature.properties) {
       const popupContainer = document.createElement("div");
-      layer.bindPopup(popupContainer);
+      layer.bindPopup(popupContainer, { maxWidth: 400 });
 
       layer.on("popupopen", () => {
         render(<Popup feature={feature} />, popupContainer);
