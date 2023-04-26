@@ -21,6 +21,14 @@ const useAppStore = create<AppStoreInterface>((set) => ({
       })
     );
   },
+  view: "map",
+  setView: (view: "map" | "data") => {
+    set(
+      produce((draft) => {
+        draft.view = view;
+      })
+    );
+  },
 }));
 
 export default useAppStore;
