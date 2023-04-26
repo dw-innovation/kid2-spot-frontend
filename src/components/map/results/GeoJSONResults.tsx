@@ -1,5 +1,5 @@
 import * as L from "leaflet";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
@@ -14,6 +14,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     console.log("GeoJSONResults");
   }, []);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const previousClickedLayer = useRef<L.CircleMarker | null>(null);
 
   const pointToLayer = (
     _: GeoJSON.Feature<GeoJSON.Point>,
@@ -32,6 +33,23 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   const key = geoJSON ? Date.now().toString() : "";
 
+  const resetPreviousLayerStyle = () => {
+    if (previousClickedLayer.current) {
+      previousClickedLayer.current.setStyle({
+        color: "#3388ff",
+      });
+    }
+  };
+
+  const onFeatureClick = (e: L.LeafletEvent) => {
+    const layer = e.target as L.CircleMarker;
+    resetPreviousLayerStyle();
+    layer.setStyle({
+      color: "#ff0000",
+    });
+    previousClickedLayer.current = layer;
+  };
+
   const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
     if (feature.properties) {
       const popupContainer = document.createElement("div");
@@ -45,7 +63,10 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
         unmountComponentAtNode(popupContainer);
       });
     }
+
+    layer.on("click", onFeatureClick);
   };
+
   return (
     <>
       {geoJSON && (
