@@ -16,7 +16,7 @@ import ResultsOutsideAlert from "./results/ResultsOutsideAlert";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
-  const mapCenter = useMapStore((state) => state.mapCenter);
+  const bounds = useMapStore((state) => state.bounds);
   const mapZoom = useMapStore((state) => state.mapZoom);
   const tilesLayer = useMapStore((state) => state.tilesLayer);
 
@@ -24,10 +24,10 @@ const MapContainer = () => {
     <>
       <div ref={mapContainerRef} className="w-full h-full">
         <LeafletMapContainer
-          center={mapCenter}
           zoom={mapZoom}
           scrollWheelZoom={true}
           className="cursor-crosshair"
+          bounds={bounds}
         >
           <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex text-base font-sans items-start">
             <div className="flex flex-col gap-2">
