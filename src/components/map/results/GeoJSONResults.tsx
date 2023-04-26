@@ -1,5 +1,5 @@
 import * as L from "leaflet";
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
@@ -10,9 +10,6 @@ import Popup from "../Popup";
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
-  useEffect(() => {
-    console.log("GeoJSONResults");
-  }, []);
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
 

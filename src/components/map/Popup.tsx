@@ -11,7 +11,6 @@ type Props = {
 };
 
 const Popup = ({ feature }: Props) => {
-  console.log(feature);
   const setStreetViewCoordinates = useStreetViewStore(
     (state) => state.setStreetViewCoordinates
   );
