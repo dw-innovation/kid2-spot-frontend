@@ -1,4 +1,3 @@
-import { FeatureCollection } from "geojson";
 import produce from "immer";
 import { LatLngBoundsLiteral } from "leaflet";
 import { create } from "zustand";
@@ -25,21 +24,6 @@ const useMapStore = create<MapStoreInterface>((set) => ({
     set(
       produce((draft) => {
         draft.bbox = bbox;
-      })
-    );
-  },
-  geoJSON: null,
-  setGeoJSON: (geoJSON: FeatureCollection) => {
-    set(
-      produce((draft) => {
-        draft.geoJSON = geoJSON;
-      })
-    );
-  },
-  clearGeoJSON: () => {
-    set(
-      produce((draft) => {
-        draft.geoJSON = null;
       })
     );
   },
