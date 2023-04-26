@@ -7,6 +7,7 @@ import useResultsStore from "@/stores/useResultsStore";
 import Button from "../Button";
 import QueryAreaSelector from "../QueryAreaSelector";
 import Select from "../Select";
+import ShareButton from "../ShareButton";
 import ViewSwitcher from "../ViewSwitcher";
 
 const Header = () => {
@@ -35,6 +36,7 @@ const Header = () => {
           >
             export results
           </Button>
+          <ShareButton />
           <Select
             options={[
               { label: "Maptiler Vector", value: "mapTilerVector" },
