@@ -1,23 +1,29 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 
 const MapEvents = () => {
-  const setBbox = useMapStore((state) => state.setBbox);
+  const setBounds = useMapStore((state) => state.setBounds);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
 
   const map = useMap();
 
-  const updateBbox = useCallback(() => {
+  const prevBoundsRef = useRef<[number, number][] | undefined>(undefined);
+
+  useEffect(() => {
+    prevBoundsRef.current = bounds;
+  }, [bounds]);
+
+  const updateBounds = useCallback(() => {
     const bounds = map.getBounds();
 
-    setBbox([
+    setBounds([
       [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
       [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
     ]);
-  }, [map, setBbox]);
+  }, [map, setBounds]);
 
   const updateZoom = useCallback(() => {
     setMapZoom(map.getZoom());
@@ -25,18 +31,20 @@ const MapEvents = () => {
 
   useEffect(() => {
     updateZoom();
-    updateBbox();
-    map.on("moveend", () => updateBbox());
+    updateBounds();
+    map.on("moveend", () => updateBounds());
     map.on("zoomlevelschange", () => updateZoom());
 
     return () => {
-      map.off("moveend", () => updateBbox());
+      map.off("moveend", () => updateBounds());
       map.off("zoomlevelschange", () => updateZoom());
     };
-  }, [map, setBbox, updateBbox, updateZoom]);
+  }, [map, setBounds, updateBounds, updateZoom]);
 
   useEffect(() => {
-    map.flyToBounds(bounds);
+    if (JSON.stringify(prevBoundsRef.current) !== JSON.stringify(bounds)) {
+      map.flyToBounds(bounds);
+    }
   }, [bounds, map]);
 
   return null;
