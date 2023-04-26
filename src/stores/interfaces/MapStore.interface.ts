@@ -1,4 +1,4 @@
-import { LatLngBoundsLiteral, LatLngLiteral } from "leaflet";
+import { LatLngLiteral } from "leaflet";
 
 export default interface MapStoreInterface {
   mapCenter: LatLngLiteral | undefined;
@@ -6,8 +6,6 @@ export default interface MapStoreInterface {
   setTilesLayer: (
     newLayer: "mapTilerVector" | "mapTilerHybrid" | "osm"
   ) => void;
-  bbox: LatLngBoundsLiteral;
-  setBbox: (bbox: LatLngBoundsLiteral) => void;
   mapZoom: number;
   setMapZoom: (mapZoom: number) => void;
   bounds: [number, number][];

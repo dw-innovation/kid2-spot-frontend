@@ -11,7 +11,7 @@ import useResultsStore from "@/stores/useResultsStore";
 const substituteAreaInQuery = (query: string): string => {
   const searchArea = useQueryStore.getState().searchArea;
   const areaBuffer = useQueryStore.getState().areaBuffer;
-  let bbox = useMapStore.getState().bbox;
+  let bounds = useMapStore.getState().bounds;
   let polygon = usePolygonStore.getState().polygon;
 
   let area = "";
@@ -26,7 +26,7 @@ const substituteAreaInQuery = (query: string): string => {
       break;
 
     default:
-      area = bbox.flatMap((innerArray) => innerArray).join(",");
+      area = bounds.flatMap((innerArray) => innerArray).join(",");
       break;
   }
 
