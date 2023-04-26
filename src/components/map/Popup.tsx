@@ -1,3 +1,4 @@
+import { Feature } from "geojson";
 import React from "react";
 
 import useStreetViewStore from "@/stores/useStreetViewStore";
@@ -6,7 +7,7 @@ import Button from "../Button";
 import FeatureInfo from "./FeatureInfo";
 
 type Props = {
-  feature: any;
+  feature: Feature;
 };
 
 const Popup = ({ feature }: Props) => {
@@ -19,6 +20,7 @@ const Popup = ({ feature }: Props) => {
   );
 
   const handleClick = () => {
+    if (feature.geometry.type !== "Point") return;
     setStreetViewCoordinates({
       lat: feature.geometry.coordinates[1],
       lng: feature.geometry.coordinates[0],
