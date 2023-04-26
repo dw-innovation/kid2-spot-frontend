@@ -46,6 +46,17 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
+  initialize: (initialData: any) => {
+    set(
+      produce((draft) => {
+        draft.jsonQuery = initialData.jsonQuery;
+        draft.overpassQuery = initialData.overpassQuery;
+        draft.searchArea = initialData.searchArea;
+        draft.areaBuffer = initialData.areaBuffer;
+        draft.overpassAPIURL = initialData.overpassAPIURL;
+      })
+    );
+  },
 }));
 
 export default useAppStore;

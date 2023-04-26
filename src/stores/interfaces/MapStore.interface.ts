@@ -12,4 +12,5 @@ export default interface MapStoreInterface {
   setMapZoom: (mapZoom: number) => void;
   bounds: [number, number][];
   setBounds: (bounds: [number, number][]) => void;
+  initialize: (initialData: any) => void;
 }

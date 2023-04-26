@@ -9,4 +9,5 @@ export default interface QueryStoreInterface {
   setOverpassAPIURL: (overpassAPIURL: string) => void;
   jsonQuery: any;
   setJsonQuery: (jsonQuery: any) => void;
+  initialize: (initialData: any) => void;
 }

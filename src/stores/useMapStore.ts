@@ -44,6 +44,17 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
+  initialize: (initialData: any) => {
+    set(
+      produce((draft) => {
+        draft.mapCenter = initialData.mapCenter;
+        draft.mapZoom = initialData.mapZoom;
+        draft.tilesLayer = initialData.tilesLayer;
+        draft.bounds = initialData.bounds;
+        draft.bbox = initialData.bbox;
+      })
+    );
+  },
 }));
 
 export default useMapStore;
