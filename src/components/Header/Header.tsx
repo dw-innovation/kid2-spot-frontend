@@ -7,6 +7,7 @@ import useResultsStore from "@/stores/useResultsStore";
 import Button from "../Button";
 import QueryAreaSelector from "../QueryAreaSelector";
 import Select from "../Select";
+import ViewSwitcher from "../ViewSwitcher";
 
 const Header = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
@@ -47,6 +48,7 @@ const Header = () => {
               )
             }
           />
+          <ViewSwitcher />
         </div>
       </div>
     </>

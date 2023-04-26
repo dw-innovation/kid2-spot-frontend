@@ -8,10 +8,13 @@ import JsonToOverpassSubmit from "@/components/JsonToOverpassSubmit/JsonToOverpa
 import DynamicMap from "@/components/map";
 import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
+import DynamicResultsEditor from "@/components/ResultsEditor";
 import StreetViewPane from "@/components/StreetViewPane";
+import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const IndexPage = () => {
+  const view = useAppStore((state) => state.view);
   const showStreetView = useStreetViewStore((state) => state.showStreetView);
 
   return (
@@ -42,7 +45,16 @@ const IndexPage = () => {
         <Allotment.Pane className="pl-1">
           <Allotment vertical>
             <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
-              <DynamicMap />
+              <div
+                className={clsx(view === "map" ? "block" : "hidden", "h-full")}
+              >
+                <DynamicMap />
+              </div>
+              <div
+                className={clsx(view === "data" ? "block" : "hidden", "h-full")}
+              >
+                <DynamicResultsEditor />
+              </div>
             </Allotment.Pane>
             <Allotment.Pane
               className="pt-1"
