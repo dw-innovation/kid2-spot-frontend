@@ -1,9 +1,20 @@
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
 import IndexPage from "pages";
-import React from "react";
+import React, { useEffect } from "react";
 
-const SessionPage = () => {
+import useMapStore from "@/stores/useMapStore";
+import useQueryStore from "@/stores/useQueryStore";
+
+const SessionPage = ({ data }: any) => {
+  const initializeMapStore = useMapStore((state) => state.initialize);
+  const initializeQueryStore = useQueryStore((state) => state.initialize);
+
+  useEffect(() => {
+    initializeMapStore(data.useMapStore);
+    initializeQueryStore(data.useQueryStore);
+  });
+
   return <IndexPage />;
 };
 
@@ -17,8 +28,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     }
   );
-  console.log(res.data);
-
   return { props: { data: res.data } };
 }
 
