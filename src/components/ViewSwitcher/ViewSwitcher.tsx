@@ -2,7 +2,6 @@ import clsx from "clsx";
 import React from "react";
 
 import useAppStore from "@/stores/useAppStore";
-import useMapStore from "@/stores/useMapStore";
 
 const ViewSwitcher = () => {
   const view = useAppStore((state) => state.view);
