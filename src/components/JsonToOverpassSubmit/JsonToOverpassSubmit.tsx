@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import React from "react";
+import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
+import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOverpassQuery } from "@/lib/utils";
 import useQueryStore from "@/stores/useQueryStore";
-import useApiStatus from "@/lib/hooks/useApiStatus";
-import { RotatingLines } from "react-loader-spinner";
 
 const JsonToOverpassSubmit = () => {
   const setOverpassQuery = useQueryStore((state) => state.setOverpassQuery);

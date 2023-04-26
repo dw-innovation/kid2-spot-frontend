@@ -4,9 +4,9 @@ import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
+import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOverpassApiData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
-import useApiStatus from "@/lib/hooks/useApiStatus";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
