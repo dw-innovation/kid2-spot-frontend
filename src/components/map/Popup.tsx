@@ -25,8 +25,6 @@ const Popup = ({ feature }: Props) => {
     toggleStreetView(true);
   };
 
-  console.log(feature);
-
   return (
     <>
       <FeatureInfo feature={feature} />
