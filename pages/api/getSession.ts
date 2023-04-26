@@ -29,7 +29,7 @@ export default async function handler(
 
   try {
     const db = await connectToDatabase();
-    const collection = db.collection("queries");
+    const collection = db.collection("sessions");
 
     const result = await collection.findOne({ id: id });
 
