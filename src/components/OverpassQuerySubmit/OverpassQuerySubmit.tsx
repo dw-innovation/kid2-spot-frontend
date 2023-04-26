@@ -5,27 +5,24 @@ import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import { fetchOverpassApiData } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
 import useResultsStore from "@/stores/useResultsStore";
+import useApiStatus from "@/lib/hooks/useApiStatus";
 
 const OverpassQuerySubmit = () => {
-  const apiState = useAppStore((state) => state.apiState);
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
 
-  const handleOverpassQuerySubmit = async () => {
-    try {
-      const results = await fetchOverpassApiData();
+  const [apiStatus, fetchData] = useApiStatus(fetchOverpassApiData);
 
-      if (results) {
-        clearGeoJSON();
-        let geoJSONResults = osmtogeojson(results);
-        setGeoJSON(geoJSONResults);
-      } else {
-        console.log("no results");
-      }
-    } catch (error) {
-      console.error(error);
+  const handleOverpassQuerySubmit = async () => {
+    const results = await fetchData();
+
+    if (results) {
+      clearGeoJSON();
+      let geoJSONResults = osmtogeojson(results);
+      setGeoJSON(geoJSONResults);
+    } else {
+      console.log("no results");
     }
   };
 
@@ -34,14 +31,16 @@ const OverpassQuerySubmit = () => {
       onClick={handleOverpassQuerySubmit}
       className={clsx(
         "block px-2 py-1 w-fit",
-        apiState === "idle" && "bg-slate-100 hover:bg-slate-300",
-        apiState === "loading" && "bg-slate-100",
-        apiState === "error" && "bg-red-100"
+        apiStatus === "loading" && "bg-slate-100",
+        apiStatus === "error" && "bg-red-100",
+        apiStatus !== "loading" &&
+          apiStatus !== "error" &&
+          "bg-slate-100 hover:bg-slate-300"
       )}
-      disabled={apiState === "loading"}
+      disabled={apiStatus === "loading"}
     >
       <div className="flex items-center gap-2">
-        {apiState === "loading" ? (
+        {apiStatus === "loading" ? (
           <>
             <RotatingLines
               strokeColor="grey"
