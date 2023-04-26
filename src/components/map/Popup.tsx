@@ -10,6 +10,7 @@ type Props = {
 };
 
 const Popup = ({ feature }: Props) => {
+  console.log(feature);
   const setStreetViewCoordinates = useStreetViewStore(
     (state) => state.setStreetViewCoordinates
   );
@@ -28,9 +29,11 @@ const Popup = ({ feature }: Props) => {
   return (
     <>
       <FeatureInfo feature={feature} />
-      <Button onClick={handleClick} className="bg-slate-200">
-        view on Google Street View
-      </Button>
+      {feature.geometry.type === "Point" && (
+        <Button onClick={handleClick} className="bg-slate-200">
+          view on Google Street View
+        </Button>
+      )}
     </>
   );
 };
