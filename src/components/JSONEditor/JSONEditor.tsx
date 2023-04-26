@@ -28,7 +28,7 @@ const JSONEditor = () => {
         enableLiveAutocompletion: true,
       }}
       width="100%"
-      height="200px"
+      height="100%"
     />
   );
 };

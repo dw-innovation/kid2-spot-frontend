@@ -22,14 +22,14 @@ const IndexPage = () => {
       <Allotment>
         <Allotment.Pane className="pr-1">
           <Allotment vertical>
-            <Allotment.Pane className="pb-1">
-              <div className="flex flex-col gap-2">
+            <Allotment.Pane className="pb-2">
+              <div className="flex flex-col h-full gap-1">
                 <DynamicJsonEditor />
                 <JsonToOverpassSubmit />
               </div>
             </Allotment.Pane>
             <Allotment.Pane>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col h-full gap-1">
                 <div className="flex-1">
                   <DynamicOverpassEditor />
                 </div>
