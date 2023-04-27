@@ -14,7 +14,7 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
     );
   },
   overpassQuery:
-    '// find all cafés that are no more than 200m from a subway entrance\n\n[out:json][timeout:250];\n(\n    node({{bbox}})["railway"="subway_entrance"]->.subway_entrances;\n    node(around.subway_entrances:200)["amenity"="cafe"]->.cafes;\n);\n\n.cafes out geom;',
+    '// find all cafés that are no more than 200m from a subway entrance\n\n[out:json][timeout:250];\n\nnode({{bbox}})["railway"="subway_entrance"]->.subway_entrances;\nnode(around.subway_entrances:200)["amenity"="cafe"];\n\nout geom;',
   setOverpassQuery: (overpassQuery: string) => {
     set(
       produce((draft) => {
