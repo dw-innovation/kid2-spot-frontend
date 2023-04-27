@@ -14,6 +14,7 @@ const Header = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const tilesLayer = useMapStore((state) => state.tilesLayer);
 
   return (
     <>
@@ -43,7 +44,7 @@ const Header = () => {
               { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
               { label: "OSM default", value: "osm" },
             ]}
-            defaultValue="mapTilerVector"
+            defaultValue={tilesLayer}
             onSelect={({ target: { value } }) =>
               setTilesLayer(
                 value as "osm" | "mapTilerVector" | "mapTilerHybrid"
