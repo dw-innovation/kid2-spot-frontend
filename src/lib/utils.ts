@@ -33,7 +33,11 @@ const substituteAreaInQuery = (query: string): string => {
   return query.replaceAll("{{bbox}}", area);
 };
 
-export const fetchOverpassApiData = async (): Promise<any> => {
+export const fetchOverpassApiData = async ({
+  signal,
+}: {
+  signal: AbortSignal;
+}): Promise<any> => {
   let setApiState = useAppStore.getState().setApiState;
   setApiState("loading");
 
@@ -47,20 +51,20 @@ export const fetchOverpassApiData = async (): Promise<any> => {
     params: {
       data: overpassQueryWithArea,
     },
+    cancelToken: new axios.CancelToken((cancel) => {
+      signal.addEventListener("abort", () => cancel());
+    }),
   };
 
-  const results = axios(config)
-    .then((response) => {
-      setApiState("idle");
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      setApiState("error");
-      return null;
-    });
-
-  return results;
+  try {
+    const response = await axios(config);
+    setApiState("idle");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    setApiState("error");
+    return null;
+  }
 };
 
 export const fetchGeocodeApiData = async (address: string): Promise<any> => {

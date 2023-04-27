@@ -12,7 +12,8 @@ const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
 
-  const [apiStatus, fetchData] = useApiStatus(fetchOverpassApiData);
+  const [apiStatus, fetchData, cancelRequest] =
+    useApiStatus(fetchOverpassApiData);
 
   const handleOverpassQuerySubmit = async () => {
     const results = await fetchData();
@@ -28,7 +29,11 @@ const OverpassQuerySubmit = () => {
 
   return (
     <button
-      onClick={handleOverpassQuerySubmit}
+      onClick={
+        apiStatus !== "loading"
+          ? handleOverpassQuerySubmit
+          : () => cancelRequest()
+      }
       className={clsx(
         "block px-2 py-1 w-fit",
         apiStatus === "loading" && "bg-slate-100",
@@ -37,7 +42,6 @@ const OverpassQuerySubmit = () => {
           apiStatus !== "error" &&
           "bg-slate-100 hover:bg-slate-300"
       )}
-      disabled={apiStatus === "loading"}
     >
       <div className="flex items-center gap-2">
         {apiStatus === "loading" ? (
@@ -49,7 +53,7 @@ const OverpassQuerySubmit = () => {
               width="20"
               visible={true}
             />
-            running query
+            running query (click to cancel)
           </>
         ) : (
           <>
