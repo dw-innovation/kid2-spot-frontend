@@ -26,6 +26,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       params: {
         id: id,
       },
+      auth: {
+        username: process.env.APP_USER || "",
+        password: process.env.APP_PASSWORD || "",
+      },
     }
   );
   return { props: { data: res.data } };
