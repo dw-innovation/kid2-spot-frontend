@@ -12,10 +12,6 @@ const MapEvents = () => {
 
   const prevBoundsRef = useRef<[number, number][] | undefined>(undefined);
 
-  useEffect(() => {
-    prevBoundsRef.current = bounds;
-  }, [bounds]);
-
   const updateBounds = useCallback(() => {
     const bounds = map.getBounds();
 
@@ -43,6 +39,7 @@ const MapEvents = () => {
 
   useEffect(() => {
     if (JSON.stringify(prevBoundsRef.current) !== JSON.stringify(bounds)) {
+      prevBoundsRef.current = bounds;
       map.flyToBounds(bounds);
     }
   }, [bounds, map]);
