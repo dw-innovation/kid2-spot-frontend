@@ -37,9 +37,9 @@ const IndexPage = () => {
                 <div className="flex-1">
                   <DynamicOverpassEditor />
                 </div>
-                <div className="flex gap-2">
-                  <OverpassQuerySubmit />
+                <div className="flex flex-col gap-2">
                   <QueryAreaSelector />
+                  <OverpassQuerySubmit />
                 </div>
               </div>
             </Allotment.Pane>
