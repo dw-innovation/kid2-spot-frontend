@@ -7,4 +7,6 @@ export default interface AppStoreInterface {
     showSuggestions: boolean;
     view: "map" | "data";
   }) => void;
+  streetViewFullscreen: boolean;
+  toggleStreetViewFullscreen: (state?: boolean) => void;
 }
