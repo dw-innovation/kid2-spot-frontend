@@ -39,13 +39,14 @@ const Header = () => {
             >
               export results
             </Button>
+            {tilesLayer}
             <Select
               options={[
                 { label: "Maptiler Vector", value: "mapTilerVector" },
                 { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
                 { label: "OSM default", value: "osm" },
               ]}
-              defaultValue={tilesLayer}
+              value={tilesLayer}
               onSelect={({ target: { value } }) =>
                 setTilesLayer(
                   value as "osm" | "mapTilerVector" | "mapTilerHybrid"
