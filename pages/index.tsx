@@ -8,6 +8,7 @@ import JsonToOverpassSubmit from "@/components/JsonToOverpassSubmit/JsonToOverpa
 import DynamicMap from "@/components/map";
 import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
+import QueryAreaSelector from "@/components/QueryAreaSelector";
 import DynamicResultsEditor from "@/components/ResultsEditor";
 import StreetViewPane from "@/components/StreetViewPane";
 import useAppStore from "@/stores/useAppStore";
@@ -36,7 +37,10 @@ const IndexPage = () => {
                 <div className="flex-1">
                   <DynamicOverpassEditor />
                 </div>
-                <OverpassQuerySubmit />
+                <div className="flex gap-2">
+                  <OverpassQuerySubmit />
+                  <QueryAreaSelector />
+                </div>
               </div>
             </Allotment.Pane>
           </Allotment>
