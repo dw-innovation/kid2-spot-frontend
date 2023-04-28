@@ -15,6 +15,7 @@ const MapEvents = () => {
   const prevBoundsRef = useRef<[number, number][] | undefined>(undefined);
 
   const updateBounds = useCallback(() => {
+    if (view !== "map") return;
     const bounds = map.getBounds();
 
     if (
@@ -27,7 +28,7 @@ const MapEvents = () => {
       [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
       [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
     ]);
-  }, [map, setBounds]);
+  }, [map, setBounds, view]);
 
   const updateZoom = useCallback(() => {
     setMapZoom(map.getZoom());
