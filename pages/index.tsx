@@ -2,6 +2,7 @@ import { Allotment } from "allotment";
 import clsx from "clsx";
 import React from "react";
 
+import Button from "@/components/Button";
 import Header from "@/components/Header";
 import DynamicJsonEditor from "@/components/JSONEditor";
 import JsonToOverpassSubmit from "@/components/JsonToOverpassSubmit/JsonToOverpassSubmit";
@@ -11,6 +12,7 @@ import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
 import DynamicResultsViewer from "@/components/ResultsViewer";
 import StreetViewPane from "@/components/StreetViewPane";
+import { saveQueryToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
@@ -39,7 +41,12 @@ const IndexPage = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <QueryAreaSelector />
-                  <OverpassQuerySubmit />
+                  <div className="flex gap-2">
+                    <OverpassQuerySubmit />
+                    <Button onClick={() => saveQueryToFile()}>
+                      export query
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Allotment.Pane>

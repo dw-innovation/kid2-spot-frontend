@@ -1,6 +1,6 @@
 import React from "react";
 
-import { saveQueryToFile, saveResultsToFile } from "@/lib/utils";
+import { saveResultsToFile } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
@@ -24,7 +24,6 @@ const Header = () => {
         <div className="flex justify-between flex-1">
           <div className="flex gap-2">
             <ShareButton />
-            <Button onClick={() => saveQueryToFile()}>export query</Button>
           </div>
           <div className="flex gap-2">
             <Button
