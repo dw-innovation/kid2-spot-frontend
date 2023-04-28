@@ -1,6 +1,6 @@
 import * as L from "leaflet";
 import React, { FC, useRef } from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
 import useResultsStore from "@/stores/useResultsStore";
@@ -50,14 +50,16 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
     if (feature.properties) {
       const popupContainer = document.createElement("div");
+      const root = createRoot(popupContainer);
+
       layer.bindPopup(popupContainer, { maxWidth: 400 });
 
       layer.on("popupopen", () => {
-        render(<Popup feature={feature} />, popupContainer);
+        root.render(<Popup feature={feature} />);
       });
 
       layer.on("popupclose", () => {
-        unmountComponentAtNode(popupContainer);
+        root.unmount();
       });
     }
 
