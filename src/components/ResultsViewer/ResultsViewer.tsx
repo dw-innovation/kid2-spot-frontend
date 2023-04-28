@@ -15,7 +15,7 @@ const ResultsViewer = () => {
   useEffect(() => {
     if (viewerRef.current) {
       viewerRef.current.editor.setValue(
-        JSON.stringify(geoJSONResults ? geoJSONResults : "no data", null, 2)
+        geoJSONResults ? JSON.stringify(geoJSONResults, null, 2) : "no data"
       );
     }
   }, [geoJSONResults]);
