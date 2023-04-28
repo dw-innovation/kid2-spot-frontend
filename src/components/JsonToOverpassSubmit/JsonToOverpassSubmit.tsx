@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import React from "react";
-import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOverpassQuery } from "@/lib/utils";
 import useQueryStore from "@/stores/useQueryStore";
+
+import LoadingSpinner from "../LoadingSpinner";
 
 const JsonToOverpassSubmit = () => {
   const setOverpassQuery = useQueryStore((state) => state.setOverpassQuery);
@@ -39,13 +40,7 @@ const JsonToOverpassSubmit = () => {
       <div className="flex items-center gap-2">
         {apiStatus === "loading" ? (
           <>
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="20"
-              visible={true}
-            />
+            <LoadingSpinner />
             loading translation
           </>
         ) : (

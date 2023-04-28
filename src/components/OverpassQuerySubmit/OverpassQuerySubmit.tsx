@@ -1,12 +1,13 @@
 import clsx from "clsx";
 import osmtogeojson from "osmtogeojson";
 import React from "react";
-import { RotatingLines } from "react-loader-spinner";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOverpassApiData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
+
+import LoadingSpinner from "../LoadingSpinner";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
@@ -46,13 +47,7 @@ const OverpassQuerySubmit = () => {
       <div className="flex items-center gap-2">
         {apiStatus === "loading" ? (
           <>
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="20"
-              visible={true}
-            />
+            <LoadingSpinner />
             running query (click to cancel)
           </>
         ) : (

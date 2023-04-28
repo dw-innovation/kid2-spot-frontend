@@ -1,5 +1,4 @@
 import React from "react";
-import { RotatingLines } from "react-loader-spinner";
 
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveData } from "@/lib/storeData";
@@ -8,6 +7,7 @@ import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 
 import Button from "../Button";
+import LoadingSpinner from "../LoadingSpinner";
 
 const ShareButton = () => {
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
@@ -24,15 +24,7 @@ const ShareButton = () => {
       className="flex items-center gap-2"
     >
       share session
-      {apiStatus === "loading" && (
-        <RotatingLines
-          strokeColor="grey"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="20"
-          visible={true}
-        />
-      )}
+      {apiStatus === "loading" && <LoadingSpinner />}
     </Button>
   );
 };
