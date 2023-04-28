@@ -2,7 +2,6 @@ import axios from "axios";
 import { LatLngLiteral } from "leaflet";
 
 import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
-import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -38,9 +37,6 @@ export const fetchOverpassApiData = async ({
 }: {
   signal: AbortSignal;
 }): Promise<any> => {
-  let setApiState = useAppStore.getState().setApiState;
-  setApiState("loading");
-
   let overpassQuery = useQueryStore.getState().overpassQuery;
   let overpassAPIURL = useQueryStore.getState().overpassAPIURL;
   let overpassQueryWithArea = substituteAreaInQuery(overpassQuery);
@@ -58,11 +54,9 @@ export const fetchOverpassApiData = async ({
 
   try {
     const response = await axios(config);
-    setApiState("idle");
     return response.data;
   } catch (error) {
     console.log(error);
-    setApiState("error");
     return null;
   }
 };

@@ -25,18 +25,15 @@ const useApiStatus = <T = any>(
         signal: abortController.signal,
       });
 
-      if (results) {
-        updateApiStatus("success");
-      } else {
-        updateApiStatus("error");
-      }
+      updateApiStatus("success");
+
       return results;
     } catch (error) {
       if (axios.isCancel(error)) {
         updateApiStatus("idle");
         console.log("Fetch request cancelled");
       } else {
-        console.error(error);
+        console.error("error  ");
         updateApiStatus("error");
       }
     }
