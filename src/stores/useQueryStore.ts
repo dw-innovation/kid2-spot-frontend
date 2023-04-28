@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 import QueryStoreInterface from "./interfaces/QueryStore.interface";
 
-const useAppStore = create<QueryStoreInterface>((set) => ({
+const useQueryStore = create<QueryStoreInterface>((set) => ({
   jsonQuery:
     '{\n	"nodes": [{\n			"name": "bbox",\n			"type": "area"\n		},\n		{\n			"name": "kiosk",\n			"type": "object",\n			"props": ["shop=kiosk"]\n		},\n		{\n			"name": "pharmacy",\n			"type": "object",\n			"props": ["amenity=pharmacy"]\n		},\n		{\n			"name": "hospital",\n			"type": "object",\n			"props": ["amenity=hospital", "material=wooden"]\n		}\n	],\n	"relations": [{\n			"from": "0",\n			"to": "1",\n			"weight": 10\n		},\n		{\n			"from": "1",\n			"to": "2",\n			"weight": 20\n		},\n		{\n			"from": "2",\n			"to": "3",\n			"weight": 40\n		}\n	],\n	"action": "search_within"\n}',
   setJsonQuery: (jsonQuery: any) => {
@@ -59,4 +59,4 @@ const useAppStore = create<QueryStoreInterface>((set) => ({
   },
 }));
 
-export default useAppStore;
+export default useQueryStore;
