@@ -28,6 +28,10 @@ const ResultsOutsideAlert = () => {
   };
 
   useEffect(() => {
+    !geoJSON && setShowAlert(false);
+  }, [geoJSON]);
+
+  useEffect(() => {
     const checkBounds = () => {
       if (!geoJSON) {
         setShowAlert(false);
