@@ -26,7 +26,7 @@ const QueryAreaSelector = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-white">Area:</span>
+      <span className="text-white">Search area:</span>
       <select
         className="p-1"
         {...register("searchAreaInput", {
