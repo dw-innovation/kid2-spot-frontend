@@ -39,7 +39,6 @@ const Header = () => {
             >
               export results
             </Button>
-            {tilesLayer}
             <Select
               options={[
                 { label: "Maptiler Vector", value: "mapTilerVector" },
