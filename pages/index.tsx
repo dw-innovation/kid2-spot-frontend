@@ -49,16 +49,8 @@ const IndexPage = () => {
         <Allotment.Pane className="pl-1">
           <Allotment vertical>
             <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
-              <div
-                className={clsx(view === "map" ? "block" : "hidden", "h-full")}
-              >
-                <DynamicMap />
-              </div>
-              <div
-                className={clsx(view === "data" ? "block" : "hidden", "h-full")}
-              >
-                <DynamicResultsEditor />
-              </div>
+              {view === "map" && <DynamicMap />}
+              {view === "data" && <DynamicResultsEditor />}
             </Allotment.Pane>
             <Allotment.Pane
               className="pt-1"
