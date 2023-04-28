@@ -57,7 +57,7 @@ const IndexPage = () => {
               visible={showStreetView}
               minSize={20}
             >
-              <StreetViewPane />
+              {showStreetView && <StreetViewPane />}
             </Allotment.Pane>
           </Allotment>
         </Allotment.Pane>
