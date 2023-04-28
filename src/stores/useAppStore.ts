@@ -32,12 +32,12 @@ const useAppStore = create<AppStoreInterface>((set) => ({
       })
     );
   },
-  streetViewFullscreen: false,
+  isStreetViewFullscreen: false,
   toggleStreetViewFullscreen: (state?: boolean) => {
     set(
       produce((draft) => {
-        draft.streetViewFullscreen =
-          typeof state === "undefined" ? !draft.streetViewFullscreen : state;
+        draft.isStreetViewFullscreen =
+          typeof state === "undefined" ? !draft.isStreetViewFullscreen : state;
       })
     );
   },
