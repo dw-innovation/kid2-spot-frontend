@@ -21,35 +21,39 @@ const Header = () => {
         KID2 Overpass Turbo Prototype
       </h1>
       <div className="flex gap-2">
-        <div className="flex justify-end flex-1 gap-2">
-          <Button onClick={() => saveQueryToFile()}>export query</Button>
-          <Button
-            onClick={() => clearGeoJSON()}
-            disabled={geoJSON ? false : true}
-          >
-            clear results
-          </Button>
-          <Button
-            onClick={() => saveResultsToFile()}
-            disabled={geoJSON ? false : true}
-          >
-            export results
-          </Button>
-          <ShareButton />
-          <Select
-            options={[
-              { label: "Maptiler Vector", value: "mapTilerVector" },
-              { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
-              { label: "OSM default", value: "osm" },
-            ]}
-            defaultValue={tilesLayer}
-            onSelect={({ target: { value } }) =>
-              setTilesLayer(
-                value as "osm" | "mapTilerVector" | "mapTilerHybrid"
-              )
-            }
-          />
-          <ViewSwitcher />
+        <div className="flex justify-between flex-1">
+          <div className="flex gap-2">
+            <ShareButton />
+            <Button onClick={() => saveQueryToFile()}>export query</Button>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => clearGeoJSON()}
+              disabled={geoJSON ? false : true}
+            >
+              clear results
+            </Button>
+            <Button
+              onClick={() => saveResultsToFile()}
+              disabled={geoJSON ? false : true}
+            >
+              export results
+            </Button>
+            <Select
+              options={[
+                { label: "Maptiler Vector", value: "mapTilerVector" },
+                { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
+                { label: "OSM default", value: "osm" },
+              ]}
+              defaultValue={tilesLayer}
+              onSelect={({ target: { value } }) =>
+                setTilesLayer(
+                  value as "osm" | "mapTilerVector" | "mapTilerHybrid"
+                )
+              }
+            />
+            <ViewSwitcher />
+          </div>
         </div>
       </div>
     </>
