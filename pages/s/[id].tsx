@@ -17,10 +17,11 @@ const SessionPage = ({ data }: any) => {
   );
 
   useEffect(() => {
-    initializeAppStore(data.useAppStore);
-    initializeMapStore(data.useMapStore);
-    initializeQueryStore(data.useQueryStore);
-    initializeStreetViewStore(data.useStreetViewStore);
+    data.useAppStore && initializeAppStore(data.useAppStore);
+    data.useMapStore && initializeMapStore(data.useMapStore);
+    data.useQueryStore && initializeQueryStore(data.useQueryStore);
+    data.useStreetViewStore &&
+      initializeStreetViewStore(data.useStreetViewStore);
   });
 
   return <IndexPage />;
