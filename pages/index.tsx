@@ -9,7 +9,7 @@ import DynamicMap from "@/components/map";
 import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
-import DynamicResultsEditor from "@/components/ResultsEditor";
+import DynamicResultsViewer from "@/components/ResultsViewer";
 import StreetViewPane from "@/components/StreetViewPane";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
@@ -50,7 +50,7 @@ const IndexPage = () => {
           <Allotment vertical>
             <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
               {view === "map" && <DynamicMap />}
-              {view === "data" && <DynamicResultsEditor />}
+              {view === "data" && <DynamicResultsViewer />}
             </Allotment.Pane>
             <Allotment.Pane
               className="pt-1"

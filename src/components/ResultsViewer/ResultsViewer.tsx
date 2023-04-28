@@ -8,13 +8,13 @@ import AceEditor from "react-ace";
 
 import useResultsStore from "@/stores/useResultsStore";
 
-const ResultsEditor = () => {
-  const editorRef = React.useRef<AceEditor>(null);
+const ResultsViewer = () => {
+  const viewerRef = React.useRef<AceEditor>(null);
   const geoJSONResults = useResultsStore((state) => state.geoJSON);
 
   useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.editor.setValue(
+    if (viewerRef.current) {
+      viewerRef.current.editor.setValue(
         JSON.stringify(geoJSONResults ? geoJSONResults : "no data", null, 2)
       );
     }
@@ -23,7 +23,7 @@ const ResultsEditor = () => {
   return (
     <>
       <AceEditor
-        ref={editorRef}
+        ref={viewerRef}
         mode="json"
         theme="xcode"
         name="geojson-results"
@@ -40,4 +40,4 @@ const ResultsEditor = () => {
   );
 };
 
-export default ResultsEditor;
+export default ResultsViewer;
