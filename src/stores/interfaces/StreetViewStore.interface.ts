@@ -6,4 +6,9 @@ export default interface StreetViewStoreInterface {
   streetViewProvider: "google" | "bing";
   streetViewCoordinates: LatLngLiteral;
   setStreetViewCoordinates: (streetViewCoordinates: LatLngLiteral) => void;
+  initialize: (initialData: {
+    showStreetView: boolean;
+    streetViewProvider: "google" | "bing";
+    streetViewCoordinates: LatLngLiteral;
+  }) => void;
 }

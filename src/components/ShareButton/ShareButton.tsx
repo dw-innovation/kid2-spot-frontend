@@ -5,6 +5,7 @@ import { saveData } from "@/lib/storeData";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
+import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Button from "../Button";
 import LoadingSpinner from "../LoadingSpinner";
@@ -15,6 +16,7 @@ const ShareButton = () => {
       { name: "useAppStore", getState: useAppStore.getState },
       { name: "useMapStore", getState: useMapStore.getState },
       { name: "useQueryStore", getState: useQueryStore.getState },
+      { name: "useStreetViewStore", getState: useStreetViewStore.getState },
     ])
   );
 

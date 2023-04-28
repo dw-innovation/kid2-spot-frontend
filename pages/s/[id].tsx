@@ -6,16 +6,21 @@ import React, { useEffect } from "react";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
+import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const SessionPage = ({ data }: any) => {
   const initializeAppStore = useAppStore((state) => state.initialize);
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
+  const initializeStreetViewStore = useStreetViewStore(
+    (state) => state.initialize
+  );
 
   useEffect(() => {
     initializeAppStore(data.useAppStore);
     initializeMapStore(data.useMapStore);
     initializeQueryStore(data.useQueryStore);
+    initializeStreetViewStore(data.useStreetViewStore);
   });
 
   return <IndexPage />;

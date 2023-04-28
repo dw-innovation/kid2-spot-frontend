@@ -22,6 +22,19 @@ const useStreetViewStore = create<StreetViewStoreInterface>((set) => ({
       })
     );
   },
+  initialize: (initialData: {
+    showStreetView: boolean;
+    streetViewProvider: "google" | "bing";
+    streetViewCoordinates: LatLngLiteral;
+  }) => {
+    set(
+      produce((draft) => {
+        draft.showStreetView = initialData.showStreetView;
+        draft.streetViewProvider = initialData.streetViewProvider;
+        draft.streetViewCoordinates = initialData.streetViewCoordinates;
+      })
+    );
+  },
 }));
 
 export default useStreetViewStore;
