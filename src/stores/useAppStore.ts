@@ -4,15 +4,6 @@ import { create } from "zustand";
 import AppStoreInterface from "./interfaces/AppStore.interface";
 
 const useAppStore = create<AppStoreInterface>((set) => ({
-  showSuggestions: false,
-  toggleShowSuggestions: (state?: boolean) => {
-    set(
-      produce((draft) => {
-        draft.showSuggestions =
-          typeof state === "undefined" ? !draft.showSuggestions : state;
-      })
-    );
-  },
   view: "map",
   setView: (view: "map" | "data") => {
     set(
