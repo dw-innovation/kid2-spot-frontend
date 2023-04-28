@@ -3,9 +3,9 @@ import { GetServerSidePropsContext } from "next";
 import IndexPage from "pages";
 import React, { useEffect } from "react";
 
+import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
-import useAppStore from "@/stores/useQueryStore";
 
 const SessionPage = ({ data }: any) => {
   const initializeAppStore = useAppStore((state) => state.initialize);
