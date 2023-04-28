@@ -5,6 +5,7 @@ import VectorTileLayer from "react-leaflet-vector-tile-layer";
 import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
+import FeaturesCounter from "../FeaturesCounter";
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
@@ -58,6 +59,7 @@ const MapContainer = () => {
           <PolygonDrawer />
           <PolygonBuffer />
           <GeoJSONResults />
+          <FeaturesCounter />
         </LeafletMapContainer>
       </div>
     </>
