@@ -2,7 +2,6 @@ import axios from "axios";
 import { LatLngLiteral } from "leaflet";
 
 import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
-import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -33,10 +32,11 @@ const substituteAreaInQuery = (query: string): string => {
   return query.replaceAll("{{bbox}}", area);
 };
 
-export const fetchOverpassApiData = async (): Promise<any> => {
-  let setApiState = useAppStore.getState().setApiState;
-  setApiState("loading");
-
+export const fetchOverpassApiData = async ({
+  signal,
+}: {
+  signal: AbortSignal;
+}): Promise<any> => {
   let overpassQuery = useQueryStore.getState().overpassQuery;
   let overpassAPIURL = useQueryStore.getState().overpassAPIURL;
   let overpassQueryWithArea = substituteAreaInQuery(overpassQuery);
@@ -47,20 +47,18 @@ export const fetchOverpassApiData = async (): Promise<any> => {
     params: {
       data: overpassQueryWithArea,
     },
+    cancelToken: new axios.CancelToken((cancel) => {
+      signal.addEventListener("abort", () => cancel());
+    }),
   };
 
-  const results = axios(config)
-    .then((response) => {
-      setApiState("idle");
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      setApiState("error");
-      return null;
-    });
-
-  return results;
+  try {
+    const response = await axios(config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 export const fetchGeocodeApiData = async (address: string): Promise<any> => {
