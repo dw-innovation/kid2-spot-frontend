@@ -4,7 +4,7 @@ import { useState } from "react";
 type FetchFunction<T = any> = (...args: any[]) => Promise<T>;
 type ApiStatus = "idle" | "loading" | "success" | "error";
 
-const useApiStatus = <T = any,>(
+const useApiStatus = <T = any>(
   fetchFunction: FetchFunction<T>
 ): [ApiStatus, (...args: any[]) => Promise<T | undefined>, () => void] => {
   const [apiStatus, setApiStatus] = useState<ApiStatus>("idle");
