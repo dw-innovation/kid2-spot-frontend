@@ -5,12 +5,15 @@ import React, { useEffect } from "react";
 
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
+import useAppStore from "@/stores/useQueryStore";
 
 const SessionPage = ({ data }: any) => {
+  const initializeAppStore = useAppStore((state) => state.initialize);
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
 
   useEffect(() => {
+    initializeAppStore(data.useAppStore);
     initializeMapStore(data.useMapStore);
     initializeQueryStore(data.useQueryStore);
   });
