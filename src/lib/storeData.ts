@@ -24,7 +24,7 @@ export const saveData = async (
       data: combinedStoreData,
     });
     navigator.clipboard.writeText(
-      `${window.location.origin}/share/${response.data.id}`
+      `${window.location.origin}/s/${response.data.id}`
     );
     toast.success("Share link copied to clipboard!");
   } catch (error) {
