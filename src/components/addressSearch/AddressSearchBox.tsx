@@ -37,6 +37,51 @@ const AddressSearchBox = () => {
     [searchAddress, setAddressSuggestions]
   );
 
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    selectItem: (item: any) => void
+  ) => {
+    if (e.key === "Enter") {
+      if (checkInputType(searchAddress) === "coordinates") {
+        const newCenter = convertToLatLng(searchAddress);
+        if (!newCenter) {
+          return;
+        }
+
+        const newBounds = getNewBoundingBox(bounds, newCenter);
+
+        if (newBounds) {
+          setBounds(newBounds);
+          setSearchAddress(searchAddress);
+          setCurrentAddress({
+            placeName: searchAddress,
+            coordinates: newCenter,
+          });
+        }
+
+        return;
+      }
+
+      if (
+        checkInputType(searchAddress) === "address" &&
+        addressSuggestions.length > 0
+      ) {
+        const firstSuggestion = addressSuggestions[0];
+        setBounds([
+          [firstSuggestion.bbox[1], firstSuggestion.bbox[0]],
+          [firstSuggestion.bbox[3], firstSuggestion.bbox[2]],
+        ]);
+        setCurrentAddress({
+          placeName: firstSuggestion.place_name_en,
+          coordinates: firstSuggestion.coordinates,
+        });
+        setSearchAddress(firstSuggestion.place_name_en);
+        selectItem(firstSuggestion);
+        e.preventDefault();
+      }
+    }
+  };
+
   useEffect(() => {
     if (
       searchAddress &&
@@ -85,45 +130,8 @@ const AddressSearchBox = () => {
                     className="w-full p-2 rounded-lg"
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),
-                      onKeyDown: (e) => {
-                        if (e.key === "Enter") {
-                          if (checkInputType(searchAddress) === "coordinates") {
-                            const newCenter = convertToLatLng(searchAddress);
-                            if (!newCenter) {
-                              return;
-                            }
-
-                            const newBounds = getNewBoundingBox(
-                              bounds,
-                              newCenter
-                            );
-
-                            if (newBounds) {
-                              setBounds(newBounds);
-                            }
-                            return;
-                          }
-                          if (addressSuggestions.length > 0) {
-                            const firstSuggestion = addressSuggestions[0];
-                            setBounds([
-                              [
-                                firstSuggestion.bbox[1],
-                                firstSuggestion.bbox[0],
-                              ],
-                              [
-                                firstSuggestion.bbox[3],
-                                firstSuggestion.bbox[2],
-                              ],
-                            ]);
-                            setCurrentAddress({
-                              placeName: firstSuggestion.place_name_en,
-                              coordinates: firstSuggestion.coordinates,
-                            });
-                            selectItem(firstSuggestion);
-                            e.preventDefault(); // Prevent form submission or other default behavior
-                          }
-                        }
-                      },
+                      onKeyDown: (e) => handleKeyDown(e, selectItem),
+                      value: searchAddress,
                     })}
                   />
                 </div>
