@@ -153,3 +153,22 @@ export const countFeaturesByPrefix = (
 
   return counts;
 };
+
+export const checkInputType = (input: string): "address" | "coordinates" => {
+  // DMS (Degrees, Minutes, Seconds) format: 40° 26' 46" N 79° 58' 56" W
+  const dmsRegex =
+    /^(\d{1,3}°\s\d{1,2}'\s\d{1,2}(\.\d+)?["]\s[N|S])\s+(\d{1,3}°\s\d{1,2}'\s\d{1,2}(\.\d+)?["]\s[E|W])$/;
+
+  // DM (Degrees, Minutes) format: 40° 26.767' N 79° 58.933' W
+  const dmRegex =
+    /^(\d{1,3}°\s\d{1,2}(\.\d+)?'\s[N|S])\s+(\d{1,3}°\s\d{1,2}(\.\d+)?'\s[E|W])$/;
+
+  // DD (Decimal Degrees) format: 40.446195, -79.948862
+  const ddRegex = /^(-?\d{1,3}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)$/;
+
+  if (dmsRegex.test(input) || dmRegex.test(input) || ddRegex.test(input)) {
+    return "coordinates";
+  }
+
+  return "address";
+};

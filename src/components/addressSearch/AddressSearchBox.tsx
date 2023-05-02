@@ -3,7 +3,8 @@ import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
 import LensIcon from "@/assets/icons/LensIcon";
-import { fetchGeocodeApiData } from "@/lib/utils";
+import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
+import { checkInputType, fetchGeocodeApiData } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -20,6 +21,7 @@ const AddressSearchBox = () => {
   const searchAddress = useAddressStore((state) => state.searchAddress);
   const setCurrentAddress = useAddressStore((state) => state.setCurrentAddress);
   const setBounds = useMapStore((state) => state.setBounds);
+  const bounds = useMapStore((state) => state.bounds);
 
   const lastSearchAddressRef = useRef("");
 
@@ -36,7 +38,11 @@ const AddressSearchBox = () => {
   );
 
   useEffect(() => {
-    if (searchAddress && searchAddress !== lastSearchAddressRef.current) {
+    if (
+      searchAddress &&
+      searchAddress !== lastSearchAddressRef.current &&
+      checkInputType(searchAddress) === "address"
+    ) {
       debouncedFetchGeocodeApiData();
     }
     return () => {
@@ -80,21 +86,42 @@ const AddressSearchBox = () => {
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),
                       onKeyDown: (e) => {
-                        if (
-                          e.key === "Enter" &&
-                          addressSuggestions.length > 0
-                        ) {
-                          const firstSuggestion = addressSuggestions[0];
-                          setBounds([
-                            [firstSuggestion.bbox[1], firstSuggestion.bbox[0]],
-                            [firstSuggestion.bbox[3], firstSuggestion.bbox[2]],
-                          ]);
-                          setCurrentAddress({
-                            placeName: firstSuggestion.place_name_en,
-                            coordinates: firstSuggestion.coordinates,
-                          });
-                          selectItem(firstSuggestion);
-                          e.preventDefault(); // Prevent form submission or other default behavior
+                        if (e.key === "Enter") {
+                          if (checkInputType(searchAddress) === "coordinates") {
+                            const newCenter = convertToLatLng(searchAddress);
+                            if (!newCenter) {
+                              return;
+                            }
+
+                            const newBounds = getNewBoundingBox(
+                              bounds,
+                              newCenter
+                            );
+
+                            if (newBounds) {
+                              setBounds(newBounds);
+                            }
+                            return;
+                          }
+                          if (addressSuggestions.length > 0) {
+                            const firstSuggestion = addressSuggestions[0];
+                            setBounds([
+                              [
+                                firstSuggestion.bbox[1],
+                                firstSuggestion.bbox[0],
+                              ],
+                              [
+                                firstSuggestion.bbox[3],
+                                firstSuggestion.bbox[2],
+                              ],
+                            ]);
+                            setCurrentAddress({
+                              placeName: firstSuggestion.place_name_en,
+                              coordinates: firstSuggestion.coordinates,
+                            });
+                            selectItem(firstSuggestion);
+                            e.preventDefault(); // Prevent form submission or other default behavior
+                          }
                         }
                       },
                     })}
