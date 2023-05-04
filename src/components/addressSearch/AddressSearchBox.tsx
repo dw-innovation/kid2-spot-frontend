@@ -152,6 +152,7 @@ const AddressSearchBox = () => {
               highlightedIndex={highlightedIndex}
               selectedItem={selectedItem}
               getItemProps={getItemProps}
+              selectItem={selectItem}
             />
           </div>
         )}
