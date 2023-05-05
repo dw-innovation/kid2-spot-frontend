@@ -22,10 +22,10 @@ const substituteAreaInQuery = (query: string): string => {
         customSearchArea,
         searchAreaBuffer
       );
-      let polygoAreaString = enlargedPolygon
+      let polygonAreaString = enlargedPolygon
         .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");
-      area = `poly: "${polygoAreaString}"`;
+      area = `poly: "${polygonAreaString}"`;
       break;
 
     default:
