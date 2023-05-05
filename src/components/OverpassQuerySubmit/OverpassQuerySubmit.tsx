@@ -23,8 +23,6 @@ const OverpassQuerySubmit = () => {
       clearGeoJSON();
       let geoJSONResults = osmtogeojson(results);
       setGeoJSON(geoJSONResults);
-    } else {
-      console.log("no results");
     }
   };
 

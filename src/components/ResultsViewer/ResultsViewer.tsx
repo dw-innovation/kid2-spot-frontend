@@ -21,22 +21,20 @@ const ResultsViewer = () => {
   }, [geoJSONResults]);
 
   return (
-    <>
-      <AceEditor
-        ref={viewerRef}
-        mode="json"
-        theme="xcode"
-        name="geojson-results"
-        editorProps={{ $blockScrolling: true }}
-        setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-        }}
-        width="100%"
-        height="100%"
-        readOnly
-      />
-    </>
+    <AceEditor
+      ref={viewerRef}
+      mode="json"
+      theme="xcode"
+      name="geojson-results"
+      editorProps={{ $blockScrolling: true }}
+      setOptions={{
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+      }}
+      width="100%"
+      height="100%"
+      readOnly
+    />
   );
 };
 

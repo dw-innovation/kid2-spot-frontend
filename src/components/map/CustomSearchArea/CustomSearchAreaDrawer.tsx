@@ -3,19 +3,27 @@ import React, { useCallback, useMemo } from "react";
 import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 
-import usePolygonStore from "@/stores/usePolygonStore";
+import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 
 const PolygonDrawer: React.FC = () => {
-  const polygon = usePolygonStore((state) => state.polygon);
-  const setPolygon = usePolygonStore((state) => state.setPolygon);
-  const clearPolygon = usePolygonStore((state) => state.clearPolygon);
+  const customSearchArea = useCustomSearchAreaStore(
+    (state) => state.customSearchArea
+  );
+  const setCustomSearchArea = useCustomSearchAreaStore(
+    (state) => state.setCustomSearchArea
+  );
+  const clearCustomSearchArea = useCustomSearchAreaStore(
+    (state) => state.clearCustomSearchArea
+  );
 
   const handleCreated = useCallback(
     (e: any) => {
       const latLngs = e.layer.getLatLngs();
-      setPolygon(latLngs[0].map((latLng: LatLng) => [latLng.lat, latLng.lng]));
+      setCustomSearchArea(
+        latLngs[0].map((latLng: LatLng) => [latLng.lat, latLng.lng])
+      );
     },
-    [setPolygon]
+    [setCustomSearchArea]
   );
 
   const handleEdited = useCallback(
@@ -25,14 +33,14 @@ const PolygonDrawer: React.FC = () => {
         const latLngs = layer.getLatLngs()[0];
         return latLngs.map((latLng: LatLng) => [latLng.lat, latLng.lng]);
       });
-      setPolygon(polygons[0]);
+      setCustomSearchArea(polygons[0]);
     },
-    [setPolygon]
+    [setCustomSearchArea]
   );
 
   const handleDeleted = useCallback(() => {
-    clearPolygon();
-  }, [clearPolygon]);
+    clearCustomSearchArea();
+  }, [clearCustomSearchArea]);
 
   const drawControl = useMemo(
     () => (
@@ -43,17 +51,17 @@ const PolygonDrawer: React.FC = () => {
         onDeleted={handleDeleted}
         edit={{
           featureGroup: true,
-          remove: polygon.length > 0,
-          edit: polygon.length > 0,
+          remove: customSearchArea.length > 0,
+          edit: customSearchArea.length > 0,
         }}
         draw={{
           polyline: false,
-          rectangle: polygon.length === 0,
+          rectangle: customSearchArea.length === 0,
           circle: false,
           marker: false,
           circlemarker: false,
           polygon:
-            polygon.length > 0
+            customSearchArea.length > 0
               ? false
               : {
                   shapeOptions: { color: "purple" },
@@ -61,7 +69,7 @@ const PolygonDrawer: React.FC = () => {
         }}
       />
     ),
-    [handleCreated, handleDeleted, handleEdited, polygon.length]
+    [handleCreated, handleDeleted, handleEdited, customSearchArea.length]
   );
 
   return <FeatureGroup>{drawControl}</FeatureGroup>;

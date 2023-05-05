@@ -4,11 +4,13 @@ import { useMap } from "react-leaflet";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
 import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
+import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
-import usePolygonStore from "@/stores/usePolygonStore";
 
 const PolygonOutsideAlert = () => {
-  const polygon = usePolygonStore((state) => state.polygon);
+  const customSearchArea = useCustomSearchAreaStore(
+    (state) => state.customSearchArea
+  );
   const setBounds = useMapStore((state) => state.setBounds);
   const map = useMap();
 
@@ -17,7 +19,7 @@ const PolygonOutsideAlert = () => {
   const handleFlyToBounds = () => {
     let newBBox = bbox({
       type: "Polygon",
-      coordinates: [polygon],
+      coordinates: [customSearchArea],
     });
 
     setBounds([
@@ -41,7 +43,9 @@ const PolygonOutsideAlert = () => {
         currentMapBoundsFlat[2],
       ];
 
-      setShowAlert(!isPolygonWithinBoundingBox(polygon, currentMapBoundsBBox));
+      setShowAlert(
+        !isPolygonWithinBoundingBox(customSearchArea, currentMapBoundsBBox)
+      );
     };
 
     const onMoveEnd = () => {
@@ -53,7 +57,7 @@ const PolygonOutsideAlert = () => {
     return () => {
       map.off("moveend", onMoveEnd);
     };
-  }, [polygon, map]);
+  }, [customSearchArea, map]);
 
   const handleCloseClick = () => {
     setShowAlert(false);
@@ -63,12 +67,12 @@ const PolygonOutsideAlert = () => {
     <>
       {showAlert && (
         <span className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
-          Polygon outside bounding box!
+          Search area outside bounding box!
           <button
             onClick={handleFlyToBounds}
             className="p-1 bg-white rounded-lg hover:bg-slate-200"
           >
-            fly to polygon
+            fly to search area
           </button>
           <button
             className="absolute top-0 right-0 rotate-45 bg-white rounded-full translate-x-1/3 -translate-y-1/3 hover:bg-slate-200"

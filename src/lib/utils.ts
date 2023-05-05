@@ -3,22 +3,25 @@ import { FeatureCollection } from "geojson";
 import { LatLngLiteral } from "leaflet";
 
 import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
+import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
-import usePolygonStore from "@/stores/usePolygonStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 const substituteAreaInQuery = (query: string): string => {
   const searchArea = useQueryStore.getState().searchArea;
-  const areaBuffer = useQueryStore.getState().areaBuffer;
+  const searchAreaBuffer = useQueryStore.getState().searchAreaBuffer;
   let bounds = useMapStore.getState().bounds;
-  let polygon = usePolygonStore.getState().polygon;
+  let customSearchArea = useCustomSearchAreaStore.getState().customSearchArea;
 
   let area = "";
 
   switch (searchArea) {
     case "polygon":
-      let enlargedPolygon = expandPolygonByDistance(polygon, areaBuffer);
+      let enlargedPolygon = expandPolygonByDistance(
+        customSearchArea,
+        searchAreaBuffer
+      );
       let polygoAreaString = enlargedPolygon
         .map((point: number[]) => `${point[0]} ${point[1]}`)
         .join(" ");

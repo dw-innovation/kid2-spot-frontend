@@ -6,12 +6,12 @@ import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
 import FeaturesCounter from "../FeaturesCounter";
+import PolygonBuffer from "./CustomSearchArea/CustomSearchAreaBuffer";
+import PolygonDrawer from "./CustomSearchArea/CustomSearchAreaDrawer";
+import PolygonOutsideAlert from "./CustomSearchArea/CustomSearchAreaOutsideAlert";
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
-import PolygonBuffer from "./polygon/PolygonBuffer";
-import PolygonDrawer from "./polygon/PolygonDrawer";
-import PolygonOutsideAlert from "./polygon/PolygonOutsideAlert";
 import GeoJSONResults from "./results/GeoJSONResults";
 import ResultsOutsideAlert from "./results/ResultsOutsideAlert";
 

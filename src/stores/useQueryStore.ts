@@ -30,11 +30,11 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  areaBuffer: 500,
-  setAreaBuffer: (areaBuffer: number) => {
+  searchAreaBuffer: 500,
+  setSearchAreaBuffer: (searchAreaBuffer: number) => {
     set(
       produce((draft) => {
-        draft.areaBuffer = areaBuffer;
+        draft.searchAreaBuffer = searchAreaBuffer;
       })
     );
   },

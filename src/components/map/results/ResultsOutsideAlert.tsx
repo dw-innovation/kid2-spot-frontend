@@ -6,14 +6,16 @@ import { useMap } from "react-leaflet";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
 import { allFeaturesWithinBoundingBox } from "@/lib/geoSpatialHelpers";
+import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
-import usePolygonStore from "@/stores/usePolygonStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 const ResultsOutsideAlert = () => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const setBounds = useMapStore((state) => state.setBounds);
-  const polygon = usePolygonStore((state) => state.polygon);
+  const customSearchArea = useCustomSearchAreaStore(
+    (state) => state.customSearchArea
+  );
   const map = useMap();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -67,7 +69,7 @@ const ResultsOutsideAlert = () => {
     return () => {
       map.off("moveend", onMoveEnd);
     };
-  }, [polygon, map, geoJSON]);
+  }, [customSearchArea, map, geoJSON]);
 
   const handleCloseClick = () => {
     setShowAlert(false);
