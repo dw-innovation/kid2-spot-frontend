@@ -5,7 +5,7 @@ import { EditControl } from "react-leaflet-draw";
 
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 
-const PolygonDrawer: React.FC = () => {
+const CustomSearchAreaDrawer: React.FC = () => {
   const customSearchArea = useCustomSearchAreaStore(
     (state) => state.customSearchArea
   );
@@ -75,4 +75,4 @@ const PolygonDrawer: React.FC = () => {
   return <FeatureGroup>{drawControl}</FeatureGroup>;
 };
 
-export default PolygonDrawer;
+export default CustomSearchAreaDrawer;

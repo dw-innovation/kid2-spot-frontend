@@ -5,7 +5,7 @@ import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useQueryStore from "@/stores/useQueryStore";
 
-const PolygonBuffer = () => {
+const CustomSearchAreaBuffer = () => {
   const customSearchArea = useCustomSearchAreaStore(
     (state) => state.customSearchArea
   );
@@ -26,4 +26,4 @@ const PolygonBuffer = () => {
   );
 };
 
-export default PolygonBuffer;
+export default CustomSearchAreaBuffer;
