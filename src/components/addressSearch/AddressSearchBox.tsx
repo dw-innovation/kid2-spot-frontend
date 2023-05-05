@@ -126,7 +126,7 @@ const AddressSearchBox = () => {
               >
                 <div className="flex items-center justify-center flex-1 gap-2 rounded-lg">
                   <input
-                    placeholder="Search for a place"
+                    placeholder="Search for a place or coordinates (lat, lng)"
                     className="w-full p-2 rounded-lg"
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),
