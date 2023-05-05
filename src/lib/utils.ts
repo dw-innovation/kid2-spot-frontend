@@ -68,20 +68,25 @@ export const fetchOverpassApiData = async ({
 export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   if (!address) return;
 
-  const response = await axios({
-    method: "GET",
-    url: `https://api.maptiler.com/geocoding/${address}.json`,
-    params: {
-      key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
-      language: "en",
-      limit: 5,
-      types:
-        "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
-    },
-  });
+  try {
+    const response = await axios({
+      method: "GET",
+      url: `https://api.maptiler.com/geocoding/${address}.json`,
+      params: {
+        key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
+        language: "en",
+        limit: 5,
+        types:
+          "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
+      },
+    });
 
-  const { features } = await response.data;
-  return features;
+    const { features } = await response.data;
+    return features;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 export const saveResultsToFile = () => {
