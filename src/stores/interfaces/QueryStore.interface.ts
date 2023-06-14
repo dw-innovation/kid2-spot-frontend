@@ -1,4 +1,6 @@
 export default interface QueryStoreInterface {
+  naturalLanguagePrompt: string;
+  setNaturalLanguagePrompt: (naturalLanguagePrompt: string) => void;
   overpassQuery: string;
   setOverpassQuery: (overpassQuery: string) => void;
   searchArea: "bbox" | "polygon";
