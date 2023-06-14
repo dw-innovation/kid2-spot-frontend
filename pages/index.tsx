@@ -4,9 +4,9 @@ import React from "react";
 
 import Button from "@/components/Button";
 import Header from "@/components/Header";
-import DynamicJsonEditor from "@/components/JSONEditor";
-import JsonToOverpassSubmit from "@/components/JsonToOverpassSubmit/JsonToOverpassSubmit";
 import DynamicMap from "@/components/map";
+import NaturalLanguageInput from "@/components/NaturalLanguageInput";
+import NatualLanguageSubmitButton from "@/components/NaturalLanguageInput/NatualLanguageSubmitButton";
 import DynamicOverpassEditor from "@/components/OverpassEditor";
 import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
@@ -30,8 +30,8 @@ const IndexPage = () => {
           <Allotment vertical>
             <Allotment.Pane className="pb-2">
               <div className="flex flex-col h-full gap-1">
-                <DynamicJsonEditor />
-                <JsonToOverpassSubmit />
+                <NaturalLanguageInput />
+                <NatualLanguageSubmitButton />
               </div>
             </Allotment.Pane>
             <Allotment.Pane>

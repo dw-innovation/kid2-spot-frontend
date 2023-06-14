@@ -137,6 +137,21 @@ export const fetchOverpassQuery = async (jsonQuery: string): Promise<any> => {
   return result;
 };
 
+export const fetchOverpassQueryFromNL = async (
+  naturalLanguagePrompt: string
+): Promise<any> => {
+  const response = await axios({
+    method: "GET",
+    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_nl_to_op`,
+    params: {
+      query: naturalLanguagePrompt,
+    },
+  });
+
+  const result = await response.data;
+  return result;
+};
+
 export const countFeaturesByPrefix = (
   featureCollection: FeatureCollection & { features: Array<{ id: string }> }
 ): Record<string, number> => {
