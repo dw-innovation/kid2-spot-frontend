@@ -144,7 +144,7 @@ export const fetchOverpassQueryFromNL = async (
     method: "GET",
     url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_nl_to_op`,
     params: {
-      query: naturalLanguagePrompt,
+      sentence: naturalLanguagePrompt,
     },
   });
 
