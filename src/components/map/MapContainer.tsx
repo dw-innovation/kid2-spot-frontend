@@ -43,10 +43,8 @@ const MapContainer = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
           )}
-          {tilesLayer === "mapTilerVector" && (
-            <VectorTileLayer
-              styleUrl={`https://api.maptiler.com/maps/basic-v2/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
-            />
+          {tilesLayer === "vector" && (
+            <VectorTileLayer styleUrl={`/vectorStyles/style.json`} />
           )}
           {tilesLayer === "mapTilerHybrid" && (
             <VectorTileLayer
