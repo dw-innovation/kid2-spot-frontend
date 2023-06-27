@@ -40,15 +40,13 @@ const Header = () => {
             </Button>
             <Select
               options={[
-                { label: "Maptiler Vector", value: "mapTilerVector" },
+                { label: "Maptiler Vector", value: "vector" },
                 { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
                 { label: "OSM default", value: "osm" },
               ]}
               value={tilesLayer}
               onSelect={({ target: { value } }) =>
-                setTilesLayer(
-                  value as "osm" | "mapTilerVector" | "mapTilerHybrid"
-                )
+                setTilesLayer(value as "osm" | "vector" | "mapTilerHybrid")
               }
             />
             <ViewSwitcher />
