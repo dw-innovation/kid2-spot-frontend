@@ -40,7 +40,7 @@ const Header = () => {
             </Button>
             <Select
               options={[
-                { label: "Maptiler Vector", value: "vector" },
+                { label: "Versatiles Vector", value: "vector" },
                 { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
                 { label: "OSM default", value: "osm" },
               ]}
