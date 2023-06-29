@@ -63,6 +63,7 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
         draft.searchArea = initialData.searchArea;
         draft.areaBuffer = initialData.areaBuffer;
         draft.overpassAPIURL = initialData.overpassAPIURL;
+        draft.naturalLanguagePrompt = initialData.naturalLanguagePrompt;
       })
     );
   },
