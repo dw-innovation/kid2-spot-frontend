@@ -36,14 +36,14 @@ const NatualLanguageSubmitButton = () => {
         {apiStatus === "loading" ? (
           <>
             <LoadingSpinner />
-            loading translation
+            Getting translation
           </>
         ) : (
           <>
             <span className="text-green-600">
               <TriangleIcon size={20} />
             </span>{" "}
-            translate to IMR
+            Get IMR
           </>
         )}
       </div>
