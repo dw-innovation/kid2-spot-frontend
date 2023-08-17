@@ -8,7 +8,7 @@ import { createGoogleMapsEmbedUrl } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import Button from "../Button";
+import { Button } from "../ui/button";
 
 const StreetViewPane = () => {
   const isStreetViewFullscreen = useAppStore(
