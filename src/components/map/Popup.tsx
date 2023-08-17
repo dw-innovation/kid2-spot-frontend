@@ -28,14 +28,14 @@ const Popup = ({ feature }: Props) => {
   };
 
   return (
-    <>
+    <div className="w-36">
       <FeatureInfo feature={feature} />
       {feature.geometry.type === "Point" && (
         <Button onClick={handleClick} className="bg-slate-200">
           view on Google Street View
         </Button>
       )}
-    </>
+    </div>
   );
 };
 
