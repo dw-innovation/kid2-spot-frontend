@@ -53,7 +53,10 @@ export const fetchOSMData = async ({
   var config = {
     method: "post",
     url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
-    body: imrWithArea,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: imrWithArea,
     cancelToken: new axios.CancelToken((cancel) => {
       signal.addEventListener("abort", () => cancel());
     }),
