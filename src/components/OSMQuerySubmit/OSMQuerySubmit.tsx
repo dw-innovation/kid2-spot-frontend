@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import osmtogeojson from "osmtogeojson";
 import React from "react";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
@@ -19,10 +18,9 @@ const OverpassQuerySubmit = () => {
   const handleOverpassQuerySubmit = async () => {
     const results = await fetchData();
 
-    if (results) {
+    if (results.results) {
       clearGeoJSON();
-      let geoJSONResults = osmtogeojson(results);
-      setGeoJSON(geoJSONResults);
+      setGeoJSON(results.results);
     }
   };
 
