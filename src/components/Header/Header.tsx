@@ -4,9 +4,9 @@ import { saveResultsToFile } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
-import Button from "../Button";
 import Select from "../Select";
 import ShareButton from "../ShareButton";
+import { Button } from "../ui/button";
 import ViewSwitcher from "../ViewSwitcher";
 
 const Header = () => {
@@ -17,9 +17,7 @@ const Header = () => {
 
   return (
     <>
-      <h1 className="pb-1 text-2xl font-bold text-white">
-        KID2 Overpass Turbo Prototype
-      </h1>
+      <h1 className="pb-1 text-2xl font-bold">KID2 X Protoype</h1>
       <div className="flex gap-2">
         <div className="flex justify-between flex-1">
           <div className="flex gap-2">

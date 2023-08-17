@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicEditor = dynamic(() => import("./OverpassEditor"), {
+const DynamicEditor = dynamic(() => import("./ImrEditor"), {
   ssr: false,
 });
 

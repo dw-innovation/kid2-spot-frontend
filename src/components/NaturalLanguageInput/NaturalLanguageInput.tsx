@@ -2,6 +2,8 @@ import React from "react";
 
 import useQueryStore from "@/stores/useQueryStore";
 
+import { Textarea } from "../ui/textarea";
+
 const NaturalLanguageInput = () => {
   const naturalLanguagePrompt = useQueryStore(
     (state) => state.naturalLanguagePrompt
@@ -11,10 +13,9 @@ const NaturalLanguageInput = () => {
   );
 
   return (
-    <textarea
+    <Textarea
       value={naturalLanguagePrompt}
       onChange={({ target: { value } }) => setNaturalLanguagePrompt(value)}
-      className="p-2"
       rows={4}
     />
   );

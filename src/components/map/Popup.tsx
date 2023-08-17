@@ -3,7 +3,7 @@ import React from "react";
 
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import Button from "../Button";
+import { Button } from "../ui/button";
 import FeatureInfo from "./FeatureInfo";
 
 type Props = {

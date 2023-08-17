@@ -3,39 +3,33 @@ import React from "react";
 
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { fetchOverpassQueryFromNL } from "@/lib/utils";
+import { fetchImrFromNL } from "@/lib/utils";
 import useQueryStore from "@/stores/useQueryStore";
 
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "../ui/button";
 
 const NatualLanguageSubmitButton = () => {
-  const setOverpassQuery = useQueryStore((state) => state.setOverpassQuery);
+  const setImr = useQueryStore((state) => state.setImr);
   const naturalLanguagePrompt = useQueryStore(
     (state) => state.naturalLanguagePrompt
   );
-  const [apiStatus, fetchData] = useApiStatus(fetchOverpassQueryFromNL);
+  const [apiStatus, fetchData] = useApiStatus(fetchImrFromNL);
 
-  const handleNLToOverpassSubmit = async () => {
+  const handleNLToIMRSubmit = async () => {
     const result = await fetchData(naturalLanguagePrompt);
 
     if (result) {
-      setOverpassQuery(result.op_query);
+      setImr(result.imr);
     } else {
       console.log("no results");
     }
   };
 
   return (
-    <button
-      onClick={handleNLToOverpassSubmit}
-      className={clsx(
-        "block px-2 py-1 w-fit",
-        apiStatus === "loading" && "bg-slate-100",
-        apiStatus === "error" && "bg-red-100",
-        apiStatus !== "loading" &&
-          apiStatus !== "error" &&
-          "bg-slate-100 hover:bg-slate-300"
-      )}
+    <Button
+      onClick={handleNLToIMRSubmit}
+      className={clsx("block px-2 py-1 w-fit")}
       disabled={apiStatus === "loading"}
     >
       <div className="flex items-center gap-2">
@@ -49,11 +43,11 @@ const NatualLanguageSubmitButton = () => {
             <span className="text-green-600">
               <TriangleIcon size={20} />
             </span>{" "}
-            translate to OP query
+            translate to IMR
           </>
         )}
       </div>
-    </button>
+    </Button>
   );
 };
 

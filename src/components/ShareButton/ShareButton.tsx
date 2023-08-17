@@ -7,8 +7,8 @@ import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import Button from "../Button";
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "../ui/button";
 
 const ShareButton = () => {
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
@@ -24,6 +24,7 @@ const ShareButton = () => {
     <Button
       onClick={() => triggerSaveData()}
       className="flex items-center gap-2"
+      variant={"secondary"}
     >
       share session
       {apiStatus === "loading" && <LoadingSpinner />}

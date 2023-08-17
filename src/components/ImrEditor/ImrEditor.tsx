@@ -1,27 +1,26 @@
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";
-import "./overpass-mode";
 
 import React from "react";
 import AceEditor from "react-ace";
 
 import useQueryStore from "@/stores/useQueryStore";
 
-const OverpassEditor = () => {
-  const overpassQuery = useQueryStore((state) => state.overpassQuery);
-  const setOverpassQuery = useQueryStore((state) => state.setOverpassQuery);
+const ImrEditor = () => {
+  const imr = useQueryStore((state) => state.imr);
+  const setImr = useQueryStore((state) => state.setImr);
   const onChange = (newValue: any) => {
-    setOverpassQuery(newValue);
+    setImr(newValue);
   };
 
   return (
     <AceEditor
-      value={overpassQuery}
-      mode="overpass"
+      value={imr}
+      mode="json"
       theme="xcode"
       onChange={onChange}
-      name="overpass-editor"
+      name="imr-editor"
       editorProps={{ $blockScrolling: true }}
       setOptions={{
         enableBasicAutocompletion: true,
@@ -33,4 +32,4 @@ const OverpassEditor = () => {
   );
 };
 
-export default OverpassEditor;
+export default ImrEditor;

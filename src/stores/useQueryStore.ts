@@ -5,7 +5,7 @@ import QueryStoreInterface from "./interfaces/QueryStore.interface";
 
 const useQueryStore = create<QueryStoreInterface>((set) => ({
   naturalLanguagePrompt:
-    "Find all cafés that are no more than 200m from a subway entrance",
+    "Find all cafés that are no more than 200m from a subway entrance.",
   setNaturalLanguagePrompt: (naturalLanguagePrompt: string) => {
     set(
       produce((draft) => {
@@ -13,21 +13,11 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  jsonQuery:
-    '{\n	"nodes": [{\n			"name": "bbox",\n			"type": "area"\n		},\n		{\n			"name": "kiosk",\n			"type": "object",\n			"props": ["shop=kiosk"]\n		},\n		{\n			"name": "pharmacy",\n			"type": "object",\n			"props": ["amenity=pharmacy"]\n		},\n		{\n			"name": "hospital",\n			"type": "object",\n			"props": ["amenity=hospital", "material=wooden"]\n		}\n	],\n	"relations": [{\n			"from": "0",\n			"to": "1",\n			"weight": 10\n		},\n		{\n			"from": "1",\n			"to": "2",\n			"weight": 20\n		},\n		{\n			"from": "2",\n			"to": "3",\n			"weight": 40\n		}\n	],\n	"action": "search_within"\n}',
-  setJsonQuery: (jsonQuery: any) => {
+  imr: '{\n  "a": {\n    "t": "bbox"\n  },\n  "ns": [\n    {\n      "id": 1,\n      "t": "nwr",\n      "n": "cafes",\n      "flts": [\n        {\n          "k": "amenity",\n          "v": "cafe",\n          "op": "=",\n          "n": "cafe"\n        }\n      ]\n    },\n    {\n      "id": 2,\n      "t": "nwr",\n      "n": "subwayEntrances",\n      "flts": [\n        {\n          "k": "raildway",\n          "v": "subway_entrance",\n          "op": "=",\n          "n": "subwayEntrances"\n        }\n      ]\n    }\n  ],\n  "es": [\n    {\n      "src": 1,\n      "tgt": 2,\n      "t": "dist",\n      "dist": "200m"\n    }\n  ]\n}\n',
+  setImr: (imr: any) => {
     set(
       produce((draft) => {
-        draft.jsonQuery = jsonQuery;
-      })
-    );
-  },
-  overpassQuery:
-    '// find all cafés that are no more than 200m from a subway entrance\n\n[out:json][timeout:250];\n\nnode({{bbox}})["railway"="subway_entrance"]->.subway_entrances;\nnode(around.subway_entrances:200)["amenity"="cafe"];\n\nout geom;',
-  setOverpassQuery: (overpassQuery: string) => {
-    set(
-      produce((draft) => {
-        draft.overpassQuery = overpassQuery;
+        draft.imr = imr;
       })
     );
   },
@@ -47,23 +37,13 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  overpassAPIURL: "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
-  setOverpassAPIURL: (overpassAPIURL: string) => {
-    set(
-      produce((draft) => {
-        draft.overpassAPIURL = overpassAPIURL;
-      })
-    );
-  },
   initialize: (initialData: any) => {
     set(
       produce((draft) => {
-        draft.jsonQuery = initialData.jsonQuery;
-        draft.overpassQuery = initialData.overpassQuery;
+        draft.imr = initialData.imr;
+        draft.naturalLanguagePrompt = initialData.naturalLanguagePrompt;
         draft.searchArea = initialData.searchArea;
         draft.areaBuffer = initialData.areaBuffer;
-        draft.overpassAPIURL = initialData.overpassAPIURL;
-        draft.naturalLanguagePrompt = initialData.naturalLanguagePrompt;
       })
     );
   },

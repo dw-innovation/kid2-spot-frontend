@@ -42,21 +42,18 @@ const substituteAreaInQuery = (query: string): string => {
   return query.replaceAll("{{bbox}}", area);
 };
 
-export const fetchOverpassApiData = async ({
+export const fetchOSMData = async ({
   signal,
 }: {
   signal: AbortSignal;
 }): Promise<any> => {
-  let overpassQuery = useQueryStore.getState().overpassQuery;
-  let overpassAPIURL = useQueryStore.getState().overpassAPIURL;
-  let overpassQueryWithArea = substituteAreaInQuery(overpassQuery);
+  let imr = useQueryStore.getState().imr;
+  let imrWithArea = substituteAreaInQuery(imr);
 
   var config = {
-    method: "get",
-    url: overpassAPIURL,
-    params: {
-      data: overpassQueryWithArea,
-    },
+    method: "post",
+    url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
+    body: imrWithArea,
     cancelToken: new axios.CancelToken((cancel) => {
       signal.addEventListener("abort", () => cancel());
     }),
@@ -107,11 +104,11 @@ export const saveResultsToFile = () => {
 };
 
 export const saveQueryToFile = () => {
-  let overpassQuery = useQueryStore.getState().overpassQuery;
-  const blob = new Blob([overpassQuery], { type: "text/plain" });
+  let imr = useQueryStore.getState().imr;
+  const blob = new Blob([imr], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.download = "overpassQuery.txt";
+  link.download = "imr.txt";
   link.href = url;
   link.click();
 };
@@ -130,25 +127,12 @@ export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {
   return url;
 };
 
-export const fetchOverpassQuery = async (jsonQuery: string): Promise<any> => {
-  if (!jsonQuery || !JSON.parse(jsonQuery)) return;
-
-  const response = await axios({
-    method: "POST",
-    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_dict_to_op`,
-    data: JSON.parse(jsonQuery),
-  });
-
-  const result = await response.data;
-  return result;
-};
-
-export const fetchOverpassQueryFromNL = async (
+export const fetchImrFromNL = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
   const response = await axios({
     method: "GET",
-    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_nl_to_op`,
+    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_nl_to_imr`,
     params: {
       sentence: naturalLanguagePrompt,
     },

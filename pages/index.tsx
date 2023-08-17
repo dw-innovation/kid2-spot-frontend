@@ -2,17 +2,15 @@ import { Allotment } from "allotment";
 import clsx from "clsx";
 import React from "react";
 
-import Button from "@/components/Button";
 import Header from "@/components/Header";
+import DynamicImrEditor from "@/components/ImrEditor";
 import DynamicMap from "@/components/map";
 import NaturalLanguageInput from "@/components/NaturalLanguageInput";
 import NatualLanguageSubmitButton from "@/components/NaturalLanguageInput/NatualLanguageSubmitButton";
-import DynamicOverpassEditor from "@/components/OverpassEditor";
-import OverpassQuerySubmit from "@/components/OverpassQuerySubmit";
+import OSMQuerySubmit from "@/components/OSMQuerySubmit";
 import QueryAreaSelector from "@/components/QueryAreaSelector";
 import DynamicResultsViewer from "@/components/ResultsViewer";
 import StreetViewPane from "@/components/StreetViewPane";
-import { saveQueryToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
@@ -21,7 +19,7 @@ const IndexPage = () => {
   const showStreetView = useStreetViewStore((state) => state.showStreetView);
 
   return (
-    <main className="flex flex-col h-screen max-h-screen p-2 bg-slate-700">
+    <main className="flex flex-col h-screen max-h-screen p-2">
       <div className="pb-3">
         <Header />
       </div>
@@ -37,15 +35,12 @@ const IndexPage = () => {
             <Allotment.Pane>
               <div className="flex flex-col h-full gap-1">
                 <div className="flex-1">
-                  <DynamicOverpassEditor />
+                  <DynamicImrEditor />
                 </div>
                 <div className="flex flex-col gap-2">
                   <QueryAreaSelector />
                   <div className="flex gap-2">
-                    <OverpassQuerySubmit />
-                    <Button onClick={() => saveQueryToFile()}>
-                      export query
-                    </Button>
+                    <OSMQuerySubmit />
                   </div>
                 </div>
               </div>

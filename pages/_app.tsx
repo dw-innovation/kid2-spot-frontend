@@ -11,8 +11,8 @@ import { ToastContainer } from "react-toastify";
 const App = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>KID2 Overpass Turbo Prototype</title>
-      <meta name="description" content="KID2 Overpass Turbo Prototype" />
+      <title>KID2 X</title>
+      <meta name="description" content="KID2 X" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
     <ToastContainer
