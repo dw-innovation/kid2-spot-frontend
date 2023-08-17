@@ -1,4 +1,4 @@
-# KID2 xX Frontend
+# KID2 Spot Frontend
 
 This application is a web-based natural language interface querying OSM data. It allows users to submit natural language prompts for locations then query and displays the results on a map.
 
