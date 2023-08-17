@@ -28,13 +28,13 @@ const Header = () => {
               onClick={() => clearGeoJSON()}
               disabled={geoJSON ? false : true}
             >
-              clear results
+              Clear Results
             </Button>
             <Button
               onClick={() => saveResultsToFile()}
               disabled={geoJSON ? false : true}
             >
-              export results
+              Export Results
             </Button>
             <Select
               options={[

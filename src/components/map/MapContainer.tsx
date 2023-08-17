@@ -5,7 +5,6 @@ import VectorTileLayer from "react-leaflet-vector-tile-layer";
 import AddressSearchBox from "@/components/addressSearch";
 import useMapStore from "@/stores/useMapStore";
 
-import FeaturesCounter from "../FeaturesCounter";
 import PolygonBuffer from "./CustomSearchArea/CustomSearchAreaBuffer";
 import PolygonDrawer from "./CustomSearchArea/CustomSearchAreaDrawer";
 import PolygonOutsideAlert from "./CustomSearchArea/CustomSearchAreaOutsideAlert";
@@ -57,7 +56,6 @@ const MapContainer = () => {
           <PolygonDrawer />
           <PolygonBuffer />
           <GeoJSONResults />
-          <FeaturesCounter />
         </LeafletMapContainer>
       </div>
     </>

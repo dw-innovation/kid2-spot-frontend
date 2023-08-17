@@ -26,7 +26,7 @@ const ShareButton = () => {
       className="flex items-center gap-2"
       variant={"secondary"}
     >
-      share session
+      Share Session
       {apiStatus === "loading" && <LoadingSpinner />}
     </Button>
   );

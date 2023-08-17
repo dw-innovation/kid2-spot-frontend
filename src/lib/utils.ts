@@ -1,6 +1,5 @@
 import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
-import { FeatureCollection } from "geojson";
 import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
@@ -143,31 +142,6 @@ export const fetchImrFromNL = async (
 
   const result = await response.data;
   return result;
-};
-
-export const countFeaturesByPrefix = (
-  featureCollection: FeatureCollection & { features: Array<{ id: string }> }
-): Record<string, number> => {
-  const counts: Record<string, number> = {
-    nodes: 0,
-    ways: 0,
-    relations: 0,
-  };
-  if (!featureCollection) return counts;
-
-  featureCollection.features.forEach(({ id }: { id: string }) => {
-    const idPrefix = id.split("/")[0];
-
-    if (idPrefix === "node") {
-      counts.nodes++;
-    } else if (idPrefix === "way") {
-      counts.ways++;
-    } else if (idPrefix === "relation") {
-      counts.relations++;
-    }
-  });
-
-  return counts;
 };
 
 export const checkInputType = (input: string): "address" | "coordinates" => {
