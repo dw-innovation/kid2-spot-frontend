@@ -8,4 +8,5 @@ export default interface QueryStoreInterface {
   imr: any;
   setImr: (imr: any) => void;
   initialize: (initialData: any) => void;
+  setImrValue: (path: string, value: any) => void;
 }

@@ -1,4 +1,5 @@
 import produce from "immer";
+import { set as lodashSet } from "lodash";
 import { create } from "zustand";
 
 import QueryStoreInterface from "./interfaces/QueryStore.interface";
@@ -13,13 +14,18 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  imr: '{\n  "a": {\n    "t": "bbox",\n    "v": [13.129005, 52.424826, 13.648109, 52.581357]\n  },\n  "ns": [\n    {\n      "id": 1,\n      "t": "nwr",\n      "n": "cafes",\n      "flts": [\n        {\n          "k": "amenity",\n          "v": "cafe",\n          "op": "=",\n          "n": "cafe"\n        }\n      ]\n    },\n    {\n      "id": 2,\n      "t": "nwr",\n      "n": "subwayEntrances",\n      "flts": [\n        {\n          "k": "railway",\n          "v": "subway_entrance",\n          "op": "=",\n          "n": "subwayEntrances"\n        }\n      ]\n    }\n  ],\n  "es": [\n    {\n      "src": 1,\n      "tgt": 2,\n      "t": "dist",\n      "dist": "50m"\n    }\n  ]\n}\n',
+  imr: '{\n  "a": {\n    "t": "area",\n    "v": "Bonn"\n  },\n  "ns": [\n    {\n      "id": 1,\n      "t": "nwr",\n      "n": "cafes",\n      "flts": [\n        {\n          "k": "amenity",\n          "v": "cafe",\n          "op": "=",\n          "n": "cafe"\n        }\n      ]\n    },\n    {\n      "id": 2,\n      "t": "nwr",\n      "n": "subwayEntrances",\n      "flts": [\n        {\n          "k": "railway",\n          "v": "subway_entrance",\n          "op": "=",\n          "n": "subwayEntrances"\n        }\n      ]\n    }\n  ],\n  "es": [\n    {\n      "src": 1,\n      "tgt": 2,\n      "t": "dist",\n      "dist": "50m"\n    }\n  ]\n}\n',
   setImr: (imr: any) => {
     set(
       produce((draft) => {
         draft.imr = imr;
       })
     );
+  },
+  setImrValue: (path: string, value: any) => {
+    produce((draft) => {
+      lodashSet(draft, path, value);
+    });
   },
   searchArea: "bbox",
   setSearchArea: (searchArea: "bbox" | "polygon") => {
