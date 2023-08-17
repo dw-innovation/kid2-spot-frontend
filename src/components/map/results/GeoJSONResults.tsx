@@ -3,6 +3,7 @@ import React, { FC, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps } from "react-leaflet";
 
+import { FILL_COLORS } from "@/lib/const";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Popup from "../Popup";
@@ -11,16 +12,18 @@ type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
 
   const pointToLayer = (
     _: GeoJSON.Feature<GeoJSON.Point>,
     latlng: L.LatLng
   ) => {
+    let setIndex = sets.findIndex((set) => set === _.properties?.setname);
     const markerOptions: L.CircleMarkerOptions = {
       radius: 8,
-      fillColor: "#ff7800",
-      color: "#000",
+      fillColor: FILL_COLORS[setIndex],
+      color: "#fff",
       weight: 1,
       opacity: 1,
       fillOpacity: 0.8,

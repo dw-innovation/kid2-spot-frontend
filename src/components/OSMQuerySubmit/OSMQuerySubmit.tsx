@@ -11,7 +11,9 @@ import { Button } from "../ui/button";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
+  const setSets = useResultsStore((state) => state.setSets);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
+  const clearSets = useResultsStore((state) => state.clearSets);
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
 
@@ -20,7 +22,9 @@ const OverpassQuerySubmit = () => {
 
     if (results.results) {
       clearGeoJSON();
+      clearSets();
       setGeoJSON(results.results);
+      setSets(results.sets.distinct_sets);
     }
   };
 

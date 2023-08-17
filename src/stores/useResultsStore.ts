@@ -20,6 +20,21 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       })
     );
   },
+  sets: [],
+  setSets: (sets: string[]) => {
+    set(
+      produce((draft) => {
+        draft.sets = sets;
+      })
+    );
+  },
+  clearSets: () => {
+    set(
+      produce((draft) => {
+        draft.sets = [];
+      })
+    );
+  },
 }));
 
 export default useResultsStore;

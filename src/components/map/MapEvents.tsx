@@ -3,12 +3,16 @@ import { useMap } from "react-leaflet";
 
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
+import useQueryStore from "@/stores/useQueryStore";
 
 const MapEvents = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
   const view = useAppStore((state) => state.view);
+  const searchArea = useQueryStore((state) => state.searchArea);
+  const setImrValue = useQueryStore((state) => state.setImrValue);
+  const imr = useQueryStore((state) => state.imr);
 
   const map = useMap();
 
@@ -16,17 +20,17 @@ const MapEvents = () => {
 
   const updateBounds = useCallback(() => {
     if (view !== "map") return;
-    const bounds = map.getBounds();
+    const mapBounds = map.getBounds();
 
     if (
-      bounds.getSouthWest().lat === bounds.getNorthEast().lat ||
-      bounds.getSouthWest().lng === bounds.getNorthEast().lng
+      mapBounds.getSouthWest().lat === mapBounds.getNorthEast().lat ||
+      mapBounds.getSouthWest().lng === mapBounds.getNorthEast().lng
     )
       return;
 
     setBounds([
-      [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
-      [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
+      [mapBounds.getSouthWest().lat, mapBounds.getSouthWest().lng],
+      [mapBounds.getNorthEast().lat, mapBounds.getNorthEast().lng],
     ]);
   }, [map, setBounds, view]);
 
@@ -55,6 +59,21 @@ const MapEvents = () => {
       map.flyToBounds(bounds);
     }
   }, [bounds, map, view]);
+
+  useEffect(() => {
+    if (searchArea === "bbox") {
+      try {
+        console.log("here");
+        setImrValue("a.v", bounds);
+      } catch (e) {
+        console.error("FEHLER");
+      }
+    }
+  }, [bounds]);
+
+  useEffect(() => {
+    console.log(imr);
+  }, [imr]);
 
   return null;
 };
