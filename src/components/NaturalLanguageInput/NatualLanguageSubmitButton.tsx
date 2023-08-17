@@ -30,7 +30,7 @@ const NatualLanguageSubmitButton = () => {
     <Button
       onClick={handleNLToIMRSubmit}
       className={clsx("block px-2 py-1 w-fit")}
-      disabled={apiStatus === "loading"}
+      disabled={true}
     >
       <div className="flex items-center gap-2">
         {apiStatus === "loading" ? (
