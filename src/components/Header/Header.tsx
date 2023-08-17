@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <>
-      <h1 className="pb-1 text-2xl font-bold">KID2 X Protoype</h1>
+      <h1 className="pb-1 text-2xl font-bold">KID2 X Prototype</h1>
       <div className="flex gap-2">
         <div className="flex justify-between flex-1">
           <div className="flex gap-2">
