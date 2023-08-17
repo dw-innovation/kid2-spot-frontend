@@ -16,7 +16,8 @@ const NaturalLanguageInput = () => {
     <Textarea
       value={naturalLanguagePrompt}
       onChange={({ target: { value } }) => setNaturalLanguagePrompt(value)}
-      rows={4}
+      rows={2}
+      className="text-xl shadow-lg"
     />
   );
 };

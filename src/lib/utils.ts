@@ -162,3 +162,9 @@ export const checkInputType = (input: string): "address" | "coordinates" => {
 
   return "address";
 };
+
+export const injectArea = (imr: any): any => {
+  if (imr.a.type === "bbox" || imr.a.type === "polygon") {
+    return imr;
+  }
+};

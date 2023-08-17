@@ -1,3 +1,4 @@
+import { DownloadIcon, TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import { saveResultsToFile } from "@/lib/utils";
@@ -17,24 +18,26 @@ const Header = () => {
 
   return (
     <>
-      <h1 className="pb-1 text-2xl font-bold">KID2 Spot Prototype</h1>
       <div className="flex gap-2">
-        <div className="flex justify-between flex-1">
+        <div className="flex items-center justify-between flex-1">
+          <h1 className="pb-1 text-2xl font-bold">KID2 Spot Prototype</h1>
           <div className="flex gap-2">
             <ShareButton />
-          </div>
-          <div className="flex gap-2">
             <Button
               onClick={() => clearGeoJSON()}
               disabled={geoJSON ? false : true}
+              variant={"secondary"}
             >
+              <TrashIcon />
               Clear Results
             </Button>
             <Button
               onClick={() => saveResultsToFile()}
               disabled={geoJSON ? false : true}
+              variant={"secondary"}
             >
-              Export Results
+              <DownloadIcon />
+              Download Results
             </Button>
             <Select
               options={[
@@ -43,7 +46,7 @@ const Header = () => {
                 { label: "OSM default", value: "osm" },
               ]}
               value={tilesLayer}
-              onSelect={({ target: { value } }) =>
+              onSelect={(value) =>
                 setTilesLayer(value as "osm" | "vector" | "mapTilerHybrid")
               }
             />

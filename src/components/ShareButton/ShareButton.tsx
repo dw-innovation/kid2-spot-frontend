@@ -1,3 +1,4 @@
+import { Share1Icon } from "@radix-ui/react-icons";
 import React from "react";
 
 import useApiStatus from "@/lib/hooks/useApiStatus";
@@ -21,13 +22,9 @@ const ShareButton = () => {
   );
 
   return (
-    <Button
-      onClick={() => triggerSaveData()}
-      className="flex items-center gap-2"
-      variant={"secondary"}
-    >
+    <Button onClick={() => triggerSaveData()} variant={"secondary"}>
+      {apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />}
       Share Session
-      {apiStatus === "loading" && <LoadingSpinner />}
     </Button>
   );
 };

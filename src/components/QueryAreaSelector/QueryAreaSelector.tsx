@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useQueryStore from "@/stores/useQueryStore";
 
+import Select from "../Select";
+
 const QueryAreaSelector = () => {
   const [polygonOptionDisabled, setPolygonOptionDisabled] = useState(false);
   const customSearchArea = useCustomSearchAreaStore(
@@ -16,7 +18,7 @@ const QueryAreaSelector = () => {
     (state) => state.setSearchAreaBuffer
   );
 
-  const { register, setValue } = useForm();
+  const { setValue } = useForm();
 
   useEffect(() => {
     if (customSearchArea.length <= 2) {
@@ -30,20 +32,23 @@ const QueryAreaSelector = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-white">Search area:</span>
-      <select
-        className="p-1"
-        {...register("searchAreaInput", {
-          onChange: (e) => setSearchArea(e.target.value),
-        })}
-      >
-        <option value="bbox">Bounding Box</option>
-        <option value="polygon" disabled={polygonOptionDisabled}>
-          Polygon
-        </option>
-      </select>
+      <span>Search area:</span>
+      <Select
+        onSelect={(v) => {
+          setSearchArea(v as "bbox" | "polygon");
+        }}
+        options={[
+          { label: "Bounding Box", value: "bbox" },
+          {
+            label: "Polygon",
+            value: "polygon",
+            disabled: polygonOptionDisabled,
+          },
+        ]}
+        value={searchArea}
+      />
       {searchArea === "polygon" && (
-        <span className="text-white">
+        <span>
           add buffer of{" "}
           <input
             value={searchAreaBuffer}

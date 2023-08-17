@@ -3,6 +3,8 @@ import React from "react";
 
 import useAppStore from "@/stores/useAppStore";
 
+import { Button } from "../ui/button";
+
 const ViewSwitcher = () => {
   const view = useAppStore((state) => state.view);
   const setView = useAppStore((state) => state.setView);
@@ -21,17 +23,14 @@ const ViewSwitcher = () => {
   return (
     <div className="flex">
       {VIEWS.map((item, index) => (
-        <button
+        <Button
           key={index}
           onClick={() => setView(item.name)}
           disabled={view === item.name}
-          className={clsx(
-            " p-2 hover:bg-slate-200 leading-none",
-            view === item.name ? "bg-slate-200" : "bg-white"
-          )}
+          className={clsx("p-2 hover:bg-slate-200 leading-none")}
         >
           {item.label}
-        </button>
+        </Button>
       ))}
     </div>
   );
