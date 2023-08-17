@@ -1,12 +1,18 @@
 import axios from "axios";
+import { type ClassValue, clsx } from "clsx";
 import { FeatureCollection } from "geojson";
 import { LatLngLiteral } from "leaflet";
+import { twMerge } from "tailwind-merge";
 
 import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
+
+export const cn = (...inputs: ClassValue[]) => {
+  return twMerge(clsx(inputs));
+};
 
 const substituteAreaInQuery = (query: string): string => {
   const searchArea = useQueryStore.getState().searchArea;

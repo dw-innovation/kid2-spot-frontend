@@ -27,7 +27,7 @@ const MapContainer = () => {
         <LeafletMapContainer
           zoom={mapZoom}
           scrollWheelZoom={true}
-          className="cursor-crosshair"
+          className="w-full h-full cursor-crosshair"
           bounds={bounds}
         >
           <div className="absolute top-0 right-0 z-[9999] mt-2 mr-2 flex text-base font-sans items-start">
