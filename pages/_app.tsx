@@ -11,8 +11,8 @@ import { ToastContainer } from "react-toastify";
 const App = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>KID2 X</title>
-      <meta name="description" content="KID2 X" />
+      <title>Spot – Geospatial searches in OSM</title>
+      <meta name="description" content="Spot – Geospatial searches in OSM" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
     <ToastContainer
