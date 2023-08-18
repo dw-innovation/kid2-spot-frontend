@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 const [AUTH_USER, AUTH_PASS] = (process.env.HTTP_BASIC_AUTH || ":").split(":");
 
-// Step 1. HTTP Basic Auth Middleware for Challenge
 export function middleware(req: NextRequest) {
   if (!isAuthenticated(req)) {
     return new NextResponse("Authentication required", {
@@ -15,7 +14,6 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// Step 2. Check HTTP Basic Auth header if present
 function isAuthenticated(req: NextRequest) {
   const authheader =
     req.headers.get("authorization") || req.headers.get("Authorization");
@@ -36,8 +34,3 @@ function isAuthenticated(req: NextRequest) {
     return false;
   }
 }
-
-// Step 3. Configure "Matching Paths" below to protect routes with HTTP Basic Auth
-export const config = {
-  matcher: "/some/admin/page/:path*",
-};
