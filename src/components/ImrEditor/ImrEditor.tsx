@@ -1,4 +1,5 @@
 import "ace-builds/src-noconflict/ace";
+import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";
 
