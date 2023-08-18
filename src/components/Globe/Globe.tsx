@@ -20,20 +20,18 @@ const Globe = () => {
     const currentCanvas = canvasRef.current;
     if (!currentCanvas) return;
 
+    let phi = 0;
     let width = 0;
-
-    const onResize = () =>
-      canvasRef.current && (width = canvasRef.current.offsetWidth);
+    const onResize = () => currentCanvas && (width = currentCanvas.offsetWidth);
     window.addEventListener("resize", onResize);
     onResize();
-
     const globe = createGlobe(currentCanvas, {
       devicePixelRatio: 2,
       width: width * 2,
       height: width * 2,
       phi: 0,
       theta: 0.3,
-      dark: 0,
+      dark: 1,
       diffuse: 3,
       mapSamples: 16000,
       mapBrightness: 1.2,
@@ -42,13 +40,18 @@ const Globe = () => {
       glowColor: [1.2, 1.2, 1.2],
       markers: [],
       onRender: (state) => {
-        state.phi = r.get();
+        // This prevents rotation while dragging
+        if (!pointerInteracting.current) {
+          // Called on every animation frame.
+          // `state` will be an empty object, return updated params.
+          phi += 0.01;
+        }
+        state.phi = phi + r.get();
         state.width = width * 2;
         state.height = width * 2;
       },
     });
-    setTimeout(() => (currentCanvas.style.opacity = "0.8"));
-
+    setTimeout(() => (currentCanvas.style.opacity = "1"));
     return () => globe.destroy();
   }, [r]);
 
