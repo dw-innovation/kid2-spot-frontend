@@ -36,7 +36,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const resetPreviousLayerStyle = () => {
     if (previousClickedLayer.current) {
       previousClickedLayer.current.setStyle({
-        color: "#3388ff",
+        color: "#fff",
       });
     }
   };
