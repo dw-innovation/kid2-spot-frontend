@@ -89,8 +89,8 @@ const StartScreen = () => {
   });
 
   return (
-    <div className="flex items-center justify-center w-full h-full ">
-      <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
+    <div className="flex items-center justify-center w-full h-full overflow-hidden">
+      <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full overflow-hidden">
         <Globe scaleProps={scaleProps} />
       </div>
       <animated.div
