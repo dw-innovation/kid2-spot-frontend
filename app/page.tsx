@@ -4,7 +4,7 @@ import React from "react";
 import StartScreenInterfaceSwitch from "@/components/StartScreenInterfaceSwitch";
 
 export const metadata: Metadata = {
-  title: "Spot – Geospatial Search OSM data",
+  title: "Spot – Search the world with your words",
 };
 
 const Page = () => (

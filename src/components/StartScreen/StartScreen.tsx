@@ -75,7 +75,7 @@ const StartScreen = () => {
       </div>
       <div className="relative z-50 flex flex-col gap-2">
         <h1 className="pb-1 text-2xl font-bold text-center">
-          Spot – Geospatial OSM Search
+          Spot – Search the world with your words
         </h1>
 
         <Textarea
