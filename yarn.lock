@@ -5282,6 +5282,13 @@ react-hook-form@^7.43.6:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.45.4.tgz#73d228b704026ae95d7e5f7b207a681b173ec62a"
   integrity sha512-HGDV1JOOBPZj10LB3+OZgfDBTn+IeEsNOKiq/cxbQAIbKaiJUe/KV8DBUzsx0Gx/7IG/orWqRRm736JwOfUSWQ==
 
+react-input-hints@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-input-hints/-/react-input-hints-3.0.0.tgz#5188610ec7a9deb4ddb394b2212af1a43719dd05"
+  integrity sha512-+jxvvGeqrnhyleE4ujRSFx7losloMJ3j7QD7dPj3rhT95cwuq2ZOAcVsEyi8I8yXwDMzT4C/JBmBTQ0F/B6rvQ==
+  dependencies:
+    react-typewriting "~1"
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -5375,6 +5382,11 @@ react-toastify@^9.1.2:
   integrity sha512-fPfb8ghtn/XMxw3LkxQBk3IyagNpF/LIKjOBflbexr2AWxAH1MJgvnESwEwBn9liLFXgTKWgBSdZpw9m4OTHTg==
   dependencies:
     clsx "^1.1.1"
+
+react-typewriting@~1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-typewriting/-/react-typewriting-1.1.1.tgz#0cfb28f58720a0be44a319113896cd487d4248a1"
+  integrity sha512-DrbV5yKnMtwLNikd7K6kExhB2lWTrfrVFMtDmW5GiGI4cMfQStDQeFtB+4GCIkAR2sUTHLM42umF8DhumviUbg==
 
 react@^18.2.0:
   version "18.2.0"

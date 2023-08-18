@@ -4,6 +4,15 @@ import { create } from "zustand";
 import AppStoreInterface from "./interfaces/AppStore.interface";
 
 const useAppStore = create<AppStoreInterface>((set) => ({
+  isStartScreenVisible: true,
+  toggleStartScreen: (state?: boolean) => {
+    set(
+      produce((draft) => {
+        draft.isStartScreenVisible =
+          typeof state === "undefined" ? !draft.isStartScreenVisible : state;
+      })
+    );
+  },
   view: "map",
   setView: (view: "map" | "data") => {
     set(

@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 
-import Header from "@/components/Header";
-import Interface from "@/components/Interface";
+import StartScreenInterfaceSwitch from "@/components/StartScreenInterfaceSwitch";
 
 export const metadata: Metadata = {
   title: "Spot – Geospatial Search OSM data",
@@ -10,10 +9,7 @@ export const metadata: Metadata = {
 
 const Page = () => (
   <main className="flex flex-col h-screen max-h-screen p-2">
-    <div className="pb-3">
-      <Header />
-    </div>
-    <Interface />
+    <StartScreenInterfaceSwitch />
   </main>
 );
 

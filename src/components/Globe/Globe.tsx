@@ -1,3 +1,5 @@
+"use client";
+
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 import { useSpring } from "react-spring";
@@ -16,6 +18,7 @@ const Globe = () => {
       precision: 0.001,
     },
   }));
+
   useEffect(() => {
     const currentCanvas = canvasRef.current;
     if (!currentCanvas) return;
@@ -31,7 +34,7 @@ const Globe = () => {
       height: width * 2,
       phi: 0,
       theta: 0.3,
-      dark: 1,
+      dark: 0,
       diffuse: 3,
       mapSamples: 16000,
       mapBrightness: 1.2,
@@ -40,18 +43,15 @@ const Globe = () => {
       glowColor: [1.2, 1.2, 1.2],
       markers: [],
       onRender: (state) => {
-        // This prevents rotation while dragging
         if (!pointerInteracting.current) {
-          // Called on every animation frame.
-          // `state` will be an empty object, return updated params.
-          phi += 0.01;
+          phi += 0.005;
         }
         state.phi = phi + r.get();
         state.width = width * 2;
         state.height = width * 2;
       },
     });
-    setTimeout(() => (currentCanvas.style.opacity = "1"));
+    setTimeout(() => (currentCanvas.style.opacity = "0.6"));
     return () => globe.destroy();
   }, [r]);
 

@@ -5,8 +5,7 @@ import { create } from "zustand";
 import QueryStoreInterface from "./interfaces/QueryStore.interface";
 
 const useQueryStore = create<QueryStoreInterface>((set) => ({
-  naturalLanguagePrompt:
-    "Find all cafés that are no more than 50m from a subway entrance.",
+  naturalLanguagePrompt: "",
   setNaturalLanguagePrompt: (naturalLanguagePrompt: string) => {
     set(
       produce((draft) => {

@@ -7,4 +7,6 @@ export default interface AppStoreInterface {
   }) => void;
   isStreetViewFullscreen: boolean;
   toggleStreetViewFullscreen: (state?: boolean) => void;
+  isStartScreenVisible: boolean;
+  toggleStartScreen: (state?: boolean) => void;
 }

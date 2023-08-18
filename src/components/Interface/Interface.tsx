@@ -15,51 +15,58 @@ import StreetViewPane from "@/components/StreetViewPane";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
+import Header from "../Header";
+
 const Interface = () => {
   const view = useAppStore((state) => state.view);
   const showStreetView = useStreetViewStore((state) => state.showStreetView);
   return (
-    <Allotment>
-      <Allotment.Pane className="pr-1">
-        <Allotment vertical>
-          <Allotment.Pane className="pb-2">
-            <div className="flex flex-col h-full gap-1">
-              <NaturalLanguageInput />
-              <NatualLanguageSubmitButton />
-            </div>
-          </Allotment.Pane>
-          <Allotment.Pane>
-            <div className="flex flex-col h-full gap-1">
-              <div className="flex-1">
-                <DynamicImrEditor />
+    <>
+      <div className="pb-3">
+        <Header />
+      </div>
+      <Allotment>
+        <Allotment.Pane className="pr-1">
+          <Allotment vertical>
+            <Allotment.Pane className="pb-2">
+              <div className="flex flex-col h-full gap-1">
+                <NaturalLanguageInput />
+                <NatualLanguageSubmitButton />
               </div>
-              <div className="flex flex-col gap-2">
-                <QueryAreaSelector />
-                <div className="flex gap-2">
-                  <OSMQuerySubmit />
+            </Allotment.Pane>
+            <Allotment.Pane>
+              <div className="flex flex-col h-full gap-1">
+                <div className="flex-1">
+                  <DynamicImrEditor />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <QueryAreaSelector />
+                  <div className="flex gap-2">
+                    <OSMQuerySubmit />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Allotment.Pane>
-        </Allotment>
-      </Allotment.Pane>
+            </Allotment.Pane>
+          </Allotment>
+        </Allotment.Pane>
 
-      <Allotment.Pane className="pl-1">
-        <Allotment vertical>
-          <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
-            {view === "map" && <DynamicMap />}
-            {view === "data" && <DynamicResultsViewer />}
-          </Allotment.Pane>
-          <Allotment.Pane
-            className="pt-1"
-            visible={showStreetView}
-            minSize={20}
-          >
-            {showStreetView && <StreetViewPane />}
-          </Allotment.Pane>
-        </Allotment>
-      </Allotment.Pane>
-    </Allotment>
+        <Allotment.Pane className="pl-1">
+          <Allotment vertical>
+            <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
+              {view === "map" && <DynamicMap />}
+              {view === "data" && <DynamicResultsViewer />}
+            </Allotment.Pane>
+            <Allotment.Pane
+              className="pt-1"
+              visible={showStreetView}
+              minSize={20}
+            >
+              {showStreetView && <StreetViewPane />}
+            </Allotment.Pane>
+          </Allotment>
+        </Allotment.Pane>
+      </Allotment>
+    </>
   );
 };
 
