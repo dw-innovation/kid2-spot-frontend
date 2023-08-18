@@ -1,17 +1,19 @@
 "use client";
 
+import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const SessionInitializer = ({ data }: any) => {
+  const toggleStartScreen = useAppStore((state) => state.toggleStartScreen);
   const initializeAppStore = useMapStore((state) => state.initialize);
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
     (state) => state.initialize
   );
-
+  toggleStartScreen(false);
   data.useAppStore && initializeAppStore(data.useAppStore);
   data.useMapStore && initializeMapStore(data.useMapStore);
   data.useQueryStore && initializeQueryStore(data.useQueryStore);
