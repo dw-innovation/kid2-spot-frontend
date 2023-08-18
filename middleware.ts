@@ -1,22 +1,43 @@
-import { createNextAuthMiddleware } from "nextjs-basic-auth-middleware";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-const APP_USER = process.env.APP_USER;
-const APP_PASSWORD = process.env.APP_PASSWORD;
+const [AUTH_USER, AUTH_PASS] = (process.env.HTTP_BASIC_AUTH || ":").split(":");
 
-if (!APP_USER || !APP_PASSWORD) {
-  throw new Error(
-    "APP_USER and APP_PASSWORD environment variables are required"
-  );
+// Step 1. HTTP Basic Auth Middleware for Challenge
+export function middleware(req: NextRequest) {
+  if (!isAuthenticated(req)) {
+    return new NextResponse("Authentication required", {
+      status: 401,
+      headers: { "WWW-Authenticate": "Basic" },
+    });
+  }
+
+  return NextResponse.next();
 }
 
-export const middleware = createNextAuthMiddleware(
-  process.env.ENVIRONMENT !== "development"
-    ? {
-        users: [{ name: APP_USER, password: APP_PASSWORD }],
-      }
-    : {}
-);
+// Step 2. Check HTTP Basic Auth header if present
+function isAuthenticated(req: NextRequest) {
+  const authheader =
+    req.headers.get("authorization") || req.headers.get("Authorization");
 
+  if (!authheader) {
+    return false;
+  }
+
+  const auth = Buffer.from(authheader.split(" ")[1], "base64")
+    .toString()
+    .split(":");
+  const user = auth[0];
+  const pass = auth[1];
+
+  if (user == AUTH_USER && pass == AUTH_PASS) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Step 3. Configure "Matching Paths" below to protect routes with HTTP Basic Auth
 export const config = {
-  matcher: ["/(.*)", "/_next/static/chunks/(.*)"],
+  matcher: "/some/admin/page/:path*",
 };
