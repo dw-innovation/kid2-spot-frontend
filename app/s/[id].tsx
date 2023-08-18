@@ -1,6 +1,6 @@
+import IndexPage from "app/page";
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
-import IndexPage from "pages";
 import React, { useEffect } from "react";
 
 import useAppStore from "@/stores/useAppStore";

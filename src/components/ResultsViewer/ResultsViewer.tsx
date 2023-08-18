@@ -1,3 +1,5 @@
+"use client";
+
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";

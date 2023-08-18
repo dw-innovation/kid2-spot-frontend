@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { MapContainer as LeafletMapContainer, TileLayer } from "react-leaflet";
 import VectorTileLayer from "react-leaflet-vector-tile-layer";

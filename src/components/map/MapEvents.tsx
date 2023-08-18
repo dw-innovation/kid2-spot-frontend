@@ -69,7 +69,7 @@ const MapEvents = () => {
         console.error("FEHLER");
       }
     }
-  }, [bounds]);
+  }, [bounds, searchArea, setImrValue]);
 
   useEffect(() => {
     console.log(imr);
