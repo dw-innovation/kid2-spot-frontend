@@ -63,17 +63,12 @@ const MapEvents = () => {
   useEffect(() => {
     if (searchArea === "bbox") {
       try {
-        console.log("here");
         setImrValue("a.v", bounds);
       } catch (e) {
         console.error("FEHLER");
       }
     }
   }, [bounds, searchArea, setImrValue]);
-
-  useEffect(() => {
-    console.log(imr);
-  }, [imr]);
 
   return null;
 };

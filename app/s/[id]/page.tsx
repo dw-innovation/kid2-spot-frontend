@@ -8,7 +8,6 @@ import useQueryStore from "@/stores/useQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 async function getSession(id: string) {
-  console.log("getSession", id);
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSession`,
     {
