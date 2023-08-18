@@ -1,7 +1,8 @@
-import { ArrowRightIcon, SearchIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import useAppStore from "@/stores/useAppStore";
+import useQueryStore from "@/stores/useQueryStore";
 
 import Globe from "../Globe";
 import { Button } from "../ui/button";
@@ -9,6 +10,9 @@ import { Textarea } from "../ui/textarea";
 
 const StartScreen = () => {
   const toggleStartScreen = useAppStore((state) => state.toggleStartScreen);
+  const setNaturalLanguagePrompt = useQueryStore(
+    (state) => state.setNaturalLanguagePrompt
+  );
   const handleSkip = () => {
     toggleStartScreen();
   };
@@ -82,17 +86,12 @@ const StartScreen = () => {
           className=" text-xl w-[32rem] shadow-lg"
           rows={4}
           placeholder={displayedText}
+          onChange={(e) => setNaturalLanguagePrompt(e.target.value)}
         ></Textarea>
-        <div className="flex justify-between">
-          <Button>
-            <SearchIcon />
-            Search
-          </Button>
-          <Button variant={"secondary"} onClick={handleSkip}>
-            <ArrowRightIcon />
-            skip
-          </Button>
-        </div>
+        <Button onClick={handleSkip}>
+          <SearchIcon />
+          Search
+        </Button>
       </div>
     </div>
   );
