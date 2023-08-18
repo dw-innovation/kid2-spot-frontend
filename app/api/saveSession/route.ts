@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { NextApiRequest } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import shortUUID from "short-uuid";
 
 let cachedDb: Db;
@@ -14,11 +14,12 @@ async function connectToDatabase(): Promise<Db> {
   return db;
 }
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
   const id = shortUUID.generate();
+  const payload = await req.json();
   const data = {
     id: id,
-    settings: req.body,
+    settings: payload,
     date: new Date(),
   };
 
@@ -28,7 +29,7 @@ export async function POST(req: NextApiRequest) {
 
     await collection.insertOne(data);
 
-    return Response.json(
+    return NextResponse.json(
       {
         message: "data added successfully",
         id: id,
@@ -36,7 +37,7 @@ export async function POST(req: NextApiRequest) {
       { status: 200 }
     );
   } catch (error: any) {
-    return Response.json(
+    return NextResponse.json(
       {
         message: "Error adding data",
         error: error.message,
