@@ -4,6 +4,16 @@ import { create } from "zustand";
 
 import QueryStoreInterface from "./interfaces/QueryStore.interface";
 
+const defaultImr =
+  '{\n  "a": {\n    "t": "area",\n    "v": "Bonn"\n  },\n  "ns": [\n    {\n      "id": 1,\n      "t": "nwr",\n      "n": "cafes",\n      "flts": [\n        {\n          "k": "amenity",\n          "v": "cafe",\n          "op": "=",\n          "n": "cafe"\n        }\n      ]\n    },\n    {\n      "id": 2,\n      "t": "nwr",\n      "n": "subwayEntrances",\n      "flts": [\n        {\n          "k": "railway",\n          "v": "subway_entrance",\n          "op": "=",\n          "n": "subwayEntrances"\n        }\n      ]\n    }\n  ],\n  "es": [\n    {\n      "src": 1,\n      "tgt": 2,\n      "t": "dist",\n      "dist": "50m"\n    }\n  ]\n}';
+
+let defaultParsedImr = {};
+try {
+  defaultParsedImr = JSON.parse(defaultImr);
+} catch (e) {
+  console.error("Error parsing default IMR:", e);
+}
+
 const useQueryStore = create<QueryStoreInterface>((set) => ({
   naturalLanguagePrompt: "",
   setNaturalLanguagePrompt: (naturalLanguagePrompt: string) => {
@@ -13,14 +23,21 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       })
     );
   },
-  imr: '{\n  "a": {\n    "t": "area",\n    "v": "Bonn"\n  },\n  "ns": [\n    {\n      "id": 1,\n      "t": "nwr",\n      "n": "cafes",\n      "flts": [\n        {\n          "k": "amenity",\n          "v": "cafe",\n          "op": "=",\n          "n": "cafe"\n        }\n      ]\n    },\n    {\n      "id": 2,\n      "t": "nwr",\n      "n": "subwayEntrances",\n      "flts": [\n        {\n          "k": "railway",\n          "v": "subway_entrance",\n          "op": "=",\n          "n": "subwayEntrances"\n        }\n      ]\n    }\n  ],\n  "es": [\n    {\n      "src": 1,\n      "tgt": 2,\n      "t": "dist",\n      "dist": "50m"\n    }\n  ]\n}\n',
+  imr: defaultImr,
   setImr: (imr: any) => {
     set(
       produce((draft) => {
         draft.imr = imr;
+        try {
+          draft.parsedImr = JSON.parse(imr);
+        } catch (e) {
+          console.error("Error parsing IMR:", e);
+          draft.parsedImr = {};
+        }
       })
     );
   },
+  parsedImr: defaultParsedImr,
   setImrValue: (path: string, value: any) => {
     produce((draft) => {
       lodashSet(draft, path, value);

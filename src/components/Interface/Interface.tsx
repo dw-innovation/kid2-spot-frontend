@@ -16,6 +16,7 @@ import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Header from "../Header";
+import QuerySets from "../QuerySets/QuerySets";
 
 const Interface = () => {
   const view = useAppStore((state) => state.view);
@@ -38,6 +39,9 @@ const Interface = () => {
               <div className="flex flex-col h-full gap-1">
                 <div className="flex-1">
                   <DynamicImrEditor />
+                </div>
+                <div>
+                  <QuerySets />
                 </div>
                 <div className="flex flex-col gap-2">
                   <QueryAreaSelector />
