@@ -25,9 +25,9 @@ const Interface = () => {
       <div className="pb-3">
         <Header />
       </div>
-      <Allotment>
+      <Allotment defaultSizes={[30, 70]}>
         <Allotment.Pane className="pr-1">
-          <Allotment vertical>
+          <Allotment vertical defaultSizes={[20, 80]}>
             <Allotment.Pane className="pb-2">
               <div className="flex flex-col h-full gap-1">
                 <NaturalLanguageInput />
