@@ -1,9 +1,10 @@
 "use client";
 
-import { DownloadIcon, TrashIcon } from "@radix-ui/react-icons";
+import { DownloadIcon, SymbolIcon, TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import { saveResultsToFile } from "@/lib/utils";
+import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
@@ -13,6 +14,7 @@ import { Button } from "../ui/button";
 import ViewSwitcher from "../ViewSwitcher";
 
 const Header = () => {
+  const toggleStartScreen = useAppStore((state) => state.toggleStartScreen);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const geoJSON = useResultsStore((state) => state.geoJSON);
@@ -24,6 +26,10 @@ const Header = () => {
         <div className="flex items-center justify-between flex-1">
           <h1 className="pb-1 text-2xl font-bold">KID2 Spot Prototype</h1>
           <div className="flex gap-2">
+            <Button onClick={() => toggleStartScreen()}>
+              <SymbolIcon />
+              Start Over
+            </Button>
             <ShareButton />
             <Button
               onClick={() => clearGeoJSON()}
