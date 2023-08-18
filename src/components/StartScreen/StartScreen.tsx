@@ -20,7 +20,7 @@ const StartScreen = () => {
     setAnimate(true);
     setTimeout(() => {
       toggleStartScreen();
-    }, 1000);
+    }, 500);
   };
 
   const placeholders = [
