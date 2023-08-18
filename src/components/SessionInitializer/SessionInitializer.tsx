@@ -16,6 +16,7 @@ const SessionInitializer = ({ data }: any) => {
   data.useMapStore && initializeMapStore(data.useMapStore);
   data.useQueryStore && initializeQueryStore(data.useQueryStore);
   data.useStreetViewStore && initializeStreetViewStore(data.useStreetViewStore);
+
   return null;
 };
 
