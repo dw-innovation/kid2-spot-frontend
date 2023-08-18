@@ -44,7 +44,7 @@ const Globe = () => {
       markers: [],
       onRender: (state) => {
         if (!pointerInteracting.current) {
-          phi += 0.005;
+          phi += 0.002;
         }
         state.phi = phi + r.get();
         state.width = width * 2;
