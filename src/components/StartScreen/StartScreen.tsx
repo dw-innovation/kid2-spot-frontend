@@ -78,12 +78,12 @@ const StartScreen = () => {
 
   const displayedText = `${currentText}${showCursor ? "|" : ""}`;
 
-  const fadeProps = useSpring({
+  const inputFadeProps = useSpring({
     opacity: animate ? 0 : 1,
     transform: `scale(${animate ? 0.9 : 1})`,
   });
 
-  const scaleProps = useSpring({
+  const globeScaleProps = useSpring({
     transform: `scale(${animate ? 1.5 : 1})`,
     opacity: animate ? 0 : 1,
   });
@@ -91,11 +91,11 @@ const StartScreen = () => {
   return (
     <div className="flex items-center justify-center w-full h-full overflow-hidden">
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full overflow-hidden">
-        <Globe scaleProps={scaleProps} />
+        <Globe scaleProps={globeScaleProps} />
       </div>
       <animated.div
         className="relative z-50 flex flex-col gap-2"
-        style={fadeProps}
+        style={inputFadeProps}
       >
         <h1 className="pb-1 text-2xl font-bold text-center">
           Spot – Search the world with your words
