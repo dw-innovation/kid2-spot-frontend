@@ -12,7 +12,6 @@ const MapEvents = () => {
   const view = useAppStore((state) => state.view);
   const searchArea = useQueryStore((state) => state.searchArea);
   const setImrValue = useQueryStore((state) => state.setImrValue);
-  const imr = useQueryStore((state) => state.imr);
 
   const map = useMap();
 

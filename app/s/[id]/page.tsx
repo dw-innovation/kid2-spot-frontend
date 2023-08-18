@@ -2,10 +2,7 @@ import IndexPage from "app/page";
 import axios from "axios";
 import React from "react";
 
-import useAppStore from "@/stores/useAppStore";
-import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
-import useStreetViewStore from "@/stores/useStreetViewStore";
+import SessionInitializer from "@/components/SessionInitializer";
 
 async function getSession(id: string) {
   const res = await axios.get(
@@ -29,19 +26,12 @@ const SessionPage = async ({ params }: { params: { id: string } }) => {
     props: { data },
   } = await getSession(id || "");
 
-  const initializeAppStore = useAppStore((state) => state.initialize);
-  const initializeMapStore = useMapStore((state) => state.initialize);
-  const initializeQueryStore = useQueryStore((state) => state.initialize);
-  const initializeStreetViewStore = useStreetViewStore(
-    (state) => state.initialize
+  return (
+    <>
+      <SessionInitializer data={data} />
+      <IndexPage />
+    </>
   );
-
-  data.useAppStore && initializeAppStore(data.useAppStore);
-  data.useMapStore && initializeMapStore(data.useMapStore);
-  data.useQueryStore && initializeQueryStore(data.useQueryStore);
-  data.useStreetViewStore && initializeStreetViewStore(data.useStreetViewStore);
-
-  return <IndexPage />;
 };
 
 export default SessionPage;
