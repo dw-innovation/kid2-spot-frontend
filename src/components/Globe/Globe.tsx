@@ -2,9 +2,15 @@
 
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
-import { useSpring } from "react-spring";
+import { animated, SpringValue, useSpring } from "react-spring";
 
-const Globe = () => {
+const Globe = ({
+  scaleProps,
+}: {
+  scaleProps: {
+    transform: SpringValue<string>;
+  };
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pointerInteracting = useRef<number | null>(null); // Specify it can be a number or null.
   const pointerInteractionMovement = useRef<number>(0); // This is fine since it's initialized as a number.
@@ -56,13 +62,14 @@ const Globe = () => {
   }, [r]);
 
   return (
-    <div
+    <animated.div
       style={{
         width: "100%",
         maxWidth: 600,
         aspectRatio: 1,
         margin: "auto",
         position: "relative",
+        ...scaleProps,
       }}
     >
       <canvas
@@ -107,7 +114,7 @@ const Globe = () => {
           transition: "opacity 1s ease",
         }}
       />
-    </div>
+    </animated.div>
   );
 };
 

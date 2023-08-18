@@ -1,5 +1,7 @@
+import { animated } from "@react-spring/web";
 import { SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useSpring } from "react-spring";
 
 import useAppStore from "@/stores/useAppStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -9,12 +11,16 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 
 const StartScreen = () => {
+  const [animate, setAnimate] = useState<boolean>(false);
   const toggleStartScreen = useAppStore((state) => state.toggleStartScreen);
   const setNaturalLanguagePrompt = useQueryStore(
     (state) => state.setNaturalLanguagePrompt
   );
   const handleSkip = () => {
-    toggleStartScreen();
+    setAnimate(true);
+    setTimeout(() => {
+      toggleStartScreen();
+    }, 1000);
   };
 
   const placeholders = [
@@ -72,12 +78,25 @@ const StartScreen = () => {
 
   const displayedText = `${currentText}${showCursor ? "|" : ""}`;
 
+  const fadeProps = useSpring({
+    opacity: animate ? 0 : 1,
+    transform: `scale(${animate ? 0.9 : 1})`,
+  });
+
+  const scaleProps = useSpring({
+    transform: `scale(${animate ? 1.5 : 1})`,
+    opacity: animate ? 0 : 1,
+  });
+
   return (
     <div className="flex items-center justify-center w-full h-full ">
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
-        <Globe />
+        <Globe scaleProps={scaleProps} />
       </div>
-      <div className="relative z-50 flex flex-col gap-2">
+      <animated.div
+        className="relative z-50 flex flex-col gap-2"
+        style={fadeProps}
+      >
         <h1 className="pb-1 text-2xl font-bold text-center">
           Spot – Search the world with your words
         </h1>
@@ -92,7 +111,7 @@ const StartScreen = () => {
           <SearchIcon />
           Search
         </Button>
-      </div>
+      </animated.div>
     </div>
   );
 };
