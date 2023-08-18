@@ -13,14 +13,7 @@ async function connectToDatabase(): Promise<Db> {
   return db;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", "GET");
-    return res.status(405).end("Method Not Allowed");
-  }
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id;
 
   if (!id) {
@@ -33,10 +26,11 @@ export default async function handler(
 
     const result = await collection.findOne({ id: id });
 
-    res.status(201).json(result?.settings?.data);
+    return Response.json(result?.settings?.data, { status: 201 });
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: "Error finding session", error: error.message });
+    return Response.json(
+      { message: "Error finding session", error: error.message },
+      { status: 500 }
+    );
   }
 }

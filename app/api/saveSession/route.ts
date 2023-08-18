@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
 import shortUUID from "short-uuid";
 
 let cachedDb: Db;
@@ -14,14 +14,7 @@ async function connectToDatabase(): Promise<Db> {
   return db;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).end("Method Not Allowed");
-  }
+export async function POST(req: NextApiRequest) {
   const id = shortUUID.generate();
   const data = {
     id: id,
@@ -35,10 +28,20 @@ export default async function handler(
 
     await collection.insertOne(data);
 
-    res.status(201).json({ message: "data added successfully", id: id });
+    return Response.json(
+      {
+        message: "data added successfully",
+        id: id,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: "Error adding data", error: error.message });
+    return Response.json(
+      {
+        message: "Error adding data",
+        error: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
