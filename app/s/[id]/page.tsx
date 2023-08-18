@@ -1,9 +1,6 @@
-"use client";
-
 import IndexPage from "app/page";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
@@ -11,6 +8,7 @@ import useQueryStore from "@/stores/useQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 async function getSession(id: string) {
+  console.log("getSession", id);
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSession`,
     {
@@ -26,9 +24,8 @@ async function getSession(id: string) {
   return { props: { data: res.data } };
 }
 
-const SessionPage = async () => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+const SessionPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const {
     props: { data },
   } = await getSession(id || "");
@@ -40,13 +37,10 @@ const SessionPage = async () => {
     (state) => state.initialize
   );
 
-  useEffect(() => {
-    data.useAppStore && initializeAppStore(data.useAppStore);
-    data.useMapStore && initializeMapStore(data.useMapStore);
-    data.useQueryStore && initializeQueryStore(data.useQueryStore);
-    data.useStreetViewStore &&
-      initializeStreetViewStore(data.useStreetViewStore);
-  });
+  data.useAppStore && initializeAppStore(data.useAppStore);
+  data.useMapStore && initializeMapStore(data.useMapStore);
+  data.useQueryStore && initializeQueryStore(data.useQueryStore);
+  data.useStreetViewStore && initializeStreetViewStore(data.useStreetViewStore);
 
   return <IndexPage />;
 };

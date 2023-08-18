@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 let cachedDb: Db;
 
@@ -13,11 +13,11 @@ async function connectToDatabase(): Promise<Db> {
   return db;
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const id = req.query.id;
-
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
   if (!id) {
-    return res.status(400).json({ message: "Missing id" });
+    return NextResponse.json({ message: "Missing id" }, { status: 400 });
   }
 
   try {
@@ -26,9 +26,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     const result = await collection.findOne({ id: id });
 
-    return Response.json(result?.settings?.data, { status: 201 });
+    return NextResponse.json(result?.settings?.data, { status: 201 });
   } catch (error: any) {
-    return Response.json(
+    return NextResponse.json(
       { message: "Error finding session", error: error.message },
       { status: 500 }
     );
