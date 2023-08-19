@@ -29,7 +29,6 @@ const ImrEditor = () => {
     }
   };
 
-  // Initialize the editor's content with the current imr value.
   useEffect(() => {
     setStringifiedImr(JSON.stringify(imr, null, 2));
   }, [imr]);
@@ -40,7 +39,7 @@ const ImrEditor = () => {
       mode="json"
       theme="xcode"
       onChange={onChange}
-      onBlur={handleBlur} // Add this if you want to handle on blur
+      onBlur={handleBlur}
       name="imr-editor"
       editorProps={{ $blockScrolling: true }}
       setOptions={{
