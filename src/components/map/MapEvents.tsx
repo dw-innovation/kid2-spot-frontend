@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 import useAppStore from "@/stores/useAppStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 
@@ -11,7 +12,7 @@ const MapEvents = () => {
   const bounds = useMapStore((state) => state.bounds);
   const view = useAppStore((state) => state.view);
   const searchArea = useQueryStore((state) => state.searchArea);
-  const setImrValue = useQueryStore((state) => state.setImrValue);
+  const setImrBBox = useImrStore((state) => state.setImrBBox);
 
   const map = useMap();
 
@@ -62,12 +63,10 @@ const MapEvents = () => {
   useEffect(() => {
     if (searchArea === "bbox") {
       try {
-        setImrValue("a.v", bounds);
-      } catch (e) {
-        console.error("FEHLER");
-      }
+        setImrBBox([bounds[0][1], bounds[0][0], bounds[1][1], bounds[1][0]]);
+      } catch (e) {}
     }
-  }, [bounds, searchArea, setImrValue]);
+  }, [bounds, searchArea, setImrBBox]);
 
   return null;
 };

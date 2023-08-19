@@ -1,5 +1,6 @@
 import React from "react";
-import { Node } from "src/types/imr";
+
+import { Node } from "@/types/imr";
 
 import SetFilter from "./SetFilter";
 

@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,21 +16,12 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/assets/*": [
-        "src/assets/*"
-      ],
-      "@/stores/*": [
-        "src/stores/*"
-      ],
-      "@/lib/*": [
-        "src/lib/*"
-      ],
-      "@/styles/*": [
-        "src/styles/*"
-      ],
-      "@/components/*": [
-        "src/components/*"
-      ]
+      "@/types/*": ["src/types/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/stores/*": ["src/stores/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/components/*": ["src/components/*"]
     },
     "plugins": [
       {
@@ -49,7 +36,5 @@
     "cypress/e2e/app.cy.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

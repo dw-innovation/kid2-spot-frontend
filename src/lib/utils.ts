@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -46,8 +47,7 @@ export const fetchOSMData = async ({
 }: {
   signal: AbortSignal;
 }): Promise<any> => {
-  let imr = useQueryStore.getState().imr;
-  let imrWithArea = substituteAreaInQuery(imr);
+  let imr = useImrStore.getState().imr;
 
   var config = {
     method: "post",
@@ -55,7 +55,7 @@ export const fetchOSMData = async ({
     headers: {
       "Content-Type": "application/json",
     },
-    data: imrWithArea,
+    data: imr,
     cancelToken: new axios.CancelToken((cancel) => {
       signal.addEventListener("abort", () => cancel());
     }),

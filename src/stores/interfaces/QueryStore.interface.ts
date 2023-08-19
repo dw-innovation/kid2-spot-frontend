@@ -7,7 +7,7 @@ export default interface QueryStoreInterface {
   setSearchAreaBuffer: (searchAreaBuffer: number) => void;
   imr: any;
   setImr: (imr: any) => void;
-  parsedImr: any;
+  stringifiedImr: any;
   initialize: (initialData: any) => void;
   setImrValue: (path: string, value: any) => void;
 }

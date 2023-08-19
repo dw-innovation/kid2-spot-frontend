@@ -1,6 +1,6 @@
 "use client";
 
-import { SymbolIcon } from "@radix-ui/react-icons";
+import { MixerVerticalIcon, SymbolIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import useAppStore from "@/stores/useAppStore";
@@ -25,6 +25,10 @@ const Header = () => {
           </Button>
           <ActionsMenu />
           <SettingsMenu />
+          <Button variant={"outline"}>
+            <MixerVerticalIcon />
+            <span className="hidden md:block">Filters</span>
+          </Button>
         </div>
       </div>
     </div>

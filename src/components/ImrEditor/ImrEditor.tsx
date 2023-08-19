@@ -3,24 +3,44 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-import React from "react";
+import React, { useEffect } from "react";
 import AceEditor from "react-ace";
 
-import useQueryStore from "@/stores/useQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 const ImrEditor = () => {
-  const imr = useQueryStore((state) => state.imr);
-  const setImr = useQueryStore((state) => state.setImr);
+  const imr = useImrStore((state) => state.imr);
+  const setImr = useImrStore((state) => state.setImr);
+  const stringifiedImr = useImrStore((state) => state.stringifiedImr);
+  const setStringifiedImr = useImrStore((state) => state.setStringifiedImr);
+
   const onChange = (newValue: any) => {
-    setImr(newValue);
+    setStringifiedImr(newValue);
   };
+
+  const handleBlur = () => {
+    try {
+      const parsedValue = JSON.parse(stringifiedImr);
+      setImr(parsedValue);
+    } catch (e) {
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
+    }
+  };
+
+  // Initialize the editor's content with the current imr value.
+  useEffect(() => {
+    setStringifiedImr(JSON.stringify(imr, null, 2));
+  }, [imr]);
 
   return (
     <AceEditor
-      value={imr}
+      value={stringifiedImr}
       mode="json"
       theme="xcode"
       onChange={onChange}
+      onBlur={handleBlur} // Add this if you want to handle on blur
       name="imr-editor"
       editorProps={{ $blockScrolling: true }}
       setOptions={{

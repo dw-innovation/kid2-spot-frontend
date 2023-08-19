@@ -29,15 +29,15 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
       produce((draft) => {
         draft.imr = imr;
         try {
-          draft.parsedImr = JSON.parse(imr);
+          draft.stringifiedImr = JSON.parse(imr);
         } catch (e) {
           console.error("Error parsing IMR:", e);
-          draft.parsedImr = {};
+          draft.stringifiedImr = {};
         }
       })
     );
   },
-  parsedImr: defaultParsedImr,
+  stringifiedImr: defaultParsedImr,
   setImrValue: (path: string, value: any) => {
     produce((draft) => {
       lodashSet(draft, path, value);

@@ -7,10 +7,10 @@ export type Filter = {
 
 export type Cluster = {
   id: number;
-  flts: Filter[]; // conditions
+  flts: Filter[];
   t: "cluster";
-  minPts: number; // minPoints
-  maxDist: number; // maxDistance
+  minPts: number;
+  maxDist: string;
 };
 
 export type NWR = {
@@ -22,22 +22,24 @@ export type NWR = {
 type Group = {
   id: number;
   t: "group";
-  ns: (Cluster | NWR | Group)[]; // elements
+  ns: (Cluster | NWR | Group)[];
   es: Edge[];
 };
 
-export type Edge =
-  | {
-      src: number;
-      tgt: number;
-      t: "dist";
-      dist: number; // distance
-    }
-  | {
-      src: number;
-      tgt: number;
-      t: "cnt";
-    };
+export type ContainsRelation = {
+  src: number;
+  tgt: number;
+  t: "cnt";
+};
+
+export type DistanceRelation = {
+  src: number;
+  tgt: number;
+  t: "dist";
+  dist: string;
+};
+
+export type Edge = ContainsRelation | DistanceRelation;
 
 export type Node = Cluster | NWR | Group;
 
@@ -46,6 +48,6 @@ export interface IntermediateRepresentation {
     t: "area" | "polygon" | "bbox";
     v: string | number[];
   };
-  ns: (Cluster | NWR | Group)[]; // nodes
+  ns: (Cluster | NWR | Group)[];
   es: Edge[];
 }

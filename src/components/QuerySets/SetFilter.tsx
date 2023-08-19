@@ -1,5 +1,6 @@
 import React from "react";
-import { Filter } from "src/types/imr";
+
+import { Filter } from "@/types/imr";
 
 type Props = {
   filter: Filter;

@@ -4,13 +4,14 @@ import React from "react";
 import TriangleIcon from "@/assets/icons/TriangleIcon";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchImrFromNL } from "@/lib/utils";
+import useImrStore from "@/stores/useImrStore";
 import useQueryStore from "@/stores/useQueryStore";
 
 import LoadingSpinner from "../LoadingSpinner";
 import { Button } from "../ui/button";
 
 const NatualLanguageSubmitButton = () => {
-  const setImr = useQueryStore((state) => state.setImr);
+  const setImr = useImrStore((state) => state.setImr);
   const naturalLanguagePrompt = useQueryStore(
     (state) => state.naturalLanguagePrompt
   );
