@@ -25,7 +25,7 @@ const ActionsMenu = () => {
       <DropdownMenuTrigger>
         <Button variant={"outline"}>
           <LightningBoltIcon />
-          Actions
+          <span className="hidden md:block">Actions</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">

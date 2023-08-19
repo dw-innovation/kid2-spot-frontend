@@ -42,7 +42,7 @@ const SettingsMenu = () => {
       <DropdownMenuTrigger>
         <Button variant={"outline"}>
           <GearIcon />
-          Settings
+          <span className="hidden md:block">Settings</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
