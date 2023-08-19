@@ -94,7 +94,7 @@ const StartScreen = () => {
         <Globe scaleProps={globeScaleProps} />
       </div>
       <animated.div
-        className="relative z-50 flex flex-col gap-2"
+        className="relative z-50 flex flex-col gap-2 max-w-[32rem] m-2"
         style={inputFadeProps}
       >
         <h1 className="pb-1 text-2xl font-bold text-center">
@@ -102,7 +102,7 @@ const StartScreen = () => {
         </h1>
 
         <Textarea
-          className=" text-xl w-[32rem] shadow-lg"
+          className="w-full text-xl shadow-lg"
           rows={4}
           placeholder={displayedText}
           onChange={(e) => setNaturalLanguagePrompt(e.target.value)}
