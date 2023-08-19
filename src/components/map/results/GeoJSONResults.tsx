@@ -57,8 +57,15 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
       layer.bindPopup(popupContainer, { maxWidth: 400 });
 
-      layer.on("popupopen", () => {
+      layer.on("mouseover", () => {
+        // Changed from 'popupopen'
+        layer.openPopup();
         root.render(<Popup feature={feature} />);
+      });
+
+      layer.on("mouseout", () => {
+        // Added to close the popup when not hovering
+        layer.closePopup();
       });
 
       layer.on("popupclose", () => {
