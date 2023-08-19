@@ -1,3 +1,4 @@
+import { GearIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import {
@@ -39,7 +40,10 @@ const SettingsMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant={"outline"}>Settings</Button>
+        <Button variant={"outline"}>
+          <GearIcon />
+          Settings
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
         <DropdownMenuLabel className="uppercase">Map style</DropdownMenuLabel>

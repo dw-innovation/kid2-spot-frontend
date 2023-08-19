@@ -1,3 +1,4 @@
+import { LightningBoltIcon } from "@radix-ui/react-icons";
 import { DownloadIcon, TrashIcon } from "lucide-react";
 import React from "react";
 
@@ -22,7 +23,10 @@ const ActionsMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant={"outline"}>Actions</Button>
+        <Button variant={"outline"}>
+          <LightningBoltIcon />
+          Actions
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
         <DropdownMenuLabel>
