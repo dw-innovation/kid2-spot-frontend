@@ -22,7 +22,7 @@ const ShareButton = () => {
   );
 
   return (
-    <Button onClick={() => triggerSaveData()} variant={"secondary"}>
+    <Button onClick={() => triggerSaveData()} variant={"ghost"}>
       {apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />}
       Share Session
     </Button>
