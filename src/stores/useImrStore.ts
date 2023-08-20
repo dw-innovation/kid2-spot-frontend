@@ -10,32 +10,35 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   imr: {
     a: {
       t: "bbox",
-      v: [12.399445, 52.170563, 14.475861, 52.79944],
+      v: [
+        13.3689022064209, 52.531939622327705, 13.413662910461426,
+        52.54979264830959,
+      ],
     },
     ns: [
       {
         id: 1,
         t: "nwr",
-        n: "cafes",
+        n: "parks",
         flts: [
           {
-            k: "amenity",
-            v: "cafe",
+            k: "leisure",
+            v: "park",
             op: "=",
-            n: "cafe",
+            n: "parks",
           },
         ],
       },
       {
         id: 2,
         t: "nwr",
-        n: "subwayEntrances",
+        n: "table_tennis",
         flts: [
           {
-            k: "railway",
-            v: "subway_entrance",
+            k: "sport",
+            v: "table_tennis",
             op: "=",
-            n: "subwayEntrances",
+            n: "table_tennis",
           },
         ],
       },
@@ -44,15 +47,14 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       {
         src: 1,
         tgt: 2,
-        t: "dist",
-        dist: "50m",
+        t: "cnt",
       },
     ],
   },
-  setImr: (imr: IntermediateRepresentation) => {
+  setImr: (updatedImr: IntermediateRepresentation) => {
     set(
       produce((draft) => {
-        draft.imr = imr;
+        draft.imr = updatedImr;
       })
     );
   },
