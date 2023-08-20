@@ -48,7 +48,11 @@ const ActionsMenu = () => {
             <span className="hidden md:block">Actions</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="z-[10000]">
+        <DropdownMenuContent
+          className="z-[10000]"
+          onFocusOutside={() => setOpen(false)}
+          onInteractOutside={() => setOpen(false)}
+        >
           <DropdownMenuItem
             onClick={async (e) => {
               e.preventDefault();
