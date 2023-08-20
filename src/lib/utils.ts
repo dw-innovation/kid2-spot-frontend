@@ -3,43 +3,12 @@ import { type ClassValue, clsx } from "clsx";
 import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
-import { expandPolygonByDistance } from "@/lib/geoSpatialHelpers";
-import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useImrStore from "@/stores/useImrStore";
-import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
-};
-
-const substituteAreaInQuery = (query: string): string => {
-  const searchArea = useQueryStore.getState().searchArea;
-  const searchAreaBuffer = useQueryStore.getState().searchAreaBuffer;
-  let bounds = useMapStore.getState().bounds;
-  let customSearchArea = useCustomSearchAreaStore.getState().customSearchArea;
-
-  let area = "";
-
-  switch (searchArea) {
-    case "polygon":
-      let enlargedPolygon = expandPolygonByDistance(
-        customSearchArea,
-        searchAreaBuffer
-      );
-      let polygonAreaString = enlargedPolygon
-        .map((point: number[]) => `${point[0]} ${point[1]}`)
-        .join(" ");
-      area = `poly: "${polygonAreaString}"`;
-      break;
-
-    default:
-      area = bounds.flatMap((innerArray) => innerArray).join(",");
-      break;
-  }
-
-  return query.replaceAll("{{bbox}}", area);
 };
 
 export const fetchOSMData = async ({
