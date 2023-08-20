@@ -1,4 +1,4 @@
-import { LightningBoltIcon } from "@radix-ui/react-icons";
+import { LightningBoltIcon, Share1Icon } from "@radix-ui/react-icons";
 import { DownloadIcon, TrashIcon } from "lucide-react";
 import React from "react";
 
@@ -6,19 +6,33 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useApiStatus from "@/lib/hooks/useApiStatus";
+import { saveData } from "@/lib/storeData";
 import { saveResultsToFile } from "@/lib/utils";
+import useAppStore from "@/stores/useAppStore";
+import useMapStore from "@/stores/useMapStore";
+import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
+import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import ShareButton from "../ShareButton";
+import LoadingSpinner from "../LoadingSpinner";
 import { Button } from "../ui/button";
 
 const ActionsMenu = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+
+  const [apiStatus, triggerSaveData] = useApiStatus(() =>
+    saveData([
+      { name: "useAppStore", getState: useAppStore.getState },
+      { name: "useMapStore", getState: useMapStore.getState },
+      { name: "useQueryStore", getState: useQueryStore.getState },
+      { name: "useStreetViewStore", getState: useStreetViewStore.getState },
+    ])
+  );
 
   return (
     <DropdownMenu>
@@ -29,9 +43,10 @@ const ActionsMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
-        <DropdownMenuLabel>
-          <ShareButton />
-        </DropdownMenuLabel>
+        <DropdownMenuItem onClick={() => triggerSaveData()}>
+          {apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />}
+          Share Session
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => clearGeoJSON()}
