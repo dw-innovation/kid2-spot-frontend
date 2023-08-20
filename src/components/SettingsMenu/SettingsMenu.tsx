@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -53,26 +52,26 @@ const SettingsMenu = () => {
         <DropdownMenuLabel className="uppercase">Map style</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {TILES_LAYERS.map(({ label, value }) => (
-          <DropdownMenuItem
+          <DropdownMenuCheckboxItem
             key={value}
-            onClick={() =>
+            onCheckedChange={() =>
               setTilesLayer(value as "osm" | "vector" | "mapTilerHybrid")
             }
-            disabled={tilesLayer === value}
+            checked={tilesLayer === value}
           >
             {label}
-          </DropdownMenuItem>
+          </DropdownMenuCheckboxItem>
         ))}
         <DropdownMenuLabel className="uppercase">View</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {VIEWS.map((item, index) => (
-          <DropdownMenuItem
+          <DropdownMenuCheckboxItem
             key={index}
-            onClick={() => setView(item.name)}
-            disabled={view === item.name}
+            onCheckedChange={() => setView(item.name)}
+            checked={view === item.name}
           >
             {item.label}
-          </DropdownMenuItem>
+          </DropdownMenuCheckboxItem>
         ))}
         {sets.length > 0 && (
           <>
