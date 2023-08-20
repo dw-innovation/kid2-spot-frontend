@@ -1,13 +1,12 @@
 import clsx from "clsx";
+import { SearchIcon } from "lucide-react";
 import React from "react";
 
-import TriangleIcon from "@/assets/icons/TriangleIcon";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { Button } from "@/components/ui/button";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
-
-import LoadingSpinner from "../LoadingSpinner";
-import { Button } from "../ui/button";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
@@ -44,19 +43,14 @@ const OverpassQuerySubmit = () => {
       className={clsx("block px-2 py-1 w-fit")}
     >
       <div className="flex items-center gap-2">
-        {apiStatus === "loading" ? (
-          <>
+        <span className="text-green-600">
+          {apiStatus === "loading" ? (
             <LoadingSpinner />
-            Querying (click to cancel)
-          </>
-        ) : (
-          <>
-            <span className="text-green-600">
-              <TriangleIcon size={20} />
-            </span>{" "}
-            Query OSM
-          </>
-        )}
+          ) : (
+            <SearchIcon className="w-4 h-4" />
+          )}
+        </span>
+        Query OSM
       </div>
     </Button>
   );
