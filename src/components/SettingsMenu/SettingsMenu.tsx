@@ -3,6 +3,7 @@ import React from "react";
 
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
+import useResultsStore from "@/stores/useResultsStore";
 
 import { Button } from "../ui/button";
 
@@ -26,6 +28,8 @@ const SettingsMenu = () => {
 
   const view = useAppStore((state) => state.view);
   const setView = useAppStore((state) => state.setView);
+  const sets = useResultsStore((state) => state.sets);
+  const toggleVisible = useResultsStore((state) => state.toggleVisible);
 
   const VIEWS: { name: "map" | "data"; label: string }[] = [
     {
@@ -70,6 +74,23 @@ const SettingsMenu = () => {
             {item.label}
           </DropdownMenuItem>
         ))}
+        {sets.length > 0 && (
+          <>
+            <DropdownMenuLabel className="uppercase">
+              Layer visibility
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {sets.map((item, index) => (
+              <DropdownMenuCheckboxItem
+                key={`${item}${index}`}
+                onCheckedChange={() => toggleVisible(item.id)}
+                checked={item.visible}
+              >
+                {item.name}
+              </DropdownMenuCheckboxItem>
+            ))}
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
