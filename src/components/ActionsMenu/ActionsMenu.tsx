@@ -1,6 +1,6 @@
 import { LightningBoltIcon, Share1Icon } from "@radix-ui/react-icons";
 import { DownloadIcon, TrashIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   DropdownMenu,
@@ -24,6 +24,8 @@ import { Button } from "../ui/button";
 const ActionsMenu = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const isGeoJSONAvailable = Boolean(geoJSON);
+  const [open, setOpen] = useState(false);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
     saveData([
@@ -34,36 +36,48 @@ const ActionsMenu = () => {
     ])
   );
 
+  const ShareSessionIcon =
+    apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />;
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant={"outline"}>
-          <LightningBoltIcon />
-          <span className="hidden md:block">Actions</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="z-[10000]">
-        <DropdownMenuItem onClick={() => triggerSaveData()}>
-          {apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />}
-          Share Session
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => clearGeoJSON()}
-          disabled={geoJSON ? false : true}
-        >
-          <TrashIcon size={20} />
-          Clear Results
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => saveResultsToFile()}
-          disabled={geoJSON ? false : true}
-        >
-          <DownloadIcon size={20} />
-          Download Results
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu open={open}>
+        <DropdownMenuTrigger>
+          <Button variant="outline" onClick={() => setOpen((prev) => !prev)}>
+            <LightningBoltIcon />
+            <span className="hidden md:block">Actions</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="z-[10000]">
+          <DropdownMenuItem
+            onClick={async (e) => {
+              e.preventDefault();
+              triggerSaveData().then(() => {
+                setOpen(false);
+              });
+            }}
+          >
+            {ShareSessionIcon}
+            Share Session
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={clearGeoJSON}
+            disabled={!isGeoJSONAvailable}
+          >
+            <TrashIcon size={20} />
+            Clear Results
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={saveResultsToFile}
+            disabled={!isGeoJSONAvailable}
+          >
+            <DownloadIcon size={20} />
+            Download Results
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 };
 
