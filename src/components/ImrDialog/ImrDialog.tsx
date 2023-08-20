@@ -21,7 +21,7 @@ const ImrDialog = () => {
         <DialogTrigger onClick={() => setOpen(true)}>
           <Button variant={"outline"}>
             <Pencil1Icon />
-            IMR
+            <span className="hidden md:block">IMR</span>
           </Button>
         </DialogTrigger>
         <DialogContent
