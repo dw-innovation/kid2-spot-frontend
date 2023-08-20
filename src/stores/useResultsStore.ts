@@ -21,10 +21,28 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
     );
   },
   sets: [],
-  setSets: (sets: string[]) => {
+  setSets: (
+    sets: {
+      id: string;
+      name: string;
+      visible: boolean;
+    }[]
+  ) => {
     set(
       produce((draft) => {
         draft.sets = sets;
+      })
+    );
+  },
+  toggleVisible: (id: string) => {
+    set(
+      produce((draft) => {
+        const set = draft.sets.find(
+          (set: { id: string; name: string; visible: boolean }) => set.id === id
+        );
+        if (set) {
+          set.visible = !set.visible;
+        }
       })
     );
   },
