@@ -68,6 +68,22 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
     layer.on("click", onFeatureClick);
   };
+  const styleFunction: L.StyleFunction<GeoJSON.Geometry> = (
+    feature?: GeoJSON.Feature
+  ) => {
+    if (!feature) return {};
+    let strokeColor = "#fff";
+
+    let setIndex = sets.findIndex((set) => set === feature.properties?.setname);
+
+    return {
+      fillColor: FILL_COLORS[setIndex],
+      color: strokeColor,
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8,
+    };
+  };
 
   return (
     <>
@@ -77,6 +93,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
           {...props}
           data={geoJSON}
           pointToLayer={pointToLayer}
+          style={styleFunction}
           onEachFeature={onEachFeature}
         />
       )}
