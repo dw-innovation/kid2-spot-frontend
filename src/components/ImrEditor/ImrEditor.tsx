@@ -8,7 +8,13 @@ import AceEditor from "react-ace";
 
 import useImrStore from "@/stores/useImrStore";
 
-const ImrEditor = () => {
+import { Button } from "../ui/button";
+
+type Props = {
+  setOpen: (open: boolean) => void;
+};
+
+const ImrEditor = ({ setOpen }: Props) => {
   const imr = useImrStore((state) => state.imr);
   const setImr = useImrStore((state) => state.setImr);
   const stringifiedImr = useImrStore((state) => state.stringifiedImr);
@@ -18,10 +24,12 @@ const ImrEditor = () => {
     setStringifiedImr(newValue);
   };
 
-  const handleBlur = () => {
+  const handleSave = () => {
     try {
       const parsedValue = JSON.parse(stringifiedImr);
+      console.log(parsedValue);
       setImr(parsedValue);
+      setOpen(false);
     } catch (e) {
       if (e instanceof Error) {
         console.error(e.message);
@@ -34,21 +42,24 @@ const ImrEditor = () => {
   }, [imr]);
 
   return (
-    <AceEditor
-      value={stringifiedImr}
-      mode="json"
-      theme="xcode"
-      onChange={onChange}
-      onBlur={handleBlur}
-      name="imr-editor"
-      editorProps={{ $blockScrolling: true }}
-      setOptions={{
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-      }}
-      width="100%"
-      height="100%"
-    />
+    <div className="flex flex-col gap-2">
+      <AceEditor
+        value={stringifiedImr}
+        mode="json"
+        theme="xcode"
+        onChange={onChange}
+        name="imr-editor"
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+        }}
+        width="100%"
+        height="100%"
+        className="min-h-[32rem]"
+      />
+      <Button onClick={handleSave}>Save</Button>
+    </div>
   );
 };
 

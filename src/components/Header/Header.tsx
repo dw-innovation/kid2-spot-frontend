@@ -6,6 +6,7 @@ import React from "react";
 import useAppStore from "@/stores/useAppStore";
 
 import ActionsMenu from "../ActionsMenu";
+import ImrDialog from "../ImrDialog/ImrDialog";
 import SettingsMenu from "../SettingsMenu/SettingsMenu";
 import { Button } from "../ui/button";
 
@@ -23,12 +24,13 @@ const Header = () => {
             <SymbolIcon />
             Start Over
           </Button>
-          <ActionsMenu />
-          <SettingsMenu />
           <Button variant={"outline"}>
             <MixerVerticalIcon />
             <span className="hidden md:block">Filters</span>
           </Button>
+          <ActionsMenu />
+          <SettingsMenu />
+          <ImrDialog />
         </div>
       </div>
     </div>

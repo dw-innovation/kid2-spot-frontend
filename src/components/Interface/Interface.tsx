@@ -4,7 +4,6 @@ import { Allotment } from "allotment";
 import clsx from "clsx";
 import React from "react";
 
-import DynamicImrEditor from "@/components/ImrEditor";
 import DynamicMap from "@/components/map";
 import NaturalLanguageInput from "@/components/NaturalLanguageInput";
 import NatualLanguageSubmitButton from "@/components/NaturalLanguageInput/NatualLanguageSubmitButton";
@@ -37,9 +36,7 @@ const Interface = () => {
             </Allotment.Pane>
             <Allotment.Pane>
               <div className="flex flex-col h-full gap-1">
-                <div className="flex-1">
-                  <DynamicImrEditor />
-                </div>
+                <div className="flex-1"></div>
                 <div>
                   <QuerySets />
                 </div>
