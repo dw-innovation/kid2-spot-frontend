@@ -24,7 +24,13 @@ const OverpassQuerySubmit = () => {
       clearGeoJSON();
       clearSets();
       setGeoJSON(results.results);
-      setSets(results.sets.distinct_sets);
+
+      let sets = results.sets.distinct_sets.map((set: any, index: number) => ({
+        id: index,
+        name: set,
+        visible: true,
+      }));
+      setSets(sets);
     }
   };
 
