@@ -15,23 +15,17 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
 
-  const pointToLayer = (
-    _: GeoJSON.Feature<GeoJSON.Point>,
-    latlng: L.LatLng
-  ) => {
-    let setIndex = sets.findIndex((set) => set === _.properties?.setname);
-    const markerOptions: L.CircleMarkerOptions = {
-      radius: 8,
-      fillColor: FILL_COLORS[setIndex],
-      color: "#fff",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8,
-    };
-    return L.circleMarker(latlng, markerOptions);
+  const getSetIndex = (setName: string | undefined) => {
+    return sets.findIndex((set) => set.name === setName);
   };
 
-  const key = geoJSON ? Date.now().toString() : "";
+  const getColor = (setIndex: number) => {
+    return sets[setIndex] && sets[setIndex].visible ? "#fff" : "transparent";
+  };
+
+  const getFillOpacity = (setIndex: number) => {
+    return sets[setIndex] && sets[setIndex].visible ? 0.8 : 0;
+  };
 
   const resetPreviousLayerStyle = () => {
     if (previousClickedLayer.current) {
@@ -41,64 +35,73 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     }
   };
 
+  const pointToLayer = (
+    _: GeoJSON.Feature<GeoJSON.Point>,
+    latlng: L.LatLng
+  ) => {
+    const setIndex = getSetIndex(_.properties?.setname);
+    const markerOptions: L.CircleMarkerOptions = {
+      radius: 8,
+      fillColor: FILL_COLORS[setIndex],
+      color: "#fff",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: getFillOpacity(setIndex),
+    };
+    return L.circleMarker(latlng, markerOptions);
+  };
+
   const onFeatureClick = (e: L.LeafletEvent) => {
     const layer = e.target as L.CircleMarker;
     resetPreviousLayerStyle();
-    layer.setStyle({
-      color: "#ff0000",
-    });
+    layer.setStyle({ color: "#ff0000" });
     previousClickedLayer.current = layer;
+  };
+
+  const bindPopupToLayer = (feature: GeoJSON.Feature, layer: L.Layer) => {
+    const popupContainer = document.createElement("div");
+    const root = createRoot(popupContainer);
+
+    layer.bindPopup(popupContainer, { maxWidth: 400 });
+
+    layer.on("popupopen", () => {
+      root.render(<Popup feature={feature} />);
+    });
+    layer.on("popupclose", root.unmount);
   };
 
   const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
     if (feature.properties) {
-      const popupContainer = document.createElement("div");
-      const root = createRoot(popupContainer);
-
-      layer.bindPopup(popupContainer, { maxWidth: 400 });
-
-      layer.on("popupopen", () => {
-        root.render(<Popup feature={feature} />);
-      });
-
-      layer.on("popupclose", () => {
-        root.unmount();
-      });
+      bindPopupToLayer(feature, layer);
     }
-
     layer.on("click", onFeatureClick);
   };
+
   const styleFunction: L.StyleFunction<GeoJSON.Geometry> = (
     feature?: GeoJSON.Feature
   ) => {
     if (!feature) return {};
-    let strokeColor = "#fff";
 
-    let setIndex = sets.findIndex((set) => set === feature.properties?.setname);
-
+    const setIndex = getSetIndex(feature.properties?.setname);
     return {
       fillColor: FILL_COLORS[setIndex],
-      color: strokeColor,
+      color: getColor(setIndex),
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.8,
+      fillOpacity: getFillOpacity(setIndex),
     };
   };
 
-  return (
-    <>
-      {geoJSON && (
-        <GeoJSON
-          key={key}
-          {...props}
-          data={geoJSON}
-          pointToLayer={pointToLayer}
-          style={styleFunction}
-          onEachFeature={onEachFeature}
-        />
-      )}
-    </>
-  );
+  return geoJSON ? (
+    <GeoJSON
+      key={Date.now().toString()}
+      {...props}
+      data={geoJSON}
+      pointToLayer={pointToLayer}
+      style={styleFunction}
+      onEachFeature={onEachFeature}
+    />
+  ) : null;
 };
 
 export default GeoJSONResults;
