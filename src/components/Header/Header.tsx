@@ -22,7 +22,7 @@ const Header = () => {
         <div className="flex gap-2">
           <Button onClick={() => toggleStartScreen()}>
             <SymbolIcon />
-            Start Over
+            <span className="hidden md:block">New Search</span>
           </Button>
           <Button variant={"outline"}>
             <MixerVerticalIcon />
