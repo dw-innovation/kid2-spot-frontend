@@ -17,6 +17,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
     set(
       produce((draft) => {
         draft.geoJSON = null;
+        draft.sets = [];
       })
     );
   },
