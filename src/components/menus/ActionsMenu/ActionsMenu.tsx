@@ -1,7 +1,13 @@
-import { LightningBoltIcon, Share1Icon } from "@radix-ui/react-icons";
-import { DownloadIcon, TrashIcon } from "lucide-react";
+import {
+  DownloadIcon,
+  LightningBoltIcon,
+  Share1Icon,
+  TrashIcon,
+} from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,9 +23,6 @@ import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
-
-import LoadingSpinner from "../../LoadingSpinner";
-import { Button } from "../../ui/button";
 
 const ActionsMenu = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
@@ -69,14 +72,14 @@ const ActionsMenu = () => {
             onClick={clearGeoJSON}
             disabled={!isGeoJSONAvailable}
           >
-            <TrashIcon size={20} />
+            <TrashIcon />
             Clear Results
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={saveResultsToFile}
             disabled={!isGeoJSONAvailable}
           >
-            <DownloadIcon size={20} />
+            <DownloadIcon />
             Download Results
           </DropdownMenuItem>
         </DropdownMenuContent>
