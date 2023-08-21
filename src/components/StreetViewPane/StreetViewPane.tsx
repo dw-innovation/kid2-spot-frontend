@@ -6,11 +6,10 @@ import React, { useEffect } from "react";
 import FullScreenCloseIcon from "@/assets/icons/FullScreenCloseIcon";
 import FullScreenExpandIcon from "@/assets/icons/FullScreenExpandIcon";
 import PlusIcon from "@/assets/icons/PlusIcon";
+import { Button } from "@/components/ui/button";
 import { createGoogleMapsEmbedUrl } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
-
-import { Button } from "../ui/button";
 
 const StreetViewPane = () => {
   const isStreetViewFullscreen = useAppStore(
@@ -50,7 +49,7 @@ const StreetViewPane = () => {
       )}
     >
       <div className="relative w-full h-full">
-        <div className="absolute top-0 right-0 z-20 flex items-end gap-2">
+        <div className="absolute top-0 right-0 z-20 flex items-end gap-2 m-2">
           <Button onClick={handleFullscreenClick}>
             {isStreetViewFullscreen ? (
               <FullScreenCloseIcon />
