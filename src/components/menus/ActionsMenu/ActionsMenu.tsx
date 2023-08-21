@@ -42,6 +42,16 @@ const ActionsMenu = () => {
   const ShareSessionIcon =
     apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />;
 
+  const handleClearResults = () => {
+    clearGeoJSON();
+    setOpen(false);
+  };
+
+  const handleDownloadResults = () => {
+    saveResultsToFile();
+    setOpen(false);
+  };
+
   return (
     <DropdownMenu open={open}>
       <DropdownMenuTrigger>
@@ -67,12 +77,15 @@ const ActionsMenu = () => {
           Share Session
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={clearGeoJSON} disabled={!isGeoJSONAvailable}>
+        <DropdownMenuItem
+          onClick={handleClearResults}
+          disabled={!isGeoJSONAvailable}
+        >
           <TrashIcon />
           Clear Results
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={saveResultsToFile}
+          onClick={handleDownloadResults}
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
