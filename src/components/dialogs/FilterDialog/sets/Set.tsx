@@ -1,6 +1,7 @@
 import { PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import React, { useEffect } from "react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import useImrStore from "@/stores/useImrStore";
 import { Cluster, Filter, NWR } from "@/types/imr";
@@ -19,9 +20,12 @@ const Set = ({ node }: { node: NWR | Cluster }) => {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between gap-1">
-        <span className="font-bold">
-          Set {node.id}: {node.n}
-        </span>
+        <div className="flex gap-2">
+          <span className="font-bold">
+            Set {node.id}: {node.n}
+          </span>
+          <Badge>{node.t === "nwr" ? "NWR" : "Cluster"}</Badge>
+        </div>
         <Button
           variant={"outline"}
           className="h-8 p-1"
