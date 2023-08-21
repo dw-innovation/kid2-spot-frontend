@@ -37,8 +37,20 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
         <Tooltip>
           <TooltipTrigger>
             <Input
+              value={filter.n}
+              className="w-24"
+              onChange={(e) => handleInputChange(e, "n")}
+            />
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Filter name</p>
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger>
+            <Input
               value={filter.k}
-              className="w-20"
+              className="w-24"
               onChange={(e) => handleInputChange(e, "k")}
             />
           </TooltipTrigger>
@@ -52,7 +64,6 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
               options={OPERATORS}
               onSelect={(e) => setFilterValue(setId, filterId, "op", e)}
               value={filter.op}
-              className="w-20"
             />
           </TooltipTrigger>
           <TooltipContent>
@@ -63,7 +74,7 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
           <TooltipTrigger>
             <Input
               value={filter.v}
-              className="w-20"
+              className="w-24"
               onChange={(e) => handleInputChange(e, "v")}
             />
           </TooltipTrigger>
