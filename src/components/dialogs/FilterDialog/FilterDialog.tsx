@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import Relations from "./relations/Relations";
 import Sets from "./sets/Sets";
 
 const FilterDialog = () => {
@@ -28,6 +29,7 @@ const FilterDialog = () => {
           <DialogTitle>Edit Search Filters</DialogTitle>
         </DialogHeader>
         <Sets />
+        <Relations />
       </DialogContent>
     </Dialog>
   );
