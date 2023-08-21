@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
-import useResultsStore from "@/stores/useResultsStore";
 
 const TILES_LAYERS = [
   { label: "Versatiles Vector", value: "vector" },
@@ -30,8 +29,6 @@ const SettingsMenu = () => {
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const view = useAppStore((state) => state.view);
   const setView = useAppStore((state) => state.setView);
-  const sets = useResultsStore((state) => state.sets);
-  const toggleVisible = useResultsStore((state) => state.toggleVisible);
 
   const renderTilesLayers = () =>
     TILES_LAYERS.map(({ label, value }) => (
@@ -57,17 +54,6 @@ const SettingsMenu = () => {
       </DropdownMenuCheckboxItem>
     ));
 
-  const renderSets = () =>
-    sets.map((set, index) => (
-      <DropdownMenuCheckboxItem
-        key={`${set.name}${index}`}
-        onCheckedChange={() => toggleVisible(set.id)}
-        checked={set.visible}
-      >
-        {set.name}
-      </DropdownMenuCheckboxItem>
-    ));
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -84,16 +70,6 @@ const SettingsMenu = () => {
         <DropdownMenuLabel className="uppercase">View</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderViews()}
-
-        {sets.length > 0 && (
-          <>
-            <DropdownMenuLabel className="uppercase">
-              Layer visibility
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {renderSets()}
-          </>
-        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
