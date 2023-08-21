@@ -3,11 +3,11 @@
 import { SymbolIcon } from "@radix-ui/react-icons";
 import React from "react";
 
-import ActionsMenu from "@/components/ActionsMenu";
 import FilterDialog from "@/components/FilterDialog";
 import ImrDialog from "@/components/ImrDialog";
+import ActionsMenu from "@/components/menus/ActionsMenu";
+import SettingsMenu from "@/components/menus/SettingsMenu";
 import OSMQuerySubmit from "@/components/OSMQuerySubmit";
-import SettingsMenu from "@/components/SettingsMenu";
 import { Button } from "@/components/ui/button";
 import useAppStore from "@/stores/useAppStore";
 

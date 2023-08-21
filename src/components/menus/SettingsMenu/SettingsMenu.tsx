@@ -1,6 +1,7 @@
 import { GearIcon } from "@radix-ui/react-icons";
 import React from "react";
 
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -12,8 +13,6 @@ import {
 import useAppStore from "@/stores/useAppStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
-
-import { Button } from "../ui/button";
 
 const TILES_LAYERS = [
   { label: "Versatiles Vector", value: "vector" },

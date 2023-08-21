@@ -18,8 +18,8 @@ import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import LoadingSpinner from "../LoadingSpinner";
-import { Button } from "../ui/button";
+import LoadingSpinner from "../../LoadingSpinner";
+import { Button } from "../../ui/button";
 
 const ActionsMenu = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
