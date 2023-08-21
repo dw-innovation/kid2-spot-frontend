@@ -3,16 +3,22 @@ import React, { useEffect } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import useImrStore from "@/stores/useImrStore";
 import { Cluster, Filter, NWR } from "@/types/imr";
 
+import ClusterFilter from "./ClusterFilter";
 import NWRFilter from "./NWRFilter";
 
-const Set = ({ node: { id, flts, n, t } }: { node: NWR | Cluster }) => {
+const Set = ({ node }: { node: NWR | Cluster }) => {
   const addFilter = useImrStore((state) => state.addFilter);
   const removeFilter = useImrStore((state) => state.removeFilter);
   const setSetName = useImrStore((state) => state.setSetName);
   const removeNode = useImrStore((state) => state.removeNode);
+  const setClusterProp = useImrStore((state) => state.setClusterProp);
+
+  const { id, n, t, flts } = node;
 
   useEffect(() => {
     if (flts.length > 0) setSetName(id, `${flts[0].k}_${flts[0].v}`);
@@ -62,6 +68,51 @@ const Set = ({ node: { id, flts, n, t } }: { node: NWR | Cluster }) => {
               </li>
             ))}
           </ol>
+        )}
+        {t === "cluster" && (
+          <>
+            <div className="flex gap-2">
+              <div className="flex items-center gap-2">
+                <Label>Minimum Points</Label>
+                <Input
+                  value={node.minPts}
+                  onChange={({ target: { value } }) =>
+                    value !== "" &&
+                    setClusterProp(id, "minPts", parseInt(value))
+                  }
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Label>Max Distance</Label>
+                <Input
+                  value={node.maxDist}
+                  onChange={({ target: { value } }) =>
+                    value !== "" && setClusterProp(id, "maxDist", value)
+                  }
+                />
+              </div>
+            </div>
+            <ol className="list-decimal">
+              {flts.map((filter: Filter, index: number) => (
+                <li key={index} className="w-full">
+                  <div className="flex justify-between gap-2">
+                    <ClusterFilter
+                      filter={filter}
+                      filterId={index}
+                      setId={id}
+                    />
+                    <Button
+                      variant="ghost"
+                      className="p-1 aspect-square"
+                      onClick={() => removeFilter(id, index)}
+                    >
+                      <TrashIcon scale={3} />
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </>
         )}
       </section>
     </div>
