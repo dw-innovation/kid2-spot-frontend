@@ -14,4 +14,10 @@ export default interface ImrStoreInterface {
   setImrBBox: (bbox: number[]) => void;
   setImrPolygon: (polygon: number[]) => void;
   setImrArea: (area: string) => void;
+  setFilterValue: (
+    setId: number,
+    filterId: number,
+    key: string,
+    value: string
+  ) => void;
 }

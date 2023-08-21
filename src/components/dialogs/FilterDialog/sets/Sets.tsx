@@ -3,10 +3,9 @@ import React, { Fragment } from "react";
 import useImrStore from "@/stores/useImrStore";
 import { Node } from "@/types/imr";
 
-import Relations from "./Relations";
 import Set from "./Set";
 
-const QuerySets = () => {
+const Sets = () => {
   const imr = useImrStore((state) => state.imr);
 
   return (
@@ -18,9 +17,8 @@ const QuerySets = () => {
             <Set node={node} />
           </Fragment>
         ))}
-      <Relations />
     </div>
   );
 };
 
-export default QuerySets;
+export default Sets;

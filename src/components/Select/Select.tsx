@@ -10,20 +10,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 type Props = {
   options: { value: string; label: string; disabled?: boolean }[];
   value: string;
   onSelect: (value: string) => void;
   label?: string;
+  className?: string;
 };
 
-const Select = ({ options, value, onSelect }: Props) => (
+const Select = ({ options, value, onSelect, className }: Props) => (
   <RadixSelect value={value} onValueChange={onSelect}>
-    <SelectTrigger className="w-[180px]">
-      <SelectValue placeholder="Select a fruit" />
+    <SelectTrigger>
+      <SelectValue />
     </SelectTrigger>
-    <SelectContent className="absolute z-[10000]">
+    <SelectContent className={cn("absolute z-[10000]", className)}>
       <SelectGroup>
         {options.map(({ value, label, disabled }) => (
           <SelectItem key={value} value={value} disabled={disabled}>

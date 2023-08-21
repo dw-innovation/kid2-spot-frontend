@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import QuerySets from "./QuerySets/QuerySets";
+import QuerySets from "./sets/Sets";
 
 const FilterDialog = () => {
   const [open, setOpen] = useState(false);
