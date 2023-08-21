@@ -252,6 +252,16 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
+  setClusterProp: (id, key, value) => {
+    set(
+      produce((draft) => {
+        let cluster = draft.imr.ns.findIndex(
+          (cluster: Node) => cluster.id === id
+        );
+        draft.imr.ns[cluster][key] = value;
+      })
+    );
+  },
 }));
 
 export default useImrStore;

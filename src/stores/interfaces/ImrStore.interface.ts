@@ -31,4 +31,5 @@ export default interface ImrStoreInterface {
   removeRelation: (relationId: number) => void;
   addContainsRelation: () => void;
   addDistanceRelation: () => void;
+  setClusterProp: (id: number, key: string, value: number | string) => void;
 }

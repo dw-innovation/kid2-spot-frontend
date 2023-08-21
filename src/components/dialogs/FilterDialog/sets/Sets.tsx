@@ -10,6 +10,7 @@ import Set from "./Set";
 const Sets = () => {
   const imr = useImrStore((state) => state.imr);
   const addNWRNode = useImrStore((state) => state.addNWRNode);
+  const addClusterNode = useImrStore((state) => state.addClusterNode);
 
   return (
     <fieldset className="flex flex-col gap-4 border-[1px] p-2">
@@ -22,7 +23,11 @@ const Sets = () => {
         >
           <PlusIcon /> add NWR set
         </Button>
-        <Button variant={"outline"} className="h-8 p-1" disabled>
+        <Button
+          variant={"outline"}
+          className="h-8 p-1"
+          onClick={() => addClusterNode()}
+        >
           <PlusIcon /> add cluster set
         </Button>
       </legend>
