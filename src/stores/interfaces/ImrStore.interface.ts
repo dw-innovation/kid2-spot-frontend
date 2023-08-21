@@ -23,4 +23,12 @@ export default interface ImrStoreInterface {
   addFilter: (setId: number) => void;
   removeFilter: (setId: number, filterId: number) => void;
   setSetName: (setId: number, name: string) => void;
+  setRelationValue: (
+    relationId: number,
+    key: string,
+    value: string | number
+  ) => void;
+  removeRelation: (relationId: number) => void;
+  addContainsRelation: () => void;
+  addDistanceRelation: () => void;
 }
