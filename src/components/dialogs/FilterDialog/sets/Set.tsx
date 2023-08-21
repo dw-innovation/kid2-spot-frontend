@@ -8,58 +8,52 @@ import { Cluster, Filter, NWR } from "@/types/imr";
 
 import NWRFilter from "./NWRFilter";
 
-const Set = ({ node }: { node: NWR | Cluster }) => {
+const Set = ({ node: { id, flts, n, t } }: { node: NWR | Cluster }) => {
   const addFilter = useImrStore((state) => state.addFilter);
   const removeFilter = useImrStore((state) => state.removeFilter);
   const setSetName = useImrStore((state) => state.setSetName);
 
   useEffect(() => {
-    setSetName(node.id, `${node.flts[0].k}_${node.flts[0].v}`);
-  }, [node.flts, node.id, setSetName]);
+    setSetName(id, `${flts[0].k}_${flts[0].v}`);
+  }, [flts, id, setSetName]);
 
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between gap-1">
         <div className="flex gap-2">
           <span className="font-bold">
-            Set {node.id}: {node.n}
+            Set {id}: {n}
           </span>
-          <Badge>{node.t === "nwr" ? "NWR" : "Cluster"}</Badge>
+          <Badge>{t === "nwr" ? "NWR" : "Cluster"}</Badge>
         </div>
         <Button
-          variant={"outline"}
+          variant="outline"
           className="h-8 p-1"
-          onClick={() => addFilter(node.id)}
+          onClick={() => addFilter(id)}
         >
           <PlusIcon /> add filter
         </Button>
       </div>
-      <div className="flex flex-col gap-1 ml-8 font-normal">
-        {node.t === "nwr" && (
-          <>
-            <ol className="list-decimal ">
-              {node.flts.map((filter: Filter, index: number) => (
-                <li key={index} className="w-full">
-                  <div className="flex justify-between gap-2">
-                    <NWRFilter
-                      filter={filter}
-                      filterId={index}
-                      setId={node.id}
-                    />
-                    <Button
-                      variant={"ghost"}
-                      className="p-1 aspect-square"
-                      onClick={() => removeFilter(node.id, index)}
-                    >
-                      <TrashIcon scale={3} />
-                    </Button>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </>
+      <section className="flex flex-col gap-1 ml-8 font-normal">
+        {t === "nwr" && (
+          <ol className="list-decimal">
+            {flts.map((filter: Filter, index: number) => (
+              <li key={index} className="w-full">
+                <div className="flex justify-between gap-2">
+                  <NWRFilter filter={filter} filterId={index} setId={id} />
+                  <Button
+                    variant="ghost"
+                    className="p-1 aspect-square"
+                    onClick={() => removeFilter(id, index)}
+                  >
+                    <TrashIcon scale={3} />
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ol>
         )}
-      </div>
+      </section>
     </div>
   );
 };
