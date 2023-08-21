@@ -20,4 +20,6 @@ export default interface ImrStoreInterface {
     key: string,
     value: string
   ) => void;
+  addFilter: (setId: number) => void;
+  removeFilter: (setId: number, filterId: number) => void;
 }

@@ -2,7 +2,13 @@ import produce from "immer";
 import shortUUID from "short-uuid";
 import { create } from "zustand";
 
-import { Edge, IntermediateRepresentation, Node, NWR } from "@/types/imr";
+import {
+  Edge,
+  Filter,
+  IntermediateRepresentation,
+  Node,
+  NWR,
+} from "@/types/imr";
 
 import ImrStoreInterface from "./interfaces/ImrStore.interface";
 
@@ -164,6 +170,29 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       produce((draft) => {
         let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
         draft.imr.ns[set].flts[filterId][key] = value;
+      })
+    );
+  },
+  addFilter: (setId) => {
+    set(
+      produce((draft) => {
+        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
+        draft.imr.ns[set].flts.push({
+          k: "",
+          v: "",
+          op: "=",
+          n: "",
+        });
+      })
+    );
+  },
+  removeFilter: (setId, filterId) => {
+    set(
+      produce((draft) => {
+        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
+        draft.imr.ns[set].flts = draft.imr.ns[set].flts.filter(
+          (_: Filter, index: number) => index !== filterId
+        );
       })
     );
   },
