@@ -3,8 +3,8 @@
 import { SymbolIcon } from "@radix-ui/react-icons";
 import React from "react";
 
-import FilterDialog from "@/components/FilterDialog";
-import ImrDialog from "@/components/ImrDialog";
+import FilterDialog from "@/components/dialogs/FilterDialog";
+import ImrDialog from "@/components/dialogs/ImrDialog";
 import ActionsMenu from "@/components/menus/ActionsMenu";
 import SettingsMenu from "@/components/menus/SettingsMenu";
 import OSMQuerySubmit from "@/components/OSMQuerySubmit";
