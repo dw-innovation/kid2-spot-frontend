@@ -102,6 +102,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   removeNode: (id) => {
     set(
       produce((draft) => {
+        draft.imr.es = draft.imr.es.filter(
+          (edge: Edge) => edge.src !== id && edge.tgt !== id
+        );
         draft.imr.ns = draft.imr.ns.filter((node: Node) => node.id !== id);
       })
     );
@@ -202,6 +205,50 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       produce((draft) => {
         let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
         draft.imr.ns[set].n = name;
+      })
+    );
+  },
+  setRelationValue: (relationId, key, value) => {
+    set(
+      produce((draft) => {
+        let relation = draft.imr.es.findIndex(
+          (relation: Edge) => relation.id === relationId
+        );
+        draft.imr.es[relation][key] = value;
+      })
+    );
+  },
+  removeRelation: (relationId) => {
+    set(
+      produce((draft) => {
+        draft.imr.es = draft.imr.es.filter(
+          (relation: Edge) => relation.id !== relationId
+        );
+      })
+    );
+  },
+  addContainsRelation: () => {
+    set(
+      produce((draft) => {
+        draft.imr.es.push({
+          id: draft.imr.es.length + 1,
+          src: 1,
+          tgt: 2,
+          t: "cnt",
+        });
+      })
+    );
+  },
+  addDistanceRelation: () => {
+    set(
+      produce((draft) => {
+        draft.imr.es.push({
+          id: draft.imr.es.length + 1,
+          src: 1,
+          tgt: 2,
+          t: "dist",
+          dist: "50m",
+        });
       })
     );
   },
