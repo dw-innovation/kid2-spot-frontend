@@ -87,7 +87,7 @@ const ResultsOutsideAlert = () => {
             fly to results
           </button>
           <button
-            className="absolute top-0 right-0 rotate-45 bg-white rounded-full hover:bg-slate-200"
+            className="absolute top-0 right-0 rotate-45 bg-white rounded-full translate-x-1/3 -translate-y-1/3 hover:bg-slate-200"
             onClick={handleCloseClick}
           >
             <PlusIcon />
