@@ -15,8 +15,6 @@ import { Button } from "../ui/button";
 const ImrDialog = () => {
   const [open, setOpen] = useState(false);
 
-  const handleClose = () => setOpen(false);
-
   return (
     <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
       <DialogTrigger onClick={() => setOpen(true)}>
@@ -25,11 +23,7 @@ const ImrDialog = () => {
           <span className="hidden md:block">IMR</span>
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className="z-[10000]"
-        onInteractOutside={handleClose}
-        onEscapeKeyDown={handleClose}
-      >
+      <DialogContent className="z-[10000]">
         <DialogHeader>
           <DialogTitle>Edit Intermediate Representation</DialogTitle>
           <div className="w-full h-full min-h-[32rem]">

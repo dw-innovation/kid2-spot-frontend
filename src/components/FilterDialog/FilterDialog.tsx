@@ -15,8 +15,6 @@ import QuerySets from "./QuerySets/QuerySets";
 const FilterDialog = () => {
   const [open, setOpen] = useState(false);
 
-  const handleClose = () => setOpen(false);
-
   return (
     <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
       <DialogTrigger onClick={() => setOpen(true)}>
@@ -25,11 +23,7 @@ const FilterDialog = () => {
           <span className="hidden md:block">Filters</span>
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className="z-[10000]"
-        onInteractOutside={handleClose}
-        onEscapeKeyDown={handleClose}
-      >
+      <DialogContent className="z-[10000]">
         <DialogHeader>
           <DialogTitle>Edit Search Filters</DialogTitle>
           <QuerySets />
