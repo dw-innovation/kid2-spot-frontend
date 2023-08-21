@@ -10,6 +10,7 @@ import useMapStore from "@/stores/useMapStore";
 import PolygonBuffer from "./CustomSearchArea/CustomSearchAreaBuffer";
 import PolygonDrawer from "./CustomSearchArea/CustomSearchAreaDrawer";
 import PolygonOutsideAlert from "./CustomSearchArea/CustomSearchAreaOutsideAlert";
+import Legend from "./Legend";
 import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
@@ -38,6 +39,7 @@ const MapContainer = () => {
             </div>
             <AddressSearchBox />
           </div>
+          <Legend />
           {tilesLayer === "osm" && (
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
