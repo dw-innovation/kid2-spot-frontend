@@ -1,6 +1,7 @@
 import { MixerVerticalIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Button } from "../ui/button";
 import QuerySets from "./QuerySets/QuerySets";
 
 const FilterDialog = () => {
