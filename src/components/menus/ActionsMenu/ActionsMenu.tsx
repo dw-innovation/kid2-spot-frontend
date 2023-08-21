@@ -43,48 +43,43 @@ const ActionsMenu = () => {
     apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />;
 
   return (
-    <>
-      <DropdownMenu open={open}>
-        <DropdownMenuTrigger>
-          <Button variant="outline" onClick={() => setOpen((prev) => !prev)}>
-            <LightningBoltIcon />
-            <span className="hidden md:block">Actions</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          className="z-[10000]"
-          onFocusOutside={() => setOpen(false)}
-          onInteractOutside={() => setOpen(false)}
+    <DropdownMenu open={open}>
+      <DropdownMenuTrigger>
+        <Button variant="outline" onClick={() => setOpen((prev) => !prev)}>
+          <LightningBoltIcon />
+          <span className="hidden md:block">Actions</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        className="z-[10000]"
+        onFocusOutside={() => setOpen(false)}
+        onInteractOutside={() => setOpen(false)}
+      >
+        <DropdownMenuItem
+          onClick={async (e) => {
+            e.preventDefault();
+            triggerSaveData().then(() => {
+              setOpen(false);
+            });
+          }}
         >
-          <DropdownMenuItem
-            onClick={async (e) => {
-              e.preventDefault();
-              triggerSaveData().then(() => {
-                setOpen(false);
-              });
-            }}
-          >
-            {ShareSessionIcon}
-            Share Session
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={clearGeoJSON}
-            disabled={!isGeoJSONAvailable}
-          >
-            <TrashIcon />
-            Clear Results
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={saveResultsToFile}
-            disabled={!isGeoJSONAvailable}
-          >
-            <DownloadIcon />
-            Download Results
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
+          {ShareSessionIcon}
+          Share Session
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={clearGeoJSON} disabled={!isGeoJSONAvailable}>
+          <TrashIcon />
+          Clear Results
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={saveResultsToFile}
+          disabled={!isGeoJSONAvailable}
+        >
+          <DownloadIcon />
+          Download Results
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
