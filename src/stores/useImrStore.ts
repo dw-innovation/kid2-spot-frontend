@@ -25,7 +25,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       {
         id: 1,
         t: "nwr",
-        n: "parks",
+        n: "leisure_park",
         flts: [
           {
             k: "leisure",
@@ -38,7 +38,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       {
         id: 2,
         t: "nwr",
-        n: "table_tennis",
+        n: "sport_table_tennis",
         flts: [
           {
             k: "sport",
@@ -51,6 +51,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
     ],
     es: [
       {
+        id: 1,
         src: 1,
         tgt: 2,
         t: "cnt",
@@ -193,6 +194,14 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
         draft.imr.ns[set].flts = draft.imr.ns[set].flts.filter(
           (_: Filter, index: number) => index !== filterId
         );
+      })
+    );
+  },
+  setSetName: (setId, name) => {
+    set(
+      produce((draft) => {
+        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
+        draft.imr.ns[set].n = name;
       })
     );
   },

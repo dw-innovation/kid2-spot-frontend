@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import QuerySets from "./sets/Sets";
+import Sets from "./sets/Sets";
 
 const FilterDialog = () => {
   const [open, setOpen] = useState(false);
@@ -23,11 +23,11 @@ const FilterDialog = () => {
           <span className="hidden md:block">Filters</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-[10000]">
+      <DialogContent className="z-[10000] max-w-xl">
         <DialogHeader>
           <DialogTitle>Edit Search Filters</DialogTitle>
-          <QuerySets />
         </DialogHeader>
+        <Sets />
       </DialogContent>
     </Dialog>
   );

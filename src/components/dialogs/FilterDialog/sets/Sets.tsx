@@ -9,12 +9,12 @@ const Sets = () => {
   const imr = useImrStore((state) => state.imr);
 
   return (
-    <div className="flex-col gap-2">
+    <div className="flex flex-col gap-4">
       {imr &&
         imr.ns &&
         imr.ns.map((node: Node) => (
-          <Fragment key={node.id}>
-            <Set node={node} />
+          <Fragment key={`${node.id}${node.t}`}>
+            {(node.t === "nwr" || node.t === "cluster") && <Set node={node} />}
           </Fragment>
         ))}
     </div>

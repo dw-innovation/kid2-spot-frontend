@@ -11,12 +11,14 @@ export type Cluster = {
   t: "cluster";
   minPts: number;
   maxDist: string;
+  n: string;
 };
 
 export type NWR = {
   id: number;
   flts: Filter[];
   t: "nwr";
+  n: string;
 };
 
 type Group = {
@@ -27,12 +29,14 @@ type Group = {
 };
 
 export type ContainsRelation = {
+  id: number;
   src: number;
   tgt: number;
   t: "cnt";
 };
 
 export type DistanceRelation = {
+  id: number;
   src: number;
   tgt: number;
   t: "dist";

@@ -22,4 +22,5 @@ export default interface ImrStoreInterface {
   ) => void;
   addFilter: (setId: number) => void;
   removeFilter: (setId: number, filterId: number) => void;
+  setSetName: (setId: number, name: string) => void;
 }

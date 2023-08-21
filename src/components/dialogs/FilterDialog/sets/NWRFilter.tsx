@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Select from "@/components/Select";
 import { Input } from "@/components/ui/input";
@@ -31,26 +31,19 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
   ) => {
     setFilterValue(setId, filterId, key, e.target.value);
   };
+
+  useEffect(() => {
+    setFilterValue(setId, filterId, "n", `${filter.k}_${filter.v}`);
+  }, [filter, filterId, setFilterValue, setId]);
+
   return (
     <div className="flex gap-1">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
             <Input
-              value={filter.n}
-              className="w-24"
-              onChange={(e) => handleInputChange(e, "n")}
-            />
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Filter name</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger>
-            <Input
               value={filter.k}
-              className="w-24"
+              className="flex-1 h-8"
               onChange={(e) => handleInputChange(e, "k")}
             />
           </TooltipTrigger>
@@ -64,6 +57,7 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
               options={OPERATORS}
               onSelect={(e) => setFilterValue(setId, filterId, "op", e)}
               value={filter.op}
+              className="h-8"
             />
           </TooltipTrigger>
           <TooltipContent>
@@ -74,7 +68,7 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
           <TooltipTrigger>
             <Input
               value={filter.v}
-              className="w-24"
+              className="flex-1 h-8"
               onChange={(e) => handleInputChange(e, "v")}
             />
           </TooltipTrigger>
