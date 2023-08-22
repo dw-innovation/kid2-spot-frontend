@@ -15,11 +15,8 @@ import ImrStoreInterface from "./interfaces/ImrStore.interface";
 const useImrStore = create<ImrStoreInterface>((set) => ({
   imr: {
     a: {
-      t: "bbox",
-      v: [
-        13.3689022064209, 52.531939622327705, 13.413662910461426,
-        52.54979264830959,
-      ],
+      t: "area",
+      v: "Köln",
     },
     ns: [
       {
