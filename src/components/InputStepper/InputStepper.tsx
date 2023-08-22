@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { useSpring } from "react-spring";
+import { animated, useSpring } from "react-spring";
 
 import Globe from "@/components/Globe";
 import useAppStore from "@/stores/useAppStore";
 
 import AreaSelectorStep from "./AreaSelectorStep";
+import { useInputStepper } from "./Context";
 import NaturalLanguageAnalyzerStep from "./NaturalLanguageAnalyzerStep";
 import NaturalLanguageInputStep from "./NaturalLanguageInputStep";
-import OSMQueryScreen from "./OSMQueryScreen";
+import OSMQueryScreen from "./OSMQueryStep";
 
 const InputStepper = () => {
+  const { animateOut } = useInputStepper();
   const currentStep = useAppStore((state) => state.currentStep);
   const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
@@ -30,8 +32,13 @@ const InputStepper = () => {
   ];
 
   const globeScaleProps = useSpring({
-    transform: `scale(1)`,
-    opacity: 1,
+    transform: `scale(${animateOut ? 2 : 1})`,
+    opacity: animateOut ? 0 : 1,
+  });
+
+  const titleProps = useSpring({
+    transform: `scale(${animateOut ? 0.9 : 1})`,
+    opacity: animateOut ? 0 : 1,
   });
 
   return (
@@ -40,9 +47,12 @@ const InputStepper = () => {
         <Globe scaleProps={globeScaleProps} />
       </div>
       <div className="relative z-50 flex flex-col gap-2 max-w-[32rem] m-2">
-        <h1 className="pb-1 text-2xl font-bold text-center drop-shadow-md">
+        <animated.h1
+          className="pb-1 text-2xl font-bold text-center drop-shadow-md"
+          style={titleProps}
+        >
           Spot – Search the world with your words
-        </h1>
+        </animated.h1>
         <div style={{ height: `${initialHeight}px` }}>
           <div ref={stepRef} className="">
             {STEPS[currentStep]}

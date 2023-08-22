@@ -1,5 +1,7 @@
+import { area } from "@turf/turf";
 import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
+import { MultiPolygon, Polygon } from "geojson";
 import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
@@ -141,9 +143,16 @@ export const injectArea = (imr: any): any => {
 export const getAreas = async (area: string): Promise<any> => {
   const response = await axios({
     method: "GET",
-    url: `https://nominatim.openstreetmap.org/search.php?q=${area}&format=jsonv2`,
+    url: `https://nominatim.openstreetmap.org/search.php?q=${area}&format=json&polygon_geojson=1`,
   });
 
   const result = await response.data;
   return result;
+};
+
+export const calculateSurface = (polgyon: Polygon | MultiPolygon): number => {
+  if (polgyon.type !== "Polygon" && polgyon.type !== "MultiPolygon") {
+    throw new Error("Input must be a Polygon");
+  }
+  return Math.round(area(polgyon) / 1000000);
 };

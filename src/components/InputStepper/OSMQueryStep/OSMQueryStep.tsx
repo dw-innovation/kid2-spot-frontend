@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useApiStatus from "@/lib/hooks/useApiStatus";
@@ -7,14 +7,17 @@ import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
+import { useInputStepper } from "../Context";
 import InputContainer from "../InputContainer";
 
-const OSMQueryScreen = () => {
+const OSMQueryStep = () => {
   const router = useRouter();
+  const { setAnimateOut } = useInputStepper();
   const elapsedTime = useElapsedTime();
   const [, fetchData] = useApiStatus(fetchOSMData);
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
+  const [shouldUnmount, setShouldUnmount] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -28,15 +31,22 @@ const OSMQueryScreen = () => {
         }));
         setSets(sets);
       })
-      .then(() => router.push("/map"));
+      .then(() => {
+        setShouldUnmount(true);
+        setAnimateOut(true);
+      })
+      .then(() => setTimeout(() => router.push("/map"), 500));
   }, []);
 
   return (
-    <InputContainer title="Querying OpenStreetMap" shouldUnmount={false}>
+    <InputContainer
+      title="Querying OpenStreetMap"
+      shouldUnmount={shouldUnmount}
+    >
       <LoadingSpinner size="2.5rem" />
       {elapsedTime} {elapsedTime === 1 ? `second` : `seconds`}
     </InputContainer>
   );
 };
 
-export default OSMQueryScreen;
+export default OSMQueryStep;

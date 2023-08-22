@@ -16,7 +16,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   imr: {
     a: {
       t: "area",
-      v: "Köln",
+      v: "Cologne",
     },
     ns: [
       {
