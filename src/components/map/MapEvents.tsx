@@ -4,14 +4,13 @@ import { useMap } from "react-leaflet";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
 
 const MapEvents = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
   const view = useAppStore((state) => state.view);
-  const searchArea = useQueryStore((state) => state.searchArea);
+  const searchArea = useImrStore((state) => state.imr.a.t);
   const setImrBBox = useImrStore((state) => state.setImrBBox);
 
   const map = useMap();
