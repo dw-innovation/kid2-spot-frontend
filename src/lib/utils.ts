@@ -141,13 +141,19 @@ export const injectArea = (imr: any): any => {
 };
 
 export const getAreas = async (area: string): Promise<any> => {
-  const response = await axios({
-    method: "GET",
-    url: `https://nominatim.openstreetmap.org/search.php?q=${area}&format=json&polygon_geojson=1`,
-  });
+  const response = await axios.get(
+    "https://nominatim.openstreetmap.org/search.php",
+    {
+      params: {
+        q: area,
+        format: "json",
+        polygon_geojson: 1,
+        "accept-language": "en",
+      },
+    }
+  );
 
-  const result = await response.data;
-  return result;
+  return response.data;
 };
 
 export const calculateSurface = (polgyon: Polygon | MultiPolygon): number => {
