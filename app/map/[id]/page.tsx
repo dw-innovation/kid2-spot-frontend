@@ -1,8 +1,9 @@
-import IndexPage from "app/page";
 import axios from "axios";
 import React from "react";
 
 import SessionInitializer from "@/components/SessionInitializer";
+
+import MapPage from "../page";
 
 async function getSession(id: string) {
   const res = await axios.get(
@@ -29,7 +30,7 @@ const SessionPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <SessionInitializer data={data} />
-      <IndexPage />
+      <MapPage />
     </>
   );
 };
