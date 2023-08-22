@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 
-import StartScreenInterfaceSwitch from "@/components/StartScreenInterfaceSwitch";
+import InputStepper from "@/components/InputStepper";
 
 export const metadata: Metadata = {
   title: "Spot – Search the world with your words",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Page = () => (
   <main className="flex flex-col h-screen max-h-screen p-2">
-    <StartScreenInterfaceSwitch />
+    <InputStepper />
   </main>
 );
 
