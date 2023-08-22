@@ -137,3 +137,13 @@ export const injectArea = (imr: any): any => {
     return imr;
   }
 };
+
+export const getAreas = async (area: string): Promise<any> => {
+  const response = await axios({
+    method: "GET",
+    url: `https://nominatim.openstreetmap.org/search.php?q=${area}&format=jsonv2`,
+  });
+
+  const result = await response.data;
+  return result;
+};
