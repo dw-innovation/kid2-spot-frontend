@@ -4,6 +4,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { calculateSurface, getAreas } from "@/lib/utils";
+import useMapStore from "@/stores/useMapStore";
 import { Place } from "@/types/nominatim";
 
 import SurfaceAlert from "./SurfaceAlert";
@@ -17,6 +18,7 @@ const AreaSelector = ({ area }: Props) => {
   const [suggestedAreas, setSuggestedAreas] = useState<Place[]>([]);
   const [apiStatus, fetchData] = useApiStatus(getAreas);
   const [surface, setSurface] = useState<number>(0);
+  const setBounds = useMapStore((state) => state.setBounds);
 
   useEffect(() => {
     fetchData(area).then(setSuggestedAreas);
@@ -34,8 +36,15 @@ const AreaSelector = ({ area }: Props) => {
 
   useEffect(() => {
     const suggestion = suggestedAreas.find((a) => a.place_id === placeId);
-    if (suggestion) setSurface(calculateSurface(suggestion.geojson));
-  }, [placeId]);
+    if (suggestion) {
+      setSurface(calculateSurface(suggestion.geojson));
+      let bounds = suggestion.boundingbox.map((b) => parseFloat(b));
+      setBounds([
+        [bounds[0], bounds[2]],
+        [bounds[1], bounds[3]],
+      ]);
+    }
+  }, [placeId, suggestedAreas]);
 
   return (
     <div>
