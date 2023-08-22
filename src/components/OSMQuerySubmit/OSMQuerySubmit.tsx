@@ -50,7 +50,7 @@ const OverpassQuerySubmit = () => {
             <SearchIcon className="w-4 h-4" />
           )}
         </span>
-        Query OSM
+        <span className="hidden md:block">Query OSM</span>
       </div>
     </Button>
   );
