@@ -51,6 +51,7 @@ const useAppStore = create<AppStoreInterface>((set) => ({
           step.status = "open";
           step.error = { isError: false, message: "" };
         });
+        draft.currentStep = 0;
       })
     );
   },
