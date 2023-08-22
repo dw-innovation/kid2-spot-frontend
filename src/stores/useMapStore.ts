@@ -5,8 +5,8 @@ import MapStoreInterface from "./interfaces/MapStore.interface";
 
 const useMapStore = create<MapStoreInterface>((set) => ({
   bounds: [
-    [50.688193, 6.970997],
-    [50.769579, 7.230549],
+    [50.896537040473284, 6.847057342529298],
+    [50.97021104712801, 7.103862762451173],
   ],
   setBounds: (bounds: [number, number][]) => {
     set(
