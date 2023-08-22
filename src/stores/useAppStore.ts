@@ -1,9 +1,59 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import AppStoreInterface from "./interfaces/AppStore.interface";
+import AppStoreInterface, { Step } from "./interfaces/AppStore.interface";
 
 const useAppStore = create<AppStoreInterface>((set) => ({
+  currentStep: 0,
+  steps: [
+    {
+      name: "naturalLanguageInput",
+      status: "open",
+      error: { isError: false },
+    },
+    {
+      name: "naturalLanguageAnalyzer",
+      status: "open",
+      error: { isError: false },
+    },
+    {
+      name: "areaSelector",
+      status: "open",
+      error: { isError: false },
+    },
+    {
+      name: "mapQuery",
+      status: "open",
+      error: { isError: false },
+    },
+  ],
+  nextStep: () => {
+    set(
+      produce((draft) => {
+        if (draft.currentStep + 1 < draft.steps.length) {
+          draft.steps[draft.currentStep].status = "completed";
+          draft.currentStep += 1;
+        }
+      })
+    );
+  },
+  prevStep: () => {
+    set(
+      produce((draft) => {
+        if (draft.currentStep - 1 > 0) draft.currentStep -= 1;
+      })
+    );
+  },
+  resetSteps: () => {
+    set(
+      produce((draft) => {
+        draft.steps.forEach((step: Step) => {
+          step.status = "open";
+          step.error = { isError: false, message: "" };
+        });
+      })
+    );
+  },
   isStartScreenVisible: true,
   toggleStartScreen: (state?: boolean) => {
     set(
