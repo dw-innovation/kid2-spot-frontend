@@ -1,4 +1,4 @@
-import { AllSidesIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon } from "@radix-ui/react-icons";
 import { Feature } from "geojson";
 import React from "react";
 
@@ -33,7 +33,7 @@ const Popup = ({ feature }: Props) => {
       <FeatureInfo feature={feature} />
       {feature.geometry.type === "Point" && (
         <Button onClick={handleClick} variant={"secondary"}>
-          <AllSidesIcon />
+          <EyeOpenIcon />
           Open Google Street View
         </Button>
       )}
