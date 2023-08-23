@@ -14,7 +14,7 @@ const Relations = () => {
 
   return (
     <fieldset className="flex flex-col gap-4 border-[1px] p-2">
-      <legend className="flex gap-2 px-2 font-bold">
+      <legend className="flex items-center gap-2 px-2 font-bold">
         Relations
         <Button
           variant={"outline"}
