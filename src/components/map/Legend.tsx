@@ -1,4 +1,5 @@
-import React from "react";
+import L from "leaflet";
+import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { FILL_COLORS } from "@/lib/const";
@@ -7,6 +8,14 @@ import useResultsStore from "@/stores/useResultsStore";
 const Legend = () => {
   const sets = useResultsStore((state) => state.sets);
   const toggleVisible = useResultsStore((state) => state.toggleVisible);
+
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!divRef.current) return;
+    L.DomEvent.disableClickPropagation(divRef.current);
+    L.DomEvent.disableScrollPropagation(divRef.current);
+  });
 
   const renderSets = () =>
     sets.map((set, index) => {
@@ -39,7 +48,10 @@ const Legend = () => {
   return (
     <>
       {sets.length > 0 && (
-        <div className="z-[10000] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col">
+        <div
+          ref={divRef}
+          className="shadow-lg cursor-default z-[10000] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col"
+        >
           <h4 className="text-xl font-semibold tracking-tight scroll-m-20">
             Legend
           </h4>
