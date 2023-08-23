@@ -16,6 +16,8 @@ const Relations = () => {
     <fieldset className="flex flex-col gap-4 border-[1px] p-2">
       <legend className="flex items-center gap-2 px-2 font-bold">
         Relations
+      </legend>
+      <div className="flex gap-2">
         <Button
           variant={"outline"}
           className="h-8 p-1"
@@ -30,7 +32,7 @@ const Relations = () => {
         >
           <PlusIcon /> add contains relation
         </Button>
-      </legend>
+      </div>
       {imr &&
         imr.es &&
         imr.es.map((edge: Edge) => (
