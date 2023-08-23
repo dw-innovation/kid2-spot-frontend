@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import Relations from "./relations/Relations";
 import Sets from "./sets/Sets";
@@ -24,12 +25,14 @@ const FilterDialog = () => {
           <span className="hidden md:block">Filters</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-[10000] max-w-xl">
+      <DialogContent className="z-[10000] max-w-xl flex flex-col max-h-[80vh]">
         <DialogHeader>
           <DialogTitle>Edit Search Filters</DialogTitle>
         </DialogHeader>
-        <Sets />
-        <Relations />
+        <div className="flex flex-col flex-1 h-full gap-2 overflow-y-scroll">
+          <Sets />
+          <Relations />
+        </div>
       </DialogContent>
     </Dialog>
   );
