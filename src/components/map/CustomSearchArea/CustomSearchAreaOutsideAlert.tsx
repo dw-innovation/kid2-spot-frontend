@@ -1,5 +1,6 @@
 import { BBox, bbox } from "@turf/turf";
-import React, { useEffect, useState } from "react";
+import L from "leaflet";
+import React, { useEffect, useRef, useState } from "react";
 import { useMap } from "react-leaflet";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
@@ -13,8 +14,15 @@ const PolygonOutsideAlert = () => {
   );
   const setBounds = useMapStore((state) => state.setBounds);
   const map = useMap();
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (!alertRef.current) return;
+    L.DomEvent.disableClickPropagation(alertRef.current);
+    L.DomEvent.disableScrollPropagation(alertRef.current);
+  });
 
   const handleFlyToBounds = () => {
     let newBBox = bbox({
@@ -66,8 +74,11 @@ const PolygonOutsideAlert = () => {
   return (
     <>
       {showAlert && (
-        <span className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
-          Search area outside bounding box!
+        <div
+          ref={alertRef}
+          className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default  w-fit"
+        >
+          Your search area is outside the current view.
           <button
             onClick={handleFlyToBounds}
             className="p-1 bg-white rounded-lg hover:bg-slate-200"
@@ -80,7 +91,7 @@ const PolygonOutsideAlert = () => {
           >
             <PlusIcon />
           </button>
-        </span>
+        </div>
       )}
     </>
   );

@@ -89,9 +89,9 @@ const ResultsOutsideAlert = () => {
       {showAlert && (
         <div
           ref={alertRef}
-          className="cursor-default max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg"
+          className="w-fit cursor-default max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg"
         >
-          Results outside bounding box!
+          Some results outside bounding box
           <button
             onClick={handleFlyToBounds}
             className="p-1 bg-white rounded-lg hover:bg-slate-200"
