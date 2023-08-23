@@ -44,7 +44,7 @@ const AreaSelector = ({ area }: Props) => {
         [bounds[1], bounds[3]],
       ]);
     }
-  }, [placeId, suggestedAreas]);
+  }, [placeId, setBounds, suggestedAreas]);
 
   return (
     <div>

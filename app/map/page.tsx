@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 
+import Div100vh from "@/components/Div100vh";
 import Interface from "@/components/Interface";
 
 export const metadata: Metadata = {
@@ -8,9 +9,9 @@ export const metadata: Metadata = {
 };
 
 const Page = () => (
-  <main className="flex flex-col h-screen max-h-screen p-2">
+  <Div100vh>
     <Interface />
-  </main>
+  </Div100vh>
 );
 
 export default Page;

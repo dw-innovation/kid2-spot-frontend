@@ -96,7 +96,7 @@ const AddressSearchBox = () => {
   }, [searchAddress, debouncedFetchGeocodeApiData, lastSearchAddressRef]);
 
   return (
-    <div className="flex flex-col gap-1 justify-end w-[20rem]">
+    <div className="flex flex-col gap-1 justify-end w-[15rem] md:w-[20rem]">
       <Downshift
         onChange={({ coordinates, bbox, place_name_en }) => {
           setBounds([

@@ -17,11 +17,11 @@ const Interface = () => {
   const showStreetView = useStreetViewStore((state) => state.showStreetView);
 
   return (
-    <>
+    <div className="relative flex flex-col h-full">
       <div className="pb-3">
         <Header />
       </div>
-      <Allotment>
+      <Allotment className="flex-1">
         <Allotment.Pane>
           <Allotment vertical>
             <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
@@ -38,7 +38,7 @@ const Interface = () => {
           </Allotment>
         </Allotment.Pane>
       </Allotment>
-    </>
+    </div>
   );
 };
 
