@@ -76,7 +76,7 @@ const PolygonOutsideAlert = () => {
       {showAlert && (
         <div
           ref={alertRef}
-          className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default  w-fit"
+          className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default w-fit"
         >
           Your search area is outside the current view.
           <button
