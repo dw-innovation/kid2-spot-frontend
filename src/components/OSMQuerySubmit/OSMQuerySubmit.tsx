@@ -7,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
+import {
+  TooltipTrigger,
+  TooltipProvider,
+  TooltipContent,
+  Tooltip,
+} from "@/components/ui/tooltip";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
@@ -33,7 +39,7 @@ const OverpassQuerySubmit = () => {
     }
   };
 
-  return (
+  const renderButton = () => (
     <Button
       onClick={
         apiStatus !== "loading"
@@ -53,6 +59,23 @@ const OverpassQuerySubmit = () => {
         <span className="hidden md:block">Query OSM</span>
       </div>
     </Button>
+  );
+
+  return (
+    <>
+      {apiStatus === "loading" ? (
+        <TooltipProvider>
+          <Tooltip defaultOpen>
+            <TooltipTrigger>{renderButton()}</TooltipTrigger>
+            <TooltipContent className="z-[9999]">
+              click to cancel request
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        renderButton()
+      )}
+    </>
   );
 };
 
