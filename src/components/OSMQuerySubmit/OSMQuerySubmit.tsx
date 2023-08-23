@@ -67,7 +67,7 @@ const OverpassQuerySubmit = () => {
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger>{renderButton()}</TooltipTrigger>
-            <TooltipContent className="z-[9999]">
+            <TooltipContent className="z-[10000]">
               click to cancel request
             </TooltipContent>
           </Tooltip>
