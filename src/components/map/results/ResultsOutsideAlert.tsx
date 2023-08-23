@@ -1,7 +1,8 @@
+import L from "leaflet";
 import { BBox, bbox } from "@turf/turf";
 import * as turf from "@turf/turf";
 import { GeoJsonProperties } from "geojson";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMap } from "react-leaflet";
 
 import PlusIcon from "@/assets/icons/PlusIcon";
@@ -17,8 +18,15 @@ const ResultsOutsideAlert = () => {
     (state) => state.customSearchArea
   );
   const map = useMap();
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (!alertRef.current) return;
+    L.DomEvent.disableClickPropagation(alertRef.current);
+    L.DomEvent.disableScrollPropagation(alertRef.current);
+  });
 
   const handleFlyToBounds = () => {
     handleCloseClick();
@@ -79,7 +87,10 @@ const ResultsOutsideAlert = () => {
   return (
     <>
       {showAlert && (
-        <span className="max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
+        <div
+          ref={alertRef}
+          className="cursor-default max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg"
+        >
           Results outside bounding box!
           <button
             onClick={handleFlyToBounds}
@@ -93,7 +104,7 @@ const ResultsOutsideAlert = () => {
           >
             <PlusIcon />
           </button>
-        </span>
+        </div>
       )}
     </>
   );

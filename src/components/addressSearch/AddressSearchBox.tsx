@@ -1,4 +1,5 @@
 import Downshift from "downshift";
+import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
@@ -24,6 +25,13 @@ const AddressSearchBox = () => {
   const bounds = useMapStore((state) => state.bounds);
 
   const lastSearchAddressRef = useRef("");
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!searchBoxRef.current) return;
+    L.DomEvent.disableClickPropagation(searchBoxRef.current);
+    L.DomEvent.disableScrollPropagation(searchBoxRef.current);
+  });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFetchGeocodeApiData = useCallback(
@@ -96,7 +104,10 @@ const AddressSearchBox = () => {
   }, [searchAddress, debouncedFetchGeocodeApiData, lastSearchAddressRef]);
 
   return (
-    <div className="flex flex-col gap-1 justify-end w-[15rem] md:w-[20rem]">
+    <div
+      className="flex flex-col gap-1 justify-end w-[15rem] md:w-[20rem]"
+      ref={searchBoxRef}
+    >
       <Downshift
         onChange={({ coordinates, bbox, place_name_en }) => {
           setBounds([
