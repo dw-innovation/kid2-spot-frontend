@@ -24,7 +24,7 @@ const FilterDialog = () => {
           <span className="hidden md:block">Filters</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-[10000] max-w-xl flex flex-col max-h-[80vh]">
+      <DialogContent className="z-[10000] max-w-2xl flex flex-col max-h-[80vh]">
         <DialogHeader>
           <DialogTitle>Edit Search Filters</DialogTitle>
         </DialogHeader>

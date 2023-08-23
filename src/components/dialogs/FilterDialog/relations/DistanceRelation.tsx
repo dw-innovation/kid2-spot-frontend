@@ -48,6 +48,7 @@ const DistanceRelation = ({
             onChange={({ target: { value } }) =>
               setRelationValue(id, "dist", value)
             }
+            className=" min-w-[5rem]"
           />
           <span className="whitespace-nowrap">away from</span>
           <Select
