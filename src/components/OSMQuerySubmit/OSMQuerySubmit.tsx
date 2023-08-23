@@ -4,15 +4,15 @@ import React from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
-import {
-  TooltipTrigger,
-  TooltipProvider,
-  TooltipContent,
-  Tooltip,
-} from "@/components/ui/tooltip";
 
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
