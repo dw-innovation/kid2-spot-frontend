@@ -79,7 +79,7 @@ const ResultsOutsideAlert = () => {
   return (
     <>
       {showAlert && (
-        <span className="max-w-[15rem] relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
+        <span className="max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-400 rounded-lg shadow-lg">
           Results outside bounding box!
           <button
             onClick={handleFlyToBounds}
