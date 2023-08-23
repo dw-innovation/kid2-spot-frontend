@@ -1,7 +1,7 @@
-import L from "leaflet";
 import { BBox, bbox } from "@turf/turf";
 import * as turf from "@turf/turf";
 import { GeoJsonProperties } from "geojson";
+import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import { useMap } from "react-leaflet";
 
