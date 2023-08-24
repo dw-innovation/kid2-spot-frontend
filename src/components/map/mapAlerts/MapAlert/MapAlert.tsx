@@ -1,3 +1,5 @@
+"use client";
+
 import L from "leaflet";
 import { PlusIcon } from "lucide-react";
 import React, { useEffect, useRef } from "react";
