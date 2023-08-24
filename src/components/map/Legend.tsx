@@ -50,9 +50,9 @@ const Legend = () => {
       {sets.length > 0 && (
         <div
           ref={divRef}
-          className="shadow-lg cursor-default z-[10000] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col"
+          className="shadow-lg cursor-default z-[10000] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col gap-1"
         >
-          <h4 className="text-xl font-semibold tracking-tight scroll-m-20">
+          <h4 className="text-lg font-semibold tracking-tight uppercase scroll-m-20">
             Map Legend
           </h4>
           <div className="flex flex-col gap-1">{renderSets()}</div>
