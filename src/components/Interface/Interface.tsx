@@ -21,21 +21,14 @@ const Interface = () => {
       <div className="pb-3">
         <Header />
       </div>
-      <Allotment className="flex-1">
-        <Allotment.Pane>
-          <Allotment vertical>
-            <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
-              {view === "map" && <DynamicMap />}
-              {view === "data" && <DynamicResultsViewer />}
-            </Allotment.Pane>
-            <Allotment.Pane
-              className="pt-1"
-              visible={showStreetView}
-              minSize={20}
-            >
-              {showStreetView && <StreetViewPane />}
-            </Allotment.Pane>
-          </Allotment>
+
+      <Allotment vertical defaultSizes={[1, 1]} className="flex-1">
+        <Allotment.Pane className={clsx(showStreetView && "pb-1")}>
+          {view === "map" && <DynamicMap />}
+          {view === "data" && <DynamicResultsViewer />}
+        </Allotment.Pane>
+        <Allotment.Pane className="pt-1" visible={showStreetView}>
+          {showStreetView && <StreetViewPane />}
         </Allotment.Pane>
       </Allotment>
     </div>
