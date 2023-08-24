@@ -45,7 +45,7 @@ const NamedArea = () => {
   }, [placeId, setBounds, suggestedAreas]);
 
   return (
-    <div className="flex flex-col w-full gap-2">
+    <>
       <p className="text-sm text-muted-foreground">
         We have detected{" "}
         <span className="font-semibold contents">&quot;{area}&quot;</span> as
@@ -53,8 +53,9 @@ const NamedArea = () => {
         the list.
       </p>
       {apiStatus === "loading" ? (
-        <div className="flex gap-2">
-          <LoadingSpinner /> loading suggestions
+        <div className="flex items-center gap-2">
+          <LoadingSpinner />
+          Loading suggestions
         </div>
       ) : options.length > 0 ? (
         <>
@@ -67,7 +68,7 @@ const NamedArea = () => {
           <SurfaceAlert surface={surface} />
         </>
       ) : null}
-    </div>
+    </>
   );
 };
 
