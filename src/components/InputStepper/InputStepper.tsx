@@ -53,7 +53,7 @@ const InputStepper = () => {
         >
           Spot – Search the world with your words
         </animated.h1>
-        <div style={{ height: `${initialHeight}px` }}>
+        <div style={{ height: `${initialHeight + 100}px` }}>
           <div ref={stepRef} className="">
             {STEPS[currentStep]}
           </div>
