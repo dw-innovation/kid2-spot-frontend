@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 type Props = {
   options: { value: string; label: string; disabled?: boolean }[];
@@ -21,7 +22,7 @@ type Props = {
 
 const Select = ({ options, value, onSelect, className }: Props) => (
   <RadixSelect value={value} onValueChange={onSelect}>
-    <SelectTrigger className={className}>
+    <SelectTrigger className={cn("text-left", className)}>
       <SelectValue />
     </SelectTrigger>
     <SelectContent className="absolute z-[10000]">
