@@ -40,7 +40,7 @@ const MapAlert = ({ handleAction, buttonText, alertText }: Props) => {
             className="absolute top-0 right-0 rotate-45 bg-white rounded-full translate-x-1/3 -translate-y-1/3 hover:bg-slate-200"
             onClick={handleCloseClick}
           >
-            <PlusIcon />
+            <PlusIcon size={20} />
           </button>
         </div>
       )}
