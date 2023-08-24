@@ -1,12 +1,14 @@
 import { BBox, bbox } from "@turf/turf";
 import L from "leaflet";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
-import PlusIcon from "@/assets/icons/PlusIcon";
 import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
+
+import { useMapAlert } from "../../Context";
+import MapAlert from "../../MapAlert";
 
 const PolygonOutsideAlert = () => {
   const customSearchArea = useCustomSearchAreaStore(
@@ -15,8 +17,7 @@ const PolygonOutsideAlert = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const map = useMap();
   const alertRef = useRef<HTMLDivElement>(null);
-
-  const [showAlert, setShowAlert] = useState(false);
+  const { setShowAlert } = useMapAlert();
 
   useEffect(() => {
     if (!alertRef.current) return;
@@ -67,33 +68,12 @@ const PolygonOutsideAlert = () => {
     };
   }, [customSearchArea, map]);
 
-  const handleCloseClick = () => {
-    setShowAlert(false);
-  };
-
   return (
-    <>
-      {showAlert && (
-        <div
-          ref={alertRef}
-          className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default w-fit"
-        >
-          Your search area is outside the current view.
-          <button
-            onClick={handleFlyToBounds}
-            className="p-1 bg-white rounded-lg hover:bg-slate-200"
-          >
-            fly to search area
-          </button>
-          <button
-            className="absolute top-0 right-0 rotate-45 bg-white rounded-full translate-x-1/3 -translate-y-1/3 hover:bg-slate-200"
-            onClick={handleCloseClick}
-          >
-            <PlusIcon />
-          </button>
-        </div>
-      )}
-    </>
+    <MapAlert
+      handleAction={handleFlyToBounds}
+      buttonText="fly to area"
+      alertText="Drawn search area outside view."
+    />
   );
 };
 

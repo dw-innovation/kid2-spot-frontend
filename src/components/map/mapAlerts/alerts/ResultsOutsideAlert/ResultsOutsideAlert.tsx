@@ -1,15 +1,16 @@
 import { BBox, bbox } from "@turf/turf";
 import * as turf from "@turf/turf";
 import { GeoJsonProperties } from "geojson";
-import L from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-import PlusIcon from "@/assets/icons/PlusIcon";
 import { allFeaturesWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
+
+import { useMapAlert } from "../../Context";
+import MapAlert from "../../MapAlert";
 
 const ResultsOutsideAlert = () => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
@@ -17,16 +18,12 @@ const ResultsOutsideAlert = () => {
   const customSearchArea = useCustomSearchAreaStore(
     (state) => state.customSearchArea
   );
+  const { setShowAlert } = useMapAlert();
   const map = useMap();
-  const alertRef = useRef<HTMLDivElement>(null);
 
-  const [showAlert, setShowAlert] = useState(false);
-
-  useEffect(() => {
-    if (!alertRef.current) return;
-    L.DomEvent.disableClickPropagation(alertRef.current);
-    L.DomEvent.disableScrollPropagation(alertRef.current);
-  });
+  const handleCloseClick = () => {
+    setShowAlert(false);
+  };
 
   const handleFlyToBounds = () => {
     handleCloseClick();
@@ -80,33 +77,12 @@ const ResultsOutsideAlert = () => {
     };
   }, [customSearchArea, map, geoJSON]);
 
-  const handleCloseClick = () => {
-    setShowAlert(false);
-  };
-
   return (
-    <>
-      {showAlert && (
-        <div
-          ref={alertRef}
-          className="w-fit cursor-default max-w-[15rem] md:max-w-full relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg"
-        >
-          Some results are outside the current view.
-          <button
-            onClick={handleFlyToBounds}
-            className="p-1 bg-white rounded-lg hover:bg-slate-200"
-          >
-            fly to results
-          </button>
-          <button
-            className="absolute top-0 right-0 rotate-45 bg-white rounded-full translate-x-1/3 -translate-y-1/3 hover:bg-slate-200"
-            onClick={handleCloseClick}
-          >
-            <PlusIcon />
-          </button>
-        </div>
-      )}
-    </>
+    <MapAlert
+      handleAction={handleFlyToBounds}
+      alertText="Some results are outside the current view."
+      buttonText="fly to results"
+    />
   );
 };
 
