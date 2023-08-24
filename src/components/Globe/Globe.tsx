@@ -6,10 +6,12 @@ import { animated, SpringValue, useSpring } from "react-spring";
 
 const Globe = ({
   scaleProps,
+  stop,
 }: {
   scaleProps: {
     transform: SpringValue<string>;
   };
+  stop: boolean;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pointerInteracting = useRef<number | null>(null); // Specify it can be a number or null.
@@ -49,6 +51,7 @@ const Globe = ({
       glowColor: [1.2, 1.2, 1.2],
       markers: [],
       onRender: (state) => {
+        if (stop) return;
         if (!pointerInteracting.current) {
           phi += 0.002;
         }
