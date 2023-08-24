@@ -71,8 +71,8 @@ const PolygonOutsideAlert = () => {
   return (
     <MapAlert
       handleAction={handleFlyToBounds}
-      buttonText="fly to area"
-      alertText="Drawn search area outside view."
+      buttonText="Fly to Area"
+      alertText="Drawn search area is outside view."
     />
   );
 };

@@ -81,7 +81,7 @@ const ResultsOutsideAlert = () => {
     <MapAlert
       handleAction={handleFlyToBounds}
       alertText="Some results are outside the current view."
-      buttonText="fly to results"
+      buttonText="Fly to Results"
     />
   );
 };
