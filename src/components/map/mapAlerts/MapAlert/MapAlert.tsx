@@ -33,11 +33,7 @@ const MapAlert = ({ handleAction, buttonText, alertText }: Props) => {
           className="relative flex items-center justify-center gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default w-fit"
         >
           {alertText}
-          <Button
-            onClick={handleAction}
-            className="p-1 bg-white rounded-lg hover:bg-slate-200"
-            variant={"secondary"}
-          >
+          <Button onClick={handleAction} variant={"secondary"}>
             {buttonText}
           </Button>
           <button
