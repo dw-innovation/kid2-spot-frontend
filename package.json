@@ -31,7 +31,7 @@
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "ace-builds": "^1.16.0",
-    "allotment": "^1.18.1",
+    "allotment": "^1.19.2",
     "axios": "^1.2.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

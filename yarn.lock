@@ -2404,7 +2404,7 @@ ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-allotment@^1.18.1:
+allotment@^1.19.2:
   version "1.19.2"
   resolved "https://registry.yarnpkg.com/allotment/-/allotment-1.19.2.tgz#6026a944678958c961dafcfefe9a768af4d6610e"
   integrity sha512-RiiCLa4AQATPsQDXvleyvdRzSsd2J7naLuY+eK1sn1zeXBKMdsCwWuICZ+ZCeDCrJXjVV+q/mHfB2LT7PEYmTw==
