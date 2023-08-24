@@ -1,12 +1,17 @@
 import React from "react";
 
+import DynamicMap from "../map";
+
 const Polygon = () => {
   return (
-    <div className="flex flex-col w-full gap-2">
+    <>
       <p className="text-sm text-muted-foreground">
         Draw your custom polygon on the map to define your search area.
       </p>
-    </div>
+      <div className="w-full h-[10rem]">
+        <DynamicMap />
+      </div>
+    </>
   );
 };
 
