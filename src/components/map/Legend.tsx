@@ -53,7 +53,7 @@ const Legend = () => {
           className="shadow-lg cursor-default z-[10000] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col"
         >
           <h4 className="text-xl font-semibold tracking-tight scroll-m-20">
-            Legend
+            Map Legend
           </h4>
           <div className="flex flex-col gap-1">{renderSets()}</div>
         </div>
