@@ -5,6 +5,13 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import "allotment/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
 import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
@@ -13,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <body>
         <ToastContainer
           position="top-center"
