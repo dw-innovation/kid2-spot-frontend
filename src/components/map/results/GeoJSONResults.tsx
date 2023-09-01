@@ -1,9 +1,9 @@
 "use client";
 
 import * as L from "leaflet";
-import React, { FC, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { GeoJSON, GeoJSONProps } from "react-leaflet";
+import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
 
 import { FILL_COLORS } from "@/lib/const";
 import useResultsStore from "@/stores/useResultsStore";
@@ -16,6 +16,16 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
+  const markerLayerGroup = useRef<L.LayerGroup | null>(null);
+  const map = useMap();
+
+  useEffect(() => {
+    map.createPane("markerPane");
+    const markerPane = map.getPane("markerPane");
+    if (markerPane) {
+      markerPane.style.zIndex = "500";
+    }
+  }, [map]);
 
   const getSetIndex = (setName: string | undefined) => {
     return sets.findIndex((set) => set.name === setName);
@@ -37,6 +47,16 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (markerLayerGroup.current) {
+      markerLayerGroup.current.eachLayer((layer) => {
+        if ("bringToFront" in layer) {
+          (layer as L.Path).bringToFront();
+        }
+      });
+    }
+  }, [geoJSON]);
+
   const pointToLayer = (
     _: GeoJSON.Feature<GeoJSON.Point>,
     latlng: L.LatLng
@@ -49,6 +69,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       weight: 1,
       opacity: 1,
       fillOpacity: getFillOpacity(setIndex),
+      pane: "markerPane",
     };
     return L.circleMarker(latlng, markerOptions);
   };
