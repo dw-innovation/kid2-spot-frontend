@@ -1,40 +1,45 @@
 "use client";
 
-import { SymbolIcon } from "@radix-ui/react-icons";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-import FilterDialog from "@/components/dialogs/FilterDialog";
-import ImrDialog from "@/components/dialogs/ImrDialog";
-import ActionsMenu from "@/components/menus/ActionsMenu";
-import SettingsMenu from "@/components/menus/SettingsMenu";
-import OSMQuerySubmit from "@/components/OSMQuerySubmit";
-import { Button } from "@/components/ui/button";
-import useAppStore from "@/stores/useAppStore";
+import { Button } from "../ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
+import { useMenu } from "./Context";
+import MenuItems from "./MenuItems";
 
 const Header = () => {
-  const router = useRouter();
-  const resetSteps = useAppStore((state) => state.resetSteps);
+  const { open, setOpen } = useMenu();
 
   return (
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
         <h1 className="pb-1 text-2xl font-bold leading-none">Spot</h1>
-        <div className="flex gap-2">
-          <Button
-            onClick={() => {
-              resetSteps();
-              router.push("/");
-            }}
-          >
-            <SymbolIcon />
-            <span className="hidden md:block">New Search</span>
-          </Button>
-          <OSMQuerySubmit />
-          <FilterDialog />
-          <ActionsMenu />
-          <SettingsMenu />
-          <ImrDialog />
+        <div className="hidden gap-2 md:flex">
+          <MenuItems />
+        </div>
+        <div className="block md:hidden">
+          <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
+            <SheetTrigger className="block md:hidden">
+              <Button>
+                <HamburgerMenuIcon />
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="md:hidden">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+                <SheetDescription>
+                  <MenuItems />
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </div>

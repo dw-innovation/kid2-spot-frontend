@@ -20,6 +20,7 @@ export default interface ImrStoreInterface {
     key: string,
     value: string
   ) => void;
+  setSearchArea: (type: string, value: string | number[][]) => void;
   addFilter: (setId: number) => void;
   removeFilter: (setId: number, filterId: number) => void;
   setSetName: (setId: number, name: string) => void;

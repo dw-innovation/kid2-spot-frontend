@@ -1,6 +1,7 @@
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
+import { useMenu } from "@/components/Header/Context";
 import DynamicImrEditor from "@/components/ImrEditor";
 import {
   Dialog,
@@ -14,13 +15,24 @@ import { Button } from "../../ui/button";
 
 const ImrDialog = () => {
   const [open, setOpen] = useState(false);
+  const { setOpen: setMenuOpen } = useMenu();
 
   return (
-    <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
-      <DialogTrigger onClick={() => setOpen(true)}>
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        setOpen(state);
+        setMenuOpen(state);
+      }}
+    >
+      <DialogTrigger
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
         <Button variant={"outline"}>
           <Pencil1Icon />
-          <span className="hidden md:block">IMR</span>
+          <span>IMR</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="z-[10000]">

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { SearchIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -14,11 +14,14 @@ import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
+import { useMenu } from "../Header/Context";
+
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
+  const { setOpen } = useMenu();
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
 
@@ -39,6 +42,12 @@ const OverpassQuerySubmit = () => {
     }
   };
 
+  useEffect(() => {
+    if (apiStatus === "success") {
+      setOpen(false);
+    }
+  }, [apiStatus, setOpen]);
+
   const renderButton = () => (
     <Button
       onClick={
@@ -56,7 +65,7 @@ const OverpassQuerySubmit = () => {
             <SearchIcon className="w-4 h-4" />
           )}
         </span>
-        <span className="hidden md:block">Query OSM</span>
+        <span>Query OSM</span>
       </div>
     </Button>
   );

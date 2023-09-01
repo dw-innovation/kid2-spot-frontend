@@ -1,6 +1,7 @@
 import { MixerVerticalIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
+import { useMenu } from "@/components/Header/Context";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,13 +16,20 @@ import Sets from "./sets/Sets";
 
 const FilterDialog = () => {
   const [open, setOpen] = useState(false);
+  const { setOpen: setMenuOpen } = useMenu();
 
   return (
-    <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        setOpen(state);
+        setMenuOpen(state);
+      }}
+    >
       <DialogTrigger onClick={() => setOpen(true)}>
         <Button variant={"outline"}>
           <MixerVerticalIcon />
-          <span className="hidden md:block">Filters</span>
+          <span>Filters</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="z-[10000] max-w-2xl flex flex-col max-h-[80vh]">

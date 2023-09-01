@@ -62,6 +62,16 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
+  setSearchArea: (type: string, value: string | number[][]) => {
+    set(
+      produce((draft) => {
+        draft.imr.a = {
+          t: type,
+          v: value,
+        };
+      })
+    );
+  },
   stringifiedImr: "",
   setStringifiedImr: (stringifiedImr: string) => {
     set(

@@ -8,7 +8,7 @@ import useQueryStore from "@/stores/useQueryStore";
 
 import Select from "../Select";
 
-const QueryAreaSelector = () => {
+const SearchAreaSelector = () => {
   const [polygonOptionDisabled, setPolygonOptionDisabled] = useState(false);
   const customSearchArea = useCustomSearchAreaStore(
     (state) => state.customSearchArea
@@ -67,4 +67,4 @@ const QueryAreaSelector = () => {
   );
 };
 
-export default QueryAreaSelector;
+export default SearchAreaSelector;

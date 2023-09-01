@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useAppStore from "@/stores/useAppStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
 const TILES_LAYERS = [
@@ -24,11 +25,19 @@ const VIEWS: { name: "map" | "data"; label: string }[] = [
   { name: "data", label: "Data" },
 ];
 
+const SEARCH_AREAS = [
+  { label: "Bounding Box", value: "bbox" },
+  { label: "Custom Area", value: "area" },
+];
+
 const SettingsMenu = () => {
   const tilesLayer = useMapStore((state) => state.tilesLayer);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const view = useAppStore((state) => state.view);
   const setView = useAppStore((state) => state.setView);
+  const searchAreaType = useImrStore((state) => state.imr.a.t);
+  const setSearchArea = useImrStore((state) => state.setSearchArea);
+  const bounds = useMapStore((state) => state.bounds);
 
   const renderTilesLayers = () =>
     TILES_LAYERS.map(({ label, value }) => (
@@ -54,15 +63,29 @@ const SettingsMenu = () => {
       </DropdownMenuCheckboxItem>
     ));
 
+  const renderSearchArea = () =>
+    SEARCH_AREAS.map(({ label, value }) => (
+      <DropdownMenuCheckboxItem
+        key={value}
+        checked={searchAreaType === value}
+        onCheckedChange={() => setSearchArea(value, bounds)}
+      >
+        {label}
+      </DropdownMenuCheckboxItem>
+    ));
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outline">
           <GearIcon />
-          <span className="hidden md:block">Settings</span>
+          <span>Settings</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
+        <DropdownMenuLabel className="uppercase">Search Area</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {renderSearchArea()}
         <DropdownMenuLabel className="uppercase">Map style</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderTilesLayers()}
