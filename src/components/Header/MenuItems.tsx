@@ -8,7 +8,6 @@ import FilterDialog from "@/components/dialogs/FilterDialog";
 import ImrDialog from "@/components/dialogs/ImrDialog";
 import ActionsMenu from "@/components/menus/ActionsMenu";
 import SettingsMenu from "@/components/menus/SettingsMenu";
-import OSMQuerySubmit from "@/components/OSMQuerySubmit";
 import { Button } from "@/components/ui/button";
 import useAppStore from "@/stores/useAppStore";
 
@@ -31,7 +30,6 @@ const MenuItems = () => {
         <SymbolIcon />
         <span>New Search</span>
       </Button>
-      <OSMQuerySubmit />
       <FilterDialog />
       <ActionsMenu />
       <SettingsMenu />
