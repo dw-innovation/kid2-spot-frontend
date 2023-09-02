@@ -40,7 +40,7 @@ const SearchAreaSelector = () => {
           setSearchArea(v as "bbox" | "polygon");
         }}
         options={[
-          { label: "Bounding Box", value: "bbox" },
+          { label: "Current Map View", value: "bbox" },
           {
             label: "Polygon",
             value: "polygon",

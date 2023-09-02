@@ -26,8 +26,9 @@ const VIEWS: { name: "map" | "data"; label: string }[] = [
 ];
 
 const SEARCH_AREAS = [
-  { label: "Bounding Box", value: "bbox" },
+  { label: "Current Map View", value: "bbox" },
   { label: "Custom Area", value: "area" },
+  { label: "Drawn Polygon", value: "polygon" },
 ];
 
 const SettingsMenu = () => {
