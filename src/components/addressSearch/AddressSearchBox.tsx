@@ -1,3 +1,4 @@
+import { Cross1Icon } from "@radix-ui/react-icons";
 import Downshift from "downshift";
 import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
@@ -26,6 +27,7 @@ const AddressSearchBox = () => {
 
   const lastSearchAddressRef = useRef("");
   const searchBoxRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!searchBoxRef.current) return;
@@ -145,8 +147,20 @@ const AddressSearchBox = () => {
                       onKeyDown: (e) => handleKeyDown(e, selectItem),
                       value: searchAddress,
                     })}
+                    ref={inputRef}
                   />
                 </div>
+                <button
+                  onClick={(event) => {
+                    setSearchAddress("");
+                    setAddressSuggestions([]);
+                    inputRef.current?.focus();
+                    (event.target as HTMLElement).blur();
+                  }}
+                  className="p-0 focus:bg-transparent"
+                >
+                  <Cross1Icon />
+                </button>
                 <button
                   aria-label={"toggle menu"}
                   className="px-2"
