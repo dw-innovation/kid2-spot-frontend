@@ -119,7 +119,10 @@ const AddressSearchBox = () => {
 
           setCurrentAddress({ placeName: place_name_en, coordinates });
         }}
-        onSelect={(item) => setSearchAddress(item.place_name_en)}
+        onSelect={(item) => {
+          setSearchAddress(item.place_name_en);
+          inputRef?.current?.blur();
+        }}
         itemToString={(item) => (item ? item.place_name : "")}
       >
         {({
