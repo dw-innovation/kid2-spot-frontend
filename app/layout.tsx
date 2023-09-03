@@ -14,6 +14,8 @@ const inter = Inter({
 
 import { ToastContainer } from "react-toastify";
 
+import ErrorAlert from "@/components/ErrorAlert";
+
 export default function RootLayout({
   children,
 }: {
@@ -22,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
+        <ErrorAlert />
         <ToastContainer
           position="top-center"
           autoClose={5000}

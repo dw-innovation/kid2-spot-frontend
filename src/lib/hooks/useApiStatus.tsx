@@ -37,6 +37,7 @@ const useApiStatus = <T = any,>(
       } else {
         console.error("Fetch request failed: ", error);
         updateApiStatus("error");
+        throw error;
       }
     }
   };

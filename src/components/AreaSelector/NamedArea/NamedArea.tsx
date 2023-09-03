@@ -4,6 +4,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { calculateSurface, getAreas } from "@/lib/utils";
+import useErrorStore from "@/stores/useErrorStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import { Place } from "@/types/nominatim";
@@ -17,9 +18,16 @@ const NamedArea = () => {
   const [surface, setSurface] = useState<number>(0);
   const setBounds = useMapStore((state) => state.setBounds);
   const area = useImrStore((state) => state.imr.a.v);
+  const setIsError = useErrorStore((state) => state.setIsError);
+  const setMessage = useErrorStore((state) => state.setMessage);
 
   useEffect(() => {
-    fetchData(area).then(setSuggestedAreas);
+    fetchData(area)
+      .then(setSuggestedAreas)
+      .catch(() => {
+        setIsError(true);
+        setMessage("Error fetching suggestions");
+      });
   }, [area]);
 
   const options = suggestedAreas.map(({ display_name, place_id }) => ({
