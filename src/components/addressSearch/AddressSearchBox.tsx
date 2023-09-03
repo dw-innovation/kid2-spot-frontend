@@ -1,4 +1,4 @@
-import { Cross1Icon } from "@radix-ui/react-icons";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 import Downshift from "downshift";
 import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
@@ -162,7 +162,7 @@ const AddressSearchBox = () => {
                   }}
                   className="p-0 focus:bg-transparent"
                 >
-                  <Cross1Icon />
+                  <CrossCircledIcon />
                 </button>
                 <button
                   aria-label={"toggle menu"}
