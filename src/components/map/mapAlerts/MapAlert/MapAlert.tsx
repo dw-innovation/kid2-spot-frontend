@@ -35,7 +35,7 @@ const MapAlert = ({ handleAction, buttonText, alertText }: Props) => {
           className="relative flex items-center justify-center max-w-[16rem] gap-2 px-2 py-1 mr-2 text-black bg-orange-200 rounded-lg shadow-lg cursor-default md:max-w-sm lg:max-w-xl w-fit"
         >
           <span className="leading-tight">{alertText}</span>
-          <Button onClick={handleAction} variant={"secondary"}>
+          <Button onClick={handleAction} variant={"secondary"} size={"fit"}>
             {buttonText}
           </Button>
           <button
