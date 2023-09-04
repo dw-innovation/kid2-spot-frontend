@@ -36,7 +36,7 @@ const FilterDialog = () => {
         <DialogHeader>
           <DialogTitle>Edit Search Filters</DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col flex-1 h-full gap-2 overflow-y-scroll">
+        <div className="flex flex-col flex-1 h-full gap-2 overflow-y-auto">
           <Sets />
           <Relations />
         </div>
