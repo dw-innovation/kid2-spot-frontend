@@ -27,7 +27,7 @@ const OverpassQuerySubmit = () => {
   const handleOverpassQuerySubmit = async () => {
     const results = await fetchData();
 
-    if (results.results) {
+    if (results && results.results) {
       clearGeoJSON();
       clearSets();
       setGeoJSON(results.results);
