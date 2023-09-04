@@ -142,6 +142,7 @@ const AddressSearchBox = () => {
           selectedItem,
           getRootProps,
           selectItem,
+          setState,
         }) => (
           <div>
             <div className="flex flex-col gap-1" ref={inputRef}>
@@ -156,6 +157,7 @@ const AddressSearchBox = () => {
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),
                       onKeyDown: (e) => handleKeyDown(e, selectItem),
+                      onFocus: () => setState({ isOpen: true }),
                       value: searchAddress,
                     })}
                     ref={inputRef}
