@@ -1,6 +1,11 @@
 import clsx from "clsx";
-import { Callback, StateChangeOptions } from "downshift";
-import React, { useRef } from "react";
+import {
+  Callback,
+  GetMenuPropsOptions,
+  GetPropsCommonOptions,
+  StateChangeOptions,
+} from "downshift";
+import React from "react";
 
 interface AddressSuggestionProps {
   isOpen: boolean;
@@ -13,6 +18,10 @@ interface AddressSuggestionProps {
     otherStateToSet?: Partial<StateChangeOptions<any>> | undefined,
     cb?: Callback | undefined
   ) => void;
+  getMenuProps: (
+    options?: GetMenuPropsOptions | undefined,
+    otherOptions?: GetPropsCommonOptions | undefined
+  ) => any;
 }
 
 const AddressSuggestions = ({
@@ -21,20 +30,14 @@ const AddressSuggestions = ({
   highlightedIndex,
   selectedItem,
   getItemProps,
-  selectItem,
+  getMenuProps,
 }: AddressSuggestionProps) => {
-  const suggestionsRef = useRef(null);
-
-  const handleClickSelect = (item: any) => {
-    selectItem(item);
-  };
-
   return (
     <ul
-      className={`absolute w-full bg-white mt-1 shadow-md max-h-80 p-0 ${
+      className={`absolute w-full bg-white mt-1 shadow-md max-h-80 p-0 z-[800] ${
         !isOpen && suggestions.length === 0 && "hidden"
       }`}
-      ref={suggestionsRef}
+      {...getMenuProps()}
     >
       {isOpen &&
         suggestions.map((item, index) => (
@@ -49,9 +52,8 @@ const AddressSuggestions = ({
               index,
               item,
             })}
-            onMouseDown={() => handleClickSelect(item)}
           >
-            <span>{item.place_name}</span>
+            {item.place_name}
           </li>
         ))}
     </ul>

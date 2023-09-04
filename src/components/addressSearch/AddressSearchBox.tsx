@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import Downshift from "downshift";
 import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
+import { useMapEvents } from "react-leaflet";
 
 import LensIcon from "@/assets/icons/LensIcon";
 import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
@@ -26,13 +28,21 @@ const AddressSearchBox = () => {
   const bounds = useMapStore((state) => state.bounds);
 
   const lastSearchAddressRef = useRef("");
-  const searchBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useMapEvents({
+    click: (e) => {
+      const target = e.originalEvent.target as Element;
+      if (inputRef.current && target === inputRef.current) {
+        L.DomEvent.stopPropagation(e);
+      }
+    },
+  });
+
   useEffect(() => {
-    if (!searchBoxRef.current) return;
-    L.DomEvent.disableClickPropagation(searchBoxRef.current);
-    L.DomEvent.disableScrollPropagation(searchBoxRef.current);
+    if (!inputRef.current) return;
+    L.DomEvent.disableClickPropagation(inputRef.current);
+    L.DomEvent.disableScrollPropagation(inputRef.current);
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,10 +116,7 @@ const AddressSearchBox = () => {
   }, [searchAddress, debouncedFetchGeocodeApiData, lastSearchAddressRef]);
 
   return (
-    <div
-      className="flex flex-col gap-1 justify-end w-[15rem] md:w-[20rem]"
-      ref={searchBoxRef}
-    >
+    <div className="flex flex-col gap-1 justify-end w-[15rem] md:w-[20rem]">
       <Downshift
         onChange={({ coordinates, bbox, place_name_en }) => {
           setBounds([
@@ -130,13 +137,14 @@ const AddressSearchBox = () => {
           getItemProps,
           getToggleButtonProps,
           isOpen,
+          getMenuProps,
           highlightedIndex,
           selectedItem,
           getRootProps,
           selectItem,
         }) => (
           <div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1" ref={inputRef}>
               <div
                 className="flex shadow-lg bg-white rounded-lg gap-0.5"
                 {...getRootProps({}, { suppressRefError: true })}
@@ -182,6 +190,7 @@ const AddressSearchBox = () => {
               selectedItem={selectedItem}
               getItemProps={getItemProps}
               selectItem={selectItem}
+              getMenuProps={getMenuProps}
             />
           </div>
         )}
