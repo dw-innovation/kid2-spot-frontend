@@ -1,16 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const useElapsedTime = (interval = 1000) => {
-  const [elapsedTime, setElapsedTime] = useState(0);
+type ApiStatus = "idle" | "loading" | "success" | "error";
+
+const useElapsedTime = (start: boolean, resetTrigger: ApiStatus): number => {
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const resetRef = useRef<ApiStatus>(resetTrigger);
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setElapsedTime((prevTime) => prevTime + 1),
-      interval
-    );
+    if (resetTrigger !== resetRef.current) {
+      setElapsedTime(0);
+      resetRef.current = resetTrigger;
+    }
+  }, [resetTrigger]);
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (start) {
+      timer = setInterval(() => {
+        setElapsedTime((prev) => prev + 1);
+      }, 1000);
+    }
     return () => clearInterval(timer);
-  }, [interval]);
+  }, [start]);
 
   return elapsedTime;
 };

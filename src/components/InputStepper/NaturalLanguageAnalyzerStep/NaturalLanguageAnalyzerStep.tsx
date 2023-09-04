@@ -10,7 +10,7 @@ import InputContainer from "../InputContainer";
 
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useAppStore((state) => state.nextStep);
-  const elapsedTime = useElapsedTime();
+  const elapsedTime = useElapsedTime(true, "loading");
   const [shouldUnmount, setShouldUnmount] = useState(false);
 
   useEffect(() => {

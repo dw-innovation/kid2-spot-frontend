@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useApiStatus from "@/lib/hooks/useApiStatus";
+import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
@@ -21,6 +22,7 @@ const OverpassQuerySubmit = () => {
   const clearSets = useResultsStore((state) => state.clearSets);
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
+  const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
 
   const handleOverpassQuerySubmit = async () => {
     const results = await fetchData();
@@ -68,7 +70,7 @@ const OverpassQuerySubmit = () => {
           <Tooltip defaultOpen>
             <TooltipTrigger>{renderButton()}</TooltipTrigger>
             <TooltipContent className="z-[10000]">
-              click to cancel request
+              {elapsedTime}s, click to cancel request
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

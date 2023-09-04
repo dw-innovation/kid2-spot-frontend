@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 
 type FetchFunction<T = any> = (...args: any[]) => Promise<T>;
-type ApiStatus = "idle" | "loading" | "success" | "error";
+export type ApiStatus = "idle" | "loading" | "success" | "error";
 
 const useApiStatus = <T = any,>(
   fetchFunction: FetchFunction<T>
