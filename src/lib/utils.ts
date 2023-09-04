@@ -51,7 +51,7 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
       params: {
         key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
         language: "en",
-        limit: 5,
+        limit: 10,
         types:
           "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
       },
