@@ -13,8 +13,8 @@ import InputContainer from "../InputContainer";
 const OSMQueryStep = () => {
   const router = useRouter();
   const { setAnimateOut } = useInputStepper();
-  const [apiStatus, fetchData] = useApiStatus(fetchOSMData);
-  const elapsedTime = useElapsedTime(true, apiStatus);
+  const [, fetchData] = useApiStatus(fetchOSMData);
+  const elapsedTime = useElapsedTime(true, "loading");
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const [shouldUnmount, setShouldUnmount] = useState(false);
