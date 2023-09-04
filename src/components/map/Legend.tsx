@@ -31,7 +31,7 @@ const Legend = () => {
           />
           <label
             htmlFor={index.toString()}
-            className="flex items-center justify-center gap-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="flex items-center justify-center gap-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             <div
               className="w-3 h-3"
