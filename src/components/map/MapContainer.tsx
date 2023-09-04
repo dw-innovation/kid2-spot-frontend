@@ -33,8 +33,8 @@ const MapContainer = () => {
           bounds={bounds}
         >
           <div className="absolute top-0 right-0 z-[400] mt-2 mr-2 flex flex-col-reverse md:flex-row text-base font-sans gap-2 items-end md:items-start">
-            <AddressSearchBox />
             <div className="flex flex-col items-end gap-2">
+              <AddressSearchBox />
               <PolygonOutsideAlert />
               <ResultsOutsideAlert />
             </div>
