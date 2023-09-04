@@ -4,7 +4,6 @@ import Downshift from "downshift";
 import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
-import { useMapEvents } from "react-leaflet";
 
 import LensIcon from "@/assets/icons/LensIcon";
 import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
@@ -30,20 +29,11 @@ const AddressSearchBox = () => {
   const lastSearchAddressRef = useRef("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useMapEvents({
-    click: (e) => {
-      const target = e.originalEvent.target as Element;
-      if (inputRef.current && target === inputRef.current) {
-        L.DomEvent.stopPropagation(e);
-      }
-    },
-  });
-
   useEffect(() => {
-    if (!inputRef.current) return;
-    L.DomEvent.disableClickPropagation(inputRef.current);
-    L.DomEvent.disableScrollPropagation(inputRef.current);
-  });
+    if (inputRef.current) {
+      L.DomEvent.disableClickPropagation(inputRef.current);
+    }
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFetchGeocodeApiData = useCallback(
