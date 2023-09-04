@@ -144,7 +144,7 @@ const AddressSearchBox = () => {
           selectItem,
           setState,
         }) => (
-          <div>
+          <div className="relative">
             <div className="flex flex-col gap-1" ref={inputRef}>
               <div
                 className="flex shadow-lg bg-white rounded-lg gap-0.5"
