@@ -6,6 +6,7 @@ import SessionInitializer from "@/components/SessionInitializer";
 import MapPage from "../page";
 
 async function getSession(id: string) {
+  const auth = process.env.HTTP_BASIC_AUTH?.split(":") || [];
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSession`,
     {
@@ -13,8 +14,8 @@ async function getSession(id: string) {
         id: id,
       },
       auth: {
-        username: process.env.APP_USER || "",
-        password: process.env.APP_PASSWORD || "",
+        username: auth[0] || "",
+        password: auth[1] || "",
       },
     }
   );
