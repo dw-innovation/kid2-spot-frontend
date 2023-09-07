@@ -27,14 +27,24 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     }
   }, [map]);
 
+  useEffect(() => {
+    if (markerLayerGroup.current) {
+      markerLayerGroup.current.eachLayer((layer) => {
+        if ("bringToFront" in layer) {
+          (layer as L.Path).bringToFront();
+        }
+      });
+    }
+  }, [geoJSON]);
+
   const getSetIndex = (setName: string | undefined) => {
     return sets.findIndex((set) => set.name === setName);
   };
 
-  const getColor = (setIndex: number) => {
+  const getSetColor = (setIndex: number) => {
     if (sets[setIndex] && sets[setIndex].visible) {
       if (sets[setIndex].highlighted) {
-        return "#ff0000";
+        return "#fc5603";
       } else {
         return "#fff";
       }
@@ -43,7 +53,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     }
   };
 
-  const getFillOpacity = (setIndex: number) => {
+  const getSetFillOpacity = (setIndex: number) => {
     return sets[setIndex] && sets[setIndex].visible ? 0.8 : 0;
   };
 
@@ -54,16 +64,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       });
     }
   };
-
-  useEffect(() => {
-    if (markerLayerGroup.current) {
-      markerLayerGroup.current.eachLayer((layer) => {
-        if ("bringToFront" in layer) {
-          (layer as L.Path).bringToFront();
-        }
-      });
-    }
-  }, [geoJSON]);
 
   const pointToLayer = (
     _: GeoJSON.Feature<GeoJSON.Point>,
@@ -76,7 +76,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       color: "#fff",
       weight: 1,
       opacity: 1,
-      fillOpacity: getFillOpacity(setIndex),
+      fillOpacity: getSetFillOpacity(setIndex),
       pane: "markerPane",
     };
     return L.circleMarker(latlng, markerOptions);
@@ -113,12 +113,13 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     if (!feature) return {};
 
     const setIndex = getSetIndex(feature.properties?.set_name);
+
     return {
       fillColor: FILL_COLORS[setIndex],
-      color: getColor(setIndex),
+      color: getSetColor(setIndex),
       weight: 1,
       opacity: 1,
-      fillOpacity: getFillOpacity(setIndex),
+      fillOpacity: getSetFillOpacity(setIndex),
     };
   };
 
