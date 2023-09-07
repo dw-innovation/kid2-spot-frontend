@@ -20,6 +20,7 @@ import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveData } from "@/lib/storeData";
 import { saveResultsToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -38,6 +39,7 @@ const ActionsMenu = () => {
       { name: "useMapStore", getState: useMapStore.getState },
       { name: "useQueryStore", getState: useQueryStore.getState },
       { name: "useStreetViewStore", getState: useStreetViewStore.getState },
+      { name: "useImrStore", getState: useImrStore.getState },
     ])
   );
 

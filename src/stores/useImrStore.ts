@@ -269,6 +269,14 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
+  initialize: (initialData: any) => {
+    set(
+      produce((draft) => {
+        draft.imr = initialData.imr;
+        draft.stringifiedImr = JSON.stringify(initialData.imr, null, 2);
+      })
+    );
+  },
 }));
 
 export default useImrStore;
