@@ -115,26 +115,27 @@ const ActionsMenu = () => {
           Load Session
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        <DropdownMenuLabel className="uppercase">Results</DropdownMenuLabel>
         <DropdownMenuItem
           onClick={handleClearResults}
           disabled={!isGeoJSONAvailable}
         >
           <TrashIcon />
-          Clear Results
+          Clear
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={(e) => handleDownloadResults(e, "geojson")}
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
-          Download Results (GeoJSON)
+          Download as GeoJSON
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={(e) => handleDownloadResults(e, "kml")}
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
-          Download Results (KML)
+          Download as KML
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
