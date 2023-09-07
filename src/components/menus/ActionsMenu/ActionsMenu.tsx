@@ -7,6 +7,7 @@ import {
   UploadIcon,
 } from "@radix-ui/react-icons";
 import React, { useState } from "react";
+import { uuid } from "short-uuid";
 
 import { useMenu } from "@/components/Header/Context";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -27,6 +28,7 @@ import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
+import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const ActionsMenu = () => {
@@ -35,6 +37,7 @@ const ActionsMenu = () => {
   const isGeoJSONAvailable = Boolean(geoJSON);
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
+  const addSession = useSessionsStore((state) => state.addSession);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
     saveData([
@@ -63,6 +66,24 @@ const ActionsMenu = () => {
     saveResultsToFile(format);
     setOpen(false);
     setMenuOpen(false);
+  };
+
+  const handleSessionSave = () => {
+    let date = new Date();
+    addSession({
+      name: "Session",
+      data: {
+        useAppStore: useAppStore.getState(),
+        useMapStore: useMapStore.getState(),
+        useQueryStore: useQueryStore.getState(),
+        useStreetViewStore: useStreetViewStore.getState(),
+        useImrStore: useImrStore.getState(),
+      },
+      created: date.toDateString(),
+      modified: date.toDateString(),
+      id: uuid(),
+      description: "Session description",
+    });
   };
 
   return (
@@ -98,11 +119,7 @@ const ActionsMenu = () => {
           {ShareSessionIcon}
           Share Session
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={async (e) => {
-            e.preventDefault();
-          }}
-        >
+        <DropdownMenuItem onClick={handleSessionSave}>
           <BookmarkIcon />
           Save Session
         </DropdownMenuItem>
