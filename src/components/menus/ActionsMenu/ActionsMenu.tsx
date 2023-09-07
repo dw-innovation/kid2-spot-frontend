@@ -55,8 +55,12 @@ const ActionsMenu = () => {
     setMenuOpen(false);
   };
 
-  const handleDownloadResults = () => {
-    saveResultsToFile();
+  const handleDownloadResults = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    format: "kml" | "geojson"
+  ) => {
+    e.preventDefault();
+    saveResultsToFile(format);
     setOpen(false);
     setMenuOpen(false);
   };
@@ -119,11 +123,18 @@ const ActionsMenu = () => {
           Clear Results
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={handleDownloadResults}
+          onClick={(e) => handleDownloadResults(e, "geojson")}
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
-          Download Results
+          Download Results (GeoJSON)
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={(e) => handleDownloadResults(e, "kml")}
+          disabled={!isGeoJSONAvailable}
+        >
+          <DownloadIcon />
+          Download Results (KML)
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
