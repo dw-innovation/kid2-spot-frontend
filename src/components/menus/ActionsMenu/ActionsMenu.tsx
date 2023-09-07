@@ -1,8 +1,10 @@
 import {
+  BookmarkIcon,
   DownloadIcon,
   LightningBoltIcon,
   Share1Icon,
   TrashIcon,
+  UploadIcon,
 } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 
@@ -13,6 +15,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -78,6 +81,7 @@ const ActionsMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
+        <DropdownMenuLabel className="uppercase">Session</DropdownMenuLabel>
         <DropdownMenuItem
           onClick={async (e) => {
             e.preventDefault();
@@ -89,6 +93,22 @@ const ActionsMenu = () => {
         >
           {ShareSessionIcon}
           Share Session
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async (e) => {
+            e.preventDefault();
+          }}
+        >
+          <BookmarkIcon />
+          Save Session
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async (e) => {
+            e.preventDefault();
+          }}
+        >
+          <UploadIcon />
+          Load Session
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
