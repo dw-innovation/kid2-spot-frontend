@@ -28,6 +28,7 @@ const OSMQueryStep = () => {
           id: index,
           name: set,
           visible: true,
+          highlighted: false,
         }));
         setSets(sets);
       })
