@@ -1,4 +1,4 @@
-import tokml from "@maphubs/tokml";
+import tokml from "@jlandrum/tokml";
 import { area } from "@turf/turf";
 import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
@@ -68,18 +68,20 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
 
 export const saveResultsToFile = (format: "geojson" | "kml") => {
   let fileData = "";
+  let geojson = useResultsStore.getState().geoJSON;
+
+  if (!geojson) return;
+
   if (format === "geojson") {
-    let geojson = useResultsStore.getState().geoJSON;
     fileData = JSON.stringify(geojson);
   } else {
-    let geojson = useResultsStore.getState().geoJSON;
     let kml = tokml(geojson);
     fileData = kml;
   }
   const blob = new Blob([fileData], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.download = "export.json";
+  link.download = `export.${format}`;
   link.href = url;
   link.click();
 };

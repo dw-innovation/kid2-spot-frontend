@@ -13,6 +13,7 @@
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
+    "@jlandrum/tokml": "^0.6.1-ts2",
     "@next/font": "13.1.5",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
