@@ -32,7 +32,15 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   };
 
   const getColor = (setIndex: number) => {
-    return sets[setIndex] && sets[setIndex].visible ? "#fff" : "transparent";
+    if (sets[setIndex] && sets[setIndex].visible) {
+      if (sets[setIndex].highlighted) {
+        return "#ff0000";
+      } else {
+        return "#fff";
+      }
+    } else {
+      return "transparent";
+    }
   };
 
   const getFillOpacity = (setIndex: number) => {

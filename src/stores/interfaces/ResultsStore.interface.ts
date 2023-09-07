@@ -8,14 +8,17 @@ export default interface ResultsStoreInterface {
     id: string;
     name: string;
     visible: boolean;
+    highlighted: boolean;
   }[];
   setSets: (
     sets: {
       id: string;
       name: string;
       visible: boolean;
+      highlighted: boolean;
     }[]
   ) => void;
   clearSets: () => void;
   toggleVisible: (id: string) => void;
+  toggleHighlighted: (id: string) => void;
 }

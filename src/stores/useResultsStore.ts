@@ -27,6 +27,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       id: string;
       name: string;
       visible: boolean;
+      highlighted: boolean;
     }[]
   ) => {
     set(
@@ -38,9 +39,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
   toggleVisible: (id: string) => {
     set(
       produce((draft) => {
-        const set = draft.sets.find(
-          (set: { id: string; name: string; visible: boolean }) => set.id === id
-        );
+        const set = draft.sets.find((set: { id: string }) => set.id === id);
         if (set) {
           set.visible = !set.visible;
         }
@@ -51,6 +50,16 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
     set(
       produce((draft) => {
         draft.sets = [];
+      })
+    );
+  },
+  toggleHighlighted: (id: string) => {
+    set(
+      produce((draft) => {
+        const set = draft.sets.find((set: { id: string }) => set.id === id);
+        if (set) {
+          set.highlighted = !set.highlighted;
+        }
       })
     );
   },

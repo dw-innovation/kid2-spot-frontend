@@ -8,6 +8,7 @@ import useResultsStore from "@/stores/useResultsStore";
 const Legend = () => {
   const sets = useResultsStore((state) => state.sets);
   const toggleVisible = useResultsStore((state) => state.toggleVisible);
+  const toggleHighlighted = useResultsStore((state) => state.toggleHighlighted);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +32,8 @@ const Legend = () => {
           />
           <label
             htmlFor={index.toString()}
+            onMouseEnter={() => toggleHighlighted(set.id)}
+            onMouseLeave={() => toggleHighlighted(set.id)}
             className="flex items-center justify-center gap-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             <div
