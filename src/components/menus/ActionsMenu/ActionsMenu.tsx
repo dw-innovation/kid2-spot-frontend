@@ -7,7 +7,6 @@ import {
   UploadIcon,
 } from "@radix-ui/react-icons";
 import React, { useState } from "react";
-import { uuid } from "short-uuid";
 
 import { useMenu } from "@/components/Header/Context";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -22,13 +21,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveData } from "@/lib/storeData";
-import { saveResultsToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
-import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const ActionsMenu = () => {
@@ -37,7 +34,7 @@ const ActionsMenu = () => {
   const isGeoJSONAvailable = Boolean(geoJSON);
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
-  const addSession = useSessionsStore((state) => state.addSession);
+  const toggleDialog = useAppStore((state) => state.toggleDialog);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
     saveData([
@@ -56,34 +53,6 @@ const ActionsMenu = () => {
     clearGeoJSON();
     setOpen(false);
     setMenuOpen(false);
-  };
-
-  const handleDownloadResults = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    format: "kml" | "geojson"
-  ) => {
-    e.preventDefault();
-    saveResultsToFile(format);
-    setOpen(false);
-    setMenuOpen(false);
-  };
-
-  const handleSessionSave = () => {
-    let date = new Date();
-    addSession({
-      name: "Session",
-      data: {
-        useAppStore: useAppStore.getState(),
-        useMapStore: useMapStore.getState(),
-        useQueryStore: useQueryStore.getState(),
-        useStreetViewStore: useStreetViewStore.getState(),
-        useImrStore: useImrStore.getState(),
-      },
-      created: date.toDateString(),
-      modified: date.toDateString(),
-      id: uuid(),
-      description: "Session description",
-    });
   };
 
   return (
@@ -119,15 +88,11 @@ const ActionsMenu = () => {
           {ShareSessionIcon}
           Share Session
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSessionSave}>
+        <DropdownMenuItem onClick={() => toggleDialog("saveSession")}>
           <BookmarkIcon />
           Save Session
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={async (e) => {
-            e.preventDefault();
-          }}
-        >
+        <DropdownMenuItem onClick={() => toggleDialog("loadSession")}>
           <UploadIcon />
           Load Session
         </DropdownMenuItem>
@@ -138,21 +103,16 @@ const ActionsMenu = () => {
           disabled={!isGeoJSONAvailable}
         >
           <TrashIcon />
-          Clear
+          Clear Results
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={(e) => handleDownloadResults(e, "geojson")}
+          onClick={() => {
+            toggleDialog("downloadResults");
+          }}
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
-          Download as GeoJSON
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={(e) => handleDownloadResults(e, "kml")}
-          disabled={!isGeoJSONAvailable}
-        >
-          <DownloadIcon />
-          Download as KML
+          Download Results
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
