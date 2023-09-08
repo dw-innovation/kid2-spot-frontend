@@ -29,7 +29,7 @@ const Spots = () => {
   return (
     <div className="flex flex-col gap-1">
       <Select onValueChange={(value) => handleSpotSelect(parseInt(value))}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[5rem] md:w-[180px] truncate ...">
           <SelectValue placeholder="Select a spot and zoom to it" />
         </SelectTrigger>
         <SelectContent className="z-[100000]">
