@@ -1,10 +1,5 @@
 import clsx from "clsx";
-import {
-  Callback,
-  GetMenuPropsOptions,
-  GetPropsCommonOptions,
-  StateChangeOptions,
-} from "downshift";
+import { GetMenuPropsOptions, GetPropsCommonOptions } from "downshift";
 import React from "react";
 
 interface AddressSuggestionProps {
@@ -13,11 +8,6 @@ interface AddressSuggestionProps {
   highlightedIndex: number | null;
   selectedItem: any;
   getItemProps: (options: any) => any;
-  selectItem: (
-    item: any,
-    otherStateToSet?: Partial<StateChangeOptions<any>> | undefined,
-    cb?: Callback | undefined
-  ) => void;
   getMenuProps: (
     options?: GetMenuPropsOptions | undefined,
     otherOptions?: GetPropsCommonOptions | undefined
