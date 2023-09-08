@@ -13,6 +13,7 @@ import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
+import useResultsStore from "@/stores/useResultsStore";
 import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
@@ -28,6 +29,7 @@ const LoadSessionDialog = () => {
   );
   const initializeImrStore = useImrStore((state) => state.initialize);
   const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const sessions = useSessionsStore((state) => state.sessions);
   const [sessionId, setSessionId] = React.useState("");
 
@@ -41,6 +43,7 @@ const LoadSessionDialog = () => {
     if (!session) return;
 
     const { data } = session;
+    clearGeoJSON();
 
     data.useMapStore && initializeMapStore(data.useMapStore);
     data.useQueryStore && initializeQueryStore(data.useQueryStore);
