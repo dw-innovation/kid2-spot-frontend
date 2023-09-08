@@ -30,6 +30,9 @@ const LoadSessionDialog = () => {
   const initializeImrStore = useImrStore((state) => state.initialize);
   const toggleDialog = useAppStore((state) => state.toggleDialog);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
+  const clearSets = useResultsStore((state) => state.clearSets);
+  const clearSpots = useResultsStore((state) => state.clearSpots);
+  const removeSession = useSessionsStore((state) => state.removeSession);
   const sessions = useSessionsStore((state) => state.sessions);
   const [sessionId, setSessionId] = React.useState("");
 
@@ -43,7 +46,10 @@ const LoadSessionDialog = () => {
     if (!session) return;
 
     const { data } = session;
+
     clearGeoJSON();
+    clearSets();
+    clearSpots();
 
     data.useMapStore && initializeMapStore(data.useMapStore);
     data.useQueryStore && initializeQueryStore(data.useQueryStore);
@@ -51,6 +57,12 @@ const LoadSessionDialog = () => {
       initializeStreetViewStore(data.useStreetViewStore);
     data.useImrStore && initializeImrStore(data.useImrStore);
     toggleDialog(DIALOG_NAME);
+  };
+
+  const handleRemoveSession = (id: string) => {
+    const session = findSessionById(id);
+    if (!session) return;
+    removeSession(id);
   };
 
   const selectedSession = findSessionById(sessionId);
@@ -88,9 +100,21 @@ const LoadSessionDialog = () => {
         </p>
       )}
 
-      <div className="flex gap-2">
-        <Button onClick={() => handleLoadSession(sessionId)}>
-          Load session
+      <div className="flex w-full gap-2 ">
+        <Button
+          onClick={() => handleLoadSession(sessionId)}
+          disabled={!selectedSession}
+          className="flex-1"
+        >
+          Load Session
+        </Button>
+        <Button
+          onClick={() => handleRemoveSession(sessionId)}
+          variant={"destructive"}
+          disabled={!selectedSession}
+          className="flex-1"
+        >
+          Remove Session
         </Button>
       </div>
     </Dialog>

@@ -26,5 +26,4 @@ export default interface SessionsStoreInterface {
   addSession: (session: Session) => void;
   removeSession: (id: string) => void;
   updateSession: (session: Session) => void;
-  clearSessions: () => void;
 }
