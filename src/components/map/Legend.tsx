@@ -32,8 +32,8 @@ const Legend = () => {
           />
           <label
             htmlFor={index.toString()}
-            onMouseEnter={() => toggleHighlighted(set.id)}
-            onMouseLeave={() => toggleHighlighted(set.id)}
+            onMouseOver={() => toggleHighlighted(set.id, true)}
+            onMouseOut={() => toggleHighlighted(set.id, false)}
             className="flex items-center justify-center gap-1 text-sm leading-none select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             <div
