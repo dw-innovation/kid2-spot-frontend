@@ -57,6 +57,12 @@ const LoadSessionDialog = () => {
         </SelectContent>
       </Select>
 
+      {selectedSession?.created && (
+        <p className="text-sm font-semibold text-muted-foreground">
+          Saved {selectedSession.created}
+        </p>
+      )}
+
       {selectedSession?.description && (
         <p className="text-sm text-muted-foreground">
           {selectedSession.description}
