@@ -17,6 +17,7 @@ const OSMQueryStep = () => {
   const elapsedTime = useElapsedTime(true, "loading");
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
+  const setSpots = useResultsStore((state) => state.setSpots);
   const [shouldUnmount, setShouldUnmount] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const OSMQueryStep = () => {
           highlighted: false,
         }));
         setSets(sets);
+        setSpots(data.spots);
       })
       .then(() => {
         setShouldUnmount(true);

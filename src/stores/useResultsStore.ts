@@ -2,7 +2,9 @@ import { FeatureCollection } from "geojson";
 import produce from "immer";
 import { create } from "zustand";
 
-import ResultsStoreInterface from "./interfaces/ResultsStore.interface";
+import ResultsStoreInterface, {
+  Spot,
+} from "./interfaces/ResultsStore.interface";
 
 const useResultsStore = create<ResultsStoreInterface>((set) => ({
   geoJSON: null,
@@ -60,6 +62,21 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
         if (set) {
           set.highlighted = !set.highlighted;
         }
+      })
+    );
+  },
+  spots: [],
+  setSpots: (spots: Spot[]) => {
+    set(
+      produce((draft) => {
+        draft.spots = spots;
+      })
+    );
+  },
+  clearSpots: () => {
+    set(
+      produce((draft) => {
+        draft.spots = [];
       })
     );
   },

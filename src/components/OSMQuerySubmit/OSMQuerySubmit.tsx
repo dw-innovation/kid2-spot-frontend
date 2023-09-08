@@ -18,8 +18,10 @@ import useResultsStore from "@/stores/useResultsStore";
 const OverpassQuerySubmit = () => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
+  const setSpots = useResultsStore((state) => state.setSpots);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
+  const clearSpots = useResultsStore((state) => state.clearSpots);
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
   const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
@@ -30,6 +32,7 @@ const OverpassQuerySubmit = () => {
     if (results && results.results) {
       clearGeoJSON();
       clearSets();
+      clearSpots();
       setGeoJSON(results.results);
 
       let sets = results.sets.distinct_sets.map((set: any, index: number) => ({
@@ -38,6 +41,7 @@ const OverpassQuerySubmit = () => {
         visible: true,
       }));
       setSets(sets);
+      setSpots(results.spots);
     }
   };
 
