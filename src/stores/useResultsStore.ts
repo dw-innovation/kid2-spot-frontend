@@ -55,12 +55,12 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       })
     );
   },
-  toggleHighlighted: (id: string) => {
+  toggleHighlighted: (id: string, state?: boolean) => {
     set(
       produce((draft) => {
         const set = draft.sets.find((set: { id: string }) => set.id === id);
         if (set) {
-          set.highlighted = !set.highlighted;
+          set.highlighted = state ? state : !set.highlighted;
         }
       })
     );

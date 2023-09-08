@@ -25,7 +25,7 @@ export default interface ResultsStoreInterface {
   ) => void;
   clearSets: () => void;
   toggleVisible: (id: string) => void;
-  toggleHighlighted: (id: string) => void;
+  toggleHighlighted: (id: string, state?: boolean) => void;
   spots: Spot[];
   setSpots: (spots: Spot[]) => void;
   clearSpots: () => void;
