@@ -11,7 +11,7 @@ import useImrStore from "@/stores/useImrStore";
 import { Button } from "../ui/button";
 
 type Props = {
-  setOpen: (open: boolean) => void;
+  setOpen: () => void;
 };
 
 const ImrEditor = ({ setOpen }: Props) => {
@@ -27,9 +27,8 @@ const ImrEditor = ({ setOpen }: Props) => {
   const handleSave = () => {
     try {
       const parsedValue = JSON.parse(stringifiedImr);
-      console.log(parsedValue);
       setImr(parsedValue);
-      setOpen(false);
+      setOpen();
     } catch (e) {
       if (e instanceof Error) {
         console.error(e.message);
@@ -39,7 +38,7 @@ const ImrEditor = ({ setOpen }: Props) => {
 
   useEffect(() => {
     setStringifiedImr(JSON.stringify(imr, null, 2));
-  }, [imr]);
+  }, [imr, setStringifiedImr]);
 
   return (
     <div className="flex flex-col gap-2">

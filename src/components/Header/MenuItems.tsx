@@ -1,11 +1,13 @@
 "use client";
 
-import { SymbolIcon } from "@radix-ui/react-icons";
+import {
+  MixerVerticalIcon,
+  Pencil1Icon,
+  SymbolIcon,
+} from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import FilterDialog from "@/components/dialogs/FilterDialog";
-import ImrDialog from "@/components/dialogs/ImrDialog";
 import ActionsMenu from "@/components/menus/ActionsMenu";
 import SettingsMenu from "@/components/menus/SettingsMenu";
 import { Button } from "@/components/ui/button";
@@ -17,6 +19,8 @@ const MenuItems = () => {
   const resetSteps = useAppStore((state) => state.resetSteps);
   const router = useRouter();
   const { setOpen } = useMenu();
+
+  const toggleDialog = useAppStore((state) => state.toggleDialog);
 
   return (
     <div className="flex flex-col items-end gap-2 md:flex-row">
@@ -30,10 +34,17 @@ const MenuItems = () => {
         <SymbolIcon />
         <span>New Search</span>
       </Button>
-      <FilterDialog />
+
+      <Button onClick={() => toggleDialog("filters")} variant={"outline"}>
+        <MixerVerticalIcon />
+        <span>Filters</span>
+      </Button>
       <ActionsMenu />
       <SettingsMenu />
-      <ImrDialog />
+      <Button onClick={() => toggleDialog("imr")} variant={"outline"}>
+        <Pencil1Icon />
+        <span>IMR</span>
+      </Button>
     </div>
   );
 };

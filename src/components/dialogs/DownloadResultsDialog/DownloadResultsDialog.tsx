@@ -16,7 +16,7 @@ const DownloadDialog = () => {
 
   return (
     <Dialog
-      dialogName="downloadResults"
+      dialogName={DIALOG_NAME}
       dialogTitle="Download Query Results"
       dialogDescription="Save your results locally as GeoJSON or KML file."
     >

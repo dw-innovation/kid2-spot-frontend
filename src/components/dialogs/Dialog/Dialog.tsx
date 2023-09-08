@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   dialogTitle?: string;
   dialogDescription?: string;
   children: React.ReactNode;
+  className?: string;
 };
 
 const DownloadDialog = ({
@@ -21,6 +23,7 @@ const DownloadDialog = ({
   dialogTitle,
   dialogDescription,
   children,
+  className,
 }: Props) => {
   const dialogs = useAppStore((state) => state.dialogs);
   const toggleDialog = useAppStore((state) => state.toggleDialog);
@@ -30,11 +33,11 @@ const DownloadDialog = ({
     let dialogState =
       dialogs.find((dialog) => dialog.name === dialogName)?.isOpen || false;
     setIsOpen(dialogState);
-  }, [dialogs]);
+  }, [dialogName, dialogs]);
 
   return (
     <Dialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
-      <DialogContent className="sm:max-w-[425px] z-[20000]">
+      <DialogContent className={cn(className, "sm:max-w-[425px] z-[20000]")}>
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           {dialogDescription && (

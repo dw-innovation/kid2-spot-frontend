@@ -1,6 +1,8 @@
 "use client";
 
 import DownloadResultsDialog from "./DownloadResultsDialog";
+import FiltersDialog from "./FiltersDialog";
+import ImrDialog from "./ImrDialog";
 import LoadSessionDialog from "./LoadSessionDialog";
 import SaveSessionDialog from "./SaveSessionDialog";
 
@@ -10,6 +12,8 @@ const Dialogs = () => {
       <DownloadResultsDialog />
       <SaveSessionDialog />
       <LoadSessionDialog />
+      <FiltersDialog />
+      <ImrDialog />
     </>
   );
 };

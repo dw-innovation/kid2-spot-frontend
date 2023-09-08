@@ -1,48 +1,21 @@
-import { Pencil1Icon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import React from "react";
 
-import { useMenu } from "@/components/Header/Context";
 import DynamicImrEditor from "@/components/ImrEditor";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import useAppStore from "@/stores/useAppStore";
 
-import { Button } from "../../ui/button";
+import Dialog from "../Dialog";
+
+const DIALOG_NAME = "imr";
 
 const ImrDialog = () => {
-  const [open, setOpen] = useState(false);
-  const { setOpen: setMenuOpen } = useMenu();
-
+  const toggleDialog = useAppStore((state) => state.toggleDialog);
   return (
     <Dialog
-      open={open}
-      onOpenChange={(state) => {
-        setOpen(state);
-        setMenuOpen(state);
-      }}
+      dialogName={DIALOG_NAME}
+      dialogTitle="Edit IMR"
+      className="sm:max-w-2xl"
     >
-      <DialogTrigger
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        <Button variant={"outline"}>
-          <Pencil1Icon />
-          <span>IMR</span>
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="z-[10000]">
-        <DialogHeader>
-          <DialogTitle>Edit Intermediate Representation</DialogTitle>
-          <div className="w-full h-full min-h-[32rem]">
-            <DynamicImrEditor setOpen={setOpen} />
-          </div>
-        </DialogHeader>
-      </DialogContent>
+      <DynamicImrEditor setOpen={() => toggleDialog(DIALOG_NAME)} />
     </Dialog>
   );
 };

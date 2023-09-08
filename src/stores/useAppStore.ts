@@ -87,6 +87,8 @@ const useAppStore = create<AppStoreInterface>((set) => ({
     { name: "downloadResults", isOpen: false },
     { name: "saveSession", isOpen: false },
     { name: "loadSession", isOpen: false },
+    { name: "filters", isOpen: false },
+    { name: "imr", isOpen: false },
   ],
   toggleDialog: (name: string) => {
     set(
