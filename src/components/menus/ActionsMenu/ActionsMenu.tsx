@@ -26,6 +26,7 @@ import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
+import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const ActionsMenu = () => {
@@ -35,6 +36,7 @@ const ActionsMenu = () => {
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
   const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const sessions = useSessionsStore((state) => state.sessions);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
     saveData([
@@ -92,7 +94,10 @@ const ActionsMenu = () => {
           <BookmarkIcon />
           Save Session
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => toggleDialog("loadSession")}>
+        <DropdownMenuItem
+          onClick={() => toggleDialog("loadSession")}
+          disabled={sessions.length === 0}
+        >
           <UploadIcon />
           Load Session
         </DropdownMenuItem>
