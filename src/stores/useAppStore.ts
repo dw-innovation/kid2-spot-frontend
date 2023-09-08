@@ -83,6 +83,23 @@ const useAppStore = create<AppStoreInterface>((set) => ({
       })
     );
   },
+  dialogs: [
+    { name: "downloadResults", isOpen: false },
+    { name: "saveSession", isOpen: false },
+    { name: "loadSession", isOpen: false },
+  ],
+  toggleDialog: (name: string) => {
+    set(
+      produce((draft) => {
+        const dialog = draft.dialogs.find(
+          (dialog: { name: string }) => dialog.name === name
+        );
+        if (dialog) {
+          dialog.isOpen = !dialog.isOpen;
+        }
+      })
+    );
+  },
 }));
 
 export default useAppStore;

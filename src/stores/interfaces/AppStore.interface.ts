@@ -17,4 +17,6 @@ export default interface AppStoreInterface {
   }) => void;
   isStreetViewFullscreen: boolean;
   toggleStreetViewFullscreen: (state?: boolean) => void;
+  dialogs: { name: string; isOpen: boolean }[];
+  toggleDialog: (name: string) => void;
 }
