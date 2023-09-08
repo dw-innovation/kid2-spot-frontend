@@ -1,13 +1,11 @@
 "use client";
 
-import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const SessionInitializer = ({ data }: any) => {
-  const initializeAppStore = useAppStore((state) => state.initialize);
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
@@ -15,7 +13,6 @@ const SessionInitializer = ({ data }: any) => {
   );
   const initializeImrStore = useImrStore((state) => state.initialize);
 
-  data.useAppStore && initializeAppStore(data.useAppStore);
   data.useMapStore && initializeMapStore(data.useMapStore);
   data.useQueryStore && initializeQueryStore(data.useQueryStore);
   data.useStreetViewStore && initializeStreetViewStore(data.useStreetViewStore);

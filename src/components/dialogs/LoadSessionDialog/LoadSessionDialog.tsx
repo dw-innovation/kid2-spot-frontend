@@ -10,13 +10,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useAppStore from "@/stores/useAppStore";
+import useImrStore from "@/stores/useImrStore";
+import useMapStore from "@/stores/useMapStore";
+import useQueryStore from "@/stores/useQueryStore";
 import useSessionsStore from "@/stores/useSessionsStore";
+import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Dialog from "../Dialog";
 
 const DIALOG_NAME = "loadSession";
 
 const LoadSessionDialog = () => {
+  const initializeMapStore = useMapStore((state) => state.initialize);
+  const initializeQueryStore = useQueryStore((state) => state.initialize);
+  const initializeStreetViewStore = useStreetViewStore(
+    (state) => state.initialize
+  );
+  const initializeImrStore = useImrStore((state) => state.initialize);
   const toggleDialog = useAppStore((state) => state.toggleDialog);
   const sessions = useSessionsStore((state) => state.sessions);
   const [sessionId, setSessionId] = React.useState("");
@@ -30,7 +40,13 @@ const LoadSessionDialog = () => {
     const session = findSessionById(id);
     if (!session) return;
 
-    console.log(session);
+    const { data } = session;
+
+    data.useMapStore && initializeMapStore(data.useMapStore);
+    data.useQueryStore && initializeQueryStore(data.useQueryStore);
+    data.useStreetViewStore &&
+      initializeStreetViewStore(data.useStreetViewStore);
+    data.useImrStore && initializeImrStore(data.useImrStore);
     toggleDialog(DIALOG_NAME);
   };
 
