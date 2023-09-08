@@ -5,8 +5,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FILL_COLORS } from "@/lib/const";
 import useResultsStore from "@/stores/useResultsStore";
 
-import Spots from "./Spots";
-
 const Legend = () => {
   const sets = useResultsStore((state) => state.sets);
   const toggleVisible = useResultsStore((state) => state.toggleVisible);
@@ -61,7 +59,6 @@ const Legend = () => {
             Map Legend
           </h4>
           <div className="flex flex-col gap-1">{renderSets()}</div>
-          <Spots />
         </div>
       )}
     </>

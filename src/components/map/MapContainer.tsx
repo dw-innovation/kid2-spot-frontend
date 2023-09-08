@@ -16,7 +16,6 @@ import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
 import GeoJSONResults from "./results/GeoJSONResults";
-import Spots from "./Spots";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -40,7 +39,6 @@ const MapContainer = () => {
             </div>
             <AddressSearchBox />
           </div>
-          <Spots />
           <Legend />
           {tilesLayer === "osm" && (
             <TileLayer

@@ -3,6 +3,7 @@
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 import OSMQuerySubmit from "../OSMQuerySubmit";
+import Spots from "../Spots";
 import { Button } from "../ui/button";
 import {
   Sheet,
@@ -24,10 +25,12 @@ const Header = () => {
         <h1 className="pb-1 text-2xl font-bold leading-none">Spot</h1>
         <div className="hidden gap-2 md:flex">
           <OSMQuerySubmit />
+          <Spots />
           <MenuItems />
         </div>
         <div className="flex gap-2 md:hidden">
           <OSMQuerySubmit />
+          <Spots />
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
             <SheetTrigger className="block md:hidden">
               <Button onClick={() => setOpen((prev) => !prev)}>
