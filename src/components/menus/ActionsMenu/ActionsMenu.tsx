@@ -32,6 +32,8 @@ import useStreetViewStore from "@/stores/useStreetViewStore";
 const ActionsMenu = () => {
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const clearSets = useResultsStore((state) => state.clearSets);
+  const clearSpots = useResultsStore((state) => state.clearSpots);
   const isGeoJSONAvailable = Boolean(geoJSON);
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
@@ -53,6 +55,8 @@ const ActionsMenu = () => {
 
   const handleClearResults = () => {
     clearGeoJSON();
+    clearSets();
+    clearSpots();
     setOpen(false);
     setMenuOpen(false);
   };
