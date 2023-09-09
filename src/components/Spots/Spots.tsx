@@ -43,7 +43,7 @@ const Spots = () => {
     <div className="flex flex-col gap-1">
       <Select
         options={options}
-        value={spots[0]?.id.toString()}
+        value={""}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
         className="w-[15rem] truncate ..."
         placeholder="Select a spot"
