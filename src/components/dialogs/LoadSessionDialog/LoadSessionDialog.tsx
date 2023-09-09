@@ -1,14 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
+import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Session } from "@/stores/interfaces/SessionsStore.interface";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -34,15 +28,19 @@ const LoadSessionDialog = () => {
   const clearSpots = useResultsStore((state) => state.clearSpots);
   const removeSession = useSessionsStore((state) => state.removeSession);
   const sessions = useSessionsStore((state) => state.sessions);
-  const [sessionId, setSessionId] = React.useState("");
+  const [sessionId, setSessionId] = useState<string | undefined>(undefined);
+  const [options, setOptions] = useState<{ value: string; label: string }[]>(
+    []
+  );
 
   const findSessionById = useCallback(
-    (id: string) => sessions.find((s) => s.id === id),
+    (id: string): Session | undefined => sessions.find((s) => s.id === id),
     [sessions]
   );
 
-  const handleLoadSession = (id: string) => {
-    const session = findSessionById(id);
+  const handleLoadSession = () => {
+    if (!sessionId) return;
+    const session = findSessionById(sessionId);
     if (!session) return;
 
     const { data } = session;
@@ -59,13 +57,22 @@ const LoadSessionDialog = () => {
     toggleDialog(DIALOG_NAME);
   };
 
-  const handleRemoveSession = (id: string) => {
-    const session = findSessionById(id);
+  const handleRemoveSession = () => {
+    if (!sessionId) return;
+    const session = findSessionById(sessionId);
     if (!session) return;
-    removeSession(id);
+    removeSession(sessionId);
   };
 
-  const selectedSession = findSessionById(sessionId);
+  const selectedSession = sessionId ? findSessionById(sessionId) : undefined;
+
+  useEffect(() => {
+    let availableOptions = sessions.map((session) => ({
+      value: session.id,
+      label: session.name,
+    }));
+    setOptions(availableOptions);
+  }, [sessions]);
 
   return (
     <Dialog
@@ -73,20 +80,13 @@ const LoadSessionDialog = () => {
       dialogTitle="Load current session"
       dialogDescription="Load a saved session from your browser."
     >
-      <Select onValueChange={setSessionId}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a session" />
-        </SelectTrigger>
-        <SelectContent className="z-[20000]">
-          <SelectGroup>
-            {sessions.map(({ id, name }) => (
-              <SelectItem key={id} value={id}>
-                {name}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <Select
+        options={options}
+        value={sessionId}
+        onSelect={(value) => setSessionId(value)}
+        className="max-w-full"
+        placeholder="Select a Session"
+      />
 
       {selectedSession?.created && (
         <p className="text-sm font-semibold text-muted-foreground">
@@ -102,14 +102,14 @@ const LoadSessionDialog = () => {
 
       <div className="flex w-full gap-2 ">
         <Button
-          onClick={() => handleLoadSession(sessionId)}
+          onClick={handleLoadSession}
           disabled={!selectedSession}
           className="flex-1"
         >
           Load Session
         </Button>
         <Button
-          onClick={() => handleRemoveSession(sessionId)}
+          onClick={handleRemoveSession}
           variant={"destructive"}
           disabled={!selectedSession}
           className="flex-1"
