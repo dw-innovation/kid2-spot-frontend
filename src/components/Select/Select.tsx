@@ -35,7 +35,7 @@ const Select = ({
     >
       <SelectValue />
     </SelectTrigger>
-    <SelectContent className="absolute z-[10000]">
+    <SelectContent className="absolute z-[20000]">
       <SelectGroup>
         {options.map(({ value, label, disabled }) => (
           <SelectItem key={value} value={value} disabled={disabled}>
