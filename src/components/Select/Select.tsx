@@ -18,11 +18,21 @@ type Props = {
   onSelect: (value: string) => void;
   label?: string;
   className?: string;
+  placeholder?: string;
 };
 
-const Select = ({ options, value, onSelect, className }: Props) => (
+const Select = ({
+  options,
+  value,
+  onSelect,
+  className,
+  placeholder,
+}: Props) => (
   <RadixSelect value={value} onValueChange={onSelect}>
-    <SelectTrigger className={cn("text-left truncate ...", className)}>
+    <SelectTrigger
+      className={cn("text-left truncate ...", className)}
+      placeholder={placeholder}
+    >
       <SelectValue />
     </SelectTrigger>
     <SelectContent className="absolute z-[10000]">
