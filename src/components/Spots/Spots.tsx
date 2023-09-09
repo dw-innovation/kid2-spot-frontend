@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Spot } from "@/stores/interfaces/ResultsStore.interface";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
+import Select from "../Select";
+
 const Spots = () => {
   const spots = useResultsStore((state) => state.spots);
   const setBounds = useMapStore((state) => state.setBounds);
+  const [options, setOptions] = useState<{ value: string; label: string }[]>(
+    []
+  );
 
   const handleSpotSelect = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);
@@ -26,23 +22,32 @@ const Spots = () => {
     ]);
   };
 
+  useEffect(() => {
+    let availableOptions = spots
+      .map((spot: Spot, index: number) =>
+        spot.id
+          ? {
+              label: `${index + 1}: ${
+                spot?.tags?.name ? spot?.tags?.name : "Unnamed"
+              }`,
+              value: spot.id.toString(),
+            }
+          : null
+      )
+      .filter(Boolean) as { value: string; label: string }[];
+
+    setOptions(availableOptions);
+  }, [spots]);
+
   return (
     <div className="flex flex-col gap-1">
-      <Select onValueChange={(value) => handleSpotSelect(parseInt(value))}>
-        <SelectTrigger className="w-[5rem] md:w-[180px] truncate ...">
-          <SelectValue placeholder="Select a spot and zoom to it" />
-        </SelectTrigger>
-        <SelectContent className="z-[100000]">
-          <SelectGroup>
-            <SelectLabel>Found Spots</SelectLabel>
-            {spots.map((spot: Spot, index: number) => (
-              <SelectItem key={spot.id} value={spot.id.toString()}>
-                {index + 1}: {spot.tags?.name}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <Select
+        options={options}
+        value={spots[0]?.id.toString()}
+        onSelect={(value) => handleSpotSelect(parseInt(value))}
+        className="w-[15rem] truncate ..."
+        placeholder="Select a spot"
+      />
     </div>
   );
 };
