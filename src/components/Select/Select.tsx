@@ -32,6 +32,7 @@ const Select = ({
     <SelectTrigger
       className={cn("text-left truncate ...", className)}
       placeholder={placeholder}
+      disabled={options.length === 0}
     >
       <SelectValue />
     </SelectTrigger>
