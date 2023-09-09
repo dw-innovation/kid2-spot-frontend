@@ -13,6 +13,7 @@ const ImrDialog = () => {
     <Dialog
       dialogName={DIALOG_NAME}
       dialogTitle="Edit IMR"
+      dialogDescription="Manually edit the Intermediate Representation (IMR) of the query."
       className="sm:max-w-2xl"
     >
       <DynamicImrEditor setOpen={() => toggleDialog(DIALOG_NAME)} />
