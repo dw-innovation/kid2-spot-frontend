@@ -11,7 +11,6 @@ const FiltersDialog = () => {
     <Dialog
       dialogName={DIALOG_NAME}
       dialogTitle="Advanced Search Filters"
-      dialogDescription="Save your results locally as GeoJSON or KML file."
       className="sm:max-w-2xl"
     >
       <div className="flex flex-col flex-1 h-full gap-2 overflow-y-auto">
