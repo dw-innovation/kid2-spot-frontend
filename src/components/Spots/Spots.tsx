@@ -45,7 +45,7 @@ const Spots = () => {
         options={options}
         value={""}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
-        className="w-[15rem] truncate ..."
+        className="w-[5rem] md:w-[15rem] truncate ..."
         placeholder="Select a spot"
       />
     </div>
