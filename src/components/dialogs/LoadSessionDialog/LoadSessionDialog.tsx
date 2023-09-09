@@ -82,7 +82,7 @@ const LoadSessionDialog = () => {
     >
       <Select
         options={options}
-        value={sessionId}
+        value={sessionId || ""}
         onSelect={(value) => setSessionId(value)}
         className="max-w-full"
         placeholder="Select a Session"
