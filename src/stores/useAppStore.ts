@@ -103,6 +103,24 @@ const useAppStore = create<AppStoreInterface>((set) => ({
       })
     );
   },
+  isError: false,
+  errorType: "",
+  setError: (message: string) => {
+    set(
+      produce((draft) => {
+        draft.isError = true;
+        draft.errorType = message;
+      })
+    );
+  },
+  clearError: () => {
+    set(
+      produce((draft) => {
+        draft.isError = false;
+        draft.errorType = "";
+      })
+    );
+  },
 }));
 
 export default useAppStore;

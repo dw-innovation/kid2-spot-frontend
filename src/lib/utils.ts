@@ -37,7 +37,8 @@ export const fetchOSMData = async ({
   try {
     const response = await axios(config);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    useAppStore.getState().setError(error.response.data.errorType);
     useAppStore.getState().toggleDialog("error");
     return null;
   }

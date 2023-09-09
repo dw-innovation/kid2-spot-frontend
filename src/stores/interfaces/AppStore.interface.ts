@@ -19,4 +19,8 @@ export default interface AppStoreInterface {
   toggleStreetViewFullscreen: (state?: boolean) => void;
   dialogs: { name: string; isOpen: boolean }[];
   toggleDialog: (name: string) => void;
+  isError: boolean;
+  errorType: string;
+  setError: (message: string) => void;
+  clearError: () => void;
 }

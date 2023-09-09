@@ -9,10 +9,19 @@ const DIALOG_NAME = "error";
 
 const ErrorDialog = () => {
   const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const errorType = useAppStore((state) => state.errorType);
+  const clearError = useAppStore((state) => state.clearError);
   return (
     <Dialog dialogName={DIALOG_NAME} dialogTitle="Error">
-      ErrorDialog
-      <Button onClick={() => toggleDialog(DIALOG_NAME)}>Close Message</Button>
+      {errorType}
+      <Button
+        onClick={() => {
+          toggleDialog(DIALOG_NAME);
+          clearError();
+        }}
+      >
+        Close Message
+      </Button>
     </Dialog>
   );
 };
