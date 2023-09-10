@@ -45,7 +45,7 @@ const Spots = () => {
         options={options}
         value={""}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
-        className="w-[5rem] md:w-[15rem] z-[20000]"
+        className="max-w-[5rem] md:w-[15rem] z-[1000]"
         placeholder="Select a spot"
         enableReset
       />
