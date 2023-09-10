@@ -3,7 +3,7 @@ import ReactSelect from "react-select";
 
 type Props = {
   options: { value: string; label: string }[];
-  value: string;
+  value?: string | null;
   onSelect: (value: string) => void;
   label?: string;
   className?: string;
@@ -13,7 +13,7 @@ type Props = {
 
 const Select = ({
   options,
-  value,
+  value = null,
   onSelect,
   className,
   placeholder,
@@ -42,6 +42,12 @@ const Select = ({
       isDisabled={options.length === 0}
       components={{
         IndicatorSeparator: () => null,
+      }}
+      styles={{
+        dropdownIndicator: (baseStyles) => ({
+          ...baseStyles,
+          padding: 0,
+        }),
       }}
     />
   );
