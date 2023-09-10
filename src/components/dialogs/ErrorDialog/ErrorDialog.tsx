@@ -17,7 +17,9 @@ const ErrorDialog = () => {
       <Button
         onClick={() => {
           toggleDialog(DIALOG_NAME);
-          clearError();
+          setTimeout(() => {
+            clearError();
+          }, 300);
         }}
       >
         Close Message
