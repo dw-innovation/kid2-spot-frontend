@@ -26,7 +26,7 @@ const Select = ({
 
   useEffect(() => {
     enableReset && setSelectedValue(null);
-  }, [options]);
+  }, [enableReset, options]);
 
   return (
     <ReactSelect
