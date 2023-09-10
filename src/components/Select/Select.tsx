@@ -1,24 +1,14 @@
-"use client";
-
-import React from "react";
-
-import {
-  Select as RadixSelect,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import React, { useEffect, useState } from "react";
+import ReactSelect from "react-select";
 
 type Props = {
-  options: { value: string; label: string; disabled?: boolean }[];
+  options: { value: string; label: string }[];
   value: string;
   onSelect: (value: string) => void;
   label?: string;
   className?: string;
   placeholder?: string;
+  enableReset?: boolean;
 };
 
 const Select = ({
@@ -27,25 +17,34 @@ const Select = ({
   onSelect,
   className,
   placeholder,
-}: Props) => (
-  <RadixSelect value={value} onValueChange={onSelect}>
-    <SelectTrigger
-      className={cn("text-left truncate ...", className)}
+  enableReset = false,
+}: Props) => {
+  const [selectedValue, setSelectedValue] = useState<{
+    value: string;
+    label: string;
+  } | null>(options.find((option) => option.value === value) || null);
+
+  useEffect(() => {
+    enableReset && setSelectedValue(null);
+  }, [options]);
+
+  return (
+    <ReactSelect
+      options={options}
       placeholder={placeholder}
-      disabled={options.length === 0}
-    >
-      <SelectValue />
-    </SelectTrigger>
-    <SelectContent className="absolute z-[20000]">
-      <SelectGroup>
-        {options.map(({ value, label, disabled }) => (
-          <SelectItem key={value} value={value} disabled={disabled}>
-            {label}
-          </SelectItem>
-        ))}
-      </SelectGroup>
-    </SelectContent>
-  </RadixSelect>
-);
+      value={selectedValue}
+      onChange={(option: { value: string; label: string } | null) => {
+        const newValue = option?.value || "";
+        setSelectedValue(option);
+        onSelect(newValue);
+      }}
+      className={`w-full text-sm ${className}`}
+      isDisabled={options.length === 0}
+      components={{
+        IndicatorSeparator: () => null,
+      }}
+    />
+  );
+};
 
 export default Select;
