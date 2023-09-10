@@ -50,9 +50,9 @@ const Set = ({ node }: { node: NWR | Cluster }) => {
           </Button>
         </div>
       </div>
-      <section className="flex flex-col gap-1 ml-8 font-normal">
+      <section className="flex flex-col gap-1 font-normal md:ml-8">
         {t === "nwr" && (
-          <ol className="list-decimal">
+          <ol className="list-none md:list-decimal">
             {flts.map((filter: Filter, index: number) => (
               <li key={index} className="w-full">
                 <div className="flex justify-between gap-2">

@@ -43,9 +43,8 @@ const Spots = () => {
     <div className="flex flex-col gap-1">
       <Select
         options={options}
-        value={""}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
-        className="max-w-[5rem] md:w-[15rem] z-[1000]"
+        className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000]"
         placeholder="Select a spot"
         enableReset
       />
