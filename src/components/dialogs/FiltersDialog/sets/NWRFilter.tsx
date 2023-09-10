@@ -57,7 +57,7 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
               options={OPERATORS}
               onSelect={(e) => setFilterValue(setId, filterId, "op", e)}
               value={filter.op}
-              className="h-8"
+              className="h-8 text-sm"
             />
           </TooltipTrigger>
           <TooltipContent>
