@@ -36,6 +36,14 @@ export const fetchOSMData = async ({
 
   try {
     const response = await axios(config);
+
+    if (response.data.results.features.length === 0) {
+      useAppStore.getState().setError("noResults");
+      useAppStore.getState().toggleDialog("error");
+    }
+
+    response.data.results.features.length === 0 &&
+      useAppStore.getState().setError("noResults");
     return response.data;
   } catch (error: any) {
     useAppStore.getState().setError(error.response.data.errorType);
