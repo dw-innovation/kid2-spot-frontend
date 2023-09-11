@@ -13,6 +13,14 @@ import {
 import ImrStoreInterface from "./interfaces/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
+  nlSentence: "",
+  setNlSentence: (nlSentence: string) => {
+    set(
+      produce((draft) => {
+        draft.nlSentence = nlSentence;
+      })
+    );
+  },
   imr: {
     a: {
       t: "area",

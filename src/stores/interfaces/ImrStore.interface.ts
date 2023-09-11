@@ -1,6 +1,8 @@
 import { IntermediateRepresentation } from "@/types/imr";
 
 export default interface ImrStoreInterface {
+  nlSentence: "";
+  setNlSentence: (nlSentence: string) => void;
   imr: IntermediateRepresentation;
   setImr: (imr: IntermediateRepresentation) => void;
   stringifiedImr: string;
