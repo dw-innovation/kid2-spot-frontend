@@ -9,6 +9,7 @@ type Props = {
   className?: string;
   placeholder?: string;
   enableReset?: boolean;
+  isSearchable?: boolean;
 };
 
 const Select = ({
@@ -18,6 +19,7 @@ const Select = ({
   className,
   placeholder,
   enableReset = false,
+  isSearchable,
 }: Props) => {
   const [selectedValue, setSelectedValue] = useState<{
     value: string;
@@ -49,6 +51,7 @@ const Select = ({
           padding: 0,
         }),
       }}
+      isSearchable={isSearchable}
     />
   );
 };

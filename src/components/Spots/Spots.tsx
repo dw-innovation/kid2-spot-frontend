@@ -5,6 +5,7 @@ import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Select from "../Select";
+import { useWindowSize } from "usehooks-ts";
 
 const Spots = () => {
   const spots = useResultsStore((state) => state.spots);
@@ -12,6 +13,7 @@ const Spots = () => {
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
+  const { width } = useWindowSize();
 
   const handleSpotSelect = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);
@@ -47,6 +49,7 @@ const Spots = () => {
         className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000]"
         placeholder="Select a spot"
         enableReset
+        isSearchable={width > 768}
       />
     </div>
   );
