@@ -46,7 +46,7 @@ const Spots = () => {
       <Select
         options={options}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
-        className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000]"
+        className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000] h-full"
         placeholder="Select a spot"
         enableReset
         isSearchable={width > 768}
