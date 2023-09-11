@@ -3,7 +3,7 @@ import React from "react";
 
 import Div100vh from "@/components/Div100vh";
 import InputStepper from "@/components/InputStepper";
-import { StringProvider } from "@/lib/contexts/useString";
+import { StringProvider } from "@/lib/contexts/useStrings";
 
 export const metadata: Metadata = {
   title: "Spot – Search the world with your words",

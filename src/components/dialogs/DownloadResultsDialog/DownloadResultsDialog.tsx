@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useStrings } from "@/lib/contexts/useString";
+import { useStrings } from "@/lib/contexts/useStrings";
 import { saveResultsToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
@@ -25,16 +25,16 @@ const DownloadDialog = () => {
   return (
     <Dialog
       dialogName={DIALOG_NAME}
-      dialogTitle={downloadDialogTitle}
-      dialogDescription={downloadDialogDescription}
+      dialogTitle={downloadDialogTitle()}
+      dialogDescription={downloadDialogDescription()}
     >
-      {downloadDialogInfo}
+      {downloadDialogInfo()}
       <div className="flex gap-2">
         <Button onClick={() => handleSaveClick("geojson")}>
-          {downloadDialogAsGeoJSONButton}
+          {downloadDialogAsGeoJSONButton()}
         </Button>
         <Button onClick={() => handleSaveClick("kml")}>
-          {downloadDialogAsKMLButton}
+          {downloadDialogAsKMLButton()}
         </Button>
       </div>
     </Dialog>

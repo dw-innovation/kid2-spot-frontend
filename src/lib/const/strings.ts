@@ -1,9 +1,12 @@
+import { prefixKeys } from "../utils";
+import { STRINGS as downloadDialogStrings } from "./strings/downloadDialog";
+import { STRINGS as errorDialogStrings } from "./strings/errorDialog";
+import { STRINGS as imrDialogStrings } from "./strings/imrDialog";
+import { STRINGS as settingsMenuStrings } from "./strings/menus/settings";
+
 export const STRINGS = {
-  downloadDialogTitle: "Download Query Results",
-  downloadDialogDescription:
-    "Save your results locally as GeoJSON or KML file.",
-  downloadDialogInfo:
-    "Settings TBD, for now just download as GeoJSON or KML could be filename, description, etc",
-  downloadDialogAsGeoJSONButton: "Download as GeoJSON",
-  downloadDialogAsKMLButton: "Download as KML",
+  ...downloadDialogStrings,
+  ...errorDialogStrings,
+  ...imrDialogStrings,
+  ...prefixKeys(settingsMenuStrings, "settingsMenu"),
 };

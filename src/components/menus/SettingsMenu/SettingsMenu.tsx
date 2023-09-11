@@ -10,28 +10,39 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-
-const TILES_LAYERS = [
-  { label: "Versatiles Vector", value: "vector" },
-  { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
-  { label: "OSM default", value: "osm" },
-];
 
 const VIEWS: { name: "map" | "data"; label: string }[] = [
   { name: "map", label: "Map" },
   { name: "data", label: "Data" },
 ];
 
-const SEARCH_AREAS = [
-  { label: "Current Map View", value: "bbox" },
-  { label: "Custom Area", value: "area" },
-  { label: "Drawn Polygon", value: "polygon" },
-];
-
 const SettingsMenu = () => {
+  const {
+    settingsMenuTrigger,
+    settingsMenuSearchAreaTitle,
+    settingsMenuMapStyleTitle,
+    settingsMenuCustomArea,
+    settingsMenuVersatiles,
+    settingsMenuPolygon,
+    settingsMenuSearchBbox,
+  } = useStrings();
+
+  const SEARCH_AREAS = [
+    { label: settingsMenuSearchBbox(), value: "bbox" },
+    { label: settingsMenuCustomArea(), value: "area" },
+    { label: settingsMenuPolygon(), value: "polygon" },
+  ];
+
+  const TILES_LAYERS = [
+    { label: settingsMenuVersatiles(), value: "vector" },
+    { label: "Maptiler Hybrid", value: "mapTilerHybrid" },
+    { label: "OSM default", value: "osm" },
+  ];
+
   const tilesLayer = useMapStore((state) => state.tilesLayer);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const view = useAppStore((state) => state.view);
@@ -80,14 +91,18 @@ const SettingsMenu = () => {
       <DropdownMenuTrigger>
         <Button variant="outline">
           <GearIcon />
-          <span>Settings</span>
+          <span>{settingsMenuTrigger()}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
-        <DropdownMenuLabel className="uppercase">Search Area</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">
+          {settingsMenuSearchAreaTitle()}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderSearchArea()}
-        <DropdownMenuLabel className="uppercase">Map style</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">
+          {settingsMenuMapStyleTitle()}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderTilesLayers()}
 

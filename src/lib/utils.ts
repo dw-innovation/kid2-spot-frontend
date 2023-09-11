@@ -182,3 +182,22 @@ export const calculateSurface = (polgyon: Polygon | MultiPolygon): number => {
   }
   return Math.round(area(polgyon) / 1000000);
 };
+
+type PrefixKeys<Obj extends Record<string, any>, Prefix extends string> = {
+  [K in keyof Obj as `${Prefix}${Capitalize<string & K>}`]: Obj[K];
+};
+
+export const prefixKeys = <
+  Obj extends Record<string, any>,
+  Prefix extends string
+>(
+  obj: Obj,
+  prefix: Prefix
+): PrefixKeys<Obj, Prefix> => {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [
+      `${prefix}${key.charAt(0).toUpperCase()}${key.slice(1)}`,
+      value,
+    ])
+  ) as PrefixKeys<Obj, Prefix>;
+};
