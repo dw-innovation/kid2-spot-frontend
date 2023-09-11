@@ -120,13 +120,13 @@ export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {
   return url;
 };
 
-export const fetchImrFromNL = async (
+export const translateNLtoIMR = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
   const response = await axios({
-    method: "GET",
-    url: `${process.env.NEXT_PUBLIC_OP_API}/translate_from_nl_to_imr`,
-    params: {
+    method: "POST",
+    url: `${process.env.NEXT_PUBLIC_NLP_API}/translate_from_nl_to_op`,
+    data: {
       sentence: naturalLanguagePrompt,
     },
   });
