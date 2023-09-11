@@ -10,6 +10,7 @@ type Props = {
   placeholder?: string;
   enableReset?: boolean;
   isSearchable?: boolean;
+  defaultValue?: { value: string; label: string };
 };
 
 const Select = ({
@@ -20,11 +21,14 @@ const Select = ({
   placeholder,
   enableReset = false,
   isSearchable,
+  defaultValue,
 }: Props) => {
   const [selectedValue, setSelectedValue] = useState<{
     value: string;
     label: string;
-  } | null>(options.find((option) => option.value === value) || null);
+  } | null>(
+    defaultValue || options.find((option) => option.value === value) || null
+  );
 
   useEffect(() => {
     enableReset && setSelectedValue(null);

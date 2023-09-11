@@ -72,6 +72,7 @@ const NamedArea = () => {
             value={placeId.toString()}
             onSelect={(value) => setPlaceId(parseInt(value))}
             className="max-w-full"
+            defaultValue={options[0]}
           />
           <SurfaceAlert surface={surface} />
         </>
