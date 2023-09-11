@@ -9,7 +9,7 @@ import Dialog from "../Dialog";
 const DIALOG_NAME = "error";
 
 const ErrorDialog = () => {
-  const { errorDialogTitle } = useStrings();
+  const { errorDialogTitle, errorDialogCloseButton } = useStrings();
   const toggleDialog = useAppStore((state) => state.toggleDialog);
   const errorType = useAppStore((state) => state.errorType);
   const clearError = useAppStore((state) => state.clearError);
@@ -25,7 +25,7 @@ const ErrorDialog = () => {
           }, 300);
         }}
       >
-        Close Message
+        {errorDialogCloseButton()}
       </Button>
     </Dialog>
   );

@@ -1,4 +1,4 @@
 export const STRINGS = {
-  errorDialogTitle: "An error has occurred",
-  errorDialogCloseButton: "Close",
+  title: "An error has occurred",
+  closeButton: "Close",
 };

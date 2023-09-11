@@ -1,5 +1,6 @@
 export const STRINGS = {
-  imrDialogTitle: "Edit Intermediate Representation",
-  imrDialogDescription:
+  trigger: "IMR",
+  title: "Edit Intermediate Representation",
+  description:
     "Manually edit the Intermediate Representation (IMR) of the query.",
 };

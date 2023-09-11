@@ -6,4 +6,7 @@ export const STRINGS = {
   polygon: "Drawn Polygon",
   mapStyleTitle: "Map Style",
   versatiles: "Versatiles",
+  view: "View",
+  data: "Data",
+  map: "Map",
 };

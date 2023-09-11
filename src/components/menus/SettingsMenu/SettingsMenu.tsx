@@ -15,11 +15,6 @@ import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
-const VIEWS: { name: "map" | "data"; label: string }[] = [
-  { name: "map", label: "Map" },
-  { name: "data", label: "Data" },
-];
-
 const SettingsMenu = () => {
   const {
     settingsMenuTrigger,
@@ -29,12 +24,20 @@ const SettingsMenu = () => {
     settingsMenuVersatiles,
     settingsMenuPolygon,
     settingsMenuSearchBbox,
+    settingsMenuView,
+    settingsMenuMap,
+    settingsMenuData,
   } = useStrings();
 
   const SEARCH_AREAS = [
     { label: settingsMenuSearchBbox(), value: "bbox" },
     { label: settingsMenuCustomArea(), value: "area" },
     { label: settingsMenuPolygon(), value: "polygon" },
+  ];
+
+  const VIEWS: { value: "map" | "data"; label: string }[] = [
+    { label: settingsMenuMap(), value: "map" },
+    { label: settingsMenuData(), value: "data" },
   ];
 
   const TILES_LAYERS = [
@@ -65,11 +68,11 @@ const SettingsMenu = () => {
     ));
 
   const renderViews = () =>
-    VIEWS.map(({ name, label }) => (
+    VIEWS.map(({ value, label }) => (
       <DropdownMenuCheckboxItem
-        key={name}
-        onCheckedChange={() => setView(name)}
-        checked={view === name}
+        key={value}
+        onCheckedChange={() => setView(value)}
+        checked={view === value}
       >
         {label}
       </DropdownMenuCheckboxItem>
@@ -106,7 +109,9 @@ const SettingsMenu = () => {
         <DropdownMenuSeparator />
         {renderTilesLayers()}
 
-        <DropdownMenuLabel className="uppercase">View</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">
+          {settingsMenuView()}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderViews()}
       </DropdownMenuContent>

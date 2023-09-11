@@ -3,9 +3,11 @@ import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { FILL_COLORS } from "@/lib/const/colors";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useResultsStore from "@/stores/useResultsStore";
 
 const Legend = () => {
+  const { mapLegendTitle } = useStrings();
   const sets = useResultsStore((state) => state.sets);
   const toggleVisible = useResultsStore((state) => state.toggleVisible);
   const toggleHighlighted = useResultsStore((state) => state.toggleHighlighted);
@@ -56,7 +58,7 @@ const Legend = () => {
           className="shadow-lg cursor-default z-[400] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col gap-1"
         >
           <h4 className="text-lg font-semibold tracking-tight uppercase scroll-m-20">
-            Map Legend
+            {mapLegendTitle()}
           </h4>
           <div className="flex flex-col gap-1">{renderSets()}</div>
         </div>

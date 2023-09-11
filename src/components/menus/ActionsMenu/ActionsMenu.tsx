@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveData } from "@/lib/storeData";
 import useAppStore from "@/stores/useAppStore";
@@ -30,6 +31,16 @@ import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const ActionsMenu = () => {
+  const {
+    actionMenuTrigger,
+    actionMenuClearResults,
+    actionMenuDownloadResults,
+    actionMenuLoadSession,
+    actionMenuResultsTitle,
+    actionMenuSaveSession,
+    actionMenuShareSession,
+    actionMenuSessionTitle,
+  } = useStrings();
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
@@ -77,11 +88,13 @@ const ActionsMenu = () => {
           }}
         >
           <LightningBoltIcon />
-          <span>Actions</span>
+          <span>{actionMenuTrigger()}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[10000]">
-        <DropdownMenuLabel className="uppercase">Session</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">
+          {actionMenuSessionTitle()}
+        </DropdownMenuLabel>
         <DropdownMenuItem
           onClick={async (e) => {
             e.preventDefault();
@@ -92,27 +105,29 @@ const ActionsMenu = () => {
           }}
         >
           {ShareSessionIcon}
-          Share Session
+          {actionMenuShareSession()}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => toggleDialog("saveSession")}>
           <BookmarkIcon />
-          Save Session
+          {actionMenuSaveSession()}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => toggleDialog("loadSession")}
           disabled={sessions.length === 0}
         >
           <UploadIcon />
-          Load Session
+          {actionMenuLoadSession()}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuLabel className="uppercase">Results</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">
+          {actionMenuResultsTitle()}
+        </DropdownMenuLabel>
         <DropdownMenuItem
           onClick={handleClearResults}
           disabled={!isGeoJSONAvailable}
         >
           <TrashIcon />
-          Clear Results
+          {actionMenuClearResults()}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -121,7 +136,7 @@ const ActionsMenu = () => {
           disabled={!isGeoJSONAvailable}
         >
           <DownloadIcon />
-          Download Results
+          {actionMenuDownloadResults()}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
