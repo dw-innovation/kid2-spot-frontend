@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
 import Globe from "@/components/Globe";
@@ -12,24 +12,30 @@ import NaturalLanguageAnalyzerStep from "./NaturalLanguageAnalyzerStep";
 import NaturalLanguageInputStep from "./NaturalLanguageInputStep";
 import OSMQueryScreen from "./OSMQueryStep";
 
+const STEPS = [
+  () => <NaturalLanguageInputStep key="step-1" />,
+  () => <NaturalLanguageAnalyzerStep key="step-2" />,
+  () => <AreaSelectorStep key="step-3" />,
+  () => <OSMQueryScreen key="step-4" />,
+];
+
 const InputStepper = () => {
   const { animateOut } = useInputStepper();
   const currentStep = useAppStore((state) => state.currentStep);
   const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
+  console.log("render");
+
+  const CurrentStepComponent = useMemo(
+    () => STEPS[currentStep](),
+    [currentStep]
+  );
 
   useLayoutEffect(() => {
     if (stepRef.current) {
       setInitialHeight(stepRef.current.clientHeight);
     }
   }, []);
-
-  const STEPS = [
-    <NaturalLanguageInputStep key="step-1" />,
-    <NaturalLanguageAnalyzerStep key="step-2" />,
-    <AreaSelectorStep key="step-3" />,
-    <OSMQueryScreen key="step-4" />,
-  ];
 
   const globeScaleProps = useSpring({
     transform: `scale(${animateOut ? 2 : 1})`,
@@ -55,7 +61,7 @@ const InputStepper = () => {
         </animated.h1>
         <div style={{ height: `${initialHeight + 100}px` }}>
           <div ref={stepRef} className="w-full max-w-[32rem]">
-            {STEPS[currentStep]}
+            {CurrentStepComponent}
           </div>
         </div>
       </div>

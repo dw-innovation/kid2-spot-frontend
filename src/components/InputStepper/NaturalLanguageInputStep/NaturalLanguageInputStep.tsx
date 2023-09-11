@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import useAppStore from "@/stores/useAppStore";
-import useQueryStore from "@/stores/useQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 import InputContainer from "../InputContainer";
 
@@ -19,10 +19,9 @@ const PLACEHOLDERS = [
 const NaturalLanguageInputStep = () => {
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const nextStep = useAppStore((state) => state.nextStep);
-  const setNaturalLanguagePrompt = useQueryStore(
-    (state) => state.setNaturalLanguagePrompt
-  );
-  const handleSkip = () => {
+  const setNlSentence = useImrStore((state) => state.setNlSentence);
+  const nlSentence = useImrStore((state) => state.nlSentence);
+  const handleSearchClick = () => {
     setShouldUnmount(true);
     setTimeout(() => {
       nextStep();
@@ -87,9 +86,9 @@ const NaturalLanguageInputStep = () => {
             className="w-full text-xl shadow-lg"
             rows={4}
             placeholder={displayedText}
-            onChange={(e) => setNaturalLanguagePrompt(e.target.value)}
+            onChange={(e) => setNlSentence(e.target.value)}
           />
-          <Button onClick={handleSkip}>
+          <Button onClick={handleSearchClick} disabled={nlSentence === ""}>
             <SearchIcon />
             Search
           </Button>
