@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 
+import { cn } from "@/lib/utils";
+
 type Props = {
   options: { value: string; label: string }[];
   value?: string | null;
@@ -44,12 +46,18 @@ const Select = ({
         setSelectedValue(option);
         onSelect(newValue);
       }}
-      className={`w-full text-sm ${className}`}
+      className={cn(`w-full text-sm ${className}`)}
       isDisabled={options.length === 0}
       components={{
         IndicatorSeparator: () => null,
       }}
       styles={{
+        control: (baseStyles) => ({
+          ...baseStyles,
+          height: "40px",
+          flex: 1,
+          flexGrow: 1,
+        }),
         dropdownIndicator: (baseStyles) => ({
           ...baseStyles,
           padding: 0,
