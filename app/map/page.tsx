@@ -4,6 +4,7 @@ import React from "react";
 import Dialogs from "@/components/dialogs";
 import Div100vh from "@/components/Div100vh";
 import Interface from "@/components/Interface";
+import { StringProvider } from "@/lib/contexts/useString";
 
 export const metadata: Metadata = {
   title: "Spot – Search the world with your words",
@@ -12,10 +13,12 @@ export const metadata: Metadata = {
 };
 
 const Page = () => (
-  <Div100vh>
-    <Dialogs />
-    <Interface />
-  </Div100vh>
+  <StringProvider>
+    <Div100vh>
+      <Dialogs />
+      <Interface />
+    </Div100vh>
+  </StringProvider>
 );
 
 export default Page;

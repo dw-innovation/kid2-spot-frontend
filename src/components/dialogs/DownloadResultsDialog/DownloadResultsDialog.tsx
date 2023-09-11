@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useStrings } from "@/lib/contexts/useString";
 import { saveResultsToFile } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 
@@ -8,6 +9,13 @@ const DIALOG_NAME = "downloadResults";
 
 const DownloadDialog = () => {
   const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const {
+    downloadDialogTitle,
+    downloadDialogDescription,
+    downloadDialogInfo,
+    downloadDialogAsGeoJSONButton,
+    downloadDialogAsKMLButton,
+  } = useStrings();
 
   const handleSaveClick = (format: "geojson" | "kml") => {
     saveResultsToFile(format);
@@ -17,16 +25,17 @@ const DownloadDialog = () => {
   return (
     <Dialog
       dialogName={DIALOG_NAME}
-      dialogTitle="Download Query Results"
-      dialogDescription="Save your results locally as GeoJSON or KML file."
+      dialogTitle={downloadDialogTitle}
+      dialogDescription={downloadDialogDescription}
     >
-      Settings TBD, for now just download as GeoJSON or KML could be filename,
-      description, etc
+      {downloadDialogInfo}
       <div className="flex gap-2">
         <Button onClick={() => handleSaveClick("geojson")}>
-          Download as GeoJSON
+          {downloadDialogAsGeoJSONButton}
         </Button>
-        <Button onClick={() => handleSaveClick("kml")}>Download as KML</Button>
+        <Button onClick={() => handleSaveClick("kml")}>
+          {downloadDialogAsKMLButton}
+        </Button>
       </div>
     </Dialog>
   );
