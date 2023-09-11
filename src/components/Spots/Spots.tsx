@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useWindowSize } from "usehooks-ts";
 
 import { Spot } from "@/stores/interfaces/ResultsStore.interface";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Select from "../Select";
-import { useWindowSize } from "usehooks-ts";
 
 const Spots = () => {
   const spots = useResultsStore((state) => state.spots);
