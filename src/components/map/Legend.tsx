@@ -2,7 +2,7 @@ import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { FILL_COLORS } from "@/lib/const";
+import { FILL_COLORS } from "@/lib/const/colors";
 import useResultsStore from "@/stores/useResultsStore";
 
 const Legend = () => {
