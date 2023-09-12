@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Button } from "@/components/ui/button";
+import { STRINGS } from "@/lib/const/strings/errors";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useAppStore from "@/stores/useAppStore";
 
@@ -16,7 +17,7 @@ const ErrorDialog = () => {
 
   return (
     <Dialog dialogName={DIALOG_NAME} dialogTitle={errorDialogTitle()}>
-      {errorType}
+      {STRINGS[errorType as keyof typeof STRINGS] || errorType}
       <Button
         onClick={() => {
           toggleDialog(DIALOG_NAME);

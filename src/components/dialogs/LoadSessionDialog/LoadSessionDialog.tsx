@@ -24,12 +24,14 @@ const LoadSessionDialog = () => {
     loadSessionDialogTitle,
     loadSessionDialogSessionSavedInfo,
   } = useStrings();
+
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
     (state) => state.initialize
   );
   const initializeImrStore = useImrStore((state) => state.initialize);
+
   const toggleDialog = useAppStore((state) => state.toggleDialog);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
@@ -90,7 +92,6 @@ const LoadSessionDialog = () => {
     >
       <Select
         options={options}
-        defaultValue={options[0]}
         value={sessionId || ""}
         onSelect={(value) => setSessionId(value)}
         className="max-w-full"
@@ -100,7 +101,7 @@ const LoadSessionDialog = () => {
       {selectedSession?.created && (
         <p className="text-sm font-semibold text-muted-foreground">
           {loadSessionDialogSessionSavedInfo({
-            date: selectedSession.created.toDateString(),
+            date: selectedSession.created?.toDateString(),
           })}
         </p>
       )}
