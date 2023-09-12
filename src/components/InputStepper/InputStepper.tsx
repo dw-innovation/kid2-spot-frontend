@@ -24,7 +24,6 @@ const InputStepper = () => {
   const currentStep = useAppStore((state) => state.currentStep);
   const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
-  console.log("render");
 
   const CurrentStepComponent = useMemo(
     () => STEPS[currentStep](),
