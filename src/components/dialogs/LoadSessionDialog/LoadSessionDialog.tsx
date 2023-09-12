@@ -100,7 +100,7 @@ const LoadSessionDialog = () => {
       {selectedSession?.created && (
         <p className="text-sm font-semibold text-muted-foreground">
           {loadSessionDialogSessionSavedInfo({
-            date: selectedSession.created,
+            date: selectedSession.created.toDateString(),
           })}
         </p>
       )}

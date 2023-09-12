@@ -10,12 +10,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
 const OverpassQuerySubmit = () => {
+  const { commonQueryOSMButton } = useStrings();
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const setSpots = useResultsStore((state) => state.setSpots);
@@ -62,7 +64,7 @@ const OverpassQuerySubmit = () => {
             <SearchIcon className="w-4 h-4" />
           )}
         </span>
-        <span>Query OSM</span>
+        <span>{commonQueryOSMButton()}</span>
       </div>
     </Button>
   );

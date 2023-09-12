@@ -10,8 +10,8 @@ export type Session = {
   id: UUID;
   name: string;
   description: string;
-  created: string;
-  modified: string;
+  created: Date;
+  modified: Date;
   data: {
     useAppStore: AppStoreInterface;
     useMapStore: MapStoreInterface;

@@ -8,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { Filter } from "@/types/imr";
 
@@ -17,13 +18,21 @@ type Props = {
   filterId: number;
 };
 
-const OPERATORS = [
-  { value: "=", label: "equals" },
-  { value: ">", label: "greater than" },
-  { value: "~", label: "contains" },
-];
-
 const ClusterFilter = ({ filter, setId, filterId }: Props) => {
+  const {
+    filtersDialogOperatorEquals,
+    filtersDialogOperatorGreater,
+    filtersDialogOperatorContains,
+    filtersDialogTooltipOperator,
+    filtersDialogTooltipValue,
+    filtersDialogTooltipKey,
+  } = useStrings();
+
+  const OPERATORS = [
+    { value: "=", label: filtersDialogOperatorEquals() },
+    { value: ">", label: filtersDialogOperatorGreater() },
+    { value: "~", label: filtersDialogOperatorContains() },
+  ];
   const setFilterValue = useImrStore((state) => state.setFilterValue);
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -48,7 +57,7 @@ const ClusterFilter = ({ filter, setId, filterId }: Props) => {
             />
           </TooltipTrigger>
           <TooltipContent>
-            <p>OSM Key</p>
+            <p>{filtersDialogTooltipKey()}</p>
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -61,7 +70,7 @@ const ClusterFilter = ({ filter, setId, filterId }: Props) => {
             />
           </TooltipTrigger>
           <TooltipContent>
-            <p>Operator</p>
+            <p>{filtersDialogTooltipOperator()}</p>
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -73,7 +82,7 @@ const ClusterFilter = ({ filter, setId, filterId }: Props) => {
             />
           </TooltipTrigger>
           <TooltipContent>
-            <p>OSM value</p>
+            <p>{filtersDialogTooltipValue()}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

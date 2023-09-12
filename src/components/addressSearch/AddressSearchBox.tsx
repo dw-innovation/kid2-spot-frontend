@@ -6,6 +6,7 @@ import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
 import LensIcon from "@/assets/icons/LensIcon";
+import { useStrings } from "@/lib/contexts/useStrings";
 import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
 import { checkInputType, fetchGeocodeApiData } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";
@@ -14,6 +15,7 @@ import useMapStore from "@/stores/useMapStore";
 import AddressSuggestions from "./AddressSuggestions";
 
 const AddressSearchBox = () => {
+  const { commonAddressSearchPlaceholder } = useStrings();
   const addressSuggestions = useAddressStore(
     (state) => state.addressSuggestions
   );
@@ -142,7 +144,7 @@ const AddressSearchBox = () => {
               >
                 <div className="flex items-center justify-center flex-1 gap-2 rounded-lg">
                   <input
-                    placeholder="Search for a place or coordinates (lat, lng)"
+                    placeholder={commonAddressSearchPlaceholder()}
                     className="w-full p-2 rounded-lg"
                     {...getInputProps({
                       onChange: (e) => setSearchAddress(e.target.value),

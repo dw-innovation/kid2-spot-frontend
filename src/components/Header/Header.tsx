@@ -2,6 +2,8 @@
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
+import { useStrings } from "@/lib/contexts/useStrings";
+
 import OSMQuerySubmit from "../OSMQuerySubmit";
 import Spots from "../Spots";
 import { Button } from "../ui/button";
@@ -18,6 +20,7 @@ import MenuItems from "./MenuItems";
 
 const Header = () => {
   const { open, setOpen } = useMenu();
+  const { commonMenu } = useStrings();
 
   return (
     <div className="flex gap-2">
@@ -39,7 +42,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent className="md:hidden">
               <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
+                <SheetTitle>{commonMenu()}</SheetTitle>
                 <SheetDescription>
                   <MenuItems />
                 </SheetDescription>

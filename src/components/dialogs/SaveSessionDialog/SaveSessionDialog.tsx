@@ -31,9 +31,7 @@ const SaveSessionDialog = () => {
   const addSession = useSessionsStore((state) => state.addSession);
   const [error, setError] = useState(false);
 
-  const [sessionName, setSessionName] = useState(
-    saveSessionDialogPlaceholderName()
-  );
+  const [sessionName, setSessionName] = useState("");
   const [sessionDescription, setSessionDescription] = useState("");
 
   const handleSaveSession = (
@@ -53,8 +51,8 @@ const SaveSessionDialog = () => {
         useStreetViewStore: useStreetViewStore.getState(),
         useImrStore: useImrStore.getState(),
       },
-      created: date.toDateString(),
-      modified: date.toDateString(),
+      created: date,
+      modified: date,
       id: uuid(),
       description: sessionDescription,
     });
@@ -77,6 +75,7 @@ const SaveSessionDialog = () => {
     >
       <Input
         value={sessionName}
+        placeholder={saveSessionDialogPlaceholderName()}
         onChange={({ target: { value } }) => setSessionName(value)}
         className={cn({ "border-red-400": error })}
       />
@@ -93,7 +92,7 @@ const SaveSessionDialog = () => {
       <div className="flex gap-2">
         <Button
           onClick={() => handleSaveSession(sessionName, sessionDescription)}
-          disabled={error}
+          disabled={error || sessionName === ""}
         >
           {saveSessionDialogSaveButton()}
         </Button>

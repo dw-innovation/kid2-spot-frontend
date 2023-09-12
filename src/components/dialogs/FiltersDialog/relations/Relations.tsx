@@ -1,6 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { Edge } from "@/types/imr";
 
@@ -8,6 +9,8 @@ import ContainsRelation from "./ContainsRelation";
 import DistanceRelaton from "./DistanceRelation";
 
 const Relations = () => {
+  const { filtersDialogAddRelationContains, filtersDialogAddRelationDistance } =
+    useStrings();
   const imr = useImrStore((state) => state.imr);
   const addDistanceRelation = useImrStore((state) => state.addDistanceRelation);
   const addContainsRelation = useImrStore((state) => state.addContainsRelation);
@@ -23,14 +26,14 @@ const Relations = () => {
           className="h-8 p-1"
           onClick={() => addDistanceRelation()}
         >
-          <PlusIcon /> add distance relation
+          <PlusIcon /> {filtersDialogAddRelationDistance()}
         </Button>
         <Button
           variant={"outline"}
           className="h-8 p-1"
           onClick={() => addContainsRelation()}
         >
-          <PlusIcon /> add contains relation
+          <PlusIcon /> {filtersDialogAddRelationContains()}
         </Button>
       </div>
       {imr &&

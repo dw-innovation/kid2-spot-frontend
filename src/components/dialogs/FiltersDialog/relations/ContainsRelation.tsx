@@ -4,6 +4,7 @@ import React from "react";
 import Select from "@/components/Select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { ContainsRelation } from "@/types/imr";
 
@@ -12,6 +13,11 @@ const ContainsRelation = ({
 }: {
   edge: ContainsRelation;
 }) => {
+  const {
+    filtersDialogRelation,
+    filtersDialogContainsLabel,
+    filtersDialogTypeContains,
+  } = useStrings();
   const sets = useImrStore((state) => state.imr.ns);
   const removeRelation = useImrStore((state) => state.removeRelation);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
@@ -20,8 +26,10 @@ const ContainsRelation = ({
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between gap-1">
         <div className="flex items-center gap-2">
-          <span className="font-bold">Relation {id}</span>
-          <Badge>Contains</Badge>
+          <span className="font-bold">
+            {filtersDialogRelation()} {id}
+          </span>
+          <Badge>{filtersDialogTypeContains()}</Badge>
           <Button
             variant="ghost"
             className="p-1 aspect-square"
@@ -42,7 +50,7 @@ const ContainsRelation = ({
             value={src.toString()}
             onSelect={(value) => setRelationValue(id, "src", parseInt(value))}
           />
-          contains
+          {filtersDialogContainsLabel()}
           <Select
             options={sets.map((set) =>
               set.t === "nwr"

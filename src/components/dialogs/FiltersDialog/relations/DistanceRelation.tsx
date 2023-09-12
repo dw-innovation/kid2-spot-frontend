@@ -5,6 +5,7 @@ import Select from "@/components/Select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useStrings } from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { DistanceRelation } from "@/types/imr";
 
@@ -13,6 +14,11 @@ const DistanceRelation = ({
 }: {
   edge: DistanceRelation;
 }) => {
+  const {
+    filtersDialogRelation,
+    filtersDialogDistanceLabel,
+    filtersDialogTypeDistance,
+  } = useStrings();
   const sets = useImrStore((state) => state.imr.ns);
   const removeRelation = useImrStore((state) => state.removeRelation);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
@@ -21,8 +27,10 @@ const DistanceRelation = ({
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between gap-1">
         <div className="flex items-center gap-2">
-          <span className="font-bold">Relation {id}</span>
-          <Badge className="h-6">Distance</Badge>
+          <span className="font-bold">
+            {filtersDialogRelation()} {id}
+          </span>
+          <Badge className="h-6">{filtersDialogTypeDistance()}</Badge>
           <Button
             variant="ghost"
             className="h-8 p-1 aspect-square"
@@ -50,7 +58,9 @@ const DistanceRelation = ({
             }
             className=" min-w-[5rem]"
           />
-          <span className="whitespace-nowrap">away from</span>
+          <span className="whitespace-nowrap">
+            {filtersDialogDistanceLabel()}
+          </span>
           <Select
             options={sets.map((set) =>
               set.t === "nwr"

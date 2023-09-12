@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 
+import { useStrings } from "@/lib/contexts/useStrings";
 import { Spot } from "@/stores/interfaces/ResultsStore.interface";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -8,6 +9,7 @@ import useResultsStore from "@/stores/useResultsStore";
 import Select from "../Select";
 
 const Spots = () => {
+  const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
   const setBounds = useMapStore((state) => state.setBounds);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
@@ -47,7 +49,7 @@ const Spots = () => {
         options={options}
         onSelect={(value) => handleSpotSelect(parseInt(value))}
         className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000] h-full"
-        placeholder="Select a spot"
+        placeholder={commonSelectSpotPlaceholder()}
         enableReset
         isSearchable={width > 768}
       />
