@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
+import { useStrings } from "@/lib/contexts/useStrings";
 import { Session } from "@/stores/interfaces/SessionsStore.interface";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
@@ -16,6 +17,13 @@ import Dialog from "../Dialog";
 const DIALOG_NAME = "loadSession";
 
 const LoadSessionDialog = () => {
+  const {
+    loadSessionDialogDescription,
+    loadSessionDialogLoadSessionButton,
+    loadSessionDialogRemoveSessionButton,
+    loadSessionDialogTitle,
+    loadSessionDialogSessionSavedInfo,
+  } = useStrings();
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
@@ -77,11 +85,12 @@ const LoadSessionDialog = () => {
   return (
     <Dialog
       dialogName={DIALOG_NAME}
-      dialogTitle="Load current session"
-      dialogDescription="Load a saved session from your browser."
+      dialogTitle={loadSessionDialogTitle()}
+      dialogDescription={loadSessionDialogDescription()}
     >
       <Select
         options={options}
+        defaultValue={options[0]}
         value={sessionId || ""}
         onSelect={(value) => setSessionId(value)}
         className="max-w-full"
@@ -90,7 +99,9 @@ const LoadSessionDialog = () => {
 
       {selectedSession?.created && (
         <p className="text-sm font-semibold text-muted-foreground">
-          Saved {selectedSession.created}
+          {loadSessionDialogSessionSavedInfo({
+            date: selectedSession.created,
+          })}
         </p>
       )}
 
@@ -106,7 +117,7 @@ const LoadSessionDialog = () => {
           disabled={!selectedSession}
           className="flex-1"
         >
-          Load Session
+          {loadSessionDialogLoadSessionButton()}
         </Button>
         <Button
           onClick={handleRemoveSession}
@@ -114,7 +125,7 @@ const LoadSessionDialog = () => {
           disabled={!selectedSession}
           className="flex-1"
         >
-          Remove Session
+          {loadSessionDialogRemoveSessionButton()}
         </Button>
       </div>
     </Dialog>

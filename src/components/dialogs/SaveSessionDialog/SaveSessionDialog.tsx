@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uuid } from "short-uuid";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useStrings } from "@/lib/contexts/useStrings";
+import { cn } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -16,11 +18,22 @@ import Dialog from "../Dialog";
 const DIALOG_NAME = "saveSession";
 
 const SaveSessionDialog = () => {
+  const {
+    saveSessionDialogDescription,
+    saveSessionDialogErrorNameUsed,
+    saveSessionDialogPlaceholderDescription,
+    saveSessionDialogPlaceholderName,
+    saveSessionDialogSaveButton,
+    saveSessionDialogTitle,
+  } = useStrings();
   const toggleDialog = useAppStore((state) => state.toggleDialog);
   const sessions = useSessionsStore((state) => state.sessions);
   const addSession = useSessionsStore((state) => state.addSession);
+  const [error, setError] = useState(false);
 
-  const [sessionName, setSessionName] = useState("New Session");
+  const [sessionName, setSessionName] = useState(
+    saveSessionDialogPlaceholderName()
+  );
   const [sessionDescription, setSessionDescription] = useState("");
 
   const handleSaveSession = (
@@ -48,26 +61,41 @@ const SaveSessionDialog = () => {
     toggleDialog(DIALOG_NAME);
   };
 
+  useEffect(() => {
+    if (sessions.find((session) => session.name === sessionName)) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [sessionName, sessions]);
+
   return (
     <Dialog
       dialogName={DIALOG_NAME}
-      dialogTitle="Save current session"
-      dialogDescription="You can save your current session in your browser to restore it at a later point in time."
+      dialogTitle={saveSessionDialogTitle()}
+      dialogDescription={saveSessionDialogDescription()}
     >
       <Input
         value={sessionName}
         onChange={({ target: { value } }) => setSessionName(value)}
+        className={cn({ "border-red-400": error })}
       />
+      {error && (
+        <span className="text-sm text-red-400">
+          {saveSessionDialogErrorNameUsed()}
+        </span>
+      )}
       <Textarea
         value={sessionDescription}
         onChange={({ target: { value } }) => setSessionDescription(value)}
-        placeholder="Add a description"
+        placeholder={saveSessionDialogPlaceholderDescription()}
       />
       <div className="flex gap-2">
         <Button
           onClick={() => handleSaveSession(sessionName, sessionDescription)}
+          disabled={error}
         >
-          Save session locally
+          {saveSessionDialogSaveButton()}
         </Button>
       </div>
     </Dialog>
