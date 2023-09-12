@@ -56,6 +56,8 @@ const SaveSessionDialog = () => {
       id: uuid(),
       description: sessionDescription,
     });
+    setSessionName("");
+    setSessionDescription("");
     toggleDialog(DIALOG_NAME);
   };
 
@@ -73,30 +75,34 @@ const SaveSessionDialog = () => {
       dialogTitle={saveSessionDialogTitle()}
       dialogDescription={saveSessionDialogDescription()}
     >
-      <Input
-        value={sessionName}
-        placeholder={saveSessionDialogPlaceholderName()}
-        onChange={({ target: { value } }) => setSessionName(value)}
-        className={cn({ "border-red-400": error })}
-      />
-      {error && (
-        <span className="text-sm text-red-400">
-          {saveSessionDialogErrorNameUsed()}
-        </span>
-      )}
-      <Textarea
-        value={sessionDescription}
-        onChange={({ target: { value } }) => setSessionDescription(value)}
-        placeholder={saveSessionDialogPlaceholderDescription()}
-      />
-      <div className="flex gap-2">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col gap-2"
+      >
+        <Input
+          value={sessionName}
+          placeholder={saveSessionDialogPlaceholderName()}
+          onChange={({ target: { value } }) => setSessionName(value)}
+          className={cn({ "border-red-400": error })}
+        />
+        {error && (
+          <span className="text-sm text-red-400">
+            {saveSessionDialogErrorNameUsed()}
+          </span>
+        )}
+        <Textarea
+          value={sessionDescription}
+          onChange={({ target: { value } }) => setSessionDescription(value)}
+          placeholder={saveSessionDialogPlaceholderDescription()}
+        />
         <Button
           onClick={() => handleSaveSession(sessionName, sessionDescription)}
           disabled={error || sessionName === ""}
+          type="submit"
         >
           {saveSessionDialogSaveButton()}
         </Button>
-      </div>
+      </form>
     </Dialog>
   );
 };
