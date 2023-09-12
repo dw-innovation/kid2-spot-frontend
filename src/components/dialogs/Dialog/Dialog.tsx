@@ -38,10 +38,7 @@ const DownloadDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
       <DialogContent
-        className={cn(
-          "sm:max-w-[425px] z-[20000] max-h-[90vh] overflow-scroll",
-          className
-        )}
+        className={cn("sm:max-w-[425px] z-[20000] max-h-[90vh]", className)}
       >
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
