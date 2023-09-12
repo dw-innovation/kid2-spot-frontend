@@ -33,7 +33,7 @@ const NaturalLanguageAnalyzerStep = () => {
       .catch(() => {
         toggleDialog("error");
       });
-  }, []);
+  });
 
   return (
     <InputContainer
