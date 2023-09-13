@@ -26,17 +26,6 @@ const MenuItems = () => {
 
   return (
     <div className="flex flex-col items-end gap-2 md:flex-row">
-      <Button
-        onClick={() => {
-          resetSteps();
-          router.push("/");
-          setOpen(false);
-        }}
-      >
-        <SymbolIcon />
-        <span>{commonNewSearchButton()}</span>
-      </Button>
-
       <Button onClick={() => toggleDialog("filters")} variant={"outline"}>
         <MixerVerticalIcon />
         <span>Filters</span>
@@ -46,6 +35,16 @@ const MenuItems = () => {
       <Button onClick={() => toggleDialog("imr")} variant={"outline"}>
         <Pencil1Icon />
         <span>IMR</span>
+      </Button>
+      <Button
+        onClick={() => {
+          resetSteps();
+          router.push("/");
+          setOpen(false);
+        }}
+      >
+        <SymbolIcon />
+        <span>{commonNewSearchButton()}</span>
       </Button>
     </div>
   );
