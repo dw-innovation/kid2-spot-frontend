@@ -4,6 +4,7 @@ export type Spot = {
   bbox: number[];
   id: number;
   tags: { name?: string; "addr:street"?: string };
+  nodes: number[];
 };
 export default interface ResultsStoreInterface {
   geoJSON: FeatureCollection | null;

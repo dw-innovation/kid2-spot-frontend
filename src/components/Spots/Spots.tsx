@@ -16,9 +16,11 @@ const Spots = () => {
     []
   );
   const { width } = useWindowSize();
+  const setActiveSpot = useMapStore((state) => state.setActiveSpot);
 
   const handleSpotSelect = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);
+    setActiveSpot(id);
     if (!spot) return;
     setBounds([
       [spot.bbox[1], spot.bbox[0]],
@@ -27,12 +29,13 @@ const Spots = () => {
   };
 
   useEffect(() => {
+    setActiveSpot(undefined);
     let availableOptions = spots
       .map((spot: Spot, index: number) =>
         spot.id
           ? {
               label: `${index + 1}: ${
-                spot?.tags?.name ? spot?.tags?.name : "Unnamed"
+                spot?.tags?.name ? spot?.tags?.name : "Unnamed Spot"
               }`,
               value: spot.id.toString(),
             }

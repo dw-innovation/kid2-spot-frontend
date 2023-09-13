@@ -42,6 +42,14 @@ const useMapStore = create<MapStoreInterface>((set) => ({
       })
     );
   },
+  activeSpot: undefined,
+  setActiveSpot: (activeSpot: number | undefined) => {
+    set(
+      produce((draft) => {
+        draft.activeSpot = activeSpot;
+      })
+    );
+  },
 }));
 
 export default useMapStore;

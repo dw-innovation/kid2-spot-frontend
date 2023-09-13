@@ -8,5 +8,7 @@ export default interface MapStoreInterface {
   setMapZoom: (mapZoom: number) => void;
   bounds: [number, number][];
   setBounds: (bounds: [number, number][]) => void;
+  activeSpot: number | undefined;
+  setActiveSpot: (activeSpot: number | undefined) => void;
   initialize: (initialData: any) => void;
 }

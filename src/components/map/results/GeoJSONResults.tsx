@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
 
 import { FILL_COLORS } from "@/lib/const/colors";
+import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Popup from "../Popup";
@@ -13,11 +14,23 @@ import Popup from "../Popup";
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
+  const spots = useResultsStore((state) => state.spots);
+  const activeSpot = useMapStore((state) => state.activeSpot);
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
   const markerLayerGroup = useRef<L.LayerGroup | null>(null);
   const map = useMap();
+  const [spotNodes, setSpotNodes] = React.useState<number[]>([]);
+
+  useEffect(() => {
+    if (spots && activeSpot) {
+      const spot = spots.find((spot) => spot.id === activeSpot);
+      if (spot) {
+        setSpotNodes(spot.nodes);
+      }
+    }
+  }, [activeSpot, spots]);
 
   useEffect(() => {
     map.createPane("markerPane");
@@ -41,9 +54,9 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     return sets.findIndex((set) => set.name === setName);
   };
 
-  const getSetColor = (setIndex: number) => {
+  const getSetColor = (setIndex: number, currentNodeId: number) => {
     if (sets[setIndex] && sets[setIndex].visible) {
-      if (sets[setIndex].highlighted) {
+      if (sets[setIndex].highlighted || spotNodes.includes(currentNodeId)) {
         return "#fc5603";
       } else {
         return "#fff";
@@ -57,8 +70,11 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     return sets[setIndex] && sets[setIndex].visible ? 0.8 : 0;
   };
 
-  const getWeight = (setIndex: number) => {
-    return sets[setIndex] && sets[setIndex].highlighted ? 2.5 : 1;
+  const getWeight = (setIndex: number, currentNodeId: number) => {
+    return (sets[setIndex] && sets[setIndex].highlighted) ||
+      spotNodes.includes(currentNodeId)
+      ? 2.5
+      : 1;
   };
 
   const resetPreviousLayerStyle = () => {
@@ -120,8 +136,8 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
     return {
       fillColor: FILL_COLORS[setIndex],
-      color: getSetColor(setIndex),
-      weight: getWeight(setIndex),
+      color: getSetColor(setIndex, feature.properties?.osm_ids),
+      weight: getWeight(setIndex, feature.properties?.osm_ids),
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
     };
