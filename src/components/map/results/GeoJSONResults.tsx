@@ -9,7 +9,6 @@ import { FILL_COLORS } from "@/lib/const/colors";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Popup from "../Popup";
-import { set } from "lodash";
 
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
