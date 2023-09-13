@@ -23,7 +23,7 @@ const NaturalLanguageAnalyzerStep = () => {
   useEffect(() => {
     fetchData(nlSentence)
       .then((response) => {
-        setImr(response.op_query);
+        setImr(response.imr);
         setShouldUnmount(true);
 
         setTimeout(() => {
