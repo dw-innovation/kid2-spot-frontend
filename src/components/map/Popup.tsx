@@ -20,10 +20,11 @@ const Popup = ({ feature }: Props) => {
   );
 
   const handleClick = () => {
-    if (feature.geometry.type !== "Point") return;
+    if (!feature.properties || !feature.properties.center) return;
+
     setStreetViewCoordinates({
-      lat: feature.geometry.coordinates[1],
-      lng: feature.geometry.coordinates[0],
+      lat: feature.properties.center.coordinates[1],
+      lng: feature.properties.center.coordinates[0],
     });
     toggleStreetView(true);
   };
@@ -31,12 +32,10 @@ const Popup = ({ feature }: Props) => {
   return (
     <div className="w-fit">
       <FeatureInfo feature={feature} />
-      {feature.geometry.type === "Point" && (
-        <Button onClick={handleClick} variant={"secondary"}>
-          <EyeOpenIcon />
-          Open Google Street View
-        </Button>
-      )}
+      <Button onClick={handleClick} variant={"secondary"}>
+        <EyeOpenIcon />
+        Open Google Street View
+      </Button>
     </div>
   );
 };
