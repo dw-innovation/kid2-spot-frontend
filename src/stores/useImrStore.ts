@@ -24,63 +24,48 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   imr: {
     a: {
       t: "area",
-      v: "Cologne",
+      v: "Köln",
     },
-    ns: [
-      {
-        id: 1,
-        t: "nwr",
-        n: "amenity_hospital",
-        flts: [
-          {
-            k: "amenity",
-            v: "hospital",
-            op: "=",
-            n: "amenity_hospital",
-          },
-        ],
-      },
-      {
-        id: 2,
-        t: "nwr",
-        n: "amenity_cafe",
-        flts: [
-          {
-            k: "amenity",
-            v: "cafe",
-            op: "=",
-            n: "amenity_cafe",
-          },
-        ],
-      },
-      {
-        id: 3,
-        t: "nwr",
-        n: "amenity_fountain",
-        flts: [
-          {
-            k: "amenity",
-            v: "fountain",
-            op: "=",
-            n: "amenity_fountain",
-          },
-        ],
-      },
-    ],
     es: [
       {
-        id: 1,
-        src: 1,
-        tgt: 2,
+        src: 0,
+        tgt: 1,
         t: "dist",
-        dist: "200m",
+        dist: "200 m",
+      },
+    ],
+    ns: [
+      {
+        id: 0,
+        n: "hotel",
+        t: "nwr",
+        flts: [
+          {
+            or: [
+              {
+                k: "tourism",
+                op: "=",
+                v: "hotel",
+              },
+            ],
+          },
+        ],
       },
       {
-        id: 2,
-        src: 1,
-        tgt: 3,
-        t: "dist",
-        dist: "300m",
+        id: 1,
+        n: "train station",
+        t: "nwr",
+        flts: [
+          {
+            or: [
+              {
+                k: "railway",
+                op: "=",
+                v: "station",
+              },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -168,10 +153,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
-  removeEdge: (id) => {
+  removeEdge: (index) => {
     set(
       produce((draft) => {
-        draft.imr.es = draft.imr.es.filter((edge: Edge) => edge.src !== id);
+        draft.imr.es.slice(index, 1);
       })
     );
   },
@@ -244,22 +229,17 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
-  setRelationValue: (relationId, key, value) => {
+  setRelationValue: (index, key, value) => {
     set(
       produce((draft) => {
-        let relation = draft.imr.es.findIndex(
-          (relation: Edge) => relation.id === relationId
-        );
-        draft.imr.es[relation][key] = value;
+        draft.imr.es[index][key] = value;
       })
     );
   },
-  removeRelation: (relationId) => {
+  removeRelation: (index) => {
     set(
       produce((draft) => {
-        draft.imr.es = draft.imr.es.filter(
-          (relation: Edge) => relation.id !== relationId
-        );
+        draft.imr.es.slice(index, 1);
       })
     );
   },

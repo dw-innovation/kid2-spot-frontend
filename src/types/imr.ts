@@ -1,13 +1,22 @@
+export type LogicOperator = "and" | "or";
+
+export interface LogicFilter {
+  and?: FilterNode[];
+  or?: FilterNode[];
+}
+
 export type Filter = {
   k: string;
   v: string;
   op: "=" | "<" | ">" | "~";
-  n: string;
+  n?: string;
 };
+
+export type FilterNode = Filter | LogicFilter;
 
 export type Cluster = {
   id: number;
-  flts: Filter[];
+  flts: FilterNode[];
   t: "cluster";
   minPts: number;
   maxDist: string;
@@ -16,16 +25,9 @@ export type Cluster = {
 
 export type NWR = {
   id: number;
-  flts: Filter[];
+  flts: FilterNode[];
   t: "nwr";
   n: string;
-};
-
-type Group = {
-  id: number;
-  t: "group";
-  ns: (Cluster | NWR | Group)[];
-  es: Edge[];
 };
 
 export type ContainsRelation = {
@@ -36,7 +38,6 @@ export type ContainsRelation = {
 };
 
 export type DistanceRelation = {
-  id: number;
   src: number;
   tgt: number;
   t: "dist";
@@ -45,13 +46,13 @@ export type DistanceRelation = {
 
 export type Edge = ContainsRelation | DistanceRelation;
 
-export type Node = Cluster | NWR | Group;
+export type Node = Cluster | NWR;
 
 export interface IntermediateRepresentation {
   a: {
     t: "area" | "polygon" | "bbox";
     v: string | number[];
   };
-  ns: (Cluster | NWR | Group)[];
+  ns: (Cluster | NWR)[];
   es: Edge[];
 }

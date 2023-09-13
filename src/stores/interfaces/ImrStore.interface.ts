@@ -12,7 +12,7 @@ export default interface ImrStoreInterface {
   removeNode: (id: number) => void;
   addDistanceEdge: () => void;
   addContainsEdge: () => void;
-  removeEdge: (id: number) => void;
+  removeEdge: (index: number) => void;
   setImrBBox: (bbox: number[]) => void;
   setImrPolygon: (polygon: number[]) => void;
   setImrArea: (area: string) => void;
@@ -27,11 +27,11 @@ export default interface ImrStoreInterface {
   removeFilter: (setId: number, filterId: number) => void;
   setSetName: (setId: number, name: string) => void;
   setRelationValue: (
-    relationId: number,
+    index: number,
     key: string,
     value: string | number
   ) => void;
-  removeRelation: (relationId: number) => void;
+  removeRelation: (index: number) => void;
   addContainsRelation: () => void;
   addDistanceRelation: () => void;
   setClusterProp: (id: number, key: string, value: number | string) => void;
