@@ -18,6 +18,7 @@ const PLACEHOLDERS = [
 
 const NaturalLanguageInputStep = () => {
   const [shouldUnmount, setShouldUnmount] = useState(false);
+  const [typingActive, setTypingActive] = useState(true);
   const nextStep = useAppStore((state) => state.nextStep);
   const setNlSentence = useImrStore((state) => state.setNlSentence);
   const nlSentence = useImrStore((state) => state.nlSentence);
@@ -34,6 +35,7 @@ const NaturalLanguageInputStep = () => {
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
 
   useEffect(() => {
+    if (!typingActive) return;
     let timeoutId: NodeJS.Timeout;
 
     if (direction === "forward") {
@@ -64,7 +66,7 @@ const NaturalLanguageInputStep = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [currentText, direction, placeholderIndex]);
+  }, [currentText, direction, placeholderIndex, typingActive]);
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -76,7 +78,9 @@ const NaturalLanguageInputStep = () => {
     };
   }, []);
 
-  const displayedText = `${currentText}${showCursor ? "|" : ""}`;
+  const displayedText = `${currentText}${
+    showCursor && typingActive ? "|" : ""
+  }`;
 
   return (
     <InputContainer shouldUnmount={shouldUnmount}>
@@ -87,6 +91,11 @@ const NaturalLanguageInputStep = () => {
             rows={4}
             placeholder={displayedText}
             onChange={(e) => setNlSentence(e.target.value)}
+            onFocus={() => {
+              setTypingActive(false);
+              setCurrentText("");
+            }}
+            onBlur={() => setTypingActive(true)}
           />
           <Button onClick={handleSearchClick} disabled={nlSentence === ""}>
             <SearchIcon />
