@@ -9,6 +9,7 @@ import { FILL_COLORS } from "@/lib/const/colors";
 import useResultsStore from "@/stores/useResultsStore";
 
 import Popup from "../Popup";
+import { set } from "lodash";
 
 type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
@@ -55,6 +56,10 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   const getSetFillOpacity = (setIndex: number) => {
     return sets[setIndex] && sets[setIndex].visible ? 0.8 : 0;
+  };
+
+  const getWeight = (setIndex: number) => {
+    return sets[setIndex] && sets[setIndex].highlighted ? 2.5 : 1;
   };
 
   const resetPreviousLayerStyle = () => {
@@ -117,7 +122,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     return {
       fillColor: FILL_COLORS[setIndex],
       color: getSetColor(setIndex),
-      weight: 1,
+      weight: getWeight(setIndex),
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
     };
