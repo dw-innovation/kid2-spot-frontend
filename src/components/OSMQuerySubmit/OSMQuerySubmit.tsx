@@ -17,7 +17,7 @@ import { fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
 const OverpassQuerySubmit = () => {
-  const { commonQueryOSMButton } = useStrings();
+  const { commonFindSpotsButton } = useStrings();
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const setSpots = useResultsStore((state) => state.setSpots);
@@ -64,7 +64,7 @@ const OverpassQuerySubmit = () => {
             <SearchIcon className="w-4 h-4" />
           )}
         </span>
-        <span>{commonQueryOSMButton()}</span>
+        <span>{commonFindSpotsButton()}</span>
       </div>
     </Button>
   );
