@@ -1,7 +1,7 @@
 export const STRINGS = {
   appTitle: "Spot",
   closeButton: "Close",
-  queryOSMButton: "Query OSM",
+  findSpots: "Find Spots",
   selectSpotPlaceholder: "Select a Spot",
   newSearchButton: "New Search",
 };
