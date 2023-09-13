@@ -10,9 +10,11 @@ import useImrStore from "@/stores/useImrStore";
 import { DistanceRelation } from "@/types/imr";
 
 const DistanceRelation = ({
-  edge: { id, src, tgt, dist },
+  edge: { src, tgt, dist },
+  index,
 }: {
   edge: DistanceRelation;
+  index: number;
 }) => {
   const {
     filtersDialogRelation,
@@ -28,13 +30,13 @@ const DistanceRelation = ({
       <div className="flex items-center justify-between gap-1">
         <div className="flex items-center gap-2">
           <span className="font-bold">
-            {filtersDialogRelation()} {id}
+            {filtersDialogRelation()} {index}
           </span>
           <Badge className="h-6">{filtersDialogTypeDistance()}</Badge>
           <Button
             variant="ghost"
             className="h-8 p-1 aspect-square"
-            onClick={() => removeRelation(id)}
+            onClick={() => removeRelation(index)}
           >
             <TrashIcon scale={3} />
           </Button>
@@ -49,12 +51,14 @@ const DistanceRelation = ({
                 : { label: "Cluster", value: set.id.toString() }
             )}
             value={src.toString()}
-            onSelect={(value) => setRelationValue(id, "src", parseInt(value))}
+            onSelect={(value) =>
+              setRelationValue(index, "src", parseInt(value))
+            }
           />
           <Input
             value={dist}
             onChange={({ target: { value } }) =>
-              setRelationValue(id, "dist", value)
+              setRelationValue(index, "dist", value)
             }
             className=" min-w-[5rem]"
           />
@@ -68,7 +72,9 @@ const DistanceRelation = ({
                 : { label: "Cluster", value: set.id.toString() }
             )}
             value={tgt.toString()}
-            onSelect={(value) => setRelationValue(id, "tgt", parseInt(value))}
+            onSelect={(value) =>
+              setRelationValue(index, "tgt", parseInt(value))
+            }
           />
         </div>
       </div>
