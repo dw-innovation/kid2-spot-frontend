@@ -3,5 +3,5 @@ export const STRINGS = {
   description: "Load a saved session from your browser.",
   loadSessionButton: "Load Session",
   removeSessionButton: "Remove Session",
-  sessionSavedInfo: "Session saved at {date}.",
+  sessionSavedInfo: "Session saved on {date} at {time}.",
 };
