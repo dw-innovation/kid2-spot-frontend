@@ -4,7 +4,7 @@ import { animated, useSpring } from "react-spring";
 const sentences = [
   "Identifying the area in your query",
   "Determining all objects in your prompt",
-  "Analyzing the connections between",
+  "Analyzing the connections between the objects",
   "Hang on, we're almost there!",
 ];
 
@@ -25,7 +25,7 @@ const AnalyzeAnimation = () => {
         setIndex((prevIndex) => prevIndex + 1);
         setKey((prevKey) => prevKey + 1);
       }
-    }, 4000);
+    }, 2500);
 
     return () => {
       clearInterval(timer);
