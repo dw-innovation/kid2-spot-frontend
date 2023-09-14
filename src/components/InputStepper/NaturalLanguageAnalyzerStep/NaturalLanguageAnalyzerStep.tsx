@@ -4,16 +4,15 @@ import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { translateNLtoIMR } from "@/lib/utils";
 import useAppStore from "@/stores/useAppStore";
 import useImrStore from "@/stores/useImrStore";
 
 import InputContainer from "../InputContainer";
+import AnalyzeAnimation from "./Animation";
 
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useAppStore((state) => state.nextStep);
-  const elapsedTime = useElapsedTime(true, "loading");
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [apiStatus, fetchData] = useApiStatus(translateNLtoIMR);
   const toggleDialog = useAppStore((state) => state.toggleDialog);
@@ -40,8 +39,8 @@ const NaturalLanguageAnalyzerStep = () => {
       shouldUnmount={shouldUnmount}
       title="Analyzing your sentence"
     >
+      <AnalyzeAnimation />
       {apiStatus === "loading" && <LoadingSpinner size="2.5rem" />}
-      {elapsedTime} {elapsedTime === 1 ? `second` : `seconds`}
     </InputContainer>
   );
 };
