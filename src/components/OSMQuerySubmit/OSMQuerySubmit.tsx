@@ -55,6 +55,7 @@ const OverpassQuerySubmit = () => {
           : () => cancelRequest()
       }
       className={clsx("block px-2 py-1 w-fit")}
+      asChild
     >
       <div className="flex items-center gap-2">
         <span className="text-green-600">
