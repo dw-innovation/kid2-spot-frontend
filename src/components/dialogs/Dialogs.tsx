@@ -5,6 +5,7 @@ import ErrorDialog from "./ErrorDialog";
 import FiltersDialog from "./FiltersDialog";
 import ImrDialog from "./ImrDialog";
 import LoadSessionDialog from "./LoadSessionDialog";
+import QueryOSMDialog from "./QueryOSMDialog/QueryOSMDialog";
 import SaveSessionDialog from "./SaveSessionDialog";
 
 const Dialogs = () => {
@@ -16,6 +17,7 @@ const Dialogs = () => {
       <FiltersDialog />
       <ImrDialog />
       <ErrorDialog />
+      <QueryOSMDialog />
     </>
   );
 };

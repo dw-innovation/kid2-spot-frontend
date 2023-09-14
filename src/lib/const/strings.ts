@@ -8,6 +8,7 @@ import { STRINGS as loadSessionDialogStrings } from "./strings/loadSessionDialog
 import { STRINGS as mapLegendStrings } from "./strings/map/mapLegend";
 import { STRINGS as actionMenuStrings } from "./strings/menus/actions";
 import { STRINGS as settingsMenuStrings } from "./strings/menus/settings";
+import { STRINGS as queryOSMDialogStrings } from "./strings/queryOSMDialog";
 import { STRINGS as saveSessionDialogStrings } from "./strings/saveSessionDialog";
 
 export const STRINGS = {
@@ -19,6 +20,7 @@ export const STRINGS = {
   ...prefixKeys(imrDialogStrings, "imrDialog"),
   ...prefixKeys(loadSessionDialogStrings, "loadSessionDialog"),
   ...prefixKeys(mapLegendStrings, "mapLegend"),
+  ...prefixKeys(queryOSMDialogStrings, "queryOSMDialog"),
   ...prefixKeys(saveSessionDialogStrings, "saveSessionDialog"),
   ...prefixKeys(settingsMenuStrings, "settingsMenu"),
 };
