@@ -72,6 +72,7 @@ const LoadSessionDialog = () => {
     const session = findSessionById(sessionId);
     if (!session) return;
     removeSession(sessionId);
+    setSessionId("");
   };
 
   const selectedSession = sessionId ? findSessionById(sessionId) : undefined;
@@ -101,7 +102,8 @@ const LoadSessionDialog = () => {
       {selectedSession?.created && (
         <p className="text-sm font-semibold text-muted-foreground">
           {loadSessionDialogSessionSavedInfo({
-            date: selectedSession.created?.toDateString(),
+            date: new Date(selectedSession.created).toLocaleDateString(),
+            time: new Date(selectedSession.created).toLocaleTimeString(),
           })}
         </p>
       )}
