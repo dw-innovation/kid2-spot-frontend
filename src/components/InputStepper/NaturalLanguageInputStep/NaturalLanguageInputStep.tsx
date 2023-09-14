@@ -86,21 +86,30 @@ const NaturalLanguageInputStep = () => {
     <InputContainer shouldUnmount={shouldUnmount}>
       <div className="flex items-center justify-center w-full h-full overflow-hidden">
         <div className="flex flex-col w-full gap-2">
-          <Textarea
-            className="w-full text-xl shadow-lg"
-            rows={4}
-            placeholder={displayedText}
-            onChange={(e) => setNlSentence(e.target.value)}
-            onFocus={() => {
-              setTypingActive(false);
-              setCurrentText("");
-            }}
-            onBlur={() => setTypingActive(true)}
-          />
-          <Button onClick={handleSearchClick} disabled={nlSentence === ""}>
-            <SearchIcon />
-            Search
-          </Button>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="flex flex-col gap-2"
+          >
+            <Textarea
+              className="w-full text-xl shadow-lg"
+              rows={4}
+              placeholder={displayedText}
+              onChange={(e) => setNlSentence(e.target.value)}
+              onFocus={() => {
+                setTypingActive(false);
+                setCurrentText("");
+              }}
+              onBlur={() => setTypingActive(true)}
+            />
+            <Button
+              onClick={handleSearchClick}
+              disabled={nlSentence === ""}
+              type="submit"
+            >
+              <SearchIcon />
+              Search
+            </Button>
+          </form>
         </div>
       </div>
     </InputContainer>
