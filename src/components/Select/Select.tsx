@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import ReactSelect from "react-select";
 
 import { cn } from "@/lib/utils";
@@ -38,6 +38,7 @@ const Select = ({
 
   return (
     <ReactSelect
+      instanceId={useId()}
       options={options}
       placeholder={placeholder}
       value={selectedValue}
