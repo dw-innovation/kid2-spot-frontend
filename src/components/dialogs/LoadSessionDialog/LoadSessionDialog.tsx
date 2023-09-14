@@ -1,52 +1,31 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 
-import Select from "@/components/Select";
-import { Button } from "@/components/ui/button";
 import { useStrings } from "@/lib/contexts/useStrings";
-import { Session } from "@/stores/interfaces/SessionsStore.interface";
-import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
-import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
-import useResultsStore from "@/stores/useResultsStore";
-import useSessionsStore from "@/stores/useSessionsStore";
-import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Dialog from "../Dialog";
+import { useLoadSessionState } from "./hooks/useLoadSessionState";
+import { useSessionActions } from "./hooks/useSessionActions";
+import SessionActions from "./SessionActions";
+import SessionInfo from "./SessionInfo";
+import SessionSelect from "./SessionSelect";
 
 const DIALOG_NAME = "loadSession";
 
 const LoadSessionDialog = () => {
+  const { sessionId, setSessionId, options, selectedSession, findSessionById } =
+    useLoadSessionState();
   const {
-    loadSessionDialogDescription,
-    loadSessionDialogLoadSessionButton,
-    loadSessionDialogRemoveSessionButton,
-    loadSessionDialogTitle,
-    loadSessionDialogSessionSavedInfo,
-  } = useStrings();
-
-  const initializeMapStore = useMapStore((state) => state.initialize);
-  const initializeQueryStore = useQueryStore((state) => state.initialize);
-  const initializeStreetViewStore = useStreetViewStore(
-    (state) => state.initialize
-  );
-  const initializeImrStore = useImrStore((state) => state.initialize);
-
-  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
-  const clearSets = useResultsStore((state) => state.clearSets);
-  const clearSpots = useResultsStore((state) => state.clearSpots);
-  const removeSession = useSessionsStore((state) => state.removeSession);
-  const sessions = useSessionsStore((state) => state.sessions);
-  const [sessionId, setSessionId] = useState<string | undefined>(undefined);
-  const [options, setOptions] = useState<{ value: string; label: string }[]>(
-    []
-  );
-
-  const findSessionById = useCallback(
-    (id: string): Session | undefined => sessions.find((s) => s.id === id),
-    [sessions]
-  );
+    initializeMapStore,
+    initializeQueryStore,
+    initializeStreetViewStore,
+    initializeImrStore,
+    toggleDialog,
+    clearGeoJSON,
+    clearSets,
+    clearSpots,
+    removeSession,
+  } = useSessionActions();
+  const { loadSessionDialogDescription, loadSessionDialogTitle } = useStrings();
 
   const handleLoadSession = () => {
     if (!sessionId) return;
@@ -75,62 +54,23 @@ const LoadSessionDialog = () => {
     setSessionId("");
   };
 
-  const selectedSession = sessionId ? findSessionById(sessionId) : undefined;
-
-  useEffect(() => {
-    let availableOptions = sessions.map((session) => ({
-      value: session.id,
-      label: session.name,
-    }));
-    setOptions(availableOptions);
-  }, [sessions]);
-
   return (
     <Dialog
       dialogName={DIALOG_NAME}
       dialogTitle={loadSessionDialogTitle()}
       dialogDescription={loadSessionDialogDescription()}
     >
-      <Select
+      <SessionSelect
         options={options}
-        value={sessionId || ""}
+        value={sessionId}
         onSelect={(value) => setSessionId(value)}
-        className="max-w-full"
-        placeholder="Select a Session"
       />
-
-      {selectedSession?.created && (
-        <p className="text-sm font-semibold text-muted-foreground">
-          {loadSessionDialogSessionSavedInfo({
-            date: new Date(selectedSession.created).toLocaleDateString(),
-            time: new Date(selectedSession.created).toLocaleTimeString(),
-          })}
-        </p>
-      )}
-
-      {selectedSession?.description && (
-        <p className="text-sm text-muted-foreground">
-          {selectedSession.description}
-        </p>
-      )}
-
-      <div className="flex w-full gap-2 ">
-        <Button
-          onClick={handleLoadSession}
-          disabled={!selectedSession}
-          className="flex-1"
-        >
-          {loadSessionDialogLoadSessionButton()}
-        </Button>
-        <Button
-          onClick={handleRemoveSession}
-          variant={"destructive"}
-          disabled={!selectedSession}
-          className="flex-1"
-        >
-          {loadSessionDialogRemoveSessionButton()}
-        </Button>
-      </div>
+      <SessionInfo session={selectedSession} />
+      <SessionActions
+        selectedSession={selectedSession}
+        handleLoadSession={handleLoadSession}
+        handleRemoveSession={handleRemoveSession}
+      />
     </Dialog>
   );
 };
