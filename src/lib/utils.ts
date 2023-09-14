@@ -6,7 +6,7 @@ import { MultiPolygon, Polygon } from "geojson";
 import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -38,16 +38,16 @@ export const fetchOSMData = async ({
     const response = await axios(config);
 
     if (response.data.results.features.length === 0) {
-      useAppStore.getState().setError("noResults");
-      useAppStore.getState().toggleDialog("error");
+      useGlobalStore.getState().setError("noResults");
+      useGlobalStore.getState().toggleDialog("error");
     }
 
     response.data.results.features.length === 0 &&
-      useAppStore.getState().setError("noResults");
+      useGlobalStore.getState().setError("noResults");
     return response.data;
   } catch (error: any) {
-    useAppStore.getState().setError(error.response.data.errorType);
-    useAppStore.getState().toggleDialog("error");
+    useGlobalStore.getState().setError(error.response.data.errorType);
+    useGlobalStore.getState().toggleDialog("error");
     return null;
   }
 };

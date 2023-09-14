@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
 import InputContainer from "../InputContainer";
@@ -19,7 +19,7 @@ const PLACEHOLDERS = [
 const NaturalLanguageInputStep = () => {
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [typingActive, setTypingActive] = useState(true);
-  const nextStep = useAppStore((state) => state.nextStep);
+  const nextStep = useGlobalStore((state) => state.nextStep);
   const setNlSentence = useImrStore((state) => state.setNlSentence);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const handleSearchClick = () => {
@@ -91,7 +91,7 @@ const NaturalLanguageInputStep = () => {
             className="flex flex-col gap-2"
           >
             <Textarea
-              className="w-full text-xl shadow-lg"
+              className={"w-full text-xl shadow-lg focus-visible:"}
               rows={4}
               placeholder={displayedText}
               onChange={(e) => setNlSentence(e.target.value)}

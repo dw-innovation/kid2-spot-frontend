@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 type Props = {
   dialogName: string;
@@ -25,8 +25,8 @@ const DownloadDialog = ({
   children,
   className,
 }: Props) => {
-  const dialogs = useAppStore((state) => state.dialogs);
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const dialogs = useGlobalStore((state) => state.dialogs);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

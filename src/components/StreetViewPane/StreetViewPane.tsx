@@ -8,15 +8,15 @@ import FullScreenExpandIcon from "@/assets/icons/FullScreenExpandIcon";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import { Button } from "@/components/ui/button";
 import { createGoogleMapsEmbedUrl } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const StreetViewPane = () => {
-  const isStreetViewFullscreen = useAppStore(
+  const isStreetViewFullscreen = useGlobalStore(
     (state) => state.isStreetViewFullscreen
   );
 
-  const toggleStreetViewFullscreen = useAppStore(
+  const toggleStreetViewFullscreen = useGlobalStore(
     (state) => state.toggleStreetViewFullscreen
   );
 

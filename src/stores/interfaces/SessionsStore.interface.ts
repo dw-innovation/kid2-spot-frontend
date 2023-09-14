@@ -1,6 +1,6 @@
 import { UUID } from "short-uuid";
 
-import AppStoreInterface from "./AppStore.interface";
+import AppStoreInterface from "./GlobalStore.interface";
 import ImrStoreInterface from "./ImrStore.interface";
 import MapStoreInterface from "./MapStore.interface";
 import QueryStoreInterface from "./QueryStore.interface";
@@ -13,7 +13,7 @@ export type Session = {
   created: Date;
   modified: Date;
   data: {
-    useAppStore: AppStoreInterface;
+    useGlobalStore: AppStoreInterface;
     useMapStore: MapStoreInterface;
     useQueryStore: QueryStoreInterface;
     useStreetViewStore: StreetViewStoreInterface;

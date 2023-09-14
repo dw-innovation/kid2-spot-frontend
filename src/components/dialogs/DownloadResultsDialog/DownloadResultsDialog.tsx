@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useStrings } from "@/lib/contexts/useStrings";
 import { saveResultsToFile } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";
 
 const DIALOG_NAME = "downloadResults";
 
 const DownloadDialog = () => {
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const {
     downloadDialogTitle,
     downloadDialogDescription,

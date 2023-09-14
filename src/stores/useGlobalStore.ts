@@ -2,9 +2,9 @@ import produce from "immer";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import AppStoreInterface, { Step } from "./interfaces/AppStore.interface";
+import GlobalStoreInterface, { Step } from "./interfaces/GlobalStore.interface";
 
-const useAppStore = create<AppStoreInterface>()(
+const useGlobalStore = create<GlobalStoreInterface>()(
   persist(
     (set) => ({
       currentStep: 0,
@@ -129,9 +129,9 @@ const useAppStore = create<AppStoreInterface>()(
       },
     }),
     {
-      name: "spot-app",
+      name: "spot-global",
     }
   )
 );
 
-export default useAppStore;
+export default useGlobalStore;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -9,7 +9,7 @@ const MapEvents = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
-  const view = useAppStore((state) => state.view);
+  const view = useGlobalStore((state) => state.view);
   const searchArea = useImrStore((state) => state.imr.a.t);
   const setImrBBox = useImrStore((state) => state.setImrBBox);
 

@@ -4,7 +4,7 @@ import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { useStrings } from "@/lib/contexts/useStrings";
 import { Session } from "@/stores/interfaces/SessionsStore.interface";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -32,7 +32,7 @@ const LoadSessionDialog = () => {
   );
   const initializeImrStore = useImrStore((state) => state.initialize);
 
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
   const clearSpots = useResultsStore((state) => state.clearSpots);

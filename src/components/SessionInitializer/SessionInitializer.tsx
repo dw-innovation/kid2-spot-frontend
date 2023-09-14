@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -27,7 +27,7 @@ const SessionInitializer = ({ data }: any) => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const setSpots = useResultsStore((state) => state.setSpots);
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   const [, fetchData] = useApiStatus(fetchOSMData);
 

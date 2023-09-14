@@ -3,7 +3,7 @@ export type Step = {
   status: "open" | "loading" | "completed" | "error";
   error: { isError: boolean; message?: string };
 };
-export default interface AppStoreInterface {
+export default interface GlobalStoreInterface {
   currentStep: 0;
   prevStep: () => void;
   nextStep: () => void;

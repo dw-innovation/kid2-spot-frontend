@@ -12,17 +12,17 @@ import ActionsMenu from "@/components/menus/ActionsMenu";
 import SettingsMenu from "@/components/menus/SettingsMenu";
 import { Button } from "@/components/ui/button";
 import { useStrings } from "@/lib/contexts/useStrings";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import { useMenu } from "./Context";
 
 const MenuItems = () => {
-  const resetSteps = useAppStore((state) => state.resetSteps);
+  const resetSteps = useGlobalStore((state) => state.resetSteps);
   const router = useRouter();
   const { setOpen } = useMenu();
   const { commonNewSearchButton } = useStrings();
 
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   return (
     <div className="flex flex-col items-end gap-2 md:flex-row">

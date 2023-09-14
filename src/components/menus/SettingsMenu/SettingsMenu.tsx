@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useStrings } from "@/lib/contexts/useStrings";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -48,8 +48,8 @@ const SettingsMenu = () => {
 
   const tilesLayer = useMapStore((state) => state.tilesLayer);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
-  const view = useAppStore((state) => state.view);
-  const setView = useAppStore((state) => state.setView);
+  const view = useGlobalStore((state) => state.view);
+  const setView = useGlobalStore((state) => state.setView);
   const searchAreaType = useImrStore((state) => state.imr.a.t);
   const setSearchArea = useImrStore((state) => state.setSearchArea);
   const bounds = useMapStore((state) => state.bounds);

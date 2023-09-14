@@ -22,7 +22,7 @@ import {
 import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveData } from "@/lib/storeData";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -48,12 +48,12 @@ const ActionsMenu = () => {
   const isGeoJSONAvailable = Boolean(geoJSON);
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const sessions = useSessionsStore((state) => state.sessions);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
     saveData([
-      { name: "useAppStore", getState: useAppStore.getState },
+      { name: "useGlobalStore", getState: useGlobalStore.getState },
       { name: "useMapStore", getState: useMapStore.getState },
       { name: "useQueryStore", getState: useQueryStore.getState },
       { name: "useStreetViewStore", getState: useStreetViewStore.getState },

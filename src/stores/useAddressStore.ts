@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 import AddressStoreInterface from "./interfaces/AddressStore.interface";
 
-const useAppStore = create<AddressStoreInterface>((set) => ({
+const useGlobalStore = create<AddressStoreInterface>((set) => ({
   searchAddress: "",
   setSearchAddress: (searchAddress: string) => {
     set(
@@ -30,4 +30,4 @@ const useAppStore = create<AddressStoreInterface>((set) => ({
   },
 }));
 
-export default useAppStore;
+export default useGlobalStore;

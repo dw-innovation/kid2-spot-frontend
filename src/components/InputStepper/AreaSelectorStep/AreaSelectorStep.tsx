@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import AreaSelector from "@/components/AreaSelector";
 import { Button } from "@/components/ui/button";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import InputContainer from "../InputContainer";
 
 const AreaSelectorStep = () => {
-  const nextStep = useAppStore((state) => state.nextStep);
+  const nextStep = useGlobalStore((state) => state.nextStep);
   const [shouldUnmount, setShouldUnmount] = useState(false);
 
   const handleSelect = () => {

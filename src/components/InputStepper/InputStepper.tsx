@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
 import Globe from "@/components/Globe";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import AreaSelectorStep from "./AreaSelectorStep";
 import { useInputStepper } from "./Context";
@@ -21,7 +21,7 @@ const STEPS = [
 
 const InputStepper = () => {
   const { animateOut } = useInputStepper();
-  const currentStep = useAppStore((state) => state.currentStep);
+  const currentStep = useGlobalStore((state) => state.currentStep);
   const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
 

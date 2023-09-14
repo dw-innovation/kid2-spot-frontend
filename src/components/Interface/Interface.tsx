@@ -7,13 +7,13 @@ import React from "react";
 import DynamicMap from "@/components/map";
 import DynamicResultsViewer from "@/components/ResultsViewer";
 import StreetViewPane from "@/components/StreetViewPane";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Header from "../Header";
 
 const Interface = () => {
-  const view = useAppStore((state) => state.view);
+  const view = useGlobalStore((state) => state.view);
   const showStreetView = useStreetViewStore((state) => state.showStreetView);
 
   return (

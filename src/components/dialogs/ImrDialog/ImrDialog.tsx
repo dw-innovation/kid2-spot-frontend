@@ -2,7 +2,7 @@ import React from "react";
 
 import DynamicImrEditor from "@/components/ImrEditor";
 import { useStrings } from "@/lib/contexts/useStrings";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";
 
@@ -10,7 +10,7 @@ const DIALOG_NAME = "imr";
 
 const ImrDialog = () => {
   const { imrDialogTitle, imrDialogDescription } = useStrings();
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   return (
     <Dialog

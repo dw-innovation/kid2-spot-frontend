@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useStrings } from "@/lib/contexts/useStrings";
 import { cn } from "@/lib/utils";
-import useAppStore from "@/stores/useAppStore";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useQueryStore from "@/stores/useQueryStore";
@@ -26,7 +26,7 @@ const SaveSessionDialog = () => {
     saveSessionDialogSaveButton,
     saveSessionDialogTitle,
   } = useStrings();
-  const toggleDialog = useAppStore((state) => state.toggleDialog);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const sessions = useSessionsStore((state) => state.sessions);
   const addSession = useSessionsStore((state) => state.addSession);
   const [error, setError] = useState(false);
@@ -45,7 +45,7 @@ const SaveSessionDialog = () => {
     addSession({
       name: sessionName,
       data: {
-        useAppStore: useAppStore.getState(),
+        useGlobalStore: useGlobalStore.getState(),
         useMapStore: useMapStore.getState(),
         useQueryStore: useQueryStore.getState(),
         useStreetViewStore: useStreetViewStore.getState(),
