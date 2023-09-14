@@ -2,9 +2,9 @@ import { FeatureCollection } from "geojson";
 
 export type Spot = {
   bbox: number[];
-  id: number;
+  id: string;
   tags: { name?: string; "addr:street"?: string };
-  nodes: number[];
+  nodes: string[];
 };
 export default interface ResultsStoreInterface {
   geoJSON: FeatureCollection | null;

@@ -18,7 +18,7 @@ const Spots = () => {
   const { width } = useWindowSize();
   const setActiveSpot = useMapStore((state) => state.setActiveSpot);
 
-  const handleSpotSelect = (id: number) => {
+  const handleSpotSelect = (id: string) => {
     const spot = spots.find((spot) => spot.id === id);
     setActiveSpot(id);
     if (!spot) return;
@@ -50,7 +50,7 @@ const Spots = () => {
     <div className="flex flex-col gap-1">
       <Select
         options={options}
-        onSelect={(value) => handleSpotSelect(parseInt(value))}
+        onSelect={(value) => handleSpotSelect(value)}
         className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000] h-full"
         placeholder={commonSelectSpotPlaceholder()}
         enableReset

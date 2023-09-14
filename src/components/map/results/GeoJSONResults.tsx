@@ -21,7 +21,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
   const markerLayerGroup = useRef<L.LayerGroup | null>(null);
   const map = useMap();
-  const [spotNodes, setSpotNodes] = React.useState<number[]>([]);
+  const [spotNodes, setSpotNodes] = React.useState<string[]>([]);
 
   useEffect(() => {
     if (spots && activeSpot) {
@@ -54,7 +54,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     return sets.findIndex((set) => set.name === setName);
   };
 
-  const getSetColor = (setIndex: number, currentNodeId: number) => {
+  const getSetColor = (setIndex: number, currentNodeId: string) => {
     if (sets[setIndex] && sets[setIndex].visible) {
       if (sets[setIndex].highlighted || spotNodes.includes(currentNodeId)) {
         return "#fc5603";
@@ -70,7 +70,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     return sets[setIndex] && sets[setIndex].visible ? 0.8 : 0;
   };
 
-  const getWeight = (setIndex: number, currentNodeId: number) => {
+  const getWeight = (setIndex: number, currentNodeId: string) => {
     return (sets[setIndex] && sets[setIndex].highlighted) ||
       spotNodes.includes(currentNodeId)
       ? 2.5
