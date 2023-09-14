@@ -91,7 +91,7 @@ const SettingsMenu = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <GearIcon />
           <span>{settingsMenuTrigger()}</span>

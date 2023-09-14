@@ -35,7 +35,7 @@ const Header = () => {
           <OSMQuerySubmit />
           <Spots />
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
-            <SheetTrigger className="block md:hidden">
+            <SheetTrigger className="block md:hidden" asChild>
               <Button onClick={() => setOpen((prev) => !prev)}>
                 <HamburgerMenuIcon />
               </Button>

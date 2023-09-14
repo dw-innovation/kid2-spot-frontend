@@ -80,7 +80,7 @@ const ActionsMenu = () => {
         setMenuOpen(state);
       }}
     >
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           onClick={() => {
