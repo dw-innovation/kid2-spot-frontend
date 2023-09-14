@@ -22,7 +22,6 @@ const SettingsMenu = () => {
     settingsMenuMapStyleTitle,
     settingsMenuCustomArea,
     settingsMenuVersatiles,
-    settingsMenuPolygon,
     settingsMenuSearchBbox,
     settingsMenuView,
     settingsMenuMap,
@@ -32,7 +31,6 @@ const SettingsMenu = () => {
   const SEARCH_AREAS = [
     { label: settingsMenuSearchBbox(), value: "bbox" },
     { label: settingsMenuCustomArea(), value: "area" },
-    { label: settingsMenuPolygon(), value: "polygon" },
   ];
 
   const VIEWS: { value: "map" | "data"; label: string }[] = [
