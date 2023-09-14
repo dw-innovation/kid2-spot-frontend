@@ -42,6 +42,7 @@ const CustomSearchAreaDrawer: React.FC = () => {
     clearCustomSearchArea();
   }, [clearCustomSearchArea]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const drawControl = useMemo(
     () => (
       <EditControl
@@ -72,7 +73,7 @@ const CustomSearchAreaDrawer: React.FC = () => {
     [handleCreated, handleDeleted, handleEdited, customSearchArea.length]
   );
 
-  return <FeatureGroup>{drawControl}</FeatureGroup>;
+  return <FeatureGroup></FeatureGroup>;
 };
 
 export default CustomSearchAreaDrawer;
