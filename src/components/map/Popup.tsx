@@ -30,8 +30,9 @@ const Popup = ({ feature }: Props) => {
   };
 
   return (
-    <div className="w-fit">
+    <div className="flex flex-col w-full gap-2">
       <FeatureInfo feature={feature} />
+      <hr />
       <Button onClick={handleClick} variant={"secondary"}>
         <EyeOpenIcon />
         Open Google Street View
