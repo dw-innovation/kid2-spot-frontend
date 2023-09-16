@@ -1,3 +1,4 @@
+import { SymbolIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -16,18 +17,19 @@ const StepperErrorDialog = () => {
   const clearError = useGlobalStore((state) => state.clearError);
   const resetSteps = useGlobalStore((state) => state.resetSteps);
 
+  const handleStartOverClick = () => {
+    resetSteps();
+    toggleDialog(DIALOG_NAME);
+    setTimeout(() => {
+      clearError();
+    }, 300);
+  };
+
   return (
     <Dialog dialogName={DIALOG_NAME} dialogTitle={errorDialogTitle()}>
       {STRINGS[errorType as keyof typeof STRINGS] || errorType}
-      <Button
-        onClick={() => {
-          resetSteps();
-          toggleDialog(DIALOG_NAME);
-          setTimeout(() => {
-            clearError();
-          }, 300);
-        }}
-      >
+      <Button onClick={handleStartOverClick}>
+        <SymbolIcon />
         {errorDialogStartOverButton()}
       </Button>
     </Dialog>

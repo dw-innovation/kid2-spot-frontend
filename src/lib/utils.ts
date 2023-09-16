@@ -10,6 +10,7 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
+import { IntermediateRepresentation } from "@/types/imr";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -129,6 +130,19 @@ export const translateNLtoIMR = async (
     data: {
       sentence: naturalLanguagePrompt,
     },
+  });
+
+  const result = await response.data;
+  return result;
+};
+
+export const validateIMR = async (
+  imr: IntermediateRepresentation
+): Promise<any> => {
+  const response = await axios({
+    method: "POST",
+    url: `${process.env.NEXT_PUBLIC_OSM_API}/validate-imr`,
+    data: imr,
   });
 
   const result = await response.data;

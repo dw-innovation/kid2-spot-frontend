@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { translateNLtoIMR } from "@/lib/utils";
+import { translateNLtoIMR, validateIMR } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -15,6 +15,7 @@ const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [apiStatus, fetchData] = useApiStatus(translateNLtoIMR);
+  const [, validateOutput] = useApiStatus(validateIMR);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);
@@ -22,12 +23,15 @@ const NaturalLanguageAnalyzerStep = () => {
   useEffect(() => {
     fetchData(nlSentence)
       .then((response) => {
-        setImr(response.imr);
-        setShouldUnmount(true);
+        const imr = response.imr;
+        return validateOutput(imr).then(() => {
+          setImr(imr);
+          setShouldUnmount(true);
 
-        setTimeout(() => {
-          nextStep();
-        }, 200);
+          setTimeout(() => {
+            nextStep();
+          }, 200);
+        });
       })
       .catch(() => {
         toggleDialog("stepperError");
