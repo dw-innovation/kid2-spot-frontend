@@ -30,7 +30,7 @@ const NaturalLanguageAnalyzerStep = () => {
         }, 200);
       })
       .catch(() => {
-        toggleDialog("error");
+        toggleDialog("stepperError");
       });
   }, []);
 
@@ -39,8 +39,12 @@ const NaturalLanguageAnalyzerStep = () => {
       shouldUnmount={shouldUnmount}
       title="Analyzing your sentence"
     >
-      <AnalyzeAnimation />
-      {apiStatus === "loading" && <LoadingSpinner size="2.5rem" />}
+      {apiStatus === "loading" ? (
+        <>
+          <AnalyzeAnimation />
+          <LoadingSpinner size="2.5rem" />
+        </>
+      ) : null}
     </InputContainer>
   );
 };
