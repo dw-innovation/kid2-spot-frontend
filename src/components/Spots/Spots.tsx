@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 
 import { useStrings } from "@/lib/contexts/useStrings";
+import { capitalize } from "@/lib/utils";
 import { Spot } from "@/stores/interfaces/ResultsStore.interface";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -11,6 +12,7 @@ import Select from "../Select";
 const Spots = () => {
   const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
+  const sets = useResultsStore((state) => state.sets);
   const setBounds = useMapStore((state) => state.setBounds);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -35,7 +37,9 @@ const Spots = () => {
         spot.id
           ? {
               label: `${index + 1}: ${
-                spot?.tags?.name ? spot?.tags?.name : "Unnamed Spot"
+                spot?.tags?.name
+                  ? spot?.tags?.name
+                  : `Unnamed ${capitalize(sets[0].name)}`
               }`,
               value: spot.id.toString(),
             }
