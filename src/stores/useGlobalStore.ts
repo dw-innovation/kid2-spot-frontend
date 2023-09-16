@@ -90,6 +90,7 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     { name: "filters", isOpen: false },
     { name: "imr", isOpen: false },
     { name: "error", isOpen: false },
+    { name: "stepperError", isOpen: false },
     { name: "queryOSM", isOpen: false },
   ],
   toggleDialog: (name: string) => {
