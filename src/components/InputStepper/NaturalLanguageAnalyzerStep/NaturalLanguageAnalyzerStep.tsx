@@ -14,7 +14,7 @@ import AnalyzeAnimation from "./Animation";
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const [shouldUnmount, setShouldUnmount] = useState(false);
-  const [apiStatus, fetchData] = useApiStatus(translateNLtoIMR);
+  const [, fetchData] = useApiStatus(translateNLtoIMR);
   const [, validateOutput] = useApiStatus(validateIMR);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const nlSentence = useImrStore((state) => state.nlSentence);
@@ -43,12 +43,8 @@ const NaturalLanguageAnalyzerStep = () => {
       shouldUnmount={shouldUnmount}
       title="Analyzing your sentence"
     >
-      {apiStatus === "loading" ? (
-        <>
-          <AnalyzeAnimation />
-          <LoadingSpinner size="2.5rem" />
-        </>
-      ) : null}
+      <AnalyzeAnimation />
+      <LoadingSpinner size="2.5rem" />
     </InputContainer>
   );
 };
