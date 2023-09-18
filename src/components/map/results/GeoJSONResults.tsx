@@ -1,7 +1,7 @@
 "use client";
 
 import * as L from "leaflet";
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
 
@@ -22,6 +22,10 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const markerLayerGroup = useRef<L.LayerGroup | null>(null);
   const map = useMap();
   const [spotNodes, setSpotNodes] = React.useState<string[]>([]);
+
+  const stableKey = useMemo(() => {
+    return Date.now().toString();
+  }, [geoJSON]);
 
   useEffect(() => {
     if (spots && activeSpot) {
@@ -145,7 +149,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   return geoJSON ? (
     <GeoJSON
-      key={Date.now().toString()}
+      key={stableKey}
       {...props}
       data={geoJSON}
       pointToLayer={pointToLayer}
