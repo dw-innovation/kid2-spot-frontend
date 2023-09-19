@@ -146,16 +146,20 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     };
   };
 
-  return geoJSON ? (
-    <GeoJSON
-      key={stableKey}
-      {...props}
-      data={geoJSON}
-      pointToLayer={pointToLayer}
-      style={styleFunction}
-      onEachFeature={onEachFeature}
-    />
-  ) : null;
+  return (
+    <>
+      {geoJSON ? (
+        <GeoJSON
+          key={stableKey}
+          {...props}
+          data={geoJSON}
+          pointToLayer={pointToLayer}
+          style={styleFunction}
+          onEachFeature={onEachFeature}
+        />
+      ) : null}
+    </>
+  );
 };
 
 export default GeoJSONResults;

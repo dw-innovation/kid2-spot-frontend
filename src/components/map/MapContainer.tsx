@@ -16,6 +16,7 @@ import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
 import GeoJSONResults from "./results/GeoJSONResults";
+import SearchArea from "./results/SearchArea";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -60,6 +61,7 @@ const MapContainer = () => {
           <PolygonDrawer />
           <PolygonBuffer />
           <GeoJSONResults />
+          <SearchArea />
         </LeafletMapContainer>
       </div>
     </>

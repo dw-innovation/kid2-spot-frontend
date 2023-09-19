@@ -21,6 +21,7 @@ const OverpassQuerySubmit = () => {
   const { commonFindSpotsButton } = useStrings();
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
+  const setSearchArea = useResultsStore((state) => state.setSearchArea);
   const setSpots = useResultsStore((state) => state.setSpots);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
@@ -49,6 +50,7 @@ const OverpassQuerySubmit = () => {
       }));
 
       setSets(sets);
+      setSearchArea(JSON.parse(results.area.value));
       setSpots(results.spots);
     }
   };

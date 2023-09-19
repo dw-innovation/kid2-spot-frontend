@@ -81,6 +81,14 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       })
     );
   },
+  searchArea: null,
+  setSearchArea: (searchArea: FeatureCollection) => {
+    set(
+      produce((draft) => {
+        draft.searchArea = searchArea;
+      })
+    );
+  },
 }));
 
 export default useResultsStore;

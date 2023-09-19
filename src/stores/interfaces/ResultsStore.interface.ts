@@ -32,4 +32,6 @@ export default interface ResultsStoreInterface {
   spots: Spot[];
   setSpots: (spots: Spot[]) => void;
   clearSpots: () => void;
+  searchArea: FeatureCollection | null;
+  setSearchArea: (searchArea: FeatureCollection) => void;
 }
