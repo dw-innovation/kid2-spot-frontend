@@ -3,5 +3,5 @@ export const FILL_COLORS = [
   "#27AE60",
   "#F37410",
   "#F0C000",
-  "#C0392B",
+  "#0096FA",
 ];

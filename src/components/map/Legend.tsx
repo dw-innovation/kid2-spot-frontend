@@ -2,7 +2,6 @@ import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { FILL_COLORS } from "@/lib/const/colors";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useResultsStore from "@/stores/useResultsStore";
 
@@ -41,7 +40,7 @@ const Legend = () => {
             <div
               className="w-3 h-3"
               style={{
-                backgroundColor: FILL_COLORS[index],
+                backgroundColor: sets[index].fillColor,
               }}
             />
             {set.name}
