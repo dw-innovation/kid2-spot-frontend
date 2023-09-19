@@ -14,7 +14,7 @@ import { FILL_COLORS } from "@/lib/const/colors";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { fetchOSMData } from "@/lib/utils";
+import { bboxToGeoJSON, fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
 const OverpassQuerySubmit = () => {
@@ -50,7 +50,14 @@ const OverpassQuerySubmit = () => {
       }));
 
       setSets(sets);
-      setSearchArea(JSON.parse(results.area.value));
+      let parsedGeoJSON;
+      console.log("here");
+      if (results.area.type === "bbox") {
+        parsedGeoJSON = bboxToGeoJSON(results.area.value);
+      } else {
+        parsedGeoJSON = JSON.parse(results.area.value);
+      }
+      setSearchArea(parsedGeoJSON);
       setSpots(results.spots);
     }
   };

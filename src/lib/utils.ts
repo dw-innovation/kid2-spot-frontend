@@ -222,3 +222,23 @@ export const capitalize = (str: string) =>
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+
+export const bboxToGeoJSON = (bbox: number[]) => {
+  const [minLon, minLat, maxLon, maxLat] = bbox;
+  return {
+    type: "Feature",
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [minLon, minLat],
+          [maxLon, minLat],
+          [maxLon, maxLat],
+          [minLon, maxLat],
+          [minLon, minLat],
+        ],
+      ],
+    },
+    properties: {},
+  };
+};
