@@ -51,7 +51,7 @@ const OverpassQuerySubmit = () => {
 
       setSets(sets);
       let parsedGeoJSON;
-      console.log("here");
+
       if (results.area.type === "bbox") {
         parsedGeoJSON = bboxToGeoJSON(results.area.value);
       } else {

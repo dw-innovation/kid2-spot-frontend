@@ -5,7 +5,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { FILL_COLORS } from "@/lib/const/colors";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { fetchOSMData } from "@/lib/utils";
+import { bboxToGeoJSON, fetchOSMData } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
 import { useInputStepper } from "../Context";
@@ -18,6 +18,7 @@ const OSMQueryStep = () => {
   const elapsedTime = useElapsedTime(true, "loading");
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
+  const setSearchArea = useResultsStore((state) => state.setSearchArea);
   const setSpots = useResultsStore((state) => state.setSpots);
   const [shouldUnmount, setShouldUnmount] = useState(false);
 
@@ -36,6 +37,14 @@ const OSMQueryStep = () => {
         }));
 
         setSets(sets);
+        let parsedGeoJSON;
+
+        if (data.area.type === "bbox") {
+          parsedGeoJSON = bboxToGeoJSON(data.area.value);
+        } else {
+          parsedGeoJSON = JSON.parse(data.area.value);
+        }
+        setSearchArea(parsedGeoJSON);
         setSpots(data.spots);
       })
       .then(() => {

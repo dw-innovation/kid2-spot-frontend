@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { FILL_COLORS } from "@/lib/const/colors";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { fetchOSMData } from "@/lib/utils";
+import { bboxToGeoJSON, fetchOSMData } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -28,6 +28,7 @@ const SessionInitializer = ({ data }: any) => {
   const setGeoJSON = useResultsStore((state) => state.setGeoJSON);
   const setSets = useResultsStore((state) => state.setSets);
   const setSpots = useResultsStore((state) => state.setSpots);
+  const setSearchArea = useResultsStore((state) => state.setSearchArea);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   const [, fetchData] = useApiStatus(fetchOSMData);
@@ -49,6 +50,14 @@ const SessionInitializer = ({ data }: any) => {
       }));
 
       setSets(sets);
+      let parsedGeoJSON;
+
+      if (results.area.type === "bbox") {
+        parsedGeoJSON = bboxToGeoJSON(results.area.value);
+      } else {
+        parsedGeoJSON = JSON.parse(results.area.value);
+      }
+      setSearchArea(parsedGeoJSON);
       setSpots(results.spots);
     }
   };
