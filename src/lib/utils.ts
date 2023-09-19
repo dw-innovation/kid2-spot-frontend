@@ -47,7 +47,9 @@ export const fetchOSMData = async ({
       useGlobalStore.getState().setError("noResults");
     return response.data;
   } catch (error: any) {
-    useGlobalStore.getState().setError(error.response.data.errorType);
+    error.response.data.error &&
+      useGlobalStore.getState().setError(error.response.data.errorType);
+
     useGlobalStore.getState().toggleDialog("error");
     return null;
   }
