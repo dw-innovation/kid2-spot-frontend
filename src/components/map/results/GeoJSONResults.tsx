@@ -60,7 +60,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const getSetColor = (setIndex: number, currentNodeId: string) => {
     if (sets[setIndex] && sets[setIndex].visible) {
       if (sets[setIndex].highlighted || spotNodes.includes(currentNodeId)) {
-        return "#fc5603";
+        return "#C0392B";
       } else {
         return "#fff";
       }
