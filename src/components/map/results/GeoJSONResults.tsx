@@ -5,7 +5,6 @@ import React, { FC, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
 
-import { FILL_COLORS } from "@/lib/const/colors";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 
