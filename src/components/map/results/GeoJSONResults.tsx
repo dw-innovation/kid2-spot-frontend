@@ -93,7 +93,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     latlng: L.LatLng
   ) => {
     const setIndex = getSetIndex(_.properties?.set_name);
-    console.log(sets[setIndex]);
     const markerOptions: L.CircleMarkerOptions = {
       radius: 10,
       fillColor: sets[setIndex].fillColor,
