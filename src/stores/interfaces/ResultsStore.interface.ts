@@ -15,6 +15,7 @@ export default interface ResultsStoreInterface {
     name: string;
     visible: boolean;
     highlighted: boolean;
+    fillColor: string;
   }[];
   setSets: (
     sets: {
@@ -22,6 +23,7 @@ export default interface ResultsStoreInterface {
       name: string;
       visible: boolean;
       highlighted: boolean;
+      fillColor: string;
     }[]
   ) => void;
   clearSets: () => void;

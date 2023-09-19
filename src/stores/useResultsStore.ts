@@ -30,6 +30,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       name: string;
       visible: boolean;
       highlighted: boolean;
+      fillColor: string;
     }[]
   ) => {
     set(

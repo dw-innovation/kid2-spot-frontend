@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { FILL_COLORS } from "@/lib/const/colors";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
@@ -37,11 +38,16 @@ const OverpassQuerySubmit = () => {
       clearSpots();
       setGeoJSON(results.results);
 
+      let shuffledColors = [...FILL_COLORS].sort(() => Math.random() - 0.5);
+
       let sets = results.sets.distinct_sets.map((set: any, index: number) => ({
         id: index,
         name: set,
         visible: true,
+        highlighted: false,
+        fillColor: shuffledColors[index],
       }));
+
       setSets(sets);
       setSpots(results.spots);
     }

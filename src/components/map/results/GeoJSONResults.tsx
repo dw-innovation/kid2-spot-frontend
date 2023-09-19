@@ -94,11 +94,12 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     latlng: L.LatLng
   ) => {
     const setIndex = getSetIndex(_.properties?.set_name);
+    console.log(sets[setIndex]);
     const markerOptions: L.CircleMarkerOptions = {
-      radius: 8,
-      fillColor: FILL_COLORS[setIndex],
+      radius: 10,
+      fillColor: sets[setIndex].fillColor,
       color: "#fff",
-      weight: 1,
+      weight: 5,
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
       pane: "markerPane",
@@ -139,7 +140,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     const setIndex = getSetIndex(feature.properties?.set_name);
 
     return {
-      fillColor: FILL_COLORS[setIndex],
+      fillColor: sets[setIndex].fillColor,
       color: getSetColor(setIndex, feature.properties?.osm_ids),
       weight: getWeight(setIndex, feature.properties?.osm_ids),
       opacity: 1,

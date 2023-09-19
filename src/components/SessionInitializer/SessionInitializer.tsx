@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { FILL_COLORS } from "@/lib/const/colors";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { fetchOSMData } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
@@ -37,11 +38,16 @@ const SessionInitializer = ({ data }: any) => {
     if (results && results.results) {
       setGeoJSON(results.results);
 
-      let sets = results.sets.distinct_sets.map((set: any, index: number) => ({
+      let shuffledColors = [...FILL_COLORS].sort(() => Math.random() - 0.5);
+
+      let sets = data.sets.distinct_sets.map((set: any, index: number) => ({
         id: index,
         name: set,
         visible: true,
+        highlighted: false,
+        fillColor: shuffledColors[index],
       }));
+
       setSets(sets);
       setSpots(results.spots);
     }

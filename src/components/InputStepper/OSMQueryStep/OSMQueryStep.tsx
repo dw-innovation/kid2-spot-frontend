@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { FILL_COLORS } from "@/lib/const/colors";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { fetchOSMData } from "@/lib/utils";
@@ -24,13 +25,16 @@ const OSMQueryStep = () => {
     fetchData()
       .then((data) => {
         setGeoJSON(data.results);
+        let shuffledColors = [...FILL_COLORS].sort(() => Math.random() - 0.5);
 
         let sets = data.sets.distinct_sets.map((set: any, index: number) => ({
           id: index,
           name: set,
           visible: true,
           highlighted: false,
+          fillColor: shuffledColors[index],
         }));
+
         setSets(sets);
         setSpots(data.spots);
       })
