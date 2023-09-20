@@ -13,7 +13,7 @@ import {
 import ImrStoreInterface from "./interfaces/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
-  nlSentence: "",
+  nlSentence: "Find all hotels no more than 200m from a train station in Köln.",
   setNlSentence: (nlSentence: string) => {
     set(
       produce((draft) => {
