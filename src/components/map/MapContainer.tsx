@@ -17,6 +17,7 @@ import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
 import GeoJSONResults from "./results/GeoJSONResults";
 import SearchArea from "./results/SearchArea";
+import SettingsPanel from "./SettingsPanel";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -32,7 +33,11 @@ const MapContainer = () => {
           scrollWheelZoom={true}
           className="w-full h-full"
           bounds={bounds}
+          zoomControl={false}
         >
+          <div className="absolute left-0 top-0 z-[400] mt-2 ml-2">
+            <SettingsPanel />
+          </div>
           <div className="absolute top-0 right-0 z-[400] mt-2 mr-2 flex flex-col-reverse md:flex-row text-base font-sans gap-2 items-end md:items-start">
             <div className="flex flex-col items-end gap-2">
               <PolygonOutsideAlert />
