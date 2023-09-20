@@ -16,7 +16,12 @@ const SearchArea = () => {
         <GeoJSON
           key={stableKey}
           data={searchArea}
-          style={{ fillColor: "transparent", color: "#34c3eb", opacity: 0.6 }}
+          style={{
+            fillColor: "blue",
+            fillOpacity: 0.03,
+            color: "#34c3eb",
+            opacity: 0.6,
+          }}
         />
       ) : null}
     </>
