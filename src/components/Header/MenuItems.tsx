@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  MixerVerticalIcon,
-  Pencil1Icon,
-  SymbolIcon,
-} from "@radix-ui/react-icons";
+import { Pencil1Icon, SymbolIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -26,10 +22,6 @@ const MenuItems = () => {
 
   return (
     <div className="flex flex-col items-end gap-2 md:flex-row">
-      <Button onClick={() => toggleDialog("filters")} variant={"outline"}>
-        <MixerVerticalIcon />
-        <span>Filters</span>
-      </Button>
       <ActionsMenu />
       <SettingsMenu />
       <Button onClick={() => toggleDialog("imr")} variant={"outline"}>
