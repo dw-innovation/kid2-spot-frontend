@@ -12,6 +12,8 @@ import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
+import { FILL_COLORS } from "./const/colors";
+
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
@@ -243,4 +245,86 @@ export const bboxToGeoJSON = (bbox: number[]) => {
     },
     properties: {},
   };
+};
+
+export const distanceToMeters = (distanceStr: string): number => {
+  const conversionRates: { [unit: string]: number } = {
+    m: 1,
+    km: 1000,
+    ft: 0.3048,
+    mile: 1609.34,
+    miles: 1609.34,
+    mi: 1609.34,
+    yd: 0.9144,
+    in: 0.0254,
+    cm: 0.01,
+    mm: 0.001,
+  };
+
+  const match = /([\d.]+)\s?([a-zA-Z]*)/.exec(distanceStr);
+
+  if (!match) {
+    throw new Error(`Invalid format: ${distanceStr}`);
+  }
+
+  const valueStr = match[1];
+  const unit = match[2]?.toLowerCase();
+
+  if (!unit) {
+    return parseInt(valueStr);
+  }
+
+  if (!conversionRates[unit]) {
+    throw new Error(`Unknown distance unit: ${unit}`);
+  }
+
+  const value = parseFloat(valueStr);
+  const distanceMeters = value * conversionRates[unit];
+
+  return distanceMeters;
+};
+
+export const setResults = (data: any) => {
+  const state = useResultsStore.getState();
+  const {
+    clearGeoJSON,
+    clearSets,
+    clearSpots,
+    setGeoJSON,
+    setSets,
+    setSearchArea,
+    setSpots,
+  } = state;
+
+  clearGeoJSON();
+  clearSets();
+  clearSpots();
+
+  const existingSets = state.sets;
+  const availableColors = FILL_COLORS.filter(
+    (color) => !existingSets.map((set) => set.fillColor).includes(color)
+  );
+  const shuffledColors = [...availableColors].sort(() => Math.random() - 0.5);
+
+  const newSets = data.sets.distinct_sets.map((setName: any, index: number) => {
+    const existingSet = existingSets.find((set) => set.name === setName);
+    return {
+      id: index,
+      name: setName,
+      visible: true,
+      highlighted: false,
+      fillColor: existingSet ? existingSet.fillColor : shuffledColors[index],
+    };
+  });
+
+  setSets(newSets);
+
+  setGeoJSON(data.results);
+  const parsedGeoJSON =
+    data.area.type === "bbox"
+      ? bboxToGeoJSON(data.area.value)
+      : JSON.parse(data.area.value);
+
+  setSearchArea(parsedGeoJSON);
+  setSpots(data.spots);
 };
