@@ -38,7 +38,7 @@ const Legend = () => {
             className="flex items-center justify-center gap-1 text-sm leading-none capitalize select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             <div
-              className="w-3 h-3"
+              className="w-3 h-3 rounded-full"
               style={{
                 backgroundColor: sets[index].fillColor,
               }}
