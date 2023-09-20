@@ -33,7 +33,7 @@ const SessionInitializer = ({ data }: any) => {
 
   const [, fetchData] = useApiStatus(fetchOSMData);
 
-  const handleOverpassQuerySubmit = async () => {
+  const handleOSMQuerySubmit = async () => {
     const results = await fetchData();
 
     if (results && results.results) {
@@ -64,7 +64,7 @@ const SessionInitializer = ({ data }: any) => {
 
   useEffect(() => {
     toggleDialog("queryOSM");
-    handleOverpassQuerySubmit().then(() => toggleDialog("queryOSM"));
+    handleOSMQuerySubmit().then(() => toggleDialog("queryOSM"));
   }, []);
 
   return null;

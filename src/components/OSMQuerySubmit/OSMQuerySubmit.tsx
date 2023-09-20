@@ -15,13 +15,13 @@ import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { fetchOSMData, setResults } from "@/lib/utils";
 
-const OverpassQuerySubmit = () => {
+const OSMQuerySubmit = () => {
   const { commonFindSpotsButton } = useStrings();
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
   const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
 
-  const handleOverpassQuerySubmit = async () => {
+  const handleOSMQuerySubmit = async () => {
     await fetchData().then((data) => {
       setResults(data);
     });
@@ -30,9 +30,7 @@ const OverpassQuerySubmit = () => {
   const renderButton = () => (
     <Button
       onClick={
-        apiStatus !== "loading"
-          ? handleOverpassQuerySubmit
-          : () => cancelRequest()
+        apiStatus !== "loading" ? handleOSMQuerySubmit : () => cancelRequest()
       }
       className={clsx("block px-2 py-1 w-full cursor-pointer")}
       asChild
@@ -68,4 +66,4 @@ const OverpassQuerySubmit = () => {
   );
 };
 
-export default OverpassQuerySubmit;
+export default OSMQuerySubmit;
