@@ -10,10 +10,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { fetchOSMData } from "@/lib/apiServices";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { fetchOSMData, setResults } from "@/lib/utils";
+import { setResults } from "@/lib/utils";
 
 const OSMQuerySubmit = () => {
   const { commonFindSpotsButton } = useStrings();

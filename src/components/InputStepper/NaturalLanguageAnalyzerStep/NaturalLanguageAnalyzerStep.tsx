@@ -3,8 +3,11 @@
 import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
+import {
+  fetchIMRValidation,
+  fetchNLToIMRTransformation,
+} from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { translateNLtoIMR, validateIMR } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -14,8 +17,8 @@ import AnalyzeAnimation from "./Animation";
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const [shouldUnmount, setShouldUnmount] = useState(false);
-  const [, fetchData] = useApiStatus(translateNLtoIMR);
-  const [, validateOutput] = useApiStatus(validateIMR);
+  const [, fetchData] = useApiStatus(fetchNLToIMRTransformation);
+  const [, validateOutput] = useApiStatus(fetchIMRValidation);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);

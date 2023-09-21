@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 
+import { fetchOSMData } from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { fetchOSMData, setResults } from "@/lib/utils";
+import { setResults } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";

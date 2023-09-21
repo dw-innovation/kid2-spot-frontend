@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
+import { fetchAreas } from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { calculateSurface, getAreas } from "@/lib/utils";
+import { calculateSurface } from "@/lib/utils";
 import useErrorStore from "@/stores/useErrorStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -14,7 +15,7 @@ import SurfaceAlert from "../SurfaceAlert";
 const NamedArea = () => {
   const [placeId, setPlaceId] = useState<number>(0);
   const [suggestedAreas, setSuggestedAreas] = useState<Place[]>([]);
-  const [apiStatus, fetchData] = useApiStatus(getAreas);
+  const [apiStatus, fetchData] = useApiStatus(fetchAreas);
   const [surface, setSurface] = useState<number>(0);
   const setBounds = useMapStore((state) => state.setBounds);
   const area = useImrStore((state) => state.imr.a.v);

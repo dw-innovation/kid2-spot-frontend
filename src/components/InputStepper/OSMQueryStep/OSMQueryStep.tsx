@@ -2,9 +2,10 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { fetchOSMData } from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { fetchOSMData, setResults } from "@/lib/utils";
+import { setResults } from "@/lib/utils";
 
 import { useInputStepper } from "../Context";
 import InputContainer from "../InputContainer";
