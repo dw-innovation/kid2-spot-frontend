@@ -5,7 +5,6 @@ import { MultiPolygon, Polygon } from "geojson";
 import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
-import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 
 import { FILL_COLORS } from "./const/colors";
