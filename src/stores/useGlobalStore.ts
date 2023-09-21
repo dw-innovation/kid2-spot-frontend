@@ -1,7 +1,9 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import GlobalStoreInterface, { Step } from "./interfaces/GlobalStore.interface";
+import GlobalStoreInterface, {
+  Step,
+} from "../types/stores/GlobalStore.interface";
 
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({
   currentStep: 0,

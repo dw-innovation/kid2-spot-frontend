@@ -1,7 +1,7 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import MapStoreInterface from "./interfaces/MapStore.interface";
+import MapStoreInterface from "../types/stores/MapStore.interface";
 
 const useMapStore = create<MapStoreInterface>((set) => ({
   bounds: [

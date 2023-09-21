@@ -2,7 +2,9 @@ import produce from "immer";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import SessionsStore, { Session } from "./interfaces/SessionsStore.interface";
+import SessionsStore, {
+  Session,
+} from "../types/stores/SessionsStore.interface";
 
 const useSessionsStore = create<SessionsStore>()(
   persist(

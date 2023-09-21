@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { useStrings } from "@/lib/contexts/useStrings";
-import { Session } from "@/stores/interfaces/SessionsStore.interface";
+import { Session } from "@/types/stores/SessionsStore.interface";
 
 interface SessionActionsProps {
   selectedSession: Session | undefined;

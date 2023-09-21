@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useStrings } from "@/lib/contexts/useStrings";
-import { Session } from "@/stores/interfaces/SessionsStore.interface";
+import { Session } from "@/types/stores/SessionsStore.interface";
 
 interface SessionInfoProps {
   session: Session | undefined;

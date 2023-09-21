@@ -10,7 +10,7 @@ import {
   NWR,
 } from "@/types/imr";
 
-import ImrStoreInterface from "./interfaces/ImrStore.interface";
+import ImrStoreInterface from "../types/stores/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
   nlSentence: "Find all hotels no more than 200m from a train station in Köln.",

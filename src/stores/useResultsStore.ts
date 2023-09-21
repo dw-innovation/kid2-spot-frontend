@@ -4,7 +4,7 @@ import { create } from "zustand";
 
 import ResultsStoreInterface, {
   Spot,
-} from "./interfaces/ResultsStore.interface";
+} from "../types/stores/ResultsStore.interface";
 
 const useResultsStore = create<ResultsStoreInterface>((set) => ({
   geoJSON: null,

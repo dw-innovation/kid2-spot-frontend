@@ -2,7 +2,7 @@ import produce from "immer";
 import { LatLngLiteral } from "leaflet";
 import { create } from "zustand";
 
-import StreetViewStoreInterface from "./interfaces/StreetViewStore.interface";
+import StreetViewStoreInterface from "../types/stores/StreetViewStore.interface";
 
 const useStreetViewStore = create<StreetViewStoreInterface>((set) => ({
   showStreetView: false,
