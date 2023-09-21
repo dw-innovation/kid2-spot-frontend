@@ -34,16 +34,6 @@ export const saveResultsToFile = (format: "geojson" | "kml") => {
   link.click();
 };
 
-export const saveQueryToFile = () => {
-  let imr = useQueryStore.getState().imr;
-  const blob = new Blob([imr], { type: "text/plain" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.download = "imr.txt";
-  link.href = url;
-  link.click();
-};
-
 export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {
   if (!coordinates) {
     return undefined;
