@@ -96,14 +96,17 @@ export const fetchIMRValidation = async (
 };
 
 export const fetchAreas = async (area: string): Promise<any> => {
-  const response = await axios.get(process.env.NEXT_PUBLIC_NOMINATIM_API, {
-    params: {
-      q: area,
-      format: "json",
-      polygon_geojson: 1,
-      "accept-language": "en",
-    },
-  });
+  const response = await axios.get(
+    process.env.NEXT_PUBLIC_NOMINATIM_API || "",
+    {
+      params: {
+        q: area,
+        format: "json",
+        polygon_geojson: 1,
+        "accept-language": "en",
+      },
+    }
+  );
 
   return response.data;
 };
