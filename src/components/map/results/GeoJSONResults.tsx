@@ -22,9 +22,8 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const map = useMap();
   const [spotNodes, setSpotNodes] = React.useState<string[]>([]);
 
-  const stableKey = useMemo(() => {
-    return Date.now().toString();
-  }, [geoJSON]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const stableKey = useMemo(() => Date.now().toString(), [geoJSON]);
 
   useEffect(() => {
     if (spots && activeSpot) {
@@ -143,6 +142,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       weight: getWeight(setIndex, feature.properties?.osm_ids),
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
+      pane: "markerPane",
     };
   };
 
