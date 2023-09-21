@@ -6,9 +6,8 @@ import useResultsStore from "@/stores/useResultsStore";
 const SearchArea = () => {
   const searchArea = useResultsStore((state) => state.searchArea);
 
-  const stableKey = useMemo(() => {
-    return Date.now().toString();
-  }, [searchArea]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const stableKey = useMemo(() => Date.now().toString(), [searchArea]);
 
   return (
     <>

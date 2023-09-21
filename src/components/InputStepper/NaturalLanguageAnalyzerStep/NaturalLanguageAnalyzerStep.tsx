@@ -39,6 +39,7 @@ const NaturalLanguageAnalyzerStep = () => {
       .catch(() => {
         toggleDialog("stepperError");
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

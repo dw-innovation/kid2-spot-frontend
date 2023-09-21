@@ -29,6 +29,7 @@ const NamedArea = () => {
         setIsError(true);
         setMessage("Error fetching suggestions");
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
 
   const options = suggestedAreas.map(({ display_name, place_id }) => ({
@@ -39,6 +40,7 @@ const NamedArea = () => {
   useEffect(() => {
     const firstOption = options[0]?.value;
     if (firstOption) setPlaceId(parseInt(firstOption));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedAreas]);
 
   useEffect(() => {

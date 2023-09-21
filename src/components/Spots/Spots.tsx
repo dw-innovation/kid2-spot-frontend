@@ -48,6 +48,7 @@ const Spots = () => {
       .filter(Boolean) as { value: string; label: string }[];
 
     setOptions(availableOptions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spots]);
 
   return (
