@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Session } from "@/types/stores/SessionsStore.interface";
 import useSessionsStore from "@/stores/useSessionsStore";
+import { Session } from "@/types/stores/SessionsStore.interface";
 
 export const useLoadSessionState = () => {
   const sessions = useSessionsStore((state) => state.sessions);

@@ -3,9 +3,9 @@ import { useWindowSize } from "usehooks-ts";
 
 import { useStrings } from "@/lib/contexts/useStrings";
 import { capitalize } from "@/lib/utils";
-import { Spot } from "@/types/stores/ResultsStore.interface";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
+import { Spot } from "@/types/stores/ResultsStore.interface";
 
 import Select from "../Select";
 
