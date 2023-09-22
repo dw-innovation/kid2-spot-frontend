@@ -16,6 +16,7 @@ import MapEvents from "./MapEvents";
 import MapKeyEvents from "./MapKeyEvents";
 import MapResizeHandler from "./MapResizeHandler";
 import GeoJSONResults from "./results/GeoJSONResults";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import SearchArea from "./results/SearchArea";
 import SettingsPanel from "./SettingsPanel";
 
@@ -66,7 +67,7 @@ const MapContainer = () => {
           <PolygonDrawer />
           <PolygonBuffer />
           <GeoJSONResults />
-          <SearchArea />
+          {/* <SearchArea /> */}
         </LeafletMapContainer>
       </div>
     </>
