@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import React from "react";
 
+import SessionInitializer from "@/components/SessionInitializer";
 import { getSession } from "@/lib/apiServices";
 
 import MapPage from "../page";
-import SessionInitializer from "@/components/SessionInitializer";
 
 export const metadata: Metadata = {
   title: "Spot – Search the world with your words",
