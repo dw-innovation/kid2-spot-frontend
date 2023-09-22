@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { uuid } from "short-uuid";
 
 import { Button } from "@/components/ui/button";
@@ -39,26 +40,31 @@ const SaveSessionDialog = () => {
     sessionDescription: string
   ) => {
     if (sessions.find((session) => session.name === sessionName)) return;
+    try {
+      let date = new Date();
 
-    let date = new Date();
-
-    addSession({
-      name: sessionName,
-      data: {
-        useGlobalStore: useGlobalStore.getState(),
-        useMapStore: useMapStore.getState(),
-        useQueryStore: useQueryStore.getState(),
-        useStreetViewStore: useStreetViewStore.getState(),
-        useImrStore: useImrStore.getState(),
-      },
-      created: date,
-      modified: date,
-      id: uuid(),
-      description: sessionDescription,
-    });
-    setSessionName("");
-    setSessionDescription("");
-    toggleDialog(DIALOG_NAME);
+      addSession({
+        name: sessionName,
+        data: {
+          useGlobalStore: useGlobalStore.getState(),
+          useMapStore: useMapStore.getState(),
+          useQueryStore: useQueryStore.getState(),
+          useStreetViewStore: useStreetViewStore.getState(),
+          useImrStore: useImrStore.getState(),
+        },
+        created: date,
+        modified: date,
+        id: uuid(),
+        description: sessionDescription,
+      });
+      setSessionName("");
+      setSessionDescription("");
+      toggleDialog(DIALOG_NAME);
+      toast.success("Session saved");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error saving session");
+    }
   };
 
   useEffect(() => {
