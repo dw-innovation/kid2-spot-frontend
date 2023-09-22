@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import {
-  Dialog,
+  Dialog as RadixDialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -18,7 +18,7 @@ type Props = {
   className?: string;
 };
 
-const DownloadDialog = ({
+const Dialog = ({
   dialogName,
   dialogTitle,
   dialogDescription,
@@ -36,7 +36,7 @@ const DownloadDialog = ({
   }, [dialogName, dialogs]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
+    <RadixDialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
       <DialogContent
         className={cn("sm:max-w-[425px] z-[20000] max-h-[90vh]", className)}
       >
@@ -48,8 +48,8 @@ const DownloadDialog = ({
         </DialogHeader>
         {children}
       </DialogContent>
-    </Dialog>
+    </RadixDialog>
   );
 };
 
-export default DownloadDialog;
+export default Dialog;
