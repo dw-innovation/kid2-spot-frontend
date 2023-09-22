@@ -1,0 +1,46 @@
+{
+  "timestamp": "2023-09-22 09:25:58",
+  "inputSentence": "find all hotels 100m from a fountain in bonn",
+  "imr": {
+    "a": {
+      "t": "area",
+      "v": "Bonn"
+    },
+    "ns": [
+      {
+        "id": 0,
+        "n": "hotel",
+        "t": "nwr",
+        "flts": [
+          {
+            "or": [
+              {
+                "k": "tourism",
+                "op": "=",
+                "v": "hotel"
+              },
+              {
+                "k": "amenity",
+                "op": "=",
+                "v": "love_hotel"
+              },
+              {
+                "k": "building",
+                "op": "=",
+                "v": "hotel"
+              },
+              {
+                "k": "man_made",
+                "op": "=",
+                "v": "insect_hotel"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "rawOutput": "\"{ \"a\":{ \"t\": \"area\", \"v\": \"Bonn\"}, \"ns\": [{ \"id\": 0, \"n\": \"hotel\"}} ]} \"",
+  "status": "success",
+  "modelVersion": "1.0"
+}
