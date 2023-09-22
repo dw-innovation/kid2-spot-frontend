@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useStrings } from "@/lib/contexts/useStrings";
+import { loadSession } from "@/lib/sessions";
 
 import Dialog from "../Dialog";
 import { useLoadSessionState } from "./hooks/useLoadSessionState";
@@ -14,36 +15,17 @@ const DIALOG_NAME = "loadSession";
 const LoadSessionDialog = () => {
   const { sessionId, setSessionId, options, selectedSession, findSessionById } =
     useLoadSessionState();
-  const {
-    initializeMapStore,
-    initializeQueryStore,
-    initializeStreetViewStore,
-    initializeImrStore,
-    toggleDialog,
-    clearGeoJSON,
-    clearSets,
-    clearSpots,
-    removeSession,
-  } = useSessionActions();
+  const { removeSession } = useSessionActions();
   const { loadSessionDialogDescription, loadSessionDialogTitle } = useStrings();
 
-  const handleLoadSession = () => {
+  const handleLoadSession = async () => {
     if (!sessionId) return;
     const session = findSessionById(sessionId);
     if (!session) return;
 
     const { data } = session;
 
-    clearGeoJSON();
-    clearSets();
-    clearSpots();
-
-    data.useMapStore && initializeMapStore(data.useMapStore);
-    data.useQueryStore && initializeQueryStore(data.useQueryStore);
-    data.useStreetViewStore &&
-      initializeStreetViewStore(data.useStreetViewStore);
-    data.useImrStore && initializeImrStore(data.useImrStore);
-    toggleDialog(DIALOG_NAME);
+    await loadSession(data);
   };
 
   const handleRemoveSession = () => {

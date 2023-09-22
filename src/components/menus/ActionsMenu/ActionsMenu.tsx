@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useStrings } from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import { saveData } from "@/lib/storeData";
+import { saveSession } from "@/lib/sessions";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -52,7 +52,7 @@ const ActionsMenu = () => {
   const sessions = useSessionsStore((state) => state.sessions);
 
   const [apiStatus, triggerSaveData] = useApiStatus(() =>
-    saveData([
+    saveSession([
       { name: "useGlobalStore", getState: useGlobalStore.getState },
       { name: "useMapStore", getState: useMapStore.getState },
       { name: "useQueryStore", getState: useQueryStore.getState },

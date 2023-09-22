@@ -7,21 +7,24 @@ import { IntermediateRepresentation } from "@/types/imr";
 export const fetchOSMData = async ({
   signal,
 }: {
-  signal: AbortSignal;
+  signal?: AbortSignal;
 }): Promise<any> => {
   let imr = useImrStore.getState().imr;
 
-  var config = {
+  var config: any = {
     method: "post",
     url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
     headers: {
       "Content-Type": "application/json",
     },
     data: imr,
-    cancelToken: new axios.CancelToken((cancel) => {
-      signal.addEventListener("abort", () => cancel());
-    }),
   };
+
+  if (signal) {
+    config.cancelToken = new axios.CancelToken((cancel) => {
+      signal.addEventListener("abort", () => cancel());
+    });
+  }
 
   try {
     const response = await axios(config);
@@ -33,6 +36,7 @@ export const fetchOSMData = async ({
 
     response.data.results.features.length === 0 &&
       useGlobalStore.getState().setError("noResults");
+
     return response.data;
   } catch (error: any) {
     error.response.data.error &&
@@ -109,4 +113,21 @@ export const fetchAreas = async (area: string): Promise<any> => {
   );
 
   return response.data;
+};
+
+export const getSession = async (id: string) => {
+  const auth = process.env.HTTP_BASIC_AUTH?.split(":") || [];
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSession`,
+    {
+      params: {
+        id: id,
+      },
+      auth: {
+        username: auth[0] || "",
+        password: auth[1] || "",
+      },
+    }
+  );
+  return { props: { data: res.data.data } };
 };

@@ -18,7 +18,7 @@ export default interface GlobalStoreInterface {
   isStreetViewFullscreen: boolean;
   toggleStreetViewFullscreen: (state?: boolean) => void;
   dialogs: { name: string; isOpen: boolean }[];
-  toggleDialog: (name: string) => void;
+  toggleDialog: (name: string, state?: boolean | undefined) => void;
   isError: boolean;
   errorType: string;
   setError: (message: string) => void;

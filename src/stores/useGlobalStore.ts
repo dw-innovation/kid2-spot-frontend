@@ -95,14 +95,14 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     { name: "stepperError", isOpen: false },
     { name: "queryOSM", isOpen: false },
   ],
-  toggleDialog: (name: string) => {
+  toggleDialog: (name: string, state: boolean | undefined = undefined) => {
     set(
       produce((draft) => {
         const dialog = draft.dialogs.find(
           (dialog: { name: string }) => dialog.name === name
         );
         if (dialog) {
-          dialog.isOpen = !dialog.isOpen;
+          dialog.isOpen = state !== undefined ? state : !dialog.isOpen;
         }
       })
     );
