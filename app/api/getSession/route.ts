@@ -17,7 +17,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
   if (!id) {
-    return NextResponse.json({ message: "Missing id" }, { status: 400 });
+    return NextResponse.json(
+      { message: "missingSessionId", status: "error" },
+      { status: 400 }
+    );
   }
 
   try {
@@ -26,10 +29,21 @@ export async function GET(req: NextRequest) {
 
     const result = await collection.findOne({ id: id });
 
-    return NextResponse.json(result?.settings?.data, { status: 201 });
+    return NextResponse.json(
+      {
+        status: "success",
+        message: "sessionFound",
+        data: result?.settings?.data,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
     return NextResponse.json(
-      { message: "Error finding session", error: error.message },
+      {
+        status: "error",
+        message: "errorFindingSession",
+        error: error.message,
+      },
       { status: 500 }
     );
   }

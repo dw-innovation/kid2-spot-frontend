@@ -20,7 +20,7 @@ async function getSession(id: string) {
       },
     }
   );
-  return { props: { data: res.data } };
+  return { props: { data: res.data.data } };
 }
 
 export const metadata: Metadata = {

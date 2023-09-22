@@ -31,7 +31,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "data added successfully",
+        status: "success",
+        message: "dataAddedSuccessfully",
         id: id,
       },
       { status: 200 }
@@ -39,7 +40,8 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     return NextResponse.json(
       {
-        message: "Error adding data",
+        status: "error",
+        message: "errorAddingData",
         error: error.message,
       },
       { status: 500 }
