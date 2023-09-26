@@ -1,3 +1,4 @@
+import { SearchIcon } from "lucide-react";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,8 @@ const Prompt = () => {
       <h3 className="text-lg font-semibold ">Initial Query</h3>
       <Textarea>{nlSentence}</Textarea>
       <Button>
-        <span>Search</span>
+        <SearchIcon className="w-4 h-4" />
+        Search
       </Button>
     </div>
   );

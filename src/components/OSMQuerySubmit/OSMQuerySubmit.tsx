@@ -1,5 +1,5 @@
+import { UpdateIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
-import { SearchIcon } from "lucide-react";
 import React from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -41,7 +41,7 @@ const OSMQuerySubmit = () => {
           {apiStatus === "loading" ? (
             <LoadingSpinner />
           ) : (
-            <SearchIcon className="w-4 h-4" />
+            <UpdateIcon className="w-4 h-4" />
           )}
         </span>
         <span>{commonUpdateResultsButton()}</span>
