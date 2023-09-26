@@ -67,8 +67,8 @@ const InputStepper = ({ minimal = false }: Props) => {
             Spot – Search the world with your words
           </animated.h1>
         )}
-        <div style={{ height: `${initialHeight + 100}px` }}>
-          <div ref={stepRef} className="w-full max-w-[32rem]">
+        <div style={{ height: !minimal ? `${initialHeight + 100}px` : "auto" }}>
+          <div ref={stepRef} className="w-full max-w-[32rem] overflow-y-auto">
             {CurrentStepComponent}
           </div>
         </div>
