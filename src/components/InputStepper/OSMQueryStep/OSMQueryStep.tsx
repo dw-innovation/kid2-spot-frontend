@@ -6,6 +6,7 @@ import { fetchOSMData } from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { setResults } from "@/lib/utils";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import { useInputStepper } from "../Context";
 import InputContainer from "../InputContainer";
@@ -16,6 +17,7 @@ const OSMQueryStep = () => {
   const [, fetchData] = useApiStatus(fetchOSMData);
   const elapsedTime = useElapsedTime(true, "loading");
   const [shouldUnmount, setShouldUnmount] = useState(false);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   useEffect(() => {
     fetchData()
@@ -25,6 +27,7 @@ const OSMQueryStep = () => {
       .then(() => {
         setShouldUnmount(true);
         setAnimateOut(true);
+        toggleDialog("inputStepper", false);
       })
       .then(() => setTimeout(() => router.push("/map"), 500));
   }, []);
