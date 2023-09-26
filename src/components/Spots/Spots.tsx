@@ -3,6 +3,7 @@ import { useWindowSize } from "usehooks-ts";
 
 import { useStrings } from "@/lib/contexts/useStrings";
 import { capitalize } from "@/lib/utils";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 import { Spot } from "@/types/stores/ResultsStore.interface";
@@ -13,6 +14,7 @@ const Spots = () => {
   const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
   const sets = useResultsStore((state) => state.sets);
+  const nodes = useImrStore((state: any) => state.imr.ns);
   const setBounds = useMapStore((state) => state.setBounds);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -57,7 +59,10 @@ const Spots = () => {
         options={options}
         onSelect={(value) => handleSpotSelect(value)}
         className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000] h-full"
-        placeholder={commonSelectSpotPlaceholder()}
+        placeholder={commonSelectSpotPlaceholder({
+          primaryObject:
+            nodes[0]?.n && sets.length > 0 ? capitalize(nodes[0]?.n) : "Spot",
+        })}
         enableReset
         isSearchable={width > 768}
       />
