@@ -32,7 +32,7 @@ const SettingsPanel = () => {
       <div className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto">
         <Prompt />
       </div>
-      <div className="flex flex-col p-2 overflow-hidden bg-white rounded-md shadow-lg">
+      <div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg">
         <Button
           onClick={() => setIsOpen(!isOpen)}
           variant={"outline"}
@@ -52,10 +52,12 @@ const SettingsPanel = () => {
           style={springProps}
           className="flex flex-col gap-3 cursor-auto"
         >
-          <SearchArea />
-          <RecognizedEntities />
-          <Relations />
-          <OSMQuerySubmit />
+          <div className="p-2">
+            <SearchArea />
+            <RecognizedEntities />
+            <Relations />
+            <OSMQuerySubmit />
+          </div>
         </animated.div>
       </div>
     </div>
