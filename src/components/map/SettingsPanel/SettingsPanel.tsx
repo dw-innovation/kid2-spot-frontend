@@ -48,7 +48,10 @@ const SettingsPanel = () => {
             <CaretRightIcon />
           </div>
         </Button>
-        <animated.div style={springProps} className="cursor-auto">
+        <animated.div
+          style={springProps}
+          className="flex flex-col gap-3 cursor-auto"
+        >
           <SearchArea />
           <RecognizedEntities />
           <Relations />
