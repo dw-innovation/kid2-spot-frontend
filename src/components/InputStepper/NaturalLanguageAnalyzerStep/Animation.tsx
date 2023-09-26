@@ -32,7 +32,11 @@ const AnalyzeAnimation = () => {
     };
   }, [index]);
 
-  return <animated.div style={props}>{sentences[index]}</animated.div>;
+  return (
+    <animated.div style={props} className="text-center">
+      {sentences[index]}
+    </animated.div>
+  );
 };
 
 export default React.memo(AnalyzeAnimation);
