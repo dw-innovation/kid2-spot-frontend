@@ -1,9 +1,11 @@
+import { CaretRightIcon } from "@radix-ui/react-icons";
 import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 import { animated, useSpring } from "react-spring";
 
 import OSMQuerySubmit from "@/components/OSMQuerySubmit";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import InitialPrompt from "./InitialPrompt";
 import RecognizedEntities from "./RecognizedEntities";
@@ -27,15 +29,29 @@ const SettingsPanel = () => {
 
   return (
     <div ref={settingsRef} className="w-[20rem] flex flex-col gap-2">
-      <Button onClick={() => setIsOpen(!isOpen)} variant={"outline"}>
-        {isOpen ? "Close Settings" : "Show Settings"}
-      </Button>
-
-      <animated.div
-        className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto"
-        style={springProps}
-      >
+      <div className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto">
         <InitialPrompt />
+      </div>
+
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        variant={"outline"}
+        className="flex items-center gap-1"
+      >
+        Filters{" "}
+        <div
+          className={cn(
+            isOpen ? "rotate-90" : "",
+            "transition-all duration-100 ease-in-out"
+          )}
+        >
+          <CaretRightIcon />
+        </div>
+      </Button>
+      <animated.div
+        style={springProps}
+        className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto"
+      >
         <SearchArea />
         <RecognizedEntities />
         <Relations />
