@@ -16,7 +16,7 @@ const Relations = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold ">Relations</h3>
+      <h3 className="text-lg font-semibold ">Relations between entities</h3>
       <div className="ml-4">
         {edges &&
           edges.map((edge, index) => (

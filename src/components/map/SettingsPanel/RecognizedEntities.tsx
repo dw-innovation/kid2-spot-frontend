@@ -7,7 +7,7 @@ const RecognizedEntities = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold ">Recognized Entities</h3>
+      <h3 className="text-lg font-semibold ">Entities</h3>
       <div className="ml-4">
         <ol className="ml-4 list-decimal">
           {nodes &&

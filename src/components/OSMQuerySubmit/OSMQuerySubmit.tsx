@@ -17,7 +17,7 @@ import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { setResults } from "@/lib/utils";
 
 const OSMQuerySubmit = () => {
-  const { commonFindSpotsButton } = useStrings();
+  const { commonUpdateResultsButton } = useStrings();
 
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
   const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
@@ -44,7 +44,7 @@ const OSMQuerySubmit = () => {
             <SearchIcon className="w-4 h-4" />
           )}
         </span>
-        <span>{commonFindSpotsButton()}</span>
+        <span>{commonUpdateResultsButton()}</span>
       </div>
     </Button>
   );

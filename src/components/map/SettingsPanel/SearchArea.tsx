@@ -15,7 +15,7 @@ const SearchArea = () => {
   ];
   return (
     <div>
-      <h3 className="text-lg font-semibold ">Search Area</h3>
+      <h3 className="text-lg font-semibold ">Location</h3>
       <div className="flex gap-2">
         {SEARCH_AREAS.map(({ label, value }) => (
           <Button
