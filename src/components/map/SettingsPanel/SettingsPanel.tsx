@@ -32,31 +32,29 @@ const SettingsPanel = () => {
       <div className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto">
         <Prompt />
       </div>
-
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        variant={"outline"}
-        className="flex items-center gap-1"
-      >
-        Filters{" "}
-        <div
-          className={cn(
-            isOpen ? "rotate-90" : "",
-            "transition-all duration-100 ease-in-out"
-          )}
+      <div className="flex flex-col p-2 overflow-hidden bg-white rounded-md shadow-lg">
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          variant={"outline"}
+          className="flex items-center gap-1"
         >
-          <CaretRightIcon />
-        </div>
-      </Button>
-      <animated.div
-        style={springProps}
-        className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto"
-      >
-        <SearchArea />
-        <RecognizedEntities />
-        <Relations />
-        <OSMQuerySubmit />
-      </animated.div>
+          Filters{" "}
+          <div
+            className={cn(
+              isOpen ? "rotate-90" : "",
+              "transition-all duration-100 ease-in-out"
+            )}
+          >
+            <CaretRightIcon />
+          </div>
+        </Button>
+        <animated.div style={springProps} className="cursor-auto">
+          <SearchArea />
+          <RecognizedEntities />
+          <Relations />
+          <OSMQuerySubmit />
+        </animated.div>
+      </div>
     </div>
   );
 };
