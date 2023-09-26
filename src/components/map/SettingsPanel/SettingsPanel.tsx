@@ -7,7 +7,7 @@ import OSMQuerySubmit from "@/components/OSMQuerySubmit";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import InitialPrompt from "./InitialPrompt";
+import Prompt from "./Prompt";
 import RecognizedEntities from "./RecognizedEntities";
 import Relations from "./Relations";
 import SearchArea from "./SearchArea";
@@ -30,7 +30,7 @@ const SettingsPanel = () => {
   return (
     <div ref={settingsRef} className="w-[20rem] flex flex-col gap-2">
       <div className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto">
-        <InitialPrompt />
+        <Prompt />
       </div>
 
       <Button
