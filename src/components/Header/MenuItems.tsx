@@ -28,16 +28,6 @@ const MenuItems = () => {
         <Pencil1Icon />
         <span>IMR</span>
       </Button>
-      <Button
-        onClick={() => {
-          resetSteps();
-          router.push("/");
-          setOpen(false);
-        }}
-      >
-        <SymbolIcon />
-        <span>{commonNewSearchButton()}</span>
-      </Button>
     </div>
   );
 };
