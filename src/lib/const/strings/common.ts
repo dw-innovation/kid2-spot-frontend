@@ -3,7 +3,7 @@ export const STRINGS = {
   appSubline: "Search the World with Your Words",
   closeButton: "Close",
   findSpotsButton: "Find Spots",
-  selectSpotPlaceholder: "Select a Spot",
+  selectSpotPlaceholder: "Select a {primaryObject}",
   newSearchButton: "New Search",
   addressSearchPlaceholder: "Search for a place or coordinates (lat, lng)",
   menu: "Menu",
