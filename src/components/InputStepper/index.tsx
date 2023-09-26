@@ -3,9 +3,13 @@ import React from "react";
 import { InputStepperProvider } from "./Context";
 import InputStepper from "./InputStepper";
 
-const InputStepperWithContext = () => (
+type Props = {
+  minimal?: boolean;
+};
+
+const InputStepperWithContext = ({ minimal = false }: Props) => (
   <InputStepperProvider>
-    <InputStepper />
+    <InputStepper minimal={minimal} />
   </InputStepperProvider>
 );
 

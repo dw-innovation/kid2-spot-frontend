@@ -100,6 +100,7 @@ const NaturalLanguageInputStep = () => {
                 setCurrentText("");
               }}
               onBlur={() => setTypingActive(true)}
+              value={nlSentence}
             />
             <Button
               onClick={handleSearchClick}

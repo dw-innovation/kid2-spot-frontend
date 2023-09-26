@@ -19,7 +19,11 @@ const STEPS = [
   () => <OSMQueryScreen key="step-4" />,
 ];
 
-const InputStepper = () => {
+type Props = {
+  minimal?: boolean;
+};
+
+const InputStepper = ({ minimal = false }: Props) => {
   const { animateOut } = useInputStepper();
   const currentStep = useGlobalStore((state) => state.currentStep);
   const [initialHeight, setInitialHeight] = useState(0);
@@ -48,16 +52,21 @@ const InputStepper = () => {
 
   return (
     <div className="flex items-center justify-center w-full h-full overflow-hidden">
-      <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full overflow-hidden">
-        <Globe scaleProps={globeScaleProps} stop={animateOut} />
-      </div>
+      {!minimal && (
+        <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full overflow-hidden">
+          <Globe scaleProps={globeScaleProps} stop={animateOut} />
+        </div>
+      )}
+
       <div className="relative z-50 flex flex-col gap-2 m-2">
-        <animated.h1
-          className="pb-1 text-2xl font-bold text-center drop-shadow-md"
-          style={titleProps}
-        >
-          Spot – Search the world with your words
-        </animated.h1>
+        {!minimal && (
+          <animated.h1
+            className="pb-1 text-2xl font-bold text-center drop-shadow-md"
+            style={titleProps}
+          >
+            Spot – Search the world with your words
+          </animated.h1>
+        )}
         <div style={{ height: `${initialHeight + 100}px` }}>
           <div ref={stepRef} className="w-full max-w-[32rem]">
             {CurrentStepComponent}
