@@ -31,7 +31,7 @@ const OSMQuerySubmit = () => {
       onClick={
         apiStatus !== "loading" ? handleOSMQuerySubmit : () => cancelRequest()
       }
-      className={"px-2 py-1 w-full cursor-pointer relative"}
+      className={"px-2 py-1 w-full cursor-pointer relative mt-4"}
       asChild
     >
       <div className="flex items-center w-full">
