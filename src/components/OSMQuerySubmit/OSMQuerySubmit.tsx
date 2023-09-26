@@ -1,5 +1,4 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
-import clsx from "clsx";
 import React from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -18,7 +17,6 @@ import { setResults } from "@/lib/utils";
 
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
-
   const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
   const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
 
@@ -33,18 +31,20 @@ const OSMQuerySubmit = () => {
       onClick={
         apiStatus !== "loading" ? handleOSMQuerySubmit : () => cancelRequest()
       }
-      className={clsx("block px-2 py-1 w-full cursor-pointer")}
+      className={"px-2 py-1 w-full cursor-pointer relative"}
       asChild
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center w-full">
         <span className="text-green-600">
           {apiStatus === "loading" ? (
-            <LoadingSpinner />
+            <div className="w-4 h-4">
+              <LoadingSpinner />
+            </div>
           ) : (
             <UpdateIcon className="w-4 h-4" />
           )}
         </span>
-        <span>{commonUpdateResultsButton()}</span>
+        {commonUpdateResultsButton()}
       </div>
     </Button>
   );
@@ -54,7 +54,7 @@ const OSMQuerySubmit = () => {
       {apiStatus === "loading" ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
-            <TooltipTrigger>{renderButton()}</TooltipTrigger>
+            <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>
             <TooltipContent className="z-[10000]">
               {elapsedTime}s, click to cancel request
             </TooltipContent>
