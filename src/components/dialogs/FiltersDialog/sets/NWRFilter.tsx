@@ -33,7 +33,7 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
   };
 
   useEffect(() => {
-    setFilterValue(setId, filterId, "n", `${filter.k}_${filter.v}`);
+    setFilterValue(setId, filterId, "name", `${filter.key}_${filter.value}`);
   }, [filter, filterId, setFilterValue, setId]);
 
   return (
@@ -42,9 +42,9 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
         <Tooltip>
           <TooltipTrigger>
             <Input
-              value={filter.k}
+              value={filter.key}
               className="flex-1 h-8"
-              onChange={(e) => handleInputChange(e, "k")}
+              onChange={(e) => handleInputChange(e, "key")}
             />
           </TooltipTrigger>
           <TooltipContent>
@@ -55,8 +55,8 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
           <TooltipTrigger>
             <Select
               options={OPERATORS}
-              onSelect={(e) => setFilterValue(setId, filterId, "op", e)}
-              value={filter.op}
+              onSelect={(e) => setFilterValue(setId, filterId, "operator", e)}
+              value={filter.operator}
               className="h-8 text-sm"
             />
           </TooltipTrigger>
@@ -67,9 +67,9 @@ const NWRFilter = ({ filter, setId, filterId }: Props) => {
         <Tooltip>
           <TooltipTrigger>
             <Input
-              value={filter.v}
+              value={filter.value}
               className="flex-1 h-8"
-              onChange={(e) => handleInputChange(e, "v")}
+              onChange={(e) => handleInputChange(e, "value")}
             />
           </TooltipTrigger>
           <TooltipContent>

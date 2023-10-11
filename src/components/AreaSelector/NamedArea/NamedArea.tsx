@@ -18,7 +18,7 @@ const NamedArea = () => {
   const [apiStatus, fetchData] = useApiStatus(fetchAreas);
   const [surface, setSurface] = useState<number>(0);
   const setBounds = useMapStore((state) => state.setBounds);
-  const area = useImrStore((state) => state.imr.a.v);
+  const area = useImrStore((state) => state.imr.area.value);
   const setIsError = useErrorStore((state) => state.setIsError);
   const setMessage = useErrorStore((state) => state.setMessage);
 

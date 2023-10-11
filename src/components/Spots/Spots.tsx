@@ -14,7 +14,7 @@ const Spots = () => {
   const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
   const sets = useResultsStore((state) => state.sets);
-  const nodes = useImrStore((state: any) => state.imr.ns);
+  const nodes = useImrStore((state: any) => state.imr.nodes);
   const setBounds = useMapStore((state) => state.setBounds);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -61,7 +61,9 @@ const Spots = () => {
         className="max-w-[5rem] md:w-[15rem] md:max-w-[15rem] z-[1000] h-full"
         placeholder={commonSelectSpotPlaceholder({
           primaryObject:
-            nodes[0]?.n && sets.length > 0 ? capitalize(nodes[0]?.n) : "Spot",
+            nodes[0]?.name && sets.length > 0
+              ? capitalize(nodes[0]?.name)
+              : "Spot",
         })}
         enableReset
         isSearchable={width > 768}

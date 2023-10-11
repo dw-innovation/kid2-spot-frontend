@@ -6,6 +6,7 @@ import { LatLngLiteral } from "leaflet";
 import { twMerge } from "tailwind-merge";
 
 import useResultsStore from "@/stores/useResultsStore";
+import { IntermediateRepresentation } from "@/types/imr";
 
 import { FILL_COLORS } from "./const/colors";
 
@@ -66,8 +67,8 @@ export const checkInputType = (input: string): "address" | "coordinates" => {
   return "address";
 };
 
-export const injectArea = (imr: any): any => {
-  if (imr.a.type === "bbox" || imr.a.type === "polygon") {
+export const injectArea = (imr: IntermediateRepresentation): any => {
+  if (imr.area.type === "bbox" || imr.area.type === "polygon") {
     return imr;
   }
 };

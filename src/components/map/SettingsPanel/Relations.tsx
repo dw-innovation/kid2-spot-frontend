@@ -5,13 +5,13 @@ import { distanceToMeters } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 
 const Relations = () => {
-  const edges = useImrStore((state) => state.imr.es);
-  const nodes = useImrStore((state) => state.imr.ns);
+  const edges = useImrStore((state) => state.imr.edges);
+  const nodes = useImrStore((state) => state.imr.nodes);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
   const findNameById = (id: number) => {
     const node = nodes.find((node) => node.id === id);
-    return node ? node.n : "";
+    return node ? node.name : "";
   };
 
   return (
@@ -21,22 +21,26 @@ const Relations = () => {
         {edges &&
           edges.map((edge, index) => (
             <div key={index}>
-              {edge.t === "dist" && (
+              {edge.type === "distance" && (
                 <>
                   <div>
-                    <span className="capitalize">{findNameById(edge.src)}</span>{" "}
+                    <span className="capitalize">
+                      {findNameById(edge.source)}
+                    </span>{" "}
                     to{" "}
-                    <span className="capitalize">{findNameById(edge.tgt)}</span>
-                    : {edge.dist}
+                    <span className="capitalize">
+                      {findNameById(edge.target)}
+                    </span>
+                    : {edge.distance}
                   </div>
                   <Slider
                     max={500}
                     min={1}
                     step={1}
-                    value={[distanceToMeters(edge.dist)]}
+                    value={[distanceToMeters(edge.distance)]}
                     className="my-2"
                     onValueChange={(value) =>
-                      setRelationValue(index, "dist", `${value[0]}m`)
+                      setRelationValue(index, "distance", `${value[0]}m`)
                     }
                   />
                 </>

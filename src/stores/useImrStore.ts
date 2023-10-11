@@ -22,30 +22,30 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
     );
   },
   imr: {
-    a: {
-      t: "area",
-      v: "Köln",
+    area: {
+      type: "area",
+      value: "Köln",
     },
-    es: [
+    edges: [
       {
-        src: 0,
-        tgt: 1,
-        t: "dist",
-        dist: "200 m",
+        source: 0,
+        target: 1,
+        type: "distance",
+        distance: "200 m",
       },
     ],
-    ns: [
+    nodes: [
       {
         id: 0,
-        n: "hotel",
-        t: "nwr",
-        flts: [
+        name: "hotel",
+        type: "nwr",
+        filters: [
           {
             or: [
               {
-                k: "tourism",
-                op: "=",
-                v: "hotel",
+                key: "tourism",
+                operator: "=",
+                value: "hotel",
               },
             ],
           },
@@ -53,15 +53,15 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       },
       {
         id: 1,
-        n: "train station",
-        t: "nwr",
-        flts: [
+        name: "train station",
+        type: "nwr",
+        filters: [
           {
             or: [
               {
-                k: "railway",
-                op: "=",
-                v: "station",
+                key: "railway",
+                operator: "=",
+                value: "station",
               },
             ],
           },
@@ -79,9 +79,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setSearchArea: (type: string, value: string | number[][]) => {
     set(
       produce((draft) => {
-        draft.imr.a = {
-          t: type,
-          v: value,
+        draft.imr.area = {
+          type: type,
+          value: value,
         };
       })
     );
@@ -97,11 +97,11 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   addNWRNode: () => {
     set(
       produce((draft) => {
-        draft.imr.ns.push({
-          id: draft.imr.ns.length + 1,
-          t: "nwr",
-          n: shortUUID().generate(),
-          flts: [],
+        draft.imr.nodes.push({
+          id: draft.imr.nodes.length + 1,
+          type: "nwr",
+          name: shortUUID().generate(),
+          filters: [],
         });
       })
     );
@@ -109,13 +109,13 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   addClusterNode: () => {
     set(
       produce((draft) => {
-        draft.imr.ns.push({
-          id: draft.imr.ns.length + 1,
-          t: "cluster",
-          n: shortUUID().generate(),
-          minPts: 2,
-          maxDist: "50m",
-          flts: [],
+        draft.imr.nodes.push({
+          id: draft.imr.nodes.length + 1,
+          type: "cluster",
+          name: shortUUID().generate(),
+          minPoints: 2,
+          maxDistance: "50m",
+          filters: [],
         });
       })
     );
@@ -123,21 +123,23 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   removeNode: (id) => {
     set(
       produce((draft) => {
-        draft.imr.es = draft.imr.es.filter(
-          (edge: Edge) => edge.src !== id && edge.tgt !== id
+        draft.imr.edges = draft.imr.edges.filter(
+          (edge: Edge) => edge.source !== id && edge.target !== id
         );
-        draft.imr.ns = draft.imr.ns.filter((node: Node) => node.id !== id);
+        draft.imr.nodes = draft.imr.nodes.filter(
+          (node: Node) => node.id !== id
+        );
       })
     );
   },
   addDistanceEdge: () => {
     set(
       produce((draft) => {
-        draft.imr.es.push({
-          src: 1,
-          tgt: 2,
-          t: "dist",
-          dist: "50m",
+        draft.imr.edges.push({
+          source: 1,
+          target: 2,
+          type: "distance",
+          distance: "50m",
         });
       })
     );
@@ -145,10 +147,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   addContainsEdge: () => {
     set(
       produce((draft) => {
-        draft.imr.es.push({
-          src: 1,
-          tgt: 2,
-          t: "cnt",
+        draft.imr.edges.push({
+          source: 1,
+          target: 2,
+          type: "contains",
         });
       })
     );
@@ -156,16 +158,16 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   removeEdge: (index) => {
     set(
       produce((draft) => {
-        draft.imr.es.slice(index, 1);
+        draft.imr.edges.slice(index, 1);
       })
     );
   },
   setImrBBox: (bbox) => {
     set(
       produce((draft) => {
-        draft.imr.a = {
-          t: "bbox",
-          v: bbox,
+        draft.imr.area = {
+          type: "bbox",
+          value: bbox,
         };
       })
     );
@@ -173,9 +175,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setImrPolygon: (polygon) => {
     set(
       produce((draft) => {
-        draft.imr.a = {
-          t: "area",
-          v: polygon,
+        draft.imr.area = {
+          type: "area",
+          value: polygon,
         };
       })
     );
@@ -183,9 +185,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setImrArea: (area) => {
     set(
       produce((draft) => {
-        draft.imr.a = {
-          t: "area",
-          v: area,
+        draft.imr.area = {
+          type: "area",
+          value: area,
         };
       })
     );
@@ -193,16 +195,16 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setFilterValue: (setId, filterId, key, value) => {
     set(
       produce((draft) => {
-        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
-        draft.imr.ns[set].flts[filterId][key] = value;
+        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
+        draft.imr.nodes[set].filters[filterId][key] = value;
       })
     );
   },
   addFilter: (setId) => {
     set(
       produce((draft) => {
-        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
-        draft.imr.ns[set].flts.push({
+        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
+        draft.imr.nodes[set].filters.push({
           k: "",
           v: "",
           op: "=",
@@ -214,8 +216,8 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   removeFilter: (setId, filterId) => {
     set(
       produce((draft) => {
-        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
-        draft.imr.ns[set].flts = draft.imr.ns[set].flts.filter(
+        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
+        draft.imr.nodes[set].filters = draft.imr.nodes[set].filters.filter(
           (_: Filter, index: number) => index !== filterId
         );
       })
@@ -224,30 +226,30 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setSetName: (setId, name) => {
     set(
       produce((draft) => {
-        let set = draft.imr.ns.findIndex((set: NWR) => set.id === setId);
-        draft.imr.ns[set].n = name;
+        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
+        draft.imr.nodes[set].n = name;
       })
     );
   },
   setRelationValue: (index, key, value) => {
     set(
       produce((draft) => {
-        draft.imr.es[index][key] = value;
+        draft.imr.edges[index][key] = value;
       })
     );
   },
   removeRelation: (index) => {
     set(
       produce((draft) => {
-        draft.imr.es.slice(index, 1);
+        draft.imr.edges.slice(index, 1);
       })
     );
   },
   addContainsRelation: () => {
     set(
       produce((draft) => {
-        draft.imr.es.push({
-          id: draft.imr.es.length + 1,
+        draft.imr.edges.push({
+          id: draft.imr.edges.length + 1,
           src: 1,
           tgt: 2,
           t: "cnt",
@@ -258,11 +260,11 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   addDistanceRelation: () => {
     set(
       produce((draft) => {
-        draft.imr.es.push({
-          id: draft.imr.es.length + 1,
+        draft.imr.edges.push({
+          id: draft.imr.edges.length + 1,
           src: 1,
           tgt: 2,
-          t: "dist",
+          t: "distance",
           dist: "50m",
         });
       })
@@ -271,10 +273,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setClusterProp: (id, key, value) => {
     set(
       produce((draft) => {
-        let cluster = draft.imr.ns.findIndex(
+        let cluster = draft.imr.nodes.findIndex(
           (cluster: Node) => cluster.id === id
         );
-        draft.imr.ns[cluster][key] = value;
+        draft.imr.nodes[cluster][key] = value;
       })
     );
   },

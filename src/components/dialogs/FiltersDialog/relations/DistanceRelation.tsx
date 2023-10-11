@@ -10,7 +10,7 @@ import useImrStore from "@/stores/useImrStore";
 import { DistanceRelation } from "@/types/imr";
 
 const DistanceRelation = ({
-  edge: { src, tgt, dist },
+  edge: { source, target, distance },
   index,
 }: {
   edge: DistanceRelation;
@@ -21,7 +21,7 @@ const DistanceRelation = ({
     filtersDialogDistanceLabel,
     filtersDialogTypeDistance,
   } = useStrings();
-  const sets = useImrStore((state) => state.imr.ns);
+  const sets = useImrStore((state) => state.imr.nodes);
   const removeRelation = useImrStore((state) => state.removeRelation);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
@@ -46,32 +46,32 @@ const DistanceRelation = ({
         <div className="flex items-center gap-2">
           <Select
             options={sets.map((set) =>
-              set.t === "nwr"
-                ? { label: set.n, value: set.id.toString() }
+              set.type === "nwr"
+                ? { label: set.name, value: set.id.toString() }
                 : { label: "Cluster", value: set.id.toString() }
             )}
-            value={src.toString()}
+            value={source.toString()}
             onSelect={(value) =>
-              setRelationValue(index, "src", parseInt(value))
+              setRelationValue(index, "source", parseInt(value))
             }
           />
           <Input
-            value={dist}
+            value={distance}
             onChange={({ target: { value } }) =>
-              setRelationValue(index, "dist", value)
+              setRelationValue(index, "distance", value)
             }
-            className=" min-w-[5rem]"
+            className="min-w-[5rem]"
           />
           <span className="whitespace-nowrap">
             {filtersDialogDistanceLabel()}
           </span>
           <Select
             options={sets.map((set) =>
-              set.t === "nwr"
-                ? { label: set.n, value: set.id.toString() }
+              set.type === "nwr"
+                ? { label: set.name, value: set.id.toString() }
                 : { label: "Cluster", value: set.id.toString() }
             )}
-            value={tgt.toString()}
+            value={target.toString()}
             onSelect={(value) =>
               setRelationValue(index, "tgt", parseInt(value))
             }

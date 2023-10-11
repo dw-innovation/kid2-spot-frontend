@@ -3,7 +3,7 @@ import React from "react";
 import useImrStore from "@/stores/useImrStore";
 
 const RecognizedEntities = () => {
-  const nodes = useImrStore((state) => state.imr.ns);
+  const nodes = useImrStore((state) => state.imr.nodes);
 
   return (
     <div>
@@ -13,7 +13,7 @@ const RecognizedEntities = () => {
           {nodes &&
             nodes.map((node, index) => (
               <li key={index} className="capitalize">
-                {node.n}
+                {node.name}
               </li>
             ))}
         </ol>

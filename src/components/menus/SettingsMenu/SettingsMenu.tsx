@@ -48,7 +48,7 @@ const SettingsMenu = () => {
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
   const view = useGlobalStore((state) => state.view);
   const setView = useGlobalStore((state) => state.setView);
-  const searchAreaType = useImrStore((state) => state.imr.a.t);
+  const searchAreaType = useImrStore((state) => state.imr.area.type);
   const setSearchArea = useImrStore((state) => state.setSearchArea);
   const bounds = useMapStore((state) => state.bounds);
 

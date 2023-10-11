@@ -37,11 +37,13 @@ const Relations = () => {
         </Button>
       </div>
       {imr &&
-        imr.es &&
-        imr.es.map((edge: Edge, index: number) => (
-          <div key={`${index}${edge.t}`} className="flex justify-between">
-            {edge.t === "cnt" && <ContainsRelation edge={edge} />}
-            {edge.t === "dist" && <DistanceRelaton edge={edge} index={index} />}
+        imr.edges &&
+        imr.edges.map((edge: Edge, index: number) => (
+          <div key={`${index}${edge.type}`} className="flex justify-between">
+            {edge.type === "contains" && <ContainsRelation edge={edge} />}
+            {edge.type === "distance" && (
+              <DistanceRelaton edge={edge} index={index} />
+            )}
           </div>
         ))}
     </fieldset>

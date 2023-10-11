@@ -10,7 +10,7 @@ const MapEvents = () => {
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
   const view = useGlobalStore((state) => state.view);
-  const searchArea = useImrStore((state) => state.imr.a.t);
+  const searchArea = useImrStore((state) => state.imr.area.type);
   const setImrBBox = useImrStore((state) => state.setImrBBox);
 
   const map = useMap();
