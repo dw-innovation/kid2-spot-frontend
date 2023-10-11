@@ -250,9 +250,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       produce((draft) => {
         draft.imr.edges.push({
           id: draft.imr.edges.length + 1,
-          src: 1,
-          tgt: 2,
-          t: "cnt",
+          source: 1,
+          target: 2,
+          type: "cnt",
         });
       })
     );
@@ -262,10 +262,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       produce((draft) => {
         draft.imr.edges.push({
           id: draft.imr.edges.length + 1,
-          src: 1,
-          tgt: 2,
-          t: "distance",
-          dist: "50m",
+          source: 1,
+          target: 2,
+          type: "distance",
+          distance: "50m",
         });
       })
     );
