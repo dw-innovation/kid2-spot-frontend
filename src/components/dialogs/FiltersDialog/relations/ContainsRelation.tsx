@@ -9,7 +9,7 @@ import useImrStore from "@/stores/useImrStore";
 import { ContainsRelation } from "@/types/imr";
 
 const ContainsRelation = ({
-  edge: { id, src, tgt },
+  edge: { id, source, target },
 }: {
   edge: ContainsRelation;
 }) => {
@@ -18,7 +18,7 @@ const ContainsRelation = ({
     filtersDialogContainsLabel,
     filtersDialogTypeContains,
   } = useStrings();
-  const sets = useImrStore((state) => state.imr.ns);
+  const sets = useImrStore((state) => state.imr.nodes);
   const removeRelation = useImrStore((state) => state.removeRelation);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
@@ -43,22 +43,26 @@ const ContainsRelation = ({
         <div className="flex items-center gap-2">
           <Select
             options={sets.map((set) =>
-              set.t === "nwr"
-                ? { label: set.n, value: set.id.toString() }
+              set.type === "nwr"
+                ? { label: set.name, value: set.id.toString() }
                 : { label: "Cluster", value: set.id.toString() }
             )}
-            value={src.toString()}
-            onSelect={(value) => setRelationValue(id, "src", parseInt(value))}
+            value={source.toString()}
+            onSelect={(value) =>
+              setRelationValue(id, "source", parseInt(value))
+            }
           />
           {filtersDialogContainsLabel()}
           <Select
             options={sets.map((set) =>
-              set.t === "nwr"
-                ? { label: set.n, value: set.id.toString() }
+              set.type === "nwr"
+                ? { label: set.name, value: set.id.toString() }
                 : { label: "Cluster", value: set.id.toString() }
             )}
-            value={tgt.toString()}
-            onSelect={(value) => setRelationValue(id, "tgt", parseInt(value))}
+            value={target.toString()}
+            onSelect={(value) =>
+              setRelationValue(id, "target", parseInt(value))
+            }
           />
         </div>
       </div>

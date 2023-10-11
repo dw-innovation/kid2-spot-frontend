@@ -6,42 +6,42 @@ export interface LogicFilter {
 }
 
 export type Filter = {
-  k: string;
-  v: string;
-  op: "=" | "<" | ">" | "~";
-  n?: string;
+  key: string;
+  value: string;
+  operator: "=" | "<" | ">" | "~";
+  name?: string;
 };
 
 export type FilterNode = Filter | LogicFilter;
 
 export type Cluster = {
   id: number;
-  flts: FilterNode[];
-  t: "cluster";
-  minPts: number;
-  maxDist: string;
-  n: string;
+  filters: FilterNode[];
+  type: "cluster";
+  minPoints: number;
+  maxDistance: string;
+  name: string;
 };
 
 export type NWR = {
   id: number;
-  flts: FilterNode[];
-  t: "nwr";
-  n: string;
+  filters: FilterNode[];
+  type: "nwr";
+  name: string;
 };
 
 export type ContainsRelation = {
   id: number;
-  src: number;
-  tgt: number;
-  t: "cnt";
+  source: number;
+  target: number;
+  type: "contains";
 };
 
 export type DistanceRelation = {
-  src: number;
-  tgt: number;
-  t: "dist";
-  dist: string;
+  source: number;
+  target: number;
+  type: "distance";
+  distance: string;
 };
 
 export type Edge = ContainsRelation | DistanceRelation;
@@ -49,10 +49,10 @@ export type Edge = ContainsRelation | DistanceRelation;
 export type Node = Cluster | NWR;
 
 export interface IntermediateRepresentation {
-  a: {
-    t: "area" | "polygon" | "bbox";
-    v: string | number[];
+  area: {
+    type: "area" | "polygon" | "bbox";
+    value: string | number[];
   };
-  ns: (Cluster | NWR)[];
-  es: Edge[];
+  nodes: (Cluster | NWR)[];
+  edges: Edge[];
 }

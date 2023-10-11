@@ -5,7 +5,7 @@ import { useStrings } from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 
 const SearchArea = () => {
-  const searchAreaType = useImrStore((state) => state.imr.a.t);
+  const searchAreaType = useImrStore((state) => state.imr.area.type);
 
   const { settingsMenuCustomArea, settingsMenuSearchBbox } = useStrings();
 
