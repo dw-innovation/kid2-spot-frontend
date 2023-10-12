@@ -12,7 +12,13 @@ export const metadata: Metadata = {
     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
 };
 
-const SessionPage = async ({ params }: { params: { id: string } }) => {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+const SessionPage = async ({ params }: Props) => {
   const { id } = params;
   const {
     props: { data },
