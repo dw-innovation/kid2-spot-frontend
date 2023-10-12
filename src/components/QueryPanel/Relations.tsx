@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Slider } from "@/components/ui/slider";
-import { distanceToMeters } from "@/lib/utils";
+import { distanceToMeters, expSlider, logSlider } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 
 const Relations = () => {
@@ -34,14 +34,20 @@ const Relations = () => {
                     : {edge.distance}
                   </div>
                   <Slider
-                    max={500}
-                    min={1}
+                    max={2000}
+                    min={10}
                     step={1}
-                    value={[distanceToMeters(edge.distance)]}
+                    value={[
+                      logSlider(distanceToMeters(edge.distance), 10, 2000, 0.8),
+                    ]}
                     className="my-2"
-                    onValueChange={(value) =>
-                      setRelationValue(index, "distance", `${value[0]}m`)
-                    }
+                    onValueChange={(value) => {
+                      setRelationValue(
+                        index,
+                        "distance",
+                        `${expSlider(value[0], 10, 2000, 0.8)}m`
+                      );
+                    }}
                   />
                 </>
               )}

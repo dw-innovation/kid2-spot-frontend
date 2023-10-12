@@ -207,3 +207,24 @@ export const setResults = (data: any) => {
   setSearchArea(parsedGeoJSON);
   setSpots(data.spots);
 };
+
+export const expSlider = (
+  value: number,
+  min: number,
+  max: number,
+  scale: number = 0.8
+): number => {
+  const base = Math.pow(max / min, 1 / ((max - min) * scale));
+  const expTerm = Math.pow(base, (value - min) * scale) * min;
+  return Math.round(expTerm);
+};
+
+export const logSlider = (
+  value: number,
+  min: number,
+  max: number,
+  scale: number = 0.8
+) => {
+  const base = Math.pow(max / min, 1 / ((max - min) * scale));
+  return Math.round(Math.log(value / min) / (Math.log(base) * scale) + min);
+};
