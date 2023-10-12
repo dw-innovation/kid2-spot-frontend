@@ -40,8 +40,8 @@ const Relations = () => {
         imr.edges &&
         imr.edges.map((edge: Edge, index: number) => (
           <div key={`${index}${edge.type}`} className="flex justify-between">
-            {edge.type === "contains" && <ContainsRelation edge={edge} />}
-            {edge.type === "distance" && (
+            {edge.type === "cnt" && <ContainsRelation edge={edge} />}
+            {edge.type === "dist" && (
               <DistanceRelaton edge={edge} index={index} />
             )}
           </div>

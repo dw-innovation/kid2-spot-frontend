@@ -21,7 +21,7 @@ const Relations = () => {
         {edges &&
           edges.map((edge, index) => (
             <div key={index}>
-              {edge.type === "distance" && (
+              {edge.type === "dist" && (
                 <>
                   <div>
                     <span className="capitalize">

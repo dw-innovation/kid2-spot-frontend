@@ -30,7 +30,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       {
         source: 0,
         target: 1,
-        type: "distance",
+        type: "dist",
         distance: "200 m",
       },
     ],
@@ -264,7 +264,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
           id: draft.imr.edges.length + 1,
           source: 1,
           target: 2,
-          type: "distance",
+          type: "dist",
           distance: "50m",
         });
       })

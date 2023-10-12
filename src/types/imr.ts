@@ -34,13 +34,13 @@ export type ContainsRelation = {
   id: number;
   source: number;
   target: number;
-  type: "contains";
+  type: "cnt";
 };
 
 export type DistanceRelation = {
   source: number;
   target: number;
-  type: "distance";
+  type: "dist";
   distance: string;
 };
 
