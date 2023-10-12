@@ -29,7 +29,7 @@ const OSMQueryStep = () => {
         toggleDialog("inputStepper", false);
       })
       .then(() => setTimeout(() => router.push("/map"), 500));
-  });
+  }, []);
 
   return (
     <InputContainer
