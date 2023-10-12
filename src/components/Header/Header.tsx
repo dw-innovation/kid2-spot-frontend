@@ -24,7 +24,9 @@ const Header = () => {
   return (
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
-        <h1 className="pb-1 text-2xl font-bold leading-none">Spot</h1>
+        <h1 className="pb-1 text-2xl font-bold leading-none font-inter">
+          Spot
+        </h1>
         <div className="items-start hidden gap-2 md:flex">
           <Spots />
           <MenuItems />
