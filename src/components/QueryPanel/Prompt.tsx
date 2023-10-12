@@ -23,9 +23,10 @@ const Prompt = () => {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="text-lg font-semibold">Your search</h3>
-      <Textarea onChange={({ target: { value } }) => setNlSentence(value)}>
-        {nlSentence}
-      </Textarea>
+      <Textarea
+        onChange={({ target: { value } }) => setNlSentence(value)}
+        value={nlSentence}
+      />
       <Button onClick={handleSearchClick}>
         <SearchIcon className="w-4 h-4" />
         Search
