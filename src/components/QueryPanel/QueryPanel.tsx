@@ -12,9 +12,9 @@ import RecognizedEntities from "./RecognizedEntities";
 import Relations from "./Relations";
 import SearchArea from "./SearchArea";
 
-const SettingsPanel = () => {
-  const settingsRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = React.useState<boolean>(true);
+const QueryPanel = () => {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const springProps = useSpring({
     maxHeight: isOpen ? "500px" : "0px",
@@ -22,13 +22,13 @@ const SettingsPanel = () => {
   });
 
   useEffect(() => {
-    if (!settingsRef.current) return;
-    L.DomEvent.disableClickPropagation(settingsRef.current);
-    L.DomEvent.disableScrollPropagation(settingsRef.current);
+    if (!panelRef.current) return;
+    L.DomEvent.disableClickPropagation(panelRef.current);
+    L.DomEvent.disableScrollPropagation(panelRef.current);
   });
 
   return (
-    <div ref={settingsRef} className="w-[20rem] flex flex-col gap-2">
+    <div ref={panelRef} className="w-[20rem] flex flex-col gap-2">
       <div className="flex flex-col gap-4 p-2 overflow-hidden bg-white rounded-md shadow-lg cursor-auto">
         <Prompt />
       </div>
@@ -38,7 +38,7 @@ const SettingsPanel = () => {
           variant={"outline"}
           className="flex items-center gap-1"
         >
-          Filters{" "}
+          Search Parameters
           <div
             className={cn(
               isOpen ? "rotate-90" : "",
@@ -64,4 +64,4 @@ const SettingsPanel = () => {
   );
 };
 
-export default SettingsPanel;
+export default QueryPanel;
