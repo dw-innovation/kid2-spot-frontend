@@ -6,11 +6,17 @@ This application is a web-based natural language interface querying OSM data. It
 
 The application requires the following environment variables to be set:
 
-- `APP_USER`: the username for authenticating with the application
-- `APP_PASSWORD`: the password for authenticating with the application
-- `ENVIRONMENT`: the environment in which the application is running (e.g. development, production)
-- `NEXT_PUBLIC_MAPTILER_KEY`: the API key for accessing Maptiler
-- `NEXT_PUBLIC_OSM_API`: the API key for querying OSM
+- `APP_USER`: The username for authenticating with the application.
+- `APP_PASSWORD`: The password corresponding to the APP_USER for authenticating with the application. 
+- `ENVIRONMENT`: Specifies the environment in which the application is running. It could be set to development, staging, or production, for example.
+- `NEXT_PUBLIC_MAPTILER_KEY`: The API key needed for accessing Maptiler services. Required for rendering satellite layer.
+- `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: The API key for integrating Google Maps into the application. This key allows you to use Google Maps' functionalities.
+- `NEXT_PUBLIC_OSM_API`: The API key for querying OpenStreetMap (OSM).
+- `NEXT_PUBLIC_NLP_API`: The API key for accessing any Natural Language Processing service that the application uses, for prompt to IMR translation.
+- `MONGODB_URI`: The URI for connecting to the MongoDB database for saving and loading sessions.
+- `MONGODB_DBNAME`: The name of the MongoDB database that the application will connect to. 
+- `NEXT_PUBLIC_API_BASE_URL`: The base URL for making API calls within the application.
+- `NEXT_PUBLIC_NOMINATIM_API`: The API endpoint for using the Nominatim geocoding service.
 
 ## Installation
 
