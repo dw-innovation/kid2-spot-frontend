@@ -9,10 +9,10 @@ import React, {
   useState,
 } from "react";
 
-interface InputStepperContextType {
+type InputStepperContextType = {
   animateOut: boolean;
   setAnimateOut: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 const InputStepperContext = createContext<InputStepperContextType>({
   animateOut: false,

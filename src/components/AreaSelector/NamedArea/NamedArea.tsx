@@ -8,13 +8,13 @@ import { calculateSurface } from "@/lib/utils";
 import useErrorStore from "@/stores/useErrorStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import { Place } from "@/types/nominatim";
+import { NominatimPlace } from "@/types/nominatim";
 
 import SurfaceAlert from "../SurfaceAlert";
 
 const NamedArea = () => {
   const [placeId, setPlaceId] = useState<number>(0);
-  const [suggestedAreas, setSuggestedAreas] = useState<Place[]>([]);
+  const [suggestedAreas, setSuggestedAreas] = useState<NominatimPlace[]>([]);
   const [apiStatus, fetchData] = useApiStatus(fetchAreas);
   const [surface, setSurface] = useState<number>(0);
   const setBounds = useMapStore((state) => state.setBounds);
@@ -27,7 +27,7 @@ const NamedArea = () => {
       .then(setSuggestedAreas)
       .catch(() => {
         setIsError(true);
-        setMessage("Error fetching suggestions");
+        setMessage("errorFetchingSuggestions");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
@@ -63,6 +63,7 @@ const NamedArea = () => {
         search area from your input. Please confirm or select another area from
         the list.
       </p>
+
       {apiStatus === "loading" ? (
         <div className="flex items-center gap-2">
           <LoadingSpinner />

@@ -2,9 +2,9 @@ import { EyeOpenIcon } from "@radix-ui/react-icons";
 import { Feature } from "geojson";
 import React from "react";
 
+import { Button } from "@/components/ui/button";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import { Button } from "../ui/button";
 import FeatureInfo from "./FeatureInfo";
 
 type Props = {

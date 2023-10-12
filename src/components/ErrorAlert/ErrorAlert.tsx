@@ -10,9 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import useErrorStore from "@/stores/useErrorStore";
-
-import { Button } from "../ui/button";
 
 const ErrorAlert = () => {
   const isError = useErrorStore((state) => state.isError);

@@ -6,7 +6,7 @@ import useResultsStore from "@/stores/useResultsStore";
 import useSessionsStore from "@/stores/useSessionsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-export const useSessionActions = () => {
+const useSessionActions = () => {
   const initializeMapStore = useMapStore((state) => state.initialize);
   const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
@@ -31,3 +31,5 @@ export const useSessionActions = () => {
     removeSession,
   };
 };
+
+export default useSessionActions;

@@ -4,13 +4,12 @@ import { GeoJsonProperties } from "geojson";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
+import { useMapAlert } from "@/components/map/mapAlerts/Context";
+import MapAlert from "@/components/map/mapAlerts/MapAlert";
 import { allFeaturesWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
-
-import { useMapAlert } from "../../Context";
-import MapAlert from "../../MapAlert";
 
 const ResultsOutsideAlert = () => {
   const geoJSON = useResultsStore((state) => state.geoJSON);

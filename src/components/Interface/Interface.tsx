@@ -4,13 +4,12 @@ import { Allotment } from "allotment";
 import clsx from "clsx";
 import React from "react";
 
+import Header from "@/components/Header";
 import DynamicMap from "@/components/map";
 import DynamicResultsViewer from "@/components/ResultsViewer";
 import StreetViewPane from "@/components/StreetViewPane";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
-
-import Header from "../Header";
 
 const Interface = () => {
   const view = useGlobalStore((state) => state.view);

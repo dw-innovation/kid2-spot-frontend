@@ -48,10 +48,12 @@ export const StringProvider: React.FC<StringProviderProps> = ({ children }) => {
   );
 };
 
-export const useStrings = (): Record<StringKeys, StringFunction> => {
+const useStrings = (): Record<StringKeys, StringFunction> => {
   const strings = useContext(StringContext);
   if (!strings) {
     throw new Error("useStrings must be used within a StringProvider");
   }
   return strings;
 };
+
+export default useStrings;

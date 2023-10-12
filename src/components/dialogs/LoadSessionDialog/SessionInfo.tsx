@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import { Session } from "@/types/stores/SessionsStore.interface";
 
 interface SessionInfoProps {

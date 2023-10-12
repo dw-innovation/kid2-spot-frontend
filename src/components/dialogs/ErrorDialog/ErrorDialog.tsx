@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { STRINGS } from "@/lib/const/strings/errors";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";

@@ -1,6 +1,7 @@
 import React from "react";
 
-import { MapAlertProvider } from "../../Context";
+import { MapAlertProvider } from "@/components/map/mapAlerts/Context";
+
 import ResultsOutsideAlert from "./ResultsOutsideAlert";
 
 const ResultsOutsideAlertWithContext = () => (

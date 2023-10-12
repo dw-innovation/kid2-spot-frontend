@@ -8,6 +8,7 @@ import useMapStore from "@/stores/useMapStore";
 
 const MapContainer = () => {
   const bounds = useMapStore((state) => state.bounds);
+
   return (
     <LeafletMapContainer
       scrollWheelZoom={true}

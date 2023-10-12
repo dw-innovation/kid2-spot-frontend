@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import { saveResultsToFile } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 

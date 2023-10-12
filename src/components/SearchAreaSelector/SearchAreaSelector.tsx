@@ -9,8 +9,7 @@ import useQueryStore from "@/stores/useQueryStore";
 import Select from "../Select";
 
 const SearchAreaSelector = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [polygonOptionDisabled, setPolygonOptionDisabled] = useState(false);
+  const [, setPolygonOptionDisabled] = useState(false);
   const customSearchArea = useCustomSearchAreaStore(
     (state) => state.customSearchArea
   );

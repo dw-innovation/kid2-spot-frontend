@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import { capitalize } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";

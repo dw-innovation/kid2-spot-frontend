@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 
 import LensIcon from "@/assets/icons/LensIcon";
 import { fetchGeocodeApiData } from "@/lib/apiServices";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
 import { checkInputType } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";

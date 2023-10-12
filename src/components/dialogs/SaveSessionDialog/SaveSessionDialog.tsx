@@ -5,7 +5,7 @@ import { uuid } from "short-uuid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import { cn } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";

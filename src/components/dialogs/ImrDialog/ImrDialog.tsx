@@ -1,7 +1,7 @@
 import React from "react";
 
 import DynamicImrEditor from "@/components/ImrEditor";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";

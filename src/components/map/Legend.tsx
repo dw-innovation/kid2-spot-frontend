@@ -2,7 +2,7 @@ import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useResultsStore from "@/stores/useResultsStore";
 
 const Legend = () => {

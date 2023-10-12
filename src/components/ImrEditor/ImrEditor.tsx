@@ -6,9 +6,8 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import React, { useEffect } from "react";
 import AceEditor from "react-ace";
 
+import { Button } from "@/components/ui/button";
 import useImrStore from "@/stores/useImrStore";
-
-import { Button } from "../ui/button";
 
 type Props = {
   setOpen: () => void;

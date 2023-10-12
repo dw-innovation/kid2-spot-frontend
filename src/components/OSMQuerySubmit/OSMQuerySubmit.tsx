@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { fetchOSMData } from "@/lib/apiServices";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { setResults } from "@/lib/utils";

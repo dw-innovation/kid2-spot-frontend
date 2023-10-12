@@ -14,8 +14,8 @@ const Globe = ({
   stop: boolean;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const pointerInteracting = useRef<number | null>(null); // Specify it can be a number or null.
-  const pointerInteractionMovement = useRef<number>(0); // This is fine since it's initialized as a number.
+  const pointerInteracting = useRef<number | null>(null);
+  const pointerInteractionMovement = useRef<number>(0);
 
   const [{ r }, api] = useSpring(() => ({
     r: 0,
@@ -78,18 +78,18 @@ const Globe = ({
       <canvas
         ref={canvasRef}
         onPointerDown={(e) => {
-          if (!canvasRef.current) return; // Ensure it's not null before using.
+          if (!canvasRef.current) return;
           pointerInteracting.current =
             e.clientX - pointerInteractionMovement.current;
           canvasRef.current.style.cursor = "grabbing";
         }}
         onPointerUp={() => {
-          if (!canvasRef.current) return; // Ensure it's not null before using.
+          if (!canvasRef.current) return;
           pointerInteracting.current = null;
           canvasRef.current.style.cursor = "grab";
         }}
         onPointerOut={() => {
-          if (!canvasRef.current) return; // Ensure it's not null before using.
+          if (!canvasRef.current) return;
           pointerInteracting.current = null;
           canvasRef.current.style.cursor = "grab";
         }}

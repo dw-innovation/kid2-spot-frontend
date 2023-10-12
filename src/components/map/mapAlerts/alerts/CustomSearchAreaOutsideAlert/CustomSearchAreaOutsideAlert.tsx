@@ -3,12 +3,11 @@ import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
+import { useMapAlert } from "@/components/map/mapAlerts/Context";
+import MapAlert from "@/components/map/mapAlerts/MapAlert";
 import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
-
-import { useMapAlert } from "../../Context";
-import MapAlert from "../../MapAlert";
 
 const PolygonOutsideAlert = () => {
   const customSearchArea = useCustomSearchAreaStore(

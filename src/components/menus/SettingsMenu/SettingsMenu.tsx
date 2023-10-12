@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";

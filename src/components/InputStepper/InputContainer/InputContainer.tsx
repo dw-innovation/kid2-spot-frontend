@@ -21,6 +21,7 @@ const InputContainer = ({ children, shouldUnmount, title }: Props) => {
       precision: 0.001,
     },
   });
+
   return (
     <animated.div
       className="flex flex-col items-center justify-center h-full gap-2 p-4 bg-white rounded-md shadow-sm"

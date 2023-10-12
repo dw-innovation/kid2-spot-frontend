@@ -1,6 +1,6 @@
 import { MultiPolygon, Polygon } from "@turf/turf";
 
-export interface Place {
+export interface NominatimPlace {
   place_id: number;
   licence: string;
   osm_type: string;

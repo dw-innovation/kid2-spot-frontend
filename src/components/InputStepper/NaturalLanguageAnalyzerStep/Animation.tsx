@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
-const sentences = [
+const SENTENCES = [
   "Identifying the area in your query",
   "Determining all objects in your prompt",
   "Analyzing the connections between the objects",
@@ -21,7 +21,7 @@ const AnalyzeAnimation = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (index < sentences.length - 1) {
+      if (index < SENTENCES.length - 1) {
         setIndex((prevIndex) => prevIndex + 1);
         setKey((prevKey) => prevKey + 1);
       }
@@ -34,7 +34,7 @@ const AnalyzeAnimation = () => {
 
   return (
     <animated.div style={props} className="text-center">
-      {sentences[index]}
+      {SENTENCES[index]}
     </animated.div>
   );
 };

@@ -1,7 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { Edge } from "@/types/imr";
 

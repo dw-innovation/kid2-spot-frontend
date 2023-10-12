@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button } from "@/components/ui/button";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 
 const SearchArea = () => {
@@ -13,6 +13,7 @@ const SearchArea = () => {
     { label: settingsMenuSearchBbox(), value: "bbox" },
     { label: settingsMenuCustomArea(), value: "area" },
   ];
+
   return (
     <div>
       <h3 className="text-lg font-semibold ">Location</h3>

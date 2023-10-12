@@ -1,11 +1,11 @@
 import React from "react";
 
-import { useStrings } from "@/lib/contexts/useStrings";
+import useLoadSessionState from "@/hooks/useLoadSessionState";
+import useSessionActions from "@/hooks/useSessionActions";
+import useStrings from "@/lib/contexts/useStrings";
 import { loadSession } from "@/lib/sessions";
 
 import Dialog from "../Dialog";
-import { useLoadSessionState } from "./hooks/useLoadSessionState";
-import { useSessionActions } from "./hooks/useSessionActions";
 import SessionActions from "./SessionActions";
 import SessionInfo from "./SessionInfo";
 import SessionSelect from "./SessionSelect";

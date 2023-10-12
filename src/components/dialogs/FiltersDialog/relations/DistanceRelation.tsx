@@ -5,7 +5,7 @@ import Select from "@/components/Select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useImrStore from "@/stores/useImrStore";
 import { DistanceRelation } from "@/types/imr";
 

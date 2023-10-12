@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useStrings } from "@/lib/contexts/useStrings";
+import useStrings from "@/lib/contexts/useStrings";
 import useApiStatus from "@/lib/hooks/useApiStatus";
 import { saveSession } from "@/lib/sessions";
 import useGlobalStore from "@/stores/useGlobalStore";
