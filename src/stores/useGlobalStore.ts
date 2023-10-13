@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 import GlobalStoreInterface, {
   Step,
-} from "../types/stores/GlobalStore.interface";
+} from "@/types/stores/GlobalStore.interface";
 
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({
   currentStep: 0,

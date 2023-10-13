@@ -9,11 +9,11 @@ import {
   Node,
   NWR,
 } from "@/types/imr";
-
-import ImrStoreInterface from "../types/stores/ImrStore.interface";
+import ImrStoreInterface from "@/types/stores/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
-  nlSentence: "",
+  nlSentence:
+    "Find all hotels not more than 200m from a train station in Köln.",
   setNlSentence: (nlSentence: string) => {
     set(
       produce((draft) => {

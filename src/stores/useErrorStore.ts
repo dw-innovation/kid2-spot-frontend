@@ -1,7 +1,7 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import ErrorStoreInterface from "../types/stores/ErrorStore.interface";
+import ErrorStoreInterface from "@/types/stores/ErrorStore.interface";
 
 const useErrorStore = create<ErrorStoreInterface>((set) => ({
   isError: false,

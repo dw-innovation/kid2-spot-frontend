@@ -1,7 +1,7 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import CustomSearchAreaStoreInterface from "../types/stores/CustomSearchAreaStore.interface";
+import CustomSearchAreaStoreInterface from "@/types/stores/CustomSearchAreaStore.interface";
 
 const useCustomSearchAreaStore = create<CustomSearchAreaStoreInterface>(
   (set) => ({

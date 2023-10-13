@@ -1,7 +1,7 @@
 import produce from "immer";
 import { create } from "zustand";
 
-import AddressStoreInterface from "../types/stores/AddressStore.interface";
+import AddressStoreInterface from "@/types/stores/AddressStore.interface";
 
 const useGlobalStore = create<AddressStoreInterface>((set) => ({
   searchAddress: "",
