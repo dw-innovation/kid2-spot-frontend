@@ -2,7 +2,7 @@ import L from "leaflet";
 import Image from "next/image";
 import React, { useEffect } from "react";
 
-import MapTilerHybridImage from "@/assets/images/maptilerHybrid.png";
+import MapTilerHybridImage from "@/assets/images/mapTilerHybrid.png";
 import OSMIconImage from "@/assets/images/osm.png";
 import VectorIconImage from "@/assets/images/vector.png";
 import {
