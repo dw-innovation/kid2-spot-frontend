@@ -53,7 +53,7 @@ const MapContainer = () => {
           <PolygonDrawer />
           <PolygonBuffer />
           <GeoJSONResults />
-          {/* <SearchArea /> */}
+          <SearchArea />
         </LeafletMapContainer>
       </div>
     </>
