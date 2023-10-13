@@ -7,6 +7,7 @@ import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
+import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Popup from "../Popup";
 
@@ -20,6 +21,9 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
   const markerLayerGroup = useRef<L.LayerGroup | null>(null);
   const map = useMap();
+  const setStreetViewCoordinates = useStreetViewStore(
+    (state) => state.setStreetViewCoordinates
+  );
   const [spotNodes, setSpotNodes] = React.useState<string[]>([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,6 +110,14 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   const onFeatureClick = (e: L.LeafletEvent) => {
     const layer = e.target as L.CircleMarker;
+
+    if (layer.feature && layer.feature.properties.center) {
+      setStreetViewCoordinates({
+        lat: layer.feature.properties.center.coordinates[1],
+        lng: layer.feature.properties.center.coordinates[0],
+      });
+    }
+
     resetPreviousLayerStyle();
     layer.setStyle({ color: "#ff0000" });
     previousClickedLayer.current = layer;
