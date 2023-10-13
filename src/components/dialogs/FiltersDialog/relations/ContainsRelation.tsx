@@ -18,7 +18,7 @@ const ContainsRelation = ({
     filtersDialogContainsLabel,
     filtersDialogTypeContains,
   } = useStrings();
-  const sets = useImrStore((state) => state.imr.nodes);
+  const nodes = useImrStore((state) => state.imr.nodes);
   const removeRelation = useImrStore((state) => state.removeRelation);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
@@ -42,10 +42,10 @@ const ContainsRelation = ({
       <div className="flex justify-between flex-1 w-full">
         <div className="flex items-center gap-2">
           <Select
-            options={sets.map((set) =>
-              set.type === "nwr"
-                ? { label: set.name, value: set.id.toString() }
-                : { label: "Cluster", value: set.id.toString() }
+            options={nodes.map((node) =>
+              node.type === "nwr"
+                ? { label: node.name, value: node.id.toString() }
+                : { label: "Cluster", value: node.id.toString() }
             )}
             value={source.toString()}
             onSelect={(value) =>
@@ -54,10 +54,10 @@ const ContainsRelation = ({
           />
           {filtersDialogContainsLabel()}
           <Select
-            options={sets.map((set) =>
-              set.type === "nwr"
-                ? { label: set.name, value: set.id.toString() }
-                : { label: "Cluster", value: set.id.toString() }
+            options={nodes.map((node) =>
+              node.type === "nwr"
+                ? { label: node.name, value: node.id.toString() }
+                : { label: "Cluster", value: node.id.toString() }
             )}
             value={target.toString()}
             onSelect={(value) =>
