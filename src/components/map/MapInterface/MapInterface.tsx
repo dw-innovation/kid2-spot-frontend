@@ -7,6 +7,7 @@ import Legend from "@/components/map/Legend";
 import PolygonOutsideAlert from "@/components/map/mapAlerts/alerts/CustomSearchAreaOutsideAlert";
 import ResultsOutsideAlert from "@/components/map/mapAlerts/alerts/ResultsOutsideAlert";
 import QueryPanel from "@/components/QueryPanel";
+import SearchCurrentViewButton from "@/components/SearchCurrentViewButton";
 
 const MapInterface = () => (
   <>
@@ -14,8 +15,12 @@ const MapInterface = () => (
       <QueryPanel />
     </div>
 
+    <div className="absolute top-0 left-0 z-[400] flex items-center justify-center w-full p-2">
+      <SearchCurrentViewButton />
+    </div>
+
     <div className="absolute top-0 right-0 z-[400] flex items-start justify-between !font-sans p-2 w-fit">
-      <div className="flex flex-col-reverse items-end gap-2 font-sans text-base md:flex-row md:items-start">
+      <div className="flex flex-col-reverse items-end gap-2 font-sans text-base">
         <div className="flex flex-col items-end gap-2">
           <PolygonOutsideAlert />
           <ResultsOutsideAlert />
