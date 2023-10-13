@@ -39,7 +39,7 @@ const SearchCurrentViewButton = () => {
 
   return (
     <Button
-      className="rounded-lg"
+      className="rounded-lg shadow-lg"
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
     >
