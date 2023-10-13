@@ -9,7 +9,7 @@ import FullScreenCloseIcon from "@/assets/icons/FullScreenCloseIcon";
 import FullScreenExpandIcon from "@/assets/icons/FullScreenExpandIcon";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import { Button } from "@/components/ui/button";
-import { createGoogleMapsEmbedUrl } from "@/lib/utils";
+import { cn, createGoogleMapsEmbedUrl } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
@@ -69,7 +69,9 @@ const StreetViewPane = () => {
             showStreetView ? "block" : "hidden"
           )}
         >
-          <div className="drag-handle">
+          <div
+            className={cn("drag-handle", isStreetViewFullscreen && "hidden")}
+          >
             <span className="p-2 font-sans font-semibold">
               Google Street View
             </span>
