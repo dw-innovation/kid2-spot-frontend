@@ -29,7 +29,7 @@ const Footer = () => {
       className="flex items-center gap-2 p-2 font-sans bg-white rounded-md shadow-md cursor-auto"
       ref={footerRef}
     >
-      (c) 2023 created by DW Innovation
+      created by DW Innovation
       {ITEMS.map((item) => (
         <div key={item.text} className="text-sm text-muted-foreground">
           <a href="#" onClick={() => handleClick(item.dialogName)}>
