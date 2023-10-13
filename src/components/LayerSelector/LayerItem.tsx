@@ -37,7 +37,7 @@ const LayerItem = ({ value, name }: Props) => {
         <TooltipTrigger asChild>
           <Button
             className={cn(
-              "aspect-square bg-red-200 hover:bg-red-400",
+              "aspect-square bg-red-200 hover:bg-red-400 px-1",
               currentTilesLayer === value &&
                 "border-2 border-blue-500 shadow-sm"
             )}

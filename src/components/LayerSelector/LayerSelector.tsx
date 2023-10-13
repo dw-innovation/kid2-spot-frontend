@@ -42,11 +42,15 @@ const LayerSelector = () => {
 
   const springs = useSprings(
     LAYERS.length,
-    LAYERS.map(() => ({
-      transform: isOpen ? `translateX(0px)` : `translateX(-200px)`,
-      opacity: isOpen ? 1 : 0,
-      height: "40px",
-    }))
+    LAYERS.map((_, index) => {
+      return {
+        transform: isOpen
+          ? `translateX(${(index + 1) * 20}%)`
+          : `translateX(-100%)`,
+        opacity: isOpen ? 1 : 0,
+        height: "40px",
+      };
+    })
   );
 
   const handleSelectorTriggerClick = () => {
@@ -54,12 +58,7 @@ const LayerSelector = () => {
   };
 
   return (
-    <div
-      className={cn(
-        "relative flex items-end gap-2 w-fit",
-        !isOpen && "overflow-x-clip"
-      )}
-    >
+    <div className={cn("relative flex items-end w-fit")}>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger className="z-10" asChild>
@@ -77,7 +76,7 @@ const LayerSelector = () => {
         </Tooltip>
       </TooltipProvider>
 
-      <div className="z-0 flex items-end gap-1">
+      <div className="z-0 flex items-end">
         {springs.map((props, index) => (
           <animated.div key={LAYERS[index].value} style={props}>
             <LayerItem
