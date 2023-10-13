@@ -1,0 +1,23 @@
+import React from "react";
+
+import useImrStore from "@/stores/useImrStore";
+
+import Entity from "./Entity";
+
+const Entities = () => {
+  const nodes = useImrStore((state) => state.imr.nodes);
+
+  return (
+    <div>
+      <h3 className="text-lg font-semibold ">Entities</h3>
+      <div className="flex gap-1 ml-4">
+        {nodes &&
+          nodes.map((node) => (
+            <Entity key={node.name} name={node.name} id={node.id} />
+          ))}
+      </div>
+    </div>
+  );
+};
+
+export default Entities;

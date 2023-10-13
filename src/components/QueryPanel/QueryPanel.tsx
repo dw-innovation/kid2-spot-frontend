@@ -7,8 +7,8 @@ import OSMQuerySubmit from "@/components/OSMQuerySubmit";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import Entities from "./Entities";
 import Prompt from "./Prompt";
-import RecognizedEntities from "./RecognizedEntities";
 import Relations from "./Relations";
 import SearchArea from "./SearchArea";
 
@@ -36,7 +36,7 @@ const QueryPanel = () => {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           variant={"outline"}
-          className="flex items-center gap-1"
+          className="justify-start"
         >
           Search Parameters
           <div
@@ -54,7 +54,7 @@ const QueryPanel = () => {
         >
           <div className="p-2">
             <SearchArea />
-            <RecognizedEntities />
+            <Entities />
             <Relations />
             <OSMQuerySubmit />
           </div>
