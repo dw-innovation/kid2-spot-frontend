@@ -10,7 +10,7 @@ import { Spot } from "@/types/stores/ResultsStore.interface";
 
 import Select from "../Select";
 
-const Spots = () => {
+const SpotSelector = () => {
   const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
   const sets = useResultsStore((state) => state.sets);
@@ -72,4 +72,4 @@ const Spots = () => {
   );
 };
 
-export default Spots;
+export default SpotSelector;

@@ -2,6 +2,7 @@
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
+import SpotSelector from "@/components/SpotSelector";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/sheet";
 import useStrings from "@/lib/contexts/useStrings";
 
-import Spots from "../Spots";
 import { useMenu } from "./Context";
 import MenuItems from "./MenuItems";
 
@@ -28,11 +28,11 @@ const Header = () => {
           Spot
         </h1>
         <div className="items-start hidden gap-2 md:flex">
-          <Spots />
+          <SpotSelector />
           <MenuItems />
         </div>
         <div className="flex items-start gap-2 md:hidden">
-          <Spots />
+          <SpotSelector />
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
             <SheetTrigger className="block md:hidden" asChild>
               <Button onClick={() => setOpen((prev) => !prev)}>
