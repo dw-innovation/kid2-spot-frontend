@@ -4,6 +4,7 @@ import DownloadResultsDialog from "./DownloadResultsDialog";
 import ErrorDialog from "./ErrorDialog";
 import FiltersDialog from "./FiltersDialog";
 import ImrDialog from "./ImrDialog";
+import InfoDialog from "./InfoDialog";
 import InputStepperDialog from "./InputStepperDialog";
 import LoadSessionDialog from "./LoadSessionDialog";
 import QueryOSMDialog from "./QueryOSMDialog/QueryOSMDialog";
@@ -21,6 +22,7 @@ const Dialogs = () => (
     <StepperErrorDialog />
     <QueryOSMDialog />
     <InputStepperDialog />
+    <InfoDialog />
   </>
 );
 

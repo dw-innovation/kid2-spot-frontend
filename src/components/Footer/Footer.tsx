@@ -1,18 +1,25 @@
 import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 
+import useGlobalStore from "@/stores/useGlobalStore";
+
 const ITEMS = [
   {
     text: "About",
-    dialogName: "about",
+    content: "about",
+  },
+  {
+    text: "Trusted AI Principles",
+    content: "tai",
   },
   {
     text: "Legal & Privacy",
-    dialogName: "legal",
+    content: "legal",
   },
 ];
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   useEffect(() => {
     if (footerRef.current) {
@@ -20,8 +27,9 @@ const Footer = () => {
     }
   }, []);
 
-  const handleClick = (dialogName: string) => {
-    console.log(dialogName);
+  const handleClick = (content: string) => {
+    console.log(content);
+    toggleDialog("info");
   };
 
   return (
@@ -32,7 +40,13 @@ const Footer = () => {
       created by DW Innovation
       {ITEMS.map((item) => (
         <div key={item.text} className="text-sm text-muted-foreground">
-          <a href="#" onClick={() => handleClick(item.dialogName)}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick(item.content);
+            }}
+          >
             {item.text}
           </a>
         </div>
