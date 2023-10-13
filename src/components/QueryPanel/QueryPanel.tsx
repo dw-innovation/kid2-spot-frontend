@@ -36,7 +36,7 @@ const QueryPanel = () => {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           variant={"outline"}
-          className="justify-start"
+          className="justify-start bg-slate-100"
         >
           Search Parameters
           <div
@@ -52,9 +52,11 @@ const QueryPanel = () => {
           style={springProps}
           className="flex flex-col gap-3 cursor-auto"
         >
-          <div className="p-2">
+          <div className="flex flex-col gap-2 p-2">
             <SearchArea />
+            <hr />
             <Entities />
+            <hr />
             <Relations />
             <OSMQuerySubmit />
           </div>
