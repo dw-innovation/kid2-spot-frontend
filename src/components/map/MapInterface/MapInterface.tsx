@@ -2,16 +2,19 @@ import React from "react";
 
 import AddressSearchBox from "@/components/addressSearch";
 import Footer from "@/components/Footer";
+import LayerSelector from "@/components/LayerSelector";
 import Legend from "@/components/map/Legend";
 import PolygonOutsideAlert from "@/components/map/mapAlerts/alerts/CustomSearchAreaOutsideAlert";
 import ResultsOutsideAlert from "@/components/map/mapAlerts/alerts/ResultsOutsideAlert";
 import QueryPanel from "@/components/QueryPanel";
 
 const MapInterface = () => (
-  <div className="absolute top-0 left-0 z-[400] w-full h-full p-2 flex flex-col justify-between !font-sans">
-    <div className="flex items-start justify-between w-full">
+  <>
+    <div className="absolute top-0 left-0 z-[400] flex items-start justify-between !font-sans p-2">
       <QueryPanel />
+    </div>
 
+    <div className="absolute top-0 right-0 z-[400] flex items-start justify-between !font-sans p-2 w-fit">
       <div className="flex flex-col-reverse items-end gap-2 font-sans text-base md:flex-row md:items-start">
         <div className="flex flex-col items-end gap-2">
           <PolygonOutsideAlert />
@@ -21,14 +24,15 @@ const MapInterface = () => (
       </div>
     </div>
 
-    <div className="flex items-start justify-between w-full">
-      <div>
-        <Legend />
-      </div>
+    <div className="absolute bottom-0 left-0 z-[400] flex items-end gap-2 justify-between p-2">
+      <Legend />
+      <LayerSelector />
+    </div>
 
+    <div className="absolute bottom-0 right-0 z-[400] p-2">
       <Footer />
     </div>
-  </div>
+  </>
 );
 
 export default MapInterface;

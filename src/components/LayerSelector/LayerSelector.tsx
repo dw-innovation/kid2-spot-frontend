@@ -1,0 +1,94 @@
+import L from "leaflet";
+import { LayersIcon } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { animated, useSprings } from "react-spring";
+
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+
+import LayerItem from "./LayerItem";
+
+const LAYERS = [
+  {
+    name: "Vector Map",
+    value: "vector",
+  },
+  {
+    name: "Hybrid Map",
+    value: "mapTilerHybrid",
+  },
+  {
+    name: "OSM Style Map",
+    value: "osm",
+  },
+];
+
+const LayerSelector = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!triggerRef.current) return;
+    L.DomEvent.disableClickPropagation(triggerRef.current);
+    L.DomEvent.disableScrollPropagation(triggerRef.current);
+  }, []);
+
+  const springs = useSprings(
+    LAYERS.length,
+    LAYERS.map(() => ({
+      transform: isOpen ? `translateX(0px)` : `translateX(-200px)`,
+      opacity: isOpen ? 1 : 0,
+      height: "40px",
+    }))
+  );
+
+  const handleSelectorTriggerClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div
+      className={cn(
+        "relative flex items-end gap-2 w-fit",
+        !isOpen && "overflow-x-clip"
+      )}
+    >
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger className="z-10" asChild>
+            <Button
+              className="h-10 p-0 shadow-lg aspect-square"
+              onClick={handleSelectorTriggerClick}
+              ref={triggerRef}
+            >
+              <LayersIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Select Map Style</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      <div className="z-0 flex items-end gap-1">
+        {springs.map((props, index) => (
+          <animated.div key={LAYERS[index].value} style={props}>
+            <LayerItem
+              value={LAYERS[index].value as "vector" | "mapTilerHybrid" | "osm"}
+              name={LAYERS[index].name}
+            />
+          </animated.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default LayerSelector;
