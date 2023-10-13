@@ -54,7 +54,7 @@ const Legend = () => {
       {sets.length > 0 && (
         <div
           ref={divRef}
-          className="shadow-lg cursor-default z-[400] absolute bottom-0 left-0 bg-white m-2 rounded-md flex p-2 flex-col gap-1"
+          className="flex flex-col gap-1 p-2 bg-white rounded-md shadow-lg cursor-default"
         >
           <h4 className="text-lg font-semibold tracking-tight scroll-m-20">
             {mapLegendTitle()}
