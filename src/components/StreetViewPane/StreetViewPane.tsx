@@ -57,13 +57,13 @@ const StreetViewPane = () => {
 
   return (
     <Draggable handle=".drag-handle" position={dragData} onDrag={handleDrag}>
-      <Resizable width={600} height={300}>
+      <Resizable width={600} height={400}>
         <div
           className={clsx(
             "rounded-lg bg-white shadow-md cursor-grab",
             isStreetViewFullscreen
               ? "fixed z-[10000] top-0 left-0 w-full h-full"
-              : "absolute w-fit h-fit z-[10000] bottom-0 right-0 -translate-x-full -translate-y-full m-4",
+              : "absolute w-[400px] h-[250px] z-[10000] bottom-0 right-0 -translate-x-full -translate-y-full m-4",
             showStreetView ? "block" : "hidden"
           )}
         >
