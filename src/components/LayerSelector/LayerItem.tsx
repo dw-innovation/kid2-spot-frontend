@@ -1,7 +1,10 @@
 import L from "leaflet";
+import Image from "next/image";
 import React, { useEffect } from "react";
 
-import { Button } from "@/components/ui/button";
+import MapTilerHybridImage from "@/assets/images/maptilerHybrid.png";
+import OSMIconImage from "@/assets/images/osm.png";
+import VectorIconImage from "@/assets/images/vector.png";
 import {
   Tooltip,
   TooltipContent,
@@ -10,6 +13,21 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
+
+const IMAGES = [
+  {
+    type: "vector",
+    image: VectorIconImage,
+  },
+  {
+    type: "mapTilerHybrid",
+    image: MapTilerHybridImage,
+  },
+  {
+    type: "osm",
+    image: OSMIconImage,
+  },
+];
 
 type Props = {
   value: "vector" | "mapTilerHybrid" | "osm";
@@ -35,15 +53,24 @@ const LayerItem = ({ value, name }: Props) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            className={cn(
-              "aspect-square bg-red-200 hover:bg-red-400 px-1",
-              currentTilesLayer === value &&
-                "border-2 border-blue-500 shadow-sm"
-            )}
+          <button
             ref={triggerRef}
             onClick={() => handleLayerItemClick(value)}
-          ></Button>
+            className="h-10 aspect-square"
+          >
+            <Image
+              src={
+                IMAGES.find((image) => image.type === value)?.image ||
+                VectorIconImage
+              }
+              objectFit="contain"
+              className={cn(
+                "border-2 shadow-lg rounded-lg",
+                currentTilesLayer === value ? "border-primary" : "border-white"
+              )}
+              alt={""}
+            />
+          </button>
         </TooltipTrigger>
         <TooltipContent>
           <p>{name}</p>
