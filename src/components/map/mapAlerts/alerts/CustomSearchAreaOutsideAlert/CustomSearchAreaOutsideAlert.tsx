@@ -65,6 +65,7 @@ const PolygonOutsideAlert = () => {
     return () => {
       map.off("moveend", onMoveEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customSearchArea, map]);
 
   return (

@@ -36,6 +36,7 @@ const ResultsOutsideAlert = () => {
 
   useEffect(() => {
     !geoJSON && setShowAlert(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geoJSON]);
 
   useEffect(() => {
@@ -74,6 +75,7 @@ const ResultsOutsideAlert = () => {
     return () => {
       map.off("moveend", onMoveEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customSearchArea, map, geoJSON]);
 
   return (

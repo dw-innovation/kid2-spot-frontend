@@ -62,6 +62,7 @@ const Globe = ({
     });
     setTimeout(() => (currentCanvas.style.opacity = "0.6"));
     return () => globe.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [r]);
 
   return (
