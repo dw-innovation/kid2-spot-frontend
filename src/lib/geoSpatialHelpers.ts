@@ -5,7 +5,7 @@ import { LatLng } from "leaflet";
 type BoundingBox = [number, number, number, number];
 type Coordinate = [number, number];
 
-interface Bounds {
+type Bounds = {
   _southWest: {
     lat: number;
     lng: number;
@@ -14,7 +14,7 @@ interface Bounds {
     lat: number;
     lng: number;
   };
-}
+};
 
 export const isPolygonWithinBoundingBox = (
   polygon: [number, number][],
