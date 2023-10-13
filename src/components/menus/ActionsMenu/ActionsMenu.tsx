@@ -3,7 +3,6 @@ import {
   DownloadIcon,
   LightningBoltIcon,
   Share1Icon,
-  TrashIcon,
   UploadIcon,
 } from "@radix-ui/react-icons";
 import React, { useState } from "react";
@@ -33,7 +32,6 @@ import useStreetViewStore from "@/stores/useStreetViewStore";
 const ActionsMenu = () => {
   const {
     actionMenuTrigger,
-    actionMenuClearResults,
     actionMenuDownloadResults,
     actionMenuLoadSession,
     actionMenuResultsTitle,
@@ -41,10 +39,7 @@ const ActionsMenu = () => {
     actionMenuShareSession,
     actionMenuSessionTitle,
   } = useStrings();
-  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const geoJSON = useResultsStore((state) => state.geoJSON);
-  const clearSets = useResultsStore((state) => state.clearSets);
-  const clearSpots = useResultsStore((state) => state.clearSpots);
   const isGeoJSONAvailable = Boolean(geoJSON);
   const [open, setOpen] = useState(false);
   const { setOpen: setMenuOpen } = useMenu();
@@ -63,14 +58,6 @@ const ActionsMenu = () => {
 
   const ShareSessionIcon =
     apiStatus === "loading" ? <LoadingSpinner /> : <Share1Icon />;
-
-  const handleClearResults = () => {
-    clearGeoJSON();
-    clearSets();
-    clearSpots();
-    setOpen(false);
-    setMenuOpen(false);
-  };
 
   return (
     <DropdownMenu
@@ -122,13 +109,6 @@ const ActionsMenu = () => {
         <DropdownMenuLabel className="uppercase">
           {actionMenuResultsTitle()}
         </DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={handleClearResults}
-          disabled={!isGeoJSONAvailable}
-        >
-          <TrashIcon />
-          {actionMenuClearResults()}
-        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             toggleDialog("downloadResults");
