@@ -5,8 +5,11 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import "allotment/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Head from "next/head";
+import { ToastContainer } from "react-toastify";
+
+import ErrorAlert from "@/components/ErrorAlert";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,9 +17,19 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-import { ToastContainer } from "react-toastify";
-
-import ErrorAlert from "@/components/ErrorAlert";
+export const metadata: Metadata = {
+  title: "Spot - The best way to find your spot",
+  description: "Description",
+  icons: [
+    {
+      url: "/icon?<generated>",
+      sizes: "32x32",
+      type: "image/png",
+    },
+  ],
+  viewport:
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0", // prevent zooming on mobile
+};
 
 export default function RootLayout({
   children,
@@ -25,14 +38,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <Head>
-        <link
-          rel="icon"
-          href="/icon?<generated>"
-          type="image/png"
-          sizes="32x32"
-        />
-      </Head>
       <body>
         <ErrorAlert />
         <ToastContainer
