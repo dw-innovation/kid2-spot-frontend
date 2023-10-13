@@ -30,7 +30,7 @@ const Popup = ({ feature }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-2">
+    <div className="flex flex-col w-full gap-2 !font-sans">
       <FeatureInfo feature={feature} />
       <hr />
       <Button onClick={handleClick} variant={"secondary"}>
