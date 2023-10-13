@@ -47,7 +47,7 @@ const Select = ({
         setSelectedValue(option);
         onSelect(newValue);
       }}
-      className={cn(`w-full text-sm ${className}`)}
+      className={cn(`w-full text-sm !font-sans ${className}`)}
       isDisabled={options.length === 0}
       components={{
         IndicatorSeparator: () => null,
