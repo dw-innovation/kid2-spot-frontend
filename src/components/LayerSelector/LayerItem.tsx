@@ -18,14 +18,17 @@ const IMAGES = [
   {
     type: "vector",
     image: VectorIconImage,
+    alt: "Vector Map Layer",
   },
   {
     type: "mapTilerHybrid",
     image: MapTilerHybridImage,
+    alt: "MapTiler Hybrid Map Layer",
   },
   {
     type: "osm",
     image: OSMIconImage,
+    alt: "OSM Map Layer",
   },
 ];
 
@@ -66,9 +69,11 @@ const LayerItem = ({ value, name }: Props) => {
               objectFit="contain"
               className={cn(
                 "border-2 shadow-lg rounded-lg",
-                currentTilesLayer === value ? "border-primary" : "border-white"
+                currentTilesLayer === value
+                  ? "border-primary"
+                  : "border-white hover:border-secondary"
               )}
-              alt={""}
+              alt={IMAGES.find((image) => image.type === value)?.alt || ""}
             />
           </button>
         </TooltipTrigger>
