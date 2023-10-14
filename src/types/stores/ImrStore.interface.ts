@@ -1,10 +1,21 @@
-import { IntermediateRepresentation } from "@/types/imr";
+import { FilterNode, IntermediateRepresentation } from "@/types/imr";
 
 export default interface ImrStoreInterface {
   nlSentence: string;
   setNlSentence: (nlSentence: string) => void;
   imr: IntermediateRepresentation;
   setImr: (imr: IntermediateRepresentation) => void;
+  updateFilter: (
+    nodeId: number,
+    filterIndexPath: number[],
+    updatedFilter: FilterNode
+  ) => void;
+  addFilter: (
+    nodeId: number,
+    filterIndexPath: number[],
+    newFilter: FilterNode
+  ) => void;
+  deleteFilter: (nodeId: number, filterIndexPath: number[]) => void;
   stringifiedImr: string;
   setStringifiedImr: (stringifiedImr: string) => void;
   addNWRNode: () => void;
@@ -23,17 +34,7 @@ export default interface ImrStoreInterface {
     value: string
   ) => void;
   setSearchArea: (type: string, value: string | number[]) => void;
-  addFilter: (setId: number) => void;
-  removeFilter: (setId: number, filterId: number) => void;
   setSetName: (setId: number, name: string) => void;
-  setRelationValue: (
-    index: number,
-    key: string,
-    value: string | number
-  ) => void;
-  removeRelation: (index: number) => void;
-  addContainsRelation: () => void;
-  addDistanceRelation: () => void;
   setClusterProp: (id: number, key: string, value: number | string) => void;
   initialize: (initialData: any) => void;
 }

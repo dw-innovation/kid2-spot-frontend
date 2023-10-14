@@ -4,12 +4,97 @@ import { create } from "zustand";
 
 import {
   Edge,
-  Filter,
+  FilterNode,
   IntermediateRepresentation,
+  LogicFilter,
+  LogicOperator,
   Node,
   NWR,
 } from "@/types/imr";
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
+
+const updateNestedFilter = (
+  filters: FilterNode[],
+  filterIndexPath: number[],
+  updatedFilter: FilterNode
+): FilterNode[] => {
+  const [index, ...remainingIndexPath] = filterIndexPath;
+
+  if (typeof index === "undefined") {
+    return filters;
+  }
+
+  return filters.map((filter, i) => {
+    if (i !== index) return filter;
+
+    if (remainingIndexPath.length === 0) {
+      return updatedFilter;
+    }
+
+    const logicFilter = filter as LogicFilter;
+    const operator: LogicOperator = logicFilter.and ? "and" : "or";
+
+    return {
+      [operator]: updateNestedFilter(
+        logicFilter[operator]!,
+        remainingIndexPath,
+        updatedFilter
+      ),
+    };
+  });
+};
+
+const deleteNestedFilter = (
+  filters: FilterNode[],
+  filterIndexPath: number[]
+): FilterNode[] => {
+  if (filterIndexPath.length === 1) {
+    return filters.filter((_, i) => i !== filterIndexPath[0]);
+  }
+
+  const [index, ...remainingIndexPath] = filterIndexPath;
+
+  return filters.map((filter, i) => {
+    if (i !== index) return filter;
+
+    const logicFilter = filter as LogicFilter;
+    const operator: LogicOperator = logicFilter.and ? "and" : "or";
+
+    return {
+      [operator]: deleteNestedFilter(
+        logicFilter[operator]!,
+        remainingIndexPath
+      ),
+    };
+  });
+};
+
+const addNestedFilter = (
+  filters: FilterNode[],
+  filterIndexPath: number[],
+  newFilter: FilterNode
+): FilterNode[] => {
+  if (filterIndexPath.length === 0) {
+    return [...filters, newFilter];
+  }
+
+  const [index, ...remainingIndexPath] = filterIndexPath;
+
+  return filters.map((filter, i) => {
+    if (i !== index) return filter;
+
+    const logicFilter = filter as LogicFilter;
+    const operator: LogicOperator = logicFilter.and ? "and" : "or";
+
+    return {
+      [operator]: addNestedFilter(
+        logicFilter[operator]!,
+        remainingIndexPath,
+        newFilter
+      ),
+    };
+  });
+};
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
   nlSentence: "",
@@ -46,6 +131,15 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
                 operator: "=",
                 value: "hotel",
               },
+              {
+                and: [
+                  {
+                    key: "tourism",
+                    operator: "=",
+                    value: "motel",
+                  },
+                ],
+              },
             ],
           },
         ],
@@ -74,6 +168,48 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
         draft.imr = updatedImr;
       })
     );
+  },
+  updateFilter: (nodeId, filterIndexPath, updatedFilter) => {
+    set((state) => {
+      const nodes = state.imr.nodes.map((node) => {
+        if (node.id !== nodeId) return node;
+
+        const updatedFilters = updateNestedFilter(
+          node.filters,
+          filterIndexPath,
+          updatedFilter
+        );
+        return {
+          ...node,
+          filters: updatedFilters,
+        };
+      });
+
+      return { imr: { ...state.imr, nodes } };
+    });
+  },
+  addFilter: (
+    nodeId: number,
+    filterIndexPath: number[],
+    newFilter: FilterNode
+  ) => {
+    set((state) => {
+      const nodes = state.imr.nodes.map((node) => {
+        if (node.id !== nodeId) return node;
+
+        const updatedFilters = addNestedFilter(
+          node.filters,
+          filterIndexPath,
+          newFilter
+        );
+        return {
+          ...node,
+          filters: updatedFilters,
+        };
+      });
+
+      return { imr: { ...state.imr, nodes } };
+    });
   },
   setSearchArea: (type: string, value: string | number[]) => {
     set(
@@ -199,73 +335,29 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
-  addFilter: (setId) => {
-    set(
-      produce((draft) => {
-        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
-        draft.imr.nodes[set].filters.push({
-          k: "",
-          v: "",
-          op: "=",
-          n: "",
-        });
-      })
-    );
-  },
-  removeFilter: (setId, filterId) => {
-    set(
-      produce((draft) => {
-        let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
-        draft.imr.nodes[set].filters = draft.imr.nodes[set].filters.filter(
-          (_: Filter, index: number) => index !== filterId
+  deleteFilter: (nodeId: number, filterIndexPath: number[]) => {
+    set((state) => {
+      const nodes = state.imr.nodes.map((node) => {
+        if (node.id !== nodeId) return node;
+
+        const updatedFilters = deleteNestedFilter(
+          node.filters,
+          filterIndexPath
         );
-      })
-    );
+        return {
+          ...node,
+          filters: updatedFilters,
+        };
+      });
+
+      return { imr: { ...state.imr, nodes } };
+    });
   },
   setSetName: (setId, name) => {
     set(
       produce((draft) => {
         let set = draft.imr.nodes.findIndex((set: NWR) => set.id === setId);
         draft.imr.nodes[set].n = name;
-      })
-    );
-  },
-  setRelationValue: (index, key, value) => {
-    set(
-      produce((draft) => {
-        draft.imr.edges[index][key] = value;
-      })
-    );
-  },
-  removeRelation: (index) => {
-    set(
-      produce((draft) => {
-        draft.imr.edges.slice(index, 1);
-      })
-    );
-  },
-  addContainsRelation: () => {
-    set(
-      produce((draft) => {
-        draft.imr.edges.push({
-          id: draft.imr.edges.length + 1,
-          source: 1,
-          target: 2,
-          type: "cnt",
-        });
-      })
-    );
-  },
-  addDistanceRelation: () => {
-    set(
-      produce((draft) => {
-        draft.imr.edges.push({
-          id: draft.imr.edges.length + 1,
-          source: 1,
-          target: 2,
-          type: "dist",
-          distance: "50m",
-        });
       })
     );
   },
