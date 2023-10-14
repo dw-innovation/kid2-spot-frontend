@@ -131,3 +131,24 @@ export const getSession = async (id: string) => {
   );
   return { props: { data: res.data.data } };
 };
+
+export const getOSMValueOptions = async (key: string) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values`,
+    {
+      params: {
+        key: key,
+        page: 1,
+        rp: 100,
+        sortname: "count_ways",
+        sortorder: "desc",
+      },
+    }
+  );
+  console.log(res.data.data);
+  let options = res.data.data.map((option: any) => ({
+    label: option.value,
+    value: option.value,
+  }));
+  return options;
+};
