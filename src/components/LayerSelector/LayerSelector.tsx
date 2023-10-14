@@ -45,7 +45,7 @@ const LayerSelector = () => {
     LAYERS.map((_, index) => {
       return {
         transform: isOpen
-          ? `translateX(${(index + 1) * 20}%)`
+          ? `translateX(${(index + 1) * 15}%)`
           : `translateX(-${(index + 1) * 100}%)`,
         opacity: isOpen ? 1 : 0,
         height: "40px",
