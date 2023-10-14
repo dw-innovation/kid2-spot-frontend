@@ -89,7 +89,6 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     { name: "downloadResults", isOpen: false },
     { name: "saveSession", isOpen: false },
     { name: "loadSession", isOpen: false },
-    { name: "filters", isOpen: false },
     { name: "imr", isOpen: false },
     { name: "error", isOpen: false },
     { name: "stepperError", isOpen: false },
