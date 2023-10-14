@@ -35,7 +35,7 @@ const OSMQuerySubmit = () => {
       asChild
     >
       <div className="flex items-center w-full">
-        <span className="text-green-600">
+        <span className="text-white">
           {apiStatus === "loading" ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
