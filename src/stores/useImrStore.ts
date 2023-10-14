@@ -361,6 +361,13 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
+  setRelationValue: (index, key, value) => {
+    set(
+      produce((draft) => {
+        draft.imr.edges[index][key] = value;
+      })
+    );
+  },
   setClusterProp: (id, key, value) => {
     set(
       produce((draft) => {

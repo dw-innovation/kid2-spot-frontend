@@ -35,6 +35,11 @@ export default interface ImrStoreInterface {
   ) => void;
   setSearchArea: (type: string, value: string | number[]) => void;
   setSetName: (setId: number, name: string) => void;
+  setRelationValue: (
+    index: number,
+    key: string,
+    value: string | number
+  ) => void;
   setClusterProp: (id: number, key: string, value: number | string) => void;
   initialize: (initialData: any) => void;
 }
