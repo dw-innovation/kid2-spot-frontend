@@ -12,8 +12,7 @@ import {
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
-  nlSentence:
-    "Find all hotels not more than 200m from a train station in Köln.",
+  nlSentence: "",
   setNlSentence: (nlSentence: string) => {
     set(
       produce((draft) => {
