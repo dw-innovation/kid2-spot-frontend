@@ -31,7 +31,7 @@ const Relations = () => {
                     <span className="capitalize">
                       {findNameById(edge.target)}
                     </span>
-                    : {edge.distance}
+                    : <strong>{edge.distance}</strong>
                   </div>
                   <Slider
                     max={2000}
