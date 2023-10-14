@@ -33,7 +33,7 @@ export const saveSession = async (
       data: combinedStoreData,
     });
     navigator.clipboard.writeText(
-      `${window.location.origin}/map/${response.data.id}`
+      `${window.location.origin}/${response.data.id}`
     );
     toast.success("Share link copied to clipboard!");
   } catch (error) {

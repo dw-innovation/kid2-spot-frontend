@@ -1,6 +1,7 @@
 "use client";
 
 import DownloadResultsDialog from "./DownloadResultsDialog";
+import EntityFilters from "./EntityFilters";
 import ErrorDialog from "./ErrorDialog";
 import FiltersDialog from "./FiltersDialog";
 import ImrDialog from "./ImrDialog";
@@ -23,6 +24,7 @@ const Dialogs = () => (
     <QueryOSMDialog />
     <InputStepperDialog />
     <InfoDialog />
+    <EntityFilters />
   </>
 );
 
