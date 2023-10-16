@@ -79,7 +79,7 @@ const EntityFilters = () => {
           onClick={() => handleAddFilter(filterIndexPath)}
           className="w-fit"
           variant={"secondary"}
-          size={"sm"}
+          size={"fit"}
         >
           <PlusIcon />
           Add Filter
@@ -88,7 +88,7 @@ const EntityFilters = () => {
           onClick={() => handleAddLogicFilter(filterIndexPath, "and")}
           className="w-fit"
           variant={"secondary"}
-          size={"sm"}
+          size={"fit"}
         >
           <PlusIcon />
           Add AND Filter
@@ -97,7 +97,7 @@ const EntityFilters = () => {
           onClick={() => handleAddLogicFilter(filterIndexPath, "or")}
           className="w-fit"
           variant={"secondary"}
-          size={"sm"}
+          size={"fit"}
         >
           <PlusIcon />
           Add OR Filter
