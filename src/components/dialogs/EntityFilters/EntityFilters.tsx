@@ -102,6 +102,14 @@ const EntityFilters = () => {
           <PlusIcon />
           Add OR Filter
         </Button>
+        <Button
+          onClick={() => handleDeleteFilter(filterIndexPath)}
+          variant={"secondary"}
+          className="w-fit"
+          size={"fit"}
+        >
+          <TrashIcon />
+        </Button>
       </div>
       {filters.map((filter, index) => {
         const currentFilterIndexPath = [...filterIndexPath, index];
@@ -117,51 +125,56 @@ const EntityFilters = () => {
           );
         } else {
           return (
-            <div key={index} className="flex gap-1">
-              <Select
-                value={filter.key}
-                className="w-36 z-[100000]"
-                onSelect={(value) =>
-                  updateFilter(0, currentFilterIndexPath, {
-                    ...filter,
-                    key: value,
-                  })
-                }
-                options={ALLOWED_TAGS}
-              />
-              <Select
-                value={filter.operator}
-                className="w-36"
-                onSelect={(value) =>
-                  updateFilter(0, currentFilterIndexPath, {
-                    ...filter,
-                    operator: value as "=" | "<" | ">" | "~",
-                  })
-                }
-                options={[
-                  { label: "=", value: "=" },
-                  { label: "<", value: "<" },
-                  { label: ">", value: ">" },
-                  { label: "~", value: "~" },
-                ]}
-              />
+            <div
+              key={index}
+              className="flex items-center justify-between w-full gap-1"
+            >
+              <div className="flex gap-1">
+                <Select
+                  value={filter.key}
+                  className="w-36 z-[100000]"
+                  onSelect={(value) =>
+                    updateFilter(0, currentFilterIndexPath, {
+                      ...filter,
+                      key: value,
+                    })
+                  }
+                  options={ALLOWED_TAGS}
+                />
+                <Select
+                  value={filter.operator}
+                  className="w-36"
+                  onSelect={(value) =>
+                    updateFilter(0, currentFilterIndexPath, {
+                      ...filter,
+                      operator: value as "=" | "<" | ">" | "~",
+                    })
+                  }
+                  options={[
+                    { label: "=", value: "=" },
+                    { label: "<", value: "<" },
+                    { label: ">", value: ">" },
+                    { label: "~", value: "~" },
+                  ]}
+                />
 
-              <Select
-                value={filter.value}
-                className="w-36"
-                onSelect={(value) =>
-                  updateFilter(0, currentFilterIndexPath, {
-                    ...filter,
-                    value: value,
-                  })
-                }
-                options={
-                  (osmValueOptions[filter.key] as {
-                    label: string;
-                    value: string;
-                  }[]) || []
-                }
-              />
+                <Select
+                  value={filter.value}
+                  className="w-36"
+                  onSelect={(value) =>
+                    updateFilter(0, currentFilterIndexPath, {
+                      ...filter,
+                      value: value,
+                    })
+                  }
+                  options={
+                    (osmValueOptions[filter.key] as {
+                      label: string;
+                      value: string;
+                    }[]) || []
+                  }
+                />
+              </div>
 
               <Button
                 onClick={() => handleDeleteFilter(filterIndexPath)}
