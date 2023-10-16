@@ -15,7 +15,7 @@ const MenuItems = () => {
       <ActionsMenu />
       <Button onClick={() => toggleDialog("imr")} variant={"outline"}>
         <Pencil1Icon />
-        <span>IMR</span>
+        <span>Query</span>
       </Button>
     </div>
   );
