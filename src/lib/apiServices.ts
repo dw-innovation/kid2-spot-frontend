@@ -145,7 +145,6 @@ export const getOSMValueOptions = async (key: string) => {
       },
     }
   );
-  console.log(res.data.data);
   let options = res.data.data.map((option: any) => ({
     label: option.value,
     value: option.value,
