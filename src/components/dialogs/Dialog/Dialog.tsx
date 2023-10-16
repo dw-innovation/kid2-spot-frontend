@@ -39,7 +39,7 @@ const Dialog = ({
     <RadixDialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
       <DialogContent
         className={cn(
-          "sm:max-w-[425px] z-[20000] max-h-[90vh] overflow-y-auto",
+          "sm:max-w-[425px] z-[20000] max-h-[90vh] overflow-hidden",
           className
         )}
       >

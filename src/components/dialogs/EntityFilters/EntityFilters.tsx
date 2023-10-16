@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 
 import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getOSMValueOptions } from "@/lib/apiServices";
+import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
 import useImrStore from "@/stores/useImrStore";
 import { Filter, FilterNode, LogicFilter, LogicOperator } from "@/types/imr";
 
@@ -17,6 +17,7 @@ const EntityFilters = () => {
   const updateFilter = useImrStore((state) => state.updateFilter);
   const addFilter = useImrStore((state) => state.addFilter);
   const deleteFilter = useImrStore((state) => state.deleteFilter);
+  const addLogicFilter = useImrStore((state) => state.addLogicFilter);
 
   const [osmValueOptions, setOsmValueOptions] = useState<
     Record<string, { label: string; value: string }[]>
@@ -61,20 +62,47 @@ const EntityFilters = () => {
     deleteFilter(0, filterIndexPath);
   };
 
+  const handleAddLogicFilter = (
+    filterIndexPath: number[],
+    logicType: LogicOperator
+  ) => {
+    addLogicFilter(0, filterIndexPath, logicType);
+  };
+
   const renderFilters = (
     filters: FilterNode[],
     filterIndexPath: number[] = []
   ) => (
     <div className="flex flex-col gap-1">
-      <Button
-        onClick={() => handleAddFilter(filterIndexPath)}
-        className="w-fit"
-        variant={"secondary"}
-        size={"sm"}
-      >
-        <PlusIcon />
-        Add Filter
-      </Button>
+      <div className="flex gap-2">
+        <Button
+          onClick={() => handleAddFilter(filterIndexPath)}
+          className="w-fit"
+          variant={"secondary"}
+          size={"sm"}
+        >
+          <PlusIcon />
+          Add Filter
+        </Button>
+        <Button
+          onClick={() => handleAddLogicFilter(filterIndexPath, "and")}
+          className="w-fit"
+          variant={"secondary"}
+          size={"sm"}
+        >
+          <PlusIcon />
+          Add AND Filter
+        </Button>
+        <Button
+          onClick={() => handleAddLogicFilter(filterIndexPath, "or")}
+          className="w-fit"
+          variant={"secondary"}
+          size={"sm"}
+        >
+          <PlusIcon />
+          Add OR Filter
+        </Button>
+      </div>
       {filters.map((filter, index) => {
         const currentFilterIndexPath = [...filterIndexPath, index];
         if (isLogicFilter(filter)) {
@@ -90,17 +118,16 @@ const EntityFilters = () => {
         } else {
           return (
             <div key={index} className="flex gap-1">
-              <Input
-                size={10}
-                className="w-fit"
-                type="text"
+              <Select
                 value={filter.key}
-                onChange={(e) =>
+                className="w-36 z-[100000]"
+                onSelect={(value) =>
                   updateFilter(0, currentFilterIndexPath, {
                     ...filter,
-                    key: e.target.value,
+                    key: value,
                   })
                 }
+                options={ALLOWED_TAGS}
               />
               <Select
                 value={filter.operator}

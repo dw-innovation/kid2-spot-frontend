@@ -1,4 +1,8 @@
-import { FilterNode, IntermediateRepresentation } from "@/types/imr";
+import {
+  FilterNode,
+  IntermediateRepresentation,
+  LogicOperator,
+} from "@/types/imr";
 
 export default interface ImrStoreInterface {
   nlSentence: string;
@@ -16,6 +20,11 @@ export default interface ImrStoreInterface {
     newFilter: FilterNode
   ) => void;
   deleteFilter: (nodeId: number, filterIndexPath: number[]) => void;
+  addLogicFilter: (
+    nodeId: number,
+    filterIndexPath: number[],
+    logicType: LogicOperator
+  ) => void;
   stringifiedImr: string;
   setStringifiedImr: (stringifiedImr: string) => void;
   addNWRNode: () => void;

@@ -96,6 +96,33 @@ const addNestedFilter = (
   });
 };
 
+const addLogicFilterAtPath = (
+  filters: FilterNode[],
+  filterIndexPath: number[],
+  newLogicFilter: LogicFilter
+): FilterNode[] => {
+  if (filterIndexPath.length === 0) {
+    return [newLogicFilter, ...filters];
+  }
+
+  const [index, ...remainingIndexPath] = filterIndexPath;
+
+  return filters.map((filter, i) => {
+    if (i !== index) return filter;
+
+    const logicFilter = filter as LogicFilter;
+    const operator: LogicOperator = logicFilter.and ? "and" : "or";
+
+    return {
+      [operator]: addLogicFilterAtPath(
+        logicFilter[operator]!,
+        remainingIndexPath,
+        newLogicFilter
+      ),
+    };
+  });
+};
+
 const useImrStore = create<ImrStoreInterface>((set) => ({
   nlSentence: "",
   setNlSentence: (nlSentence: string) => {
@@ -353,6 +380,33 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       return { imr: { ...state.imr, nodes } };
     });
   },
+  addLogicFilter: (
+    nodeId: number,
+    filterIndexPath: number[],
+    logicType: LogicOperator
+  ) => {
+    set((state) => {
+      const nodes = state.imr.nodes.map((node) => {
+        if (node.id !== nodeId) return node;
+
+        const newLogicFilter: LogicFilter = { [logicType]: [] };
+
+        const updatedFilters = addLogicFilterAtPath(
+          node.filters,
+          filterIndexPath,
+          newLogicFilter
+        );
+
+        return {
+          ...node,
+          filters: updatedFilters,
+        };
+      });
+
+      return { imr: { ...state.imr, nodes } };
+    });
+  },
+
   setSetName: (setId, name) => {
     set(
       produce((draft) => {
