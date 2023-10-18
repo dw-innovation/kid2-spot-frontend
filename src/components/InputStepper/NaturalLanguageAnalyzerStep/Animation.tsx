@@ -33,7 +33,7 @@ const AnalyzeAnimation = () => {
   }, [index]);
 
   return (
-    <animated.div style={props} className="text-center">
+    <animated.div style={props} className="leading-3 text-center">
       {SENTENCES[index]}
     </animated.div>
   );
