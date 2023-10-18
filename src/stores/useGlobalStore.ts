@@ -94,8 +94,8 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     { name: "stepperError", isOpen: false },
     { name: "queryOSM", isOpen: false },
     { name: "inputStepper", isOpen: true },
-    { name: "info", isOpen: false },
-    { name: "entityFilters", isOpen: false },
+    { name: "info", isOpen: false, data: null },
+    { name: "entityFilters", isOpen: false, data: null },
   ],
   toggleDialog: (name: string, state: boolean | undefined = undefined) => {
     set(
@@ -105,6 +105,18 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
         );
         if (dialog) {
           dialog.isOpen = state !== undefined ? state : !dialog.isOpen;
+        }
+      })
+    );
+  },
+  setDialogData: (name: string, data: any) => {
+    set(
+      produce((draft) => {
+        const dialog = draft.dialogs.find(
+          (dialog: { name: string }) => dialog.name === name
+        );
+        if (dialog) {
+          dialog.data = data;
         }
       })
     );

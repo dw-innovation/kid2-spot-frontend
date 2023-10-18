@@ -5,6 +5,7 @@ import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { getOSMValueOptions } from "@/lib/apiServices";
 import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import { Filter, FilterNode, LogicFilter, LogicOperator } from "@/types/imr";
 
@@ -13,7 +14,15 @@ import Dialog from "../Dialog";
 const DIALOG_NAME = "entityFilters";
 
 const EntityFilters = () => {
-  const filters = useImrStore((state) => state.imr.nodes[0].filters);
+  const dialogs = useGlobalStore((state) => state.dialogs);
+
+  const dialogData = dialogs.find(
+    (dialog) => dialog.name === DIALOG_NAME
+  )?.data;
+
+  const filters = useImrStore(
+    (state) => state.imr.nodes[dialogData?.id || 0].filters
+  );
   const updateFilter = useImrStore((state) => state.updateFilter);
   const addFilter = useImrStore((state) => state.addFilter);
   const deleteFilter = useImrStore((state) => state.deleteFilter);
@@ -55,18 +64,18 @@ const EntityFilters = () => {
       value: "newValue",
       operator: "=",
     };
-    addFilter(0, filterIndexPath, newFilter);
+    addFilter(dialogData?.id, filterIndexPath, newFilter);
   };
 
   const handleDeleteFilter = (filterIndexPath: number[]) => {
-    deleteFilter(0, filterIndexPath);
+    deleteFilter(dialogData?.id, filterIndexPath);
   };
 
   const handleAddLogicFilter = (
     filterIndexPath: number[],
     logicType: LogicOperator
   ) => {
-    addLogicFilter(0, filterIndexPath, logicType);
+    addLogicFilter(dialogData?.id, filterIndexPath, logicType);
   };
 
   const renderFilters = (
@@ -141,6 +150,7 @@ const EntityFilters = () => {
                   }
                   options={ALLOWED_TAGS}
                 />
+
                 <Select
                   value={filter.operator}
                   className="w-36"
@@ -162,7 +172,7 @@ const EntityFilters = () => {
                   value={filter.value}
                   className="w-36"
                   onSelect={(value) =>
-                    updateFilter(0, currentFilterIndexPath, {
+                    updateFilter(dialogData?.id, currentFilterIndexPath, {
                       ...filter,
                       value: value,
                     })

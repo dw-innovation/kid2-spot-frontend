@@ -8,11 +8,13 @@ type Props = {
   id: number;
 };
 
-const Entity = ({ name }: Props) => {
+const Entity = ({ name, id }: Props) => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   const handleEditClick = () => {
     toggleDialog("entityFilters");
+    setDialogData("entityFilters", { id: id });
   };
 
   return (
