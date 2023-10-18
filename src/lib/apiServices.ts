@@ -132,22 +132,35 @@ export const getSession = async (id: string) => {
   return { props: { data: res.data.data } };
 };
 
-export const getOSMValueOptions = async (key: string) => {
-  const res = await axios.get(
+const fetchOSMValues = async (
+  key: string,
+  page: number,
+  resultsPerPage: number
+) => {
+  const response = await axios.get(
     `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values`,
     {
       params: {
-        key: key,
-        page: 1,
-        rp: 100,
+        key,
+        page,
+        rp: resultsPerPage,
         sortname: "count_ways",
         sortorder: "desc",
       },
     }
   );
-  let options = res.data.data.map((option: any) => ({
+  return response.data;
+};
+
+export const getOSMValueOptions = async (key: string) => {
+  const resultsPerPage = 999;
+
+  const initialData = await fetchOSMValues(key, 1, resultsPerPage);
+
+  let options = initialData.data.map((option: any) => ({
     label: option.value,
     value: option.value,
   }));
+
   return options;
 };
