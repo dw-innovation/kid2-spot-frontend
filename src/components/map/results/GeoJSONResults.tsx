@@ -3,7 +3,7 @@
 import * as L from "leaflet";
 import React, { FC, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { GeoJSON, GeoJSONProps, useMap } from "react-leaflet";
+import { GeoJSON, GeoJSONProps, Pane, useMap } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -42,7 +42,13 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     map.createPane("markerPane");
     const markerPane = map.getPane("markerPane");
     if (markerPane) {
-      markerPane.style.zIndex = "500";
+      markerPane.style.zIndex = "600";
+    }
+
+    map.createPane("otherFeaturesPane");
+    const otherFeaturesPane = map.getPane("otherFeaturesPane");
+    if (otherFeaturesPane) {
+      otherFeaturesPane.style.zIndex = "400";
     }
   }, [map]);
 
@@ -147,6 +153,8 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     if (!feature) return {};
 
     const setIndex = getSetIndex(feature.properties?.set_name);
+    const paneName =
+      feature?.geometry?.type === "Point" ? "circlePane" : "otherFeaturesPane";
 
     return {
       fillColor: sets[setIndex].fillColor,
@@ -154,12 +162,15 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       weight: getWeight(setIndex, feature.properties?.osm_ids),
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
-      pane: "markerPane",
+      pane: paneName,
     };
   };
 
   return (
     <>
+      <Pane name="circlePane" style={{ zIndex: 500 }} />
+      <Pane name="otherFeaturesPane" style={{ zIndex: 400 }} />
+
       {geoJSON ? (
         <GeoJSON
           key={stableKey}
