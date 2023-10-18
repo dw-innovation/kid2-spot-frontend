@@ -3,7 +3,7 @@
 import * as L from "leaflet";
 import React, { FC, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { GeoJSON, GeoJSONProps, Pane, useMap } from "react-leaflet";
+import { GeoJSON, GeoJSONProps, Pane } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
@@ -19,8 +19,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const geoJSON = useResultsStore((state) => state.geoJSON);
   const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
-  const markerLayerGroup = useRef<L.LayerGroup | null>(null);
-  const map = useMap();
   const setStreetViewCoordinates = useStreetViewStore(
     (state) => state.setStreetViewCoordinates
   );
@@ -37,30 +35,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       }
     }
   }, [activeSpot, spots]);
-
-  useEffect(() => {
-    map.createPane("markerPane");
-    const markerPane = map.getPane("markerPane");
-    if (markerPane) {
-      markerPane.style.zIndex = "600";
-    }
-
-    map.createPane("otherFeaturesPane");
-    const otherFeaturesPane = map.getPane("otherFeaturesPane");
-    if (otherFeaturesPane) {
-      otherFeaturesPane.style.zIndex = "400";
-    }
-  }, [map]);
-
-  useEffect(() => {
-    if (markerLayerGroup.current) {
-      markerLayerGroup.current.eachLayer((layer) => {
-        if ("bringToFront" in layer) {
-          (layer as L.Path).bringToFront();
-        }
-      });
-    }
-  }, [geoJSON]);
 
   const getSetIndex = (setName: string | undefined) => {
     return sets.findIndex((set) => set.name === setName);
@@ -109,7 +83,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       weight: 5,
       opacity: 1,
       fillOpacity: getSetFillOpacity(setIndex),
-      pane: "markerPane",
     };
     return L.circleMarker(latlng, markerOptions);
   };
@@ -154,7 +127,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
     const setIndex = getSetIndex(feature.properties?.set_name);
     const paneName =
-      feature?.geometry?.type === "Point" ? "circlePane" : "otherFeaturesPane";
+      feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
     return {
       fillColor: sets[setIndex].fillColor,
@@ -168,8 +141,8 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   return (
     <>
-      <Pane name="circlePane" style={{ zIndex: 500 }} />
-      <Pane name="otherFeaturesPane" style={{ zIndex: 400 }} />
+      <Pane name="circleMarkers" style={{ zIndex: 500 }} />
+      <Pane name="polygons" style={{ zIndex: 400 }} />
 
       {geoJSON ? (
         <GeoJSON
