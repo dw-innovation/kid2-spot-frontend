@@ -6,15 +6,15 @@ import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { fetchOSMData } from "@/lib/apiServices";
 import useApiStatus from "@/lib/hooks/useApiStatus";
-import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { setResults } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
+
+import QueryAnimation from "../Animation";
 
 const OSMQueryStep = () => {
   const router = useRouter();
   const { setAnimateOut } = useInputStepper();
   const [, fetchData] = useApiStatus(fetchOSMData);
-  const elapsedTime = useElapsedTime(true, "loading");
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
@@ -37,8 +37,16 @@ const OSMQueryStep = () => {
       title="Querying OpenStreetMap"
       shouldUnmount={shouldUnmount}
     >
+      <QueryAnimation
+        sentences={[
+          "Constructing your query",
+          "Finding all nodes and ways",
+          "Filtering by relations",
+          "Just a moment, we're close to finishing!",
+        ]}
+        duration={4000}
+      />
       <LoadingSpinner size="2.5rem" />
-      {elapsedTime} {elapsedTime === 1 ? `second` : `seconds`}
     </InputContainer>
   );
 };
