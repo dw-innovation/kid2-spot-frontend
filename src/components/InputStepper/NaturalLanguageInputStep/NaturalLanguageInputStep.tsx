@@ -3,13 +3,13 @@
 import { SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import SpotLogo from "@/assets/icons/SpotLogo";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
 import InputContainer from "../InputContainer";
-import SpotLogo from "@/assets/icons/SpotLogo";
 
 const PLACEHOLDERS = [
   "Find all restaurants that are no more than 200m away from a bus stop in Berlin.",
