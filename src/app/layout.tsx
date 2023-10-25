@@ -19,8 +19,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Spot - The best way to find your spot",
-  description: "Description",
+  title: "Spot - The easy way to find locations",
+  description:
+    "Spot is a tool for finding combinations of objects in the public space world-wide.",
   icons: [
     {
       url: "/icon?<generated>",
