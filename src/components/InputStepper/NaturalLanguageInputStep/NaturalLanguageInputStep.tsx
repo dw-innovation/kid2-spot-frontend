@@ -9,6 +9,7 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
 import InputContainer from "../InputContainer";
+import SpotLogo from "@/assets/icons/SpotLogo";
 
 const PLACEHOLDERS = [
   "Find all restaurants that are no more than 200m away from a bus stop in Berlin.",
@@ -111,9 +112,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
         <div className="flex flex-col w-full gap-5">
           {!minimal && (
             <div className="flex flex-col items-start w-full gap-2">
-              <h1 className="pb-1 text-2xl font-bold leading-none font-inter">
-                Spot
-              </h1>
+              <SpotLogo />
               <h2 className="pb-1 font-semibold leading-none text-center text-md font-inter text-muted-foreground ">
                 Geospatial search for OpenStreetMap
               </h2>
