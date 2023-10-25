@@ -16,13 +16,19 @@ const PLACEHOLDERS = [
   "Hey! I want to know all the malls in Hamburg where I can find an ALDI supermarket.",
 ];
 
-const NaturalLanguageInputStep = () => {
+type Props = {
+  minimal?: boolean;
+};
+
+const NaturalLanguageInputStep = ({ minimal }: Props) => {
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [typingActive, setTypingActive] = useState(true);
   const nextStep = useGlobalStore((state) => state.nextStep);
   const setNlSentence = useImrStore((state) => state.setNlSentence);
   const nlSentence = useImrStore((state) => state.nlSentence);
-  const handleSearchClick = () => {
+
+  const handleSearchTrigger = () => {
+    if (nlSentence === "") return;
     setShouldUnmount(true);
     setTimeout(() => {
       nextStep();
@@ -78,14 +84,41 @@ const NaturalLanguageInputStep = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const displayedText = `${currentText}${
     showCursor && typingActive ? "|" : ""
   }`;
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearchTrigger();
+    }
+  };
+
   return (
     <InputContainer shouldUnmount={shouldUnmount}>
       <div className="flex items-center justify-center w-full h-full overflow-hidden">
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex flex-col w-full gap-5">
+          {!minimal && (
+            <div className="flex flex-col items-start w-full gap-2">
+              <h1 className="pb-1 text-2xl font-bold leading-none font-inter">
+                Spot
+              </h1>
+              <h2 className="pb-1 font-semibold leading-none text-center text-md font-inter text-muted-foreground ">
+                Geospatial search for OpenStreetMap
+              </h2>
+            </div>
+          )}
           <form
             onSubmit={(e) => e.preventDefault()}
             className="flex flex-col gap-2"
@@ -101,11 +134,12 @@ const NaturalLanguageInputStep = () => {
               }}
               onBlur={() => setTypingActive(true)}
               value={nlSentence}
+              onKeyDown={handleKeyPress}
             />
             <Button
-              onClick={handleSearchClick}
+              onClick={handleSearchTrigger}
               disabled={nlSentence === ""}
-              type="submit"
+              type="button"
             >
               <SearchIcon />
               Search
