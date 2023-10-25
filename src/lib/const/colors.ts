@@ -1,5 +1,5 @@
 export const FILL_COLORS = [
-  "#0096FA",
+  "#8E44AD",
   "#2980B9",
   "#27AE60",
   "#F0C000",
