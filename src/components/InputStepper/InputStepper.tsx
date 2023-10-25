@@ -29,10 +29,7 @@ const InputStepper = ({ minimal = false }: Props) => {
   const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
 
-  const CurrentStepComponent = useMemo(
-    () => STEPS[currentStep](),
-    [currentStep]
-  );
+  const CurrentStepComponent = useMemo(() => STEPS[currentStep], [currentStep]);
 
   useLayoutEffect(() => {
     if (stepRef.current) {
@@ -69,7 +66,7 @@ const InputStepper = ({ minimal = false }: Props) => {
         )}
         <div style={{ height: !minimal ? `${initialHeight + 100}px` : "auto" }}>
           <div ref={stepRef} className="w-full max-w-[32rem] overflow-y-auto">
-            {CurrentStepComponent}
+            {React.createElement(CurrentStepComponent, { minimal })}
           </div>
         </div>
       </div>
