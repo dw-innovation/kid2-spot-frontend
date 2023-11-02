@@ -2,6 +2,7 @@
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
+import SpotLogo from "@/assets/icons/SpotLogo";
 import SpotSelector from "@/components/SpotSelector";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,9 +25,12 @@ const Header = () => {
   return (
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
-        <h1 className="pb-1 text-2xl font-bold leading-none font-inter">
-          Spot
-        </h1>
+        <div className="flex items-end gap-5">
+          <SpotLogo />
+          <h2 className="pb-1 text-lg font-semibold leading-none font-inter text-muted-foreground ">
+            Geospatial search for OpenStreetMap
+          </h2>
+        </div>
         <div className="items-start hidden gap-2 md:flex">
           <SpotSelector />
           <MenuItems />

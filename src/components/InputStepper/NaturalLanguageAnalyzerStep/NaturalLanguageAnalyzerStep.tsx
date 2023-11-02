@@ -11,8 +11,8 @@ import useApiStatus from "@/lib/hooks/useApiStatus";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
+import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
-import AnalyzeAnimation from "./Animation";
 
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
@@ -47,7 +47,15 @@ const NaturalLanguageAnalyzerStep = () => {
       shouldUnmount={shouldUnmount}
       title="Analyzing your sentence"
     >
-      <AnalyzeAnimation />
+      <AnalyzeAnimation
+        sentences={[
+          "Identifying the area in your query",
+          "Determining all objects in your prompt",
+          "Analyzing the connections between the objects",
+          "Hang on, we're almost there!",
+        ]}
+        duration={2500}
+      />
       <LoadingSpinner size="2.5rem" />
     </InputContainer>
   );

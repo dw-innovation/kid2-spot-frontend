@@ -43,7 +43,9 @@ const Dialog = ({
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           {dialogDescription && (
-            <DialogDescription>{dialogDescription}</DialogDescription>
+            <DialogDescription
+              dangerouslySetInnerHTML={{ __html: dialogDescription }}
+            />
           )}
         </DialogHeader>
         {children}

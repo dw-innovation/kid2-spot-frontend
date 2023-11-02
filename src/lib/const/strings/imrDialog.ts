@@ -1,6 +1,6 @@
 export const STRINGS = {
   trigger: "IMR",
-  title: "Edit Intermediate Representation",
+  title: "Edit Spot Query",
   description:
-    "Manually edit the Intermediate Representation (IMR) of the query.",
+    "Manually edit the Spot Query. The query is a graph representation composed of nodes (with the respective OSM filters), edges (relations between the nodes) and an area to search in.",
 };

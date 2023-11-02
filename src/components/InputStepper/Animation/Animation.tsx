@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
-const SENTENCES = [
-  "Identifying the area in your query",
-  "Determining all objects in your prompt",
-  "Analyzing the connections between the objects",
-  "Hang on, we're almost there!",
-];
+type Props = {
+  sentences: string[];
+  duration: number;
+};
 
-const AnalyzeAnimation = () => {
+const AnalyzeAnimation = ({ sentences, duration }: Props) => {
   const [index, setIndex] = useState(0);
   const [key, setKey] = useState(0);
   const props = useSpring({
@@ -21,11 +19,11 @@ const AnalyzeAnimation = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (index < SENTENCES.length - 1) {
+      if (index < sentences.length - 1) {
         setIndex((prevIndex) => prevIndex + 1);
         setKey((prevKey) => prevKey + 1);
       }
-    }, 2500);
+    }, duration);
 
     return () => {
       clearInterval(timer);
@@ -33,8 +31,8 @@ const AnalyzeAnimation = () => {
   }, [index]);
 
   return (
-    <animated.div style={props} className="leading-3 text-center">
-      {SENTENCES[index]}
+    <animated.div style={props} className="leading-6 text-center">
+      {sentences[index]}
     </animated.div>
   );
 };
