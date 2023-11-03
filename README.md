@@ -9,7 +9,7 @@ The application requires the following environment variables to be set:
 - `APP_USER`: The username for authenticating with the application.
 - `APP_PASSWORD`: The password corresponding to the APP_USER for authenticating with the application. 
 - `ENVIRONMENT`: Specifies the environment in which the application is running. It could be set to development, staging, or production, for example.
-- `NEXT_PUBLIC_MAPTILER_KEY`: The API key needed for accessing Maptiler services. Required for rendering satellite layer.
+- `NEXT_PUBLIC_MAPBOX_KEY`: The API key needed for accessing Mapbox services. Required for rendering satellite layer.
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: The API key for integrating Google Maps into the application. This key allows you to use Google Maps' functionalities.
 - `NEXT_PUBLIC_OSM_API`: The API key for querying OpenStreetMap (OSM).
 - `NEXT_PUBLIC_NLP_API`: The API key for accessing any Natural Language Processing service that the application uses, for prompt to IMR translation.

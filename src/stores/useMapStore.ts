@@ -25,7 +25,7 @@ const useMapStore = create<MapStoreInterface>((set) => ({
     );
   },
   tilesLayer: "vector",
-  setTilesLayer: (newLayer: "vector" | "mapTilerHybrid" | "osm") => {
+  setTilesLayer: (newLayer: "vector" | "satellite" | "osm") => {
     set(
       produce((draft) => {
         draft.tilesLayer = newLayer;

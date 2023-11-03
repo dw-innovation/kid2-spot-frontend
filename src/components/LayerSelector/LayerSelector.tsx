@@ -21,7 +21,7 @@ const LAYERS = [
   },
   {
     name: "Hybrid Map",
-    value: "mapTilerHybrid",
+    value: "satellite",
   },
   {
     name: "OSM Style Map",
@@ -80,7 +80,7 @@ const LayerSelector = () => {
         {springs.map((props, index) => (
           <animated.div key={LAYERS[index].value} style={props}>
             <LayerItem
-              value={LAYERS[index].value as "vector" | "mapTilerHybrid" | "osm"}
+              value={LAYERS[index].value as "vector" | "satellite" | "osm"}
               name={LAYERS[index].name}
             />
           </animated.div>

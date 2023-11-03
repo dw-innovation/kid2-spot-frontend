@@ -2,8 +2,8 @@ import L from "leaflet";
 import Image from "next/image";
 import React, { useEffect } from "react";
 
-import MapTilerHybridImage from "@/assets/images/mapTilerHybrid.png";
 import OSMIconImage from "@/assets/images/osm.png";
+import SatelliteImage from "@/assets/images/satellite.png";
 import VectorIconImage from "@/assets/images/vector.png";
 import {
   Tooltip,
@@ -21,9 +21,9 @@ const IMAGES = [
     alt: "Vector Map Layer",
   },
   {
-    type: "mapTilerHybrid",
-    image: MapTilerHybridImage,
-    alt: "MapTiler Hybrid Map Layer",
+    type: "satellite",
+    image: SatelliteImage,
+    alt: "Satellite Layer",
   },
   {
     type: "osm",
@@ -33,7 +33,7 @@ const IMAGES = [
 ];
 
 type Props = {
-  value: "vector" | "mapTilerHybrid" | "osm";
+  value: "vector" | "satellite" | "osm";
   name: string;
 };
 
@@ -48,7 +48,7 @@ const LayerItem = ({ value, name }: Props) => {
     L.DomEvent.disableScrollPropagation(triggerRef.current);
   }, []);
 
-  const handleLayerItemClick = (value: "vector" | "mapTilerHybrid" | "osm") => {
+  const handleLayerItemClick = (value: "vector" | "satellite" | "osm") => {
     setTilesLayer(value);
   };
 

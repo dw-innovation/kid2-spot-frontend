@@ -42,9 +42,10 @@ const MapContainer = () => {
           {tilesLayer === "vector" && (
             <VectorTileLayer styleUrl={`/vectorStyles/style.json`} />
           )}
-          {tilesLayer === "mapTilerHybrid" && (
-            <VectorTileLayer
-              styleUrl={`https://api.maptiler.com/maps/hybrid/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
+          {tilesLayer === "satellite" && (
+            <TileLayer
+              url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/{z}/{x}/{y}?access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`}
+              attribution='© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             />
           )}
           <MapResizeHandler mapContainerRef={mapContainerRef} />
