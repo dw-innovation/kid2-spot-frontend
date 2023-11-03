@@ -2,8 +2,8 @@ import { LatLngLiteral } from "leaflet";
 
 export default interface MapStoreInterface {
   mapCenter: LatLngLiteral | undefined;
-  tilesLayer: "vector" | "mapTilerHybrid" | "osm";
-  setTilesLayer: (newLayer: "vector" | "mapTilerHybrid" | "osm") => void;
+  tilesLayer: "vector" | "satellite" | "osm";
+  setTilesLayer: (newLayer: "vector" | "satellite" | "osm") => void;
   mapZoom: number;
   setMapZoom: (mapZoom: number) => void;
   bounds: [number, number][];
