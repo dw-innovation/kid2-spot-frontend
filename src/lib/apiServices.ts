@@ -53,9 +53,9 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   try {
     const response = await axios({
       method: "GET",
-      url: `https://api.mapbox.com/geocoding/${address}.json`,
+      url: `https://api.maptiler.com/geocoding/${address}.json`,
       params: {
-        key: process.env.NEXT_PUBLIC_MAPBOX_KEY,
+        key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
         language: "en",
         limit: 10,
         types:
