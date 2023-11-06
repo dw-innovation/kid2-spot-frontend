@@ -35,7 +35,7 @@ const ResultsOutsideAlert = () => {
   };
 
   useEffect(() => {
-    !geoJSON && setShowAlert(false);
+    !geoJSON || (geoJSON.features.length === 0 && setShowAlert(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geoJSON]);
 
