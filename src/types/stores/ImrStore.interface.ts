@@ -42,8 +42,11 @@ export default interface ImrStoreInterface {
     key: string,
     value: string
   ) => void;
-  setSearchArea: (type: string, value: string | number[]) => void;
-  setSetName: (setId: number, name: string) => void;
+  setSearchArea: (
+    type: "area" | "polygon" | "bbox",
+    value: string | number[]
+  ) => void;
+  setNodeName: (nodeId: number, name: string) => void;
   setRelationValue: (
     index: number,
     key: string,
