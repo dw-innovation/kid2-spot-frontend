@@ -1,4 +1,3 @@
-import produce from "immer";
 import { create } from "zustand";
 
 import { initialIMR } from "@/lib/const/imr";
@@ -17,7 +16,6 @@ import {
   updateFilter,
   updateSearchArea,
 } from "@/lib/imr";
-import { Node } from "@/types/imr";
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
@@ -68,23 +66,25 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setNodeName: (nodeId, name) => {
     set((state) => ({ imr: setNodeName(state.imr, nodeId, name) }));
   },
-  setRelationValue: (index, key, value) => {
-    set(
-      produce((draft) => {
-        draft.imr.edges[index][key] = value;
-      })
-    );
-  },
-  setClusterProp: (id, key, value) => {
-    set(
-      produce((draft) => {
-        let cluster = draft.imr.nodes.findIndex(
-          (cluster: Node) => cluster.id === id
-        );
-        draft.imr.nodes[cluster][key] = value;
-      })
-    );
-  },
+  setRelationValue: (index, key, value) =>
+    set((state) => ({
+      imr: {
+        ...state.imr,
+        edges: state.imr.edges.map((edge, idx) =>
+          idx === index ? { ...edge, [key]: value } : edge
+        ),
+      },
+    })),
+  setClusterProp: (id, key, value) =>
+    set((state) => ({
+      imr: {
+        ...state.imr,
+        nodes: state.imr.nodes.map((node) =>
+          node.id === id ? { ...node, [key]: value } : node
+        ),
+      },
+    })),
+
   initialize: (initialData) =>
     set(() => ({
       imr: initialData.imr,
