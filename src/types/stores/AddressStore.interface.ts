@@ -5,7 +5,7 @@ export default interface AddressStoreInterface {
     placeName: string;
     coordinates: number[];
   };
-  setCurrentAddress: (currentAddress: Object) => void;
+  setCurrentAddress: (currentAddress: any) => void;
   addressSuggestions: any[];
   setAddressSuggestions: (addressSuggestions: any[]) => void;
 }
