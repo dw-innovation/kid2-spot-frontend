@@ -8,21 +8,8 @@ import ResultsStoreInterface, {
 
 const useResultsStore = create<ResultsStoreInterface>((set) => ({
   geoJSON: null,
-  setGeoJSON: (geoJSON: FeatureCollection) => {
-    set(
-      produce((draft) => {
-        draft.geoJSON = geoJSON;
-      })
-    );
-  },
-  clearGeoJSON: () => {
-    set(
-      produce((draft) => {
-        draft.geoJSON = null;
-        draft.sets = [];
-      })
-    );
-  },
+  setGeoJSON: (geoJSON: FeatureCollection) => set({ geoJSON }),
+  clearGeoJSON: () => set({ geoJSON: null, sets: [] }),
   sets: [],
   setSets: (
     sets: {
@@ -32,13 +19,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       highlighted: boolean;
       fillColor: string;
     }[]
-  ) => {
-    set(
-      produce((draft) => {
-        draft.sets = sets;
-      })
-    );
-  },
+  ) => set({ sets }),
   toggleVisible: (id: string) => {
     set(
       produce((draft) => {
@@ -49,46 +30,19 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       })
     );
   },
-  clearSets: () => {
-    set(
-      produce((draft) => {
-        draft.sets = [];
-      })
-    );
-  },
-  toggleHighlighted: (id: string, state?: boolean) => {
-    set(
-      produce((draft) => {
-        const set = draft.sets.find((set: { id: string }) => set.id === id);
-        if (set) {
-          set.highlighted = state ? state : !set.highlighted;
-        }
-      })
-    );
-  },
+  clearSets: () => set({ sets: [] }),
+  toggleHighlighted: (id: string, isHighlighted?: boolean) =>
+    set((state) => ({
+      sets: state.sets.map((set) => ({
+        ...set,
+        highlighted: set.id === id && isHighlighted ? isHighlighted : false,
+      })),
+    })),
   spots: [],
-  setSpots: (spots: Spot[]) => {
-    set(
-      produce((draft) => {
-        draft.spots = spots;
-      })
-    );
-  },
-  clearSpots: () => {
-    set(
-      produce((draft) => {
-        draft.spots = [];
-      })
-    );
-  },
+  setSpots: (spots: Spot[]) => set({ spots }),
+  clearSpots: () => set({ spots: [] }),
   searchArea: null,
-  setSearchArea: (searchArea: FeatureCollection) => {
-    set(
-      produce((draft) => {
-        draft.searchArea = searchArea;
-      })
-    );
-  },
+  setSearchArea: (searchArea: FeatureCollection) => set({ searchArea }),
 }));
 
 export default useResultsStore;

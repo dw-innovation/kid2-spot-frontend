@@ -1,144 +1,118 @@
-import produce from "immer";
 import { create } from "zustand";
 
 import GlobalStoreInterface, {
+  Dialog,
   Step,
 } from "@/types/stores/GlobalStore.interface";
 
+const resetSteps = (steps: Step[]): Step[] =>
+  steps.map((step: Step) => ({
+    ...step,
+    status: "open",
+    error: { isError: false, message: "" },
+  }));
+
+const prevStep = (currentStep: number): number =>
+  currentStep - 1 > 0 ? currentStep - 1 : currentStep;
+
+const nextStep = (
+  currentStep: number,
+  steps: Step[]
+): Partial<GlobalStoreInterface> => ({
+  currentStep: currentStep + 1 < steps.length ? currentStep + 1 : currentStep,
+  steps: steps.map((step, i) => {
+    if (i === currentStep) {
+      return { ...step, status: "completed" };
+    }
+    return step;
+  }),
+});
+
+const toggleDialog = (
+  dialogs: Dialog[],
+  name: string,
+  isOpen: boolean | undefined = undefined
+): Dialog[] =>
+  dialogs.map((dialog) => {
+    if (dialog.name === name) {
+      return {
+        ...dialog,
+        isOpen: isOpen !== undefined ? isOpen : !dialog.isOpen,
+      };
+    }
+    return dialog;
+  });
+
+const setDialogData = (dialogs: Dialog[], name: string, data: any): Dialog[] =>
+  dialogs.map((dialog) =>
+    dialog.name === name ? { ...dialog, data } : dialog
+  );
+
+const STEPS = [
+  "naturalLanguageInput",
+  "naturalLanguageAnalyzer",
+  "areaSelector",
+  "mapQuery",
+];
+
+const DIALOGS = [
+  "downloadResults",
+  "saveSession",
+  "loadSession",
+  "imr",
+  "error",
+  "stepperError",
+  "queryOSM",
+  "inputStepper",
+  "info",
+  "entityFilters",
+];
+
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({
   currentStep: 0,
-  steps: [
-    {
-      name: "naturalLanguageInput",
-      status: "open",
-      error: { isError: false },
-    },
-    {
-      name: "naturalLanguageAnalyzer",
-      status: "open",
-      error: { isError: false },
-    },
-    {
-      name: "areaSelector",
-      status: "open",
-      error: { isError: false },
-    },
-    {
-      name: "mapQuery",
-      status: "open",
-      error: { isError: false },
-    },
-  ],
-  nextStep: () => {
-    set(
-      produce((draft) => {
-        if (draft.currentStep + 1 < draft.steps.length) {
-          draft.steps[draft.currentStep].status = "completed";
-          draft.currentStep += 1;
-        }
-      })
-    );
-  },
-  prevStep: () => {
-    set(
-      produce((draft) => {
-        if (draft.currentStep - 1 > 0) draft.currentStep -= 1;
-      })
-    );
-  },
-  resetSteps: () => {
-    set(
-      produce((draft) => {
-        draft.steps.forEach((step: Step) => {
-          step.status = "open";
-          step.error = { isError: false, message: "" };
-        });
-        draft.currentStep = 0;
-      })
-    );
-  },
+  showSuggestions: false,
+  steps: STEPS.map((step) => ({
+    name: step,
+    status: "open",
+    error: { isError: false },
+  })),
+  nextStep: () => set((state) => nextStep(state.currentStep, state.steps)),
+  prevStep: () =>
+    set((state) => ({
+      currentStep: prevStep(state.currentStep),
+    })),
+  resetSteps: () =>
+    set((state) => ({
+      currentStep: 0,
+      steps: resetSteps(state.steps),
+    })),
   view: "map",
-  setView: (view: "map" | "data") => {
-    set(
-      produce((draft) => {
-        draft.view = view;
-      })
-    );
-  },
+  setView: (view: "map" | "data") => set({ view }),
   initialize: (initialData: {
     showSuggestions: boolean;
     view: "map" | "data";
-  }) => {
-    set(
-      produce((draft) => {
-        draft.showSuggestions = initialData.showSuggestions;
-        draft.view = initialData.view;
-      })
-    );
-  },
+  }) =>
+    set({
+      showSuggestions: initialData.showSuggestions,
+      view: initialData.view,
+    }),
   isStreetViewFullscreen: false,
-  toggleStreetViewFullscreen: (state?: boolean) => {
-    set(
-      produce((draft) => {
-        draft.isStreetViewFullscreen =
-          typeof state === "undefined" ? !draft.isStreetViewFullscreen : state;
-      })
-    );
-  },
-  dialogs: [
-    { name: "downloadResults", isOpen: false },
-    { name: "saveSession", isOpen: false },
-    { name: "loadSession", isOpen: false },
-    { name: "imr", isOpen: false },
-    { name: "error", isOpen: false },
-    { name: "stepperError", isOpen: false },
-    { name: "queryOSM", isOpen: false },
-    { name: "inputStepper", isOpen: true },
-    { name: "info", isOpen: false, data: null },
-    { name: "entityFilters", isOpen: false, data: null },
-  ],
-  toggleDialog: (name: string, state: boolean | undefined = undefined) => {
-    set(
-      produce((draft) => {
-        const dialog = draft.dialogs.find(
-          (dialog: { name: string }) => dialog.name === name
-        );
-        if (dialog) {
-          dialog.isOpen = state !== undefined ? state : !dialog.isOpen;
-        }
-      })
-    );
-  },
-  setDialogData: (name: string, data: any) => {
-    set(
-      produce((draft) => {
-        const dialog = draft.dialogs.find(
-          (dialog: { name: string }) => dialog.name === name
-        );
-        if (dialog) {
-          dialog.data = data;
-        }
-      })
-    );
-  },
+  toggleStreetViewFullscreen: (isFullScreen?: boolean) =>
+    set((state) => ({
+      isStreetViewFullscreen: isFullScreen ?? !state.isStreetViewFullscreen,
+    })),
+  dialogs: DIALOGS.map((dialog) => ({
+    name: dialog,
+    isOpen: false,
+  })),
+  toggleDialog: (name: string, isOpen: boolean | undefined = undefined) =>
+    set((state) => ({ dialogs: toggleDialog(state.dialogs, name, isOpen) })),
+  setDialogData: (name: string, data: any) =>
+    set((state) => ({ dialogs: setDialogData(state.dialogs, name, data) })),
   isError: false,
   errorType: "",
-  setError: (message: string) => {
-    set(
-      produce((draft) => {
-        draft.isError = true;
-        draft.errorType = message;
-      })
-    );
-  },
-  clearError: () => {
-    set(
-      produce((draft) => {
-        draft.isError = false;
-        draft.errorType = "";
-      })
-    );
-  },
+  setError: (message: string) => set({ isError: true, errorType: message }),
+  clearError: () => set({ isError: false, errorType: "" }),
 }));
 
 export default useGlobalStore;

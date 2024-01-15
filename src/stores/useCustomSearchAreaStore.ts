@@ -1,4 +1,3 @@
-import produce from "immer";
 import { create } from "zustand";
 
 import CustomSearchAreaStoreInterface from "@/types/stores/CustomSearchAreaStore.interface";
@@ -6,31 +5,17 @@ import CustomSearchAreaStoreInterface from "@/types/stores/CustomSearchAreaStore
 const useCustomSearchAreaStore = create<CustomSearchAreaStoreInterface>(
   (set) => ({
     customSearchArea: [],
-    setCustomSearchArea: (polygon: [number, number][]) => {
-      set(
-        produce((draft) => {
-          draft.customSearchArea = polygon;
-        })
-      );
-    },
-    clearCustomSearchArea: () => {
-      set(
-        produce((draft) => {
-          draft.customSearchArea = [];
-        })
-      );
-    },
+    setCustomSearchArea: (polygon: [number, number][]) =>
+      set({
+        customSearchArea: polygon,
+      }),
+    clearCustomSearchArea: () => set({ customSearchArea: [] }),
     customSearchAreaOutsideBBox: false,
-    toggleCustomSearchAreaOutsideBBox: (state?: boolean) => {
-      set(
-        produce((draft) => {
-          draft.customSearchAreaOutsideBBox =
-            typeof state === undefined
-              ? !draft.customSearchAreaOutsideBBox
-              : state;
-        })
-      );
-    },
+    toggleCustomSearchAreaOutsideBBox: (isOutside?: boolean) =>
+      set((state) => ({
+        customSearchAreaOutsideBBox:
+          isOutside || !state.customSearchAreaOutsideBBox,
+      })),
   })
 );
 
