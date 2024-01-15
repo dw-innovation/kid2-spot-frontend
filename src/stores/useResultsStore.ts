@@ -1,5 +1,4 @@
 import { FeatureCollection } from "geojson";
-import produce from "immer";
 import { create } from "zustand";
 
 import ResultsStoreInterface, {
@@ -20,16 +19,12 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
       fillColor: string;
     }[]
   ) => set({ sets }),
-  toggleVisible: (id: string) => {
-    set(
-      produce((draft) => {
-        const set = draft.sets.find((set: { id: string }) => set.id === id);
-        if (set) {
-          set.visible = !set.visible;
-        }
-      })
-    );
-  },
+  toggleVisible: (id: string) =>
+    set((state) => ({
+      sets: state.sets.map((set) =>
+        set.id === id ? { ...set, visible: !set.visible } : set
+      ),
+    })),
   clearSets: () => set({ sets: [] }),
   toggleHighlighted: (id: string, isHighlighted?: boolean) =>
     set((state) => ({
