@@ -6,7 +6,7 @@ import GlobalStoreInterface, {
 } from "@/types/stores/GlobalStore.interface";
 
 const resetSteps = (steps: Step[]): Step[] =>
-  steps.map((step: Step) => ({
+  steps.map((step) => ({
     ...step,
     status: "open",
     error: { isError: false, message: "" },
@@ -88,16 +88,13 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     })),
   view: "map",
   setView: (view: "map" | "data") => set({ view }),
-  initialize: (initialData: {
-    showSuggestions: boolean;
-    view: "map" | "data";
-  }) =>
+  initialize: (initialData) =>
     set({
       showSuggestions: initialData.showSuggestions,
       view: initialData.view,
     }),
   isStreetViewFullscreen: false,
-  toggleStreetViewFullscreen: (isFullScreen?: boolean) =>
+  toggleStreetViewFullscreen: (isFullScreen) =>
     set((state) => ({
       isStreetViewFullscreen: isFullScreen ?? !state.isStreetViewFullscreen,
     })),
@@ -105,13 +102,13 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     name: dialog,
     isOpen: false,
   })),
-  toggleDialog: (name: string, isOpen: boolean | undefined = undefined) =>
+  toggleDialog: (name, isOpen) =>
     set((state) => ({ dialogs: toggleDialog(state.dialogs, name, isOpen) })),
-  setDialogData: (name: string, data: any) =>
+  setDialogData: (name, data) =>
     set((state) => ({ dialogs: setDialogData(state.dialogs, name, data) })),
   isError: false,
   errorType: "",
-  setError: (message: string) => set({ isError: true, errorType: message }),
+  setError: (message) => set({ isError: true, errorType: message }),
   clearError: () => set({ isError: false, errorType: "" }),
 }));
 

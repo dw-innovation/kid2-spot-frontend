@@ -1,4 +1,3 @@
-import { FeatureCollection } from "geojson";
 import { create } from "zustand";
 
 import ResultsStoreInterface, {
@@ -7,26 +6,18 @@ import ResultsStoreInterface, {
 
 const useResultsStore = create<ResultsStoreInterface>((set) => ({
   geoJSON: null,
-  setGeoJSON: (geoJSON: FeatureCollection) => set({ geoJSON }),
+  setGeoJSON: (geoJSON) => set({ geoJSON }),
   clearGeoJSON: () => set({ geoJSON: null, sets: [] }),
   sets: [],
-  setSets: (
-    sets: {
-      id: string;
-      name: string;
-      visible: boolean;
-      highlighted: boolean;
-      fillColor: string;
-    }[]
-  ) => set({ sets }),
-  toggleVisible: (id: string) =>
+  setSets: (sets) => set({ sets }),
+  toggleVisible: (id) =>
     set((state) => ({
       sets: state.sets.map((set) =>
         set.id === id ? { ...set, visible: !set.visible } : set
       ),
     })),
   clearSets: () => set({ sets: [] }),
-  toggleHighlighted: (id: string, isHighlighted?: boolean) =>
+  toggleHighlighted: (id, isHighlighted) =>
     set((state) => ({
       sets: state.sets.map((set) => ({
         ...set,
@@ -37,7 +28,7 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
   setSpots: (spots: Spot[]) => set({ spots }),
   clearSpots: () => set({ spots: [] }),
   searchArea: null,
-  setSearchArea: (searchArea: FeatureCollection) => set({ searchArea }),
+  setSearchArea: (searchArea) => set({ searchArea }),
 }));
 
 export default useResultsStore;

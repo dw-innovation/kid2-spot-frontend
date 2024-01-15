@@ -5,13 +5,13 @@ import CustomSearchAreaStoreInterface from "@/types/stores/CustomSearchAreaStore
 const useCustomSearchAreaStore = create<CustomSearchAreaStoreInterface>(
   (set) => ({
     customSearchArea: [],
-    setCustomSearchArea: (polygon: [number, number][]) =>
+    setCustomSearchArea: (polygon) =>
       set({
         customSearchArea: polygon,
       }),
     clearCustomSearchArea: () => set({ customSearchArea: [] }),
     customSearchAreaOutsideBBox: false,
-    toggleCustomSearchAreaOutsideBBox: (isOutside?: boolean) =>
+    toggleCustomSearchAreaOutsideBBox: (isOutside) =>
       set((state) => ({
         customSearchAreaOutsideBBox:
           isOutside || !state.customSearchAreaOutsideBBox,

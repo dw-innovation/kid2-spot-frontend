@@ -17,36 +17,24 @@ import {
   updateFilter,
   updateSearchArea,
 } from "@/lib/imr";
-import {
-  FilterNode,
-  IntermediateRepresentation,
-  LogicOperator,
-  Node,
-} from "@/types/imr";
+import { Node } from "@/types/imr";
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
 
 const useImrStore = create<ImrStoreInterface>((set) => ({
   nlSentence: "",
-  setNlSentence: (nlSentence: string) => set({ nlSentence }),
+  setNlSentence: (nlSentence) => set({ nlSentence }),
   imr: initialIMR,
-  setImr: (updatedImr: IntermediateRepresentation) => set({ imr: updatedImr }),
+  setImr: (updatedImr) => set({ imr: updatedImr }),
   updateFilter: (nodeId, filterIndexPath, updatedFilter) => {
     set((state) => ({
       imr: updateFilter(state.imr, nodeId, filterIndexPath, updatedFilter),
     }));
   },
-  addFilter: (
-    nodeId: number,
-    filterIndexPath: number[],
-    newFilter: FilterNode
-  ) =>
+  addFilter: (nodeId, filterIndexPath, newFilter) =>
     set((state) => ({
       imr: addFilter(state.imr, nodeId, filterIndexPath, newFilter),
     })),
-  setSearchArea: (
-    type: "area" | "polygon" | "bbox",
-    value: string | number[]
-  ) => {
+  setSearchArea: (type, value) => {
     set((state) => ({ imr: updateSearchArea(state.imr, type, value) }));
   },
   stringifiedImr: "",
@@ -68,14 +56,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
     set((state) => ({
       imr: setFilterValue(state.imr, nodeId, filterId, key, value),
     })),
-  deleteFilter: (nodeId: number, filterIndexPath: number[]) => {
+  deleteFilter: (nodeId, filterIndexPath) => {
     set((state) => ({ imr: deleteFilter(state.imr, nodeId, filterIndexPath) }));
   },
-  addLogicFilter: (
-    nodeId: number,
-    filterIndexPath: number[],
-    logicType: LogicOperator
-  ) => {
+  addLogicFilter: (nodeId, filterIndexPath, logicType) => {
     set((state) => ({
       imr: addLogicFilter(state.imr, nodeId, filterIndexPath, logicType),
     }));
@@ -101,7 +85,7 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       })
     );
   },
-  initialize: (initialData: any) =>
+  initialize: (initialData) =>
     set(() => ({
       imr: initialData.imr,
       nlSentence: initialData.nlSentence,

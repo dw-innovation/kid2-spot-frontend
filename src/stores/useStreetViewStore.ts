@@ -5,7 +5,7 @@ import StreetViewStoreInterface from "@/types/stores/StreetViewStore.interface";
 
 const useStreetViewStore = create<StreetViewStoreInterface>((set) => ({
   showStreetView: false,
-  toggleStreetView: (newState?: boolean) =>
+  toggleStreetView: (newState) =>
     set((state) => ({
       showStreetView: newState || !state.showStreetView,
     })),
@@ -13,11 +13,7 @@ const useStreetViewStore = create<StreetViewStoreInterface>((set) => ({
   streetViewCoordinates: { lat: 0, lng: 0 },
   setStreetViewCoordinates: (streetViewCoordinates: LatLngLiteral) =>
     set({ streetViewCoordinates }),
-  initialize: (initialData: {
-    showStreetView: boolean;
-    streetViewProvider: "google" | "bing";
-    streetViewCoordinates: LatLngLiteral;
-  }) =>
+  initialize: (initialData) =>
     set({
       showStreetView: initialData.showStreetView,
       streetViewProvider: initialData.streetViewProvider,

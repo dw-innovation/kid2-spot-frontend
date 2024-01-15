@@ -6,8 +6,8 @@ const useQueryStore = create<QueryStoreInterface>((set) => ({
   searchArea: "bbox",
   setSearchArea: (searchArea: "bbox" | "polygon") => set({ searchArea }),
   searchAreaBuffer: 500,
-  setSearchAreaBuffer: (searchAreaBuffer: number) => set({ searchAreaBuffer }),
-  initialize: (initialData: any) =>
+  setSearchAreaBuffer: (searchAreaBuffer) => set({ searchAreaBuffer }),
+  initialize: (initialData) =>
     set({
       searchArea: initialData.searchArea,
       searchAreaBuffer: initialData.searchAreaBuffer,
