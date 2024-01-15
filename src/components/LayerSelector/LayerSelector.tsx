@@ -48,7 +48,7 @@ const LayerSelector = () => {
           ? `translateX(${(index + 1) * 15}%)`
           : `translateX(-${(index + 1) * 100}%)`,
         opacity: isOpen ? 1 : 0,
-        height: "40px",
+        height: "35px",
       };
     })
   );
