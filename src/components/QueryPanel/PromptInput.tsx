@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
-const Prompt = () => {
+const PromptInput = () => {
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setNlSentence = useImrStore((state) => state.setNlSentence);
   const resetSteps = useGlobalStore((state) => state.resetSteps);
@@ -46,4 +46,4 @@ const Prompt = () => {
   );
 };
 
-export default Prompt;
+export default PromptInput;
