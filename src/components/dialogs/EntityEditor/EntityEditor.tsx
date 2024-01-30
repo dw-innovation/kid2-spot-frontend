@@ -11,9 +11,9 @@ import { Filter, FilterNode, LogicFilter, LogicOperator } from "@/types/imr";
 
 import Dialog from "../Dialog";
 
-const DIALOG_NAME = "entityFilters";
+const DIALOG_NAME = "entityEditor";
 
-const EntityFilters = () => {
+const EntityEditor = () => {
   const dialogs = useGlobalStore((state) => state.dialogs);
 
   const dialogData = dialogs.find(
@@ -208,4 +208,4 @@ const EntityFilters = () => {
   );
 };
 
-export default EntityFilters;
+export default EntityEditor;
