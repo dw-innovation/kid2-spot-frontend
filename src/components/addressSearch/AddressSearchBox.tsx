@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import { CrossCircledIcon } from "@radix-ui/react-icons";
 import Downshift from "downshift";
 import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
@@ -156,17 +155,6 @@ const AddressSearchBox = () => {
                     ref={inputRef}
                   />
                 </div>
-                <button
-                  onClick={(event) => {
-                    setSearchAddress("");
-                    setAddressSuggestions([]);
-                    inputRef.current?.focus();
-                    (event.target as HTMLElement).blur();
-                  }}
-                  className="p-0 focus:bg-transparent"
-                >
-                  <CrossCircledIcon />
-                </button>
                 <button
                   aria-label={"toggle menu"}
                   className="px-2"
