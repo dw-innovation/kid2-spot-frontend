@@ -65,7 +65,7 @@ const DIALOGS = [
   "queryOSM",
   "inputStepper",
   "info",
-  "entityFilters",
+  "entityEditor",
 ];
 
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({
