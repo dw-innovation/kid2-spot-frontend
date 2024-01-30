@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { useInputStepper } from "@/components/InputStepper/Context";
@@ -12,7 +11,6 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import QueryAnimation from "../Animation";
 
 const OSMQueryStep = () => {
-  const router = useRouter();
   const { setAnimateOut } = useInputStepper();
   const [, fetchData] = useApiStatus(fetchOSMData);
   const [shouldUnmount, setShouldUnmount] = useState(false);
@@ -27,8 +25,7 @@ const OSMQueryStep = () => {
         setShouldUnmount(true);
         setAnimateOut(true);
         toggleDialog("inputStepper", false);
-      })
-      .then(() => setTimeout(() => router.push("/map"), 500));
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
