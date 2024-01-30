@@ -13,8 +13,8 @@ const Entity = ({ name, id }: Props) => {
   const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   const handleEditClick = () => {
-    toggleDialog("entityFilters");
-    setDialogData("entityFilters", { id: id });
+    toggleDialog("entityEditor");
+    setDialogData("entityEditor", { id: id });
   };
 
   return (
