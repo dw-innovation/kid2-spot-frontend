@@ -2,10 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
-import {
-  fetchIMRValidation,
-  fetchNLToIMRTransformation,
-} from "@/lib/apiServices";
+import { fetchNLToIMRTransformation, validateIMR } from "@/lib/apiServices";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -24,14 +21,12 @@ const NaturalLanguageAnalyzerStep = () => {
     {
       onSuccess: (data) => {
         const imr = data.imr;
-        // Since validation is dependent on the result of transformation, chain it using then
-        fetchIMRValidation(imr)
-          .then((result) => {
-            setImr(result);
+        validateIMR(imr)
+          .then(() => {
+            setImr(imr);
             nextStep();
           })
           .catch((error) => {
-            console.error("Validation failed:", error.message);
             setErrorType(error.message);
             toggleDialog("error");
           });
