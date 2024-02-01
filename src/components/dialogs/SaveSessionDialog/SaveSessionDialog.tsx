@@ -68,7 +68,10 @@ const SaveSessionDialog = () => {
   };
 
   useEffect(() => {
-    if (sessions.find((session) => session.name === sessionName)) {
+    if (
+      Array.isArray(sessions) &&
+      sessions.find((session) => session.name === sessionName)
+    ) {
       setError(true);
     } else {
       setError(false);
