@@ -16,8 +16,13 @@ const ErrorDialog = () => {
   const clearError = useGlobalStore((state) => state.clearError);
 
   return (
-    <Dialog dialogName={DIALOG_NAME} dialogTitle={errorDialogTitle()}>
-      {STRINGS[errorType as keyof typeof STRINGS] || errorType}
+    <Dialog
+      dialogName={DIALOG_NAME}
+      dialogTitle={errorDialogTitle()}
+      dialogDescription={
+        STRINGS[errorType as keyof typeof STRINGS] || errorType
+      }
+    >
       <Button
         onClick={() => {
           toggleDialog(DIALOG_NAME);
