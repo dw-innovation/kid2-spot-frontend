@@ -1,13 +1,11 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import {
   fetchIMRValidation,
   fetchNLToIMRTransformation,
 } from "@/lib/apiServices";
-import useApiStatus from "@/lib/hooks/useApiStatus";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -16,35 +14,38 @@ import InputContainer from "../InputContainer";
 
 const NaturalLanguageAnalyzerStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
-  const [shouldUnmount, setShouldUnmount] = useState(false);
-  const [, fetchData] = useApiStatus(fetchNLToIMRTransformation);
-  const [, validateOutput] = useApiStatus(fetchIMRValidation);
-  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);
-
-  useEffect(() => {
-    fetchData(nlSentence)
-      .then((response) => {
-        const imr = response.imr;
-        return validateOutput(imr).then(() => {
-          setImr(imr);
-          setShouldUnmount(true);
-
-          setTimeout(() => {
+  const setErrorType = useGlobalStore((state) => state.setError);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const transformationQuery = useQuery(
+    ["transformNLToIMR", nlSentence],
+    () => fetchNLToIMRTransformation(nlSentence),
+    {
+      onSuccess: (data) => {
+        const imr = data.imr;
+        // Since validation is dependent on the result of transformation, chain it using then
+        fetchIMRValidation(imr)
+          .then((result) => {
+            setImr(result);
             nextStep();
-          }, 200);
-        });
-      })
-      .catch(() => {
-        toggleDialog("stepperError");
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+          })
+          .catch((error) => {
+            console.error("Validation failed:", error.message);
+            setErrorType(error.message);
+            toggleDialog("error");
+          });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+      enabled: !!nlSentence,
+    }
+  );
 
   return (
     <InputContainer
-      shouldUnmount={shouldUnmount}
+      shouldUnmount={transformationQuery.isSuccess}
       title="Analyzing your sentence"
     >
       <AnalyzeAnimation
@@ -56,7 +57,7 @@ const NaturalLanguageAnalyzerStep = () => {
         ]}
         duration={2500}
       />
-      <LoadingSpinner size="2.5rem" />
+      {transformationQuery.isLoading && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };
