@@ -1,16 +1,14 @@
 import axios from "axios";
 
-import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
 export const fetchOSMData = async ({
+  imr,
   signal,
 }: {
+  imr: IntermediateRepresentation;
   signal?: AbortSignal;
 }): Promise<any> => {
-  let imr = useImrStore.getState().imr;
-
   var config: any = {
     method: "post",
     url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
@@ -30,20 +28,18 @@ export const fetchOSMData = async ({
     const response = await axios(config);
 
     if (response.data.results.features.length === 0) {
-      useGlobalStore.getState().setError("noResults");
-      useGlobalStore.getState().toggleDialog("error");
+      throw new Error("noResults");
     }
 
-    response.data.results.features.length === 0 &&
-      useGlobalStore.getState().setError("noResults");
-
     return response.data;
-  } catch (error: any) {
-    error.response.data.error &&
-      useGlobalStore.getState().setError(error.response.data.errorType);
-
-    useGlobalStore.getState().toggleDialog("error");
-    return null;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error.response?.data.error;
+      if (serverError) {
+        throw new Error(serverError);
+      }
+    }
+    throw new Error("An error occurred while fetching the data.");
   }
 };
 
@@ -74,29 +70,36 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
 export const fetchNLToIMRTransformation = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
-  const response = await axios({
-    method: "POST",
-    url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
-    data: {
-      sentence: naturalLanguagePrompt,
-    },
-  });
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
+      data: {
+        sentence: naturalLanguagePrompt,
+      },
+    });
 
-  const result = await response.data;
-  return result;
+    const result = await response.data;
+    return result;
+  } catch (e) {
+    throw new Error("nlpTransformationError");
+  }
 };
 
-export const fetchIMRValidation = async (
+export const validateIMR = async (
   imr: IntermediateRepresentation
 ): Promise<any> => {
-  const response = await axios({
-    method: "POST",
-    url: `${process.env.NEXT_PUBLIC_OSM_API}/validate-imr`,
-    data: imr,
-  });
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${process.env.NEXT_PUBLIC_OSM_API}/validate-imr`,
+      data: imr,
+    });
 
-  const result = await response.data;
-  return result;
+    return response.data;
+  } catch (error) {
+    throw new Error("imrValidationError");
+  }
 };
 
 export const fetchAreas = async (area: string): Promise<any> => {
