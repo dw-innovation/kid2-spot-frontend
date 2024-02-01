@@ -8,7 +8,7 @@ const useSessionsStore = create<SessionsStore>()(
     (set) => ({
       sessions: [],
       addSession: (session) =>
-        set((state) => ({ sessions: { ...state.sessions, session } })),
+        set((state) => ({ sessions: [...state.sessions, session] })),
       removeSession: (id) =>
         set((state) => ({
           sessions: state.sessions.filter((session) => session.id !== id),
