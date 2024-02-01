@@ -35,6 +35,7 @@ const useApiStatus = <T = any,>(
         updateApiStatus("idle");
         console.log("Fetch request cancelled");
       } else {
+        console.log(error);
         updateApiStatus("error");
         throw error;
       }
