@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
@@ -12,7 +11,7 @@ import { setResults } from "./utils";
 
 export const saveSession = async (
   stores: { name: string; getState: () => Record<string, any> }[]
-) => {
+): Promise<string> => {
   const combinedStoreData: Record<string, any> = {};
 
   for (const store of stores) {
@@ -20,7 +19,10 @@ export const saveSession = async (
     const storeData: Record<string, any> = {};
 
     for (const key in state) {
-      if (typeof state[key] !== "function") {
+      if (
+        Object.hasOwnProperty.call(state, key) &&
+        typeof state[key] !== "function"
+      ) {
         storeData[key] = state[key];
       }
     }
@@ -28,17 +30,11 @@ export const saveSession = async (
     combinedStoreData[store.name] = storeData;
   }
 
-  try {
-    const response = await axios.post("/api/saveSession", {
-      data: combinedStoreData,
-    });
-    navigator.clipboard.writeText(
-      `${window.location.origin}/${response.data.id}`
-    );
-    toast.success("Share link copied to clipboard!");
-  } catch (error) {
-    toast.error("Error saving data");
-  }
+  const response = await axios.post("/api/saveSession", {
+    data: combinedStoreData,
+  });
+
+  return `${window.location.origin}/${response.data.id}`;
 };
 
 export const loadSession = async (sessionData: Record<string, any>) => {
@@ -58,7 +54,9 @@ export const loadSession = async (sessionData: Record<string, any>) => {
   toggleDialog("queryOSM");
   toggleDialog("loadSession", false);
 
-  await fetchOSMData({}).then((data) => {
+  const imr = useImrStore.getState().imr;
+
+  await fetchOSMData({ imr }).then((data) => {
     if (data) {
       setResults(data);
       toggleDialog("queryOSM", false);
