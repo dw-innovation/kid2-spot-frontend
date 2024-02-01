@@ -5,4 +5,5 @@ export const STRINGS = {
   imrInvalid:
     "There is an error in the structure of the intermediate representation (IMR).",
   timeout: "The request timed out.",
+  imrValidationError: "The IMR is invalid.",
 };
