@@ -13,7 +13,7 @@ import {
 import { fetchOSMData } from "@/lib/apiServices";
 import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { setResults } from "@/lib/utils";
+import { cn, setResults } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -64,7 +64,10 @@ const OSMQuerySubmit = () => {
     <Button
       onClick={handleButtonClick}
       disabled={isDisabled}
-      className="relative w-full px-2 py-1 mt-4 cursor-pointer"
+      className={cn(
+        isDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-pointer",
+        "relative w-full px-2 py-1 mt-4"
+      )}
       asChild
     >
       <div className="flex items-center w-full">
