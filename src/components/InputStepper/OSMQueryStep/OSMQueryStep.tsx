@@ -27,14 +27,11 @@ const OSMQueryStep = () => {
         setAnimateOut(true);
         toggleDialog("inputStepper", false);
       },
-      onError: (error) => {
-        // Extract and set the error message from the error object
-        console.log("error", error);
+      onError: () => {
         setMessage("fetchingOSMdata");
         toggleDialog("error");
       },
-      // Only execute this query once on component mount
-      enabled: !!imr, // Run query only if imr is not empty
+      enabled: !!imr,
     }
   );
 
