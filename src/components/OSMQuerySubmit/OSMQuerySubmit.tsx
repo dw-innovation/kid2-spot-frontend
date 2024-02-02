@@ -1,5 +1,5 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -15,12 +15,24 @@ import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { setResults } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
+import { IntermediateRepresentation } from "@/types/imr";
 
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
   const imr = useImrStore((state) => state.imr);
   const queryClient = useQueryClient();
   const [shouldFetch, setShouldFetch] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false); // State to control the button's disabled state
+  const prevImrRef = useRef<IntermediateRepresentation>();
+
+  useEffect(() => {
+    if (prevImrRef.current === imr) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+      prevImrRef.current = imr;
+    }
+  }, [imr]);
 
   const { isLoading, error, status } = useQuery(
     ["osmData", imr],
@@ -40,6 +52,7 @@ const OSMQuerySubmit = () => {
   const elapsedTime = useElapsedTime(isLoading, status);
 
   const handleButtonClick = () => {
+    if (isDisabled) return;
     if (!isLoading) {
       setShouldFetch(true);
     } else {
@@ -50,6 +63,7 @@ const OSMQuerySubmit = () => {
   const renderButton = () => (
     <Button
       onClick={handleButtonClick}
+      disabled={isDisabled}
       className="relative w-full px-2 py-1 mt-4 cursor-pointer"
       asChild
     >
