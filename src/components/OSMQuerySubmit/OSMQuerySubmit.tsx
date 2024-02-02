@@ -22,7 +22,7 @@ const OSMQuerySubmit = () => {
   const imr = useImrStore((state) => state.imr);
   const queryClient = useQueryClient();
   const [shouldFetch, setShouldFetch] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false); // State to control the button's disabled state
+  const [isDisabled, setIsDisabled] = useState(false);
   const prevImrRef = useRef<IntermediateRepresentation>();
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const OSMQuerySubmit = () => {
       retry: false,
       onSuccess: (data) => {
         setResults(data);
+        setIsDisabled(true);
       },
       enabled: shouldFetch,
       onSettled: () => {
@@ -65,7 +66,9 @@ const OSMQuerySubmit = () => {
       onClick={handleButtonClick}
       disabled={isDisabled}
       className={cn(
-        isDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-pointer",
+        isDisabled
+          ? "cursor-not-allowed bg-gray-200 hover:bg-gray-200"
+          : "cursor-pointer",
         "relative w-full px-2 py-1 mt-4"
       )}
       asChild
