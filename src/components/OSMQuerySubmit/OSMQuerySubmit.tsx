@@ -34,7 +34,7 @@ const OSMQuerySubmit = () => {
     }
   }, [imr]);
 
-  const { isLoading, error, status } = useQuery(
+  const { isLoading, status } = useQuery(
     ["osmData", imr],
     () => fetchOSMData({ imr }),
     {
@@ -87,8 +87,6 @@ const OSMQuerySubmit = () => {
       </div>
     </Button>
   );
-
-  if (error) return <div>Error fetching data</div>;
 
   return (
     <>
