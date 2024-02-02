@@ -4,10 +4,8 @@ import { IntermediateRepresentation } from "@/types/imr";
 
 export const fetchOSMData = async ({
   imr,
-  signal,
 }: {
   imr: IntermediateRepresentation;
-  signal?: AbortSignal;
 }): Promise<any> => {
   var config: any = {
     method: "post",
@@ -17,12 +15,6 @@ export const fetchOSMData = async ({
     },
     data: imr,
   };
-
-  if (signal) {
-    config.cancelToken = new axios.CancelToken((cancel) => {
-      signal.addEventListener("abort", () => cancel());
-    });
-  }
 
   try {
     const response = await axios(config);
