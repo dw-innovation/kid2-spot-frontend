@@ -90,7 +90,7 @@ export const validateIMR = async (
 
     return response.data;
   } catch (error) {
-    throw new Error("imrValidationError");
+    throw new Error("imrInvalid");
   }
 };
 
