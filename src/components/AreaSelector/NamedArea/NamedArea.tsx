@@ -18,6 +18,7 @@ const NamedArea = () => {
   const area = useImrStore((state) => state.imr.area.value);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
+  const nextStep = useGlobalStore((state) => state.nextStep);
 
   const {
     data: suggestedAreas,
@@ -45,6 +46,12 @@ const NamedArea = () => {
   );
 
   useEffect(() => {
+    if (suggestedAreas?.length === 1) {
+      setPlaceId(suggestedAreas[0].place_id);
+      nextStep();
+    }
+  }, [suggestedAreas]);
+  useEffect(() => {
     const suggestion = suggestedAreas?.find((a) => a.place_id === placeId);
     if (suggestion) {
       setSurface(calculateSurface(suggestion.geojson));
@@ -64,12 +71,14 @@ const NamedArea = () => {
 
   return (
     <>
-      <p className="text-sm text-muted-foreground">
-        We have detected{" "}
-        <span className="font-semibold contents">&quot;{area}&quot;</span> as
-        search area from your input. Please confirm or select another area from
-        the list.
-      </p>
+      {!isLoading && (
+        <p className="text-sm text-muted-foreground">
+          We have detected{" "}
+          <span className="font-semibold contents">&quot;{area}&quot;</span> as
+          search area from your input. Please confirm or select another area
+          from the list.
+        </p>
+      )}
 
       {isLoading ? (
         <div className="flex items-center gap-2">
