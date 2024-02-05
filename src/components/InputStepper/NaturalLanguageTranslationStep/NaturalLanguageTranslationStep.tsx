@@ -9,7 +9,7 @@ import useImrStore from "@/stores/useImrStore";
 import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
 
-const NaturalLanguageAnalyzerStep = () => {
+const NaturalLanguageTranslationStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);
@@ -57,4 +57,4 @@ const NaturalLanguageAnalyzerStep = () => {
   );
 };
 
-export default NaturalLanguageAnalyzerStep;
+export default NaturalLanguageTranslationStep;

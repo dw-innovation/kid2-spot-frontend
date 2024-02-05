@@ -50,7 +50,7 @@ const setDialogData = (dialogs: Dialog[], name: string, data: any): Dialog[] =>
 
 const STEPS = [
   "naturalLanguageInput",
-  "naturalLanguageAnalyzer",
+  "naturalLanguageTranslation",
   "areaSelector",
   "mapQuery",
 ];
