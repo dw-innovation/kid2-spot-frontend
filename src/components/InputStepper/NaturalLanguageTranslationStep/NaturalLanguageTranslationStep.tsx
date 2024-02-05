@@ -28,6 +28,7 @@ const NaturalLanguageTranslationStep = () => {
           })
           .catch((error) => {
             setErrorType(error.message);
+            toggleDialog("inputStepper", false);
             toggleDialog("error");
           });
       },
