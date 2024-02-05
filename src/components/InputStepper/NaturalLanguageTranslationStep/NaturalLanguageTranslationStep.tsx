@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { fetchNLToIMRTransformation, validateIMR } from "@/lib/apiServices";
+import { fetchNLToIMRTranslation, validateIMR } from "@/lib/apiServices";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -15,9 +15,9 @@ const NaturalLanguageTranslationStep = () => {
   const setImr = useImrStore((state) => state.setImr);
   const setErrorType = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const transformationQuery = useQuery(
-    ["transformNLToIMR", nlSentence],
-    () => fetchNLToIMRTransformation(nlSentence),
+  const translationQuery = useQuery(
+    ["translateNLToIMR", nlSentence],
+    () => fetchNLToIMRTranslation(nlSentence),
     {
       onSuccess: (data) => {
         const imr = data.imr;
@@ -41,7 +41,7 @@ const NaturalLanguageTranslationStep = () => {
 
   return (
     <InputContainer
-      shouldUnmount={transformationQuery.isSuccess}
+      shouldUnmount={translationQuery.isSuccess}
       title="Analyzing your sentence"
     >
       <AnalyzeAnimation
@@ -53,7 +53,7 @@ const NaturalLanguageTranslationStep = () => {
         ]}
         duration={2500}
       />
-      {transformationQuery.isLoading && <LoadingSpinner size="2.5rem" />}
+      {translationQuery.isLoading && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

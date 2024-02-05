@@ -7,8 +7,8 @@ import useGlobalStore from "@/stores/useGlobalStore";
 
 import AreaSelectorStep from "./AreaSelectorStep";
 import { useInputStepper } from "./Context";
-import NaturalLanguageTranslationStep from "./NaturalLanguageTranslationStep";
 import NaturalLanguageInputStep from "./NaturalLanguageInputStep";
+import NaturalLanguageTranslationStep from "./NaturalLanguageTranslationStep";
 import OSMQueryScreen from "./OSMQueryStep";
 
 const STEPS = [
