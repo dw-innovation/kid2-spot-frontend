@@ -50,7 +50,9 @@ const NamedArea = () => {
       setPlaceId(suggestedAreas[0].place_id);
       nextStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedAreas]);
+
   useEffect(() => {
     const suggestion = suggestedAreas?.find((a) => a.place_id === placeId);
     if (suggestion) {
