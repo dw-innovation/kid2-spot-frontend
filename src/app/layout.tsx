@@ -6,7 +6,7 @@ import "allotment/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-resizable/css/styles.css";
 
-import { Metadata, type Viewport } from "next";
+import { type Viewport, Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
