@@ -68,6 +68,7 @@
     "react-select": "^5.7.4",
     "react-spring": "^9.7.2",
     "react-toastify": "^9.1.2",
+    "sharp": "^0.33.2",
     "short-uuid": "^4.2.2",
     "start-server-and-test": "^1.15.3",
     "swr": "^2.1.0",
