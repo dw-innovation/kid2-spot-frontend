@@ -23,6 +23,7 @@ const EntityEditor = () => {
   const filters = useImrStore(
     (state) => state.imr.nodes[dialogData?.id || 0].filters
   );
+  const entity = useImrStore((state) => state.imr.nodes[dialogData?.id || 0]);
   const updateFilter = useImrStore((state) => state.updateFilter);
   const addFilter = useImrStore((state) => state.addFilter);
   const deleteFilter = useImrStore((state) => state.deleteFilter);
@@ -203,6 +204,9 @@ const EntityEditor = () => {
 
   return (
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
+      <h2 className="text-xl font-bold">
+        Edit OSM tags and conditions for &quot;{entity.name}&quot;
+      </h2>
       {renderFilters(filters)}
     </Dialog>
   );
