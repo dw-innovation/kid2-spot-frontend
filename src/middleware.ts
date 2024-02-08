@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 const [AUTH_USER, AUTH_PASS] = (process.env.HTTP_BASIC_AUTH || ":").split(":");
 
 export function middleware(req: NextRequest) {
-  console.log("middleware");
   if (process.env.HTTP_BASIC_AUTH) {
-    console.log("process.env.HTTP_BASIC_AUTH", process.env.HTTP_BASIC_AUTH);
     if (!isAuthenticated(req)) {
       return new NextResponse("Authentication required", {
         status: 401,
