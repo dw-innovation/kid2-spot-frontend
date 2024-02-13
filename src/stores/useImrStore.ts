@@ -6,14 +6,15 @@ import {
   addContainsEdge,
   addDistanceEdge,
   addFilter,
-  addLogicFilter,
   addNWRNode,
-  deleteFilter,
+  addRuleOrGroup,
   removeEdge,
   removeNode,
+  removeRuleOrGroup,
   setFilterValue,
   setNodeName,
-  updateFilter,
+  switchKeyAtPath,
+  updateRuleValue,
   updateSearchArea,
 } from "@/lib/imr";
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
@@ -23,11 +24,6 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setNlSentence: (nlSentence) => set({ nlSentence }),
   imr: initialIMR,
   setImr: (updatedImr) => set({ imr: updatedImr }),
-  updateFilter: (nodeId, filterIndexPath, updatedFilter) => {
-    set((state) => ({
-      imr: updateFilter(state.imr, nodeId, filterIndexPath, updatedFilter),
-    }));
-  },
   addFilter: (nodeId, filterIndexPath, newFilter) =>
     set((state) => ({
       imr: addFilter(state.imr, nodeId, filterIndexPath, newFilter),
@@ -54,15 +50,24 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
     set((state) => ({
       imr: setFilterValue(state.imr, nodeId, filterId, key, value),
     })),
-  deleteFilter: (nodeId, filterIndexPath) => {
-    set((state) => ({ imr: deleteFilter(state.imr, nodeId, filterIndexPath) }));
+  removeRuleOrGroup: (nodeId, path) => {
+    set((state) => ({ imr: removeRuleOrGroup(state.imr, nodeId, path) }));
   },
-  addLogicFilter: (nodeId, filterIndexPath, logicType) => {
+  addRuleOrGroup: (nodeId, path, newObject) => {
     set((state) => ({
-      imr: addLogicFilter(state.imr, nodeId, filterIndexPath, logicType),
+      imr: addRuleOrGroup(state.imr, nodeId, path, newObject),
     }));
   },
-
+  updateRuleValue: (nodeId, path, keyToUpdate, newValue) => {
+    set((state) => ({
+      imr: updateRuleValue(state.imr, nodeId, path, keyToUpdate, newValue),
+    }));
+  },
+  switchKeyAtPath: (nodeId, path) => {
+    set((state) => ({
+      imr: switchKeyAtPath(state.imr, nodeId, path),
+    }));
+  },
   setNodeName: (nodeId, name) => {
     set((state) => ({ imr: setNodeName(state.imr, nodeId, name) }));
   },

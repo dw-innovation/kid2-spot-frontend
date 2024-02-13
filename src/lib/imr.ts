@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
   FilterNode,
   IntermediateRepresentation,
@@ -88,16 +90,16 @@ export const addNestedFilter = (
   });
 };
 
-export const addLogicFilterAtPath = (
+export const addLogicGroupAtPath = (
   filters: FilterNode[],
-  filterIndexPath: number[],
-  newLogicFilter: LogicFilter
+  path: number[],
+  LogicOperator: LogicFilter
 ): FilterNode[] => {
-  if (filterIndexPath.length === 0) {
-    return [newLogicFilter, ...filters];
+  if (path.length === 0) {
+    return [LogicOperator, ...filters];
   }
 
-  const [index, ...remainingIndexPath] = filterIndexPath;
+  const [index, ...remainingPath] = path;
 
   return filters.map((filter, i) => {
     if (i !== index) return filter;
@@ -106,10 +108,10 @@ export const addLogicFilterAtPath = (
     const operator: LogicOperator = logicFilter.and ? "and" : "or";
 
     return {
-      [operator]: addLogicFilterAtPath(
+      [operator]: addLogicGroupAtPath(
         logicFilter[operator]!,
-        remainingIndexPath,
-        newLogicFilter
+        remainingPath,
+        LogicOperator
       ),
     };
   });
@@ -302,51 +304,277 @@ export const addFilter = (
   return { ...imr, nodes };
 };
 
-export const addLogicFilter = (
+const traverseFiltersAndAppend = (
+  filters: FilterNode[],
+  path: number[],
+  position: number,
+  newObject: Object
+): FilterNode[] => {
+  if (path.length === position) {
+    return [...filters, newObject];
+  }
+
+  const index = path[position];
+  const currentFilter = filters[index];
+
+  if ("and" in currentFilter || "or" in currentFilter) {
+    const key: LogicOperator = "and" in currentFilter ? "and" : "or";
+    return [
+      ...filters.slice(0, index),
+      {
+        [key]: traverseFiltersAndAppend(
+          currentFilter[key] ?? [],
+          path,
+          position + 1,
+          newObject
+        ),
+      },
+      ...filters.slice(index + 1),
+    ];
+  }
+
+  throw new Error(
+    "Invalid path: encountered a non-LogicFilter node where a LogicFilter was expected."
+  );
+};
+
+export const addRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,
-  filterIndexPath: number[],
-  logicType: LogicOperator
+  path: number[],
+  newObject: Object
 ): IntermediateRepresentation => {
   const nodes = imr.nodes.map((node) => {
     if (node.id !== nodeId) return node;
 
-    const newLogicFilter: LogicFilter = { [logicType]: [] };
-
-    const updatedFilters = addLogicFilterAtPath(
+    const updatedFilters = traverseFiltersAndAppend(
       node.filters,
-      filterIndexPath,
-      newLogicFilter
+      path,
+      0,
+      newObject
     );
-
-    return {
-      ...node,
-      filters: updatedFilters,
-    };
+    return { ...node, filters: updatedFilters };
   });
 
   return { ...imr, nodes };
 };
 
-export const updateFilter = (
+const traverseFiltersAndRemove = (
+  filters: FilterNode[],
+  path: number[],
+  position: number
+): FilterNode[] => {
+  if (position >= path.length) {
+    throw new Error("Path leads beyond the target.");
+  }
+
+  const index = path[position];
+  if (index < 0 || index >= filters.length) {
+    throw new Error("Invalid path: Index out of bounds.");
+  }
+
+  if (position === path.length - 1) {
+    return [...filters.slice(0, index), ...filters.slice(index + 1)];
+  }
+
+  const currentFilter = filters[index];
+  if (currentFilter && ("and" in currentFilter || "or" in currentFilter)) {
+    const key: LogicOperator = "and" in currentFilter ? "and" : "or";
+    // Ensure we always pass a FilterNode[] to the recursive call, defaulting to an empty array if undefined
+    const nestedFilters: FilterNode[] = currentFilter[key] ?? [];
+    const updatedLogicFilter: LogicFilter = {
+      [key]: traverseFiltersAndRemove(nestedFilters, path, position + 1),
+    };
+    return [
+      ...filters.slice(0, index),
+      updatedLogicFilter,
+      ...filters.slice(index + 1),
+    ];
+  }
+
+  throw new Error(
+    "Invalid path: Expected a LogicFilter but found a regular Filter."
+  );
+};
+
+export const removeRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,
-  filterIndexPath: number[],
-  updatedFilter: any
+  path: number[]
 ): IntermediateRepresentation => {
   const nodes = imr.nodes.map((node) => {
     if (node.id !== nodeId) return node;
 
-    const updatedFilters = updateNestedFilter(
-      node.filters,
-      filterIndexPath,
-      updatedFilter
-    );
-    return {
-      ...node,
-      filters: updatedFilters,
-    };
+    const updatedFilters = traverseFiltersAndRemove(node.filters, path, 0);
+    return { ...node, filters: updatedFilters };
   });
 
   return { ...imr, nodes };
+};
+
+export const switchOperatorAtPath = (
+  nodeId: number[],
+  targetPath: number[],
+  imr: IntermediateRepresentation
+): IntermediateRepresentation => {
+  const clonedNode = _.cloneDeep(imr);
+  const targetNode = _.get(clonedNode, targetPath);
+  if (targetNode && ("and" in targetNode || "or" in targetNode)) {
+    const switchedNode = {
+      ...("and" in targetNode && { or: targetNode.and }),
+      ...("or" in targetNode && { and: targetNode.or }),
+    };
+
+    _.set(clonedNode, targetPath.slice(0, -1), switchedNode);
+  }
+
+  return clonedNode;
+};
+
+const traverseFiltersAndModifyValue = (
+  filters: FilterNode[],
+  path: number[],
+  position: number,
+  keyToUpdate: string,
+  newValue: any
+): FilterNode[] => {
+  if (position >= path.length) {
+    throw new Error("Path leads beyond the target.");
+  }
+
+  const index = path[position];
+  if (index < 0 || index >= filters.length) {
+    throw new Error("Invalid path: Index out of bounds.");
+  }
+
+  if (position === path.length - 1) {
+    const targetFilter = filters[index];
+    if (typeof targetFilter !== "object" || Array.isArray(targetFilter)) {
+      throw new Error("Invalid target: Expected an object to modify.");
+    }
+    if (keyToUpdate in targetFilter) {
+      const updatedFilter = { ...targetFilter, [keyToUpdate]: newValue };
+      return [
+        ...filters.slice(0, index),
+        updatedFilter,
+        ...filters.slice(index + 1),
+      ];
+    }
+    throw new Error(`Key '${keyToUpdate}' not found in the target filter.`);
+  }
+
+  const currentFilter = filters[index];
+  if (currentFilter && ("and" in currentFilter || "or" in currentFilter)) {
+    const logicKey: LogicOperator = "and" in currentFilter ? "and" : "or";
+    const nestedFilters: FilterNode[] = currentFilter[logicKey] ?? [];
+    const updatedLogicFilter: LogicFilter = {
+      [logicKey]: traverseFiltersAndModifyValue(
+        nestedFilters,
+        path,
+        position + 1,
+        keyToUpdate,
+        newValue
+      ),
+    };
+    return [
+      ...filters.slice(0, index),
+      updatedLogicFilter,
+      ...filters.slice(index + 1),
+    ];
+  }
+
+  throw new Error(
+    "Invalid path: Expected a LogicFilter but found a regular Filter."
+  );
+};
+
+export const updateRuleValue = (
+  imr: IntermediateRepresentation,
+  nodeId: number,
+  path: number[],
+  keyToUpdate: string,
+  newValue: any
+): IntermediateRepresentation => {
+  const nodes = imr.nodes.map((node) => {
+    if (node.id !== nodeId) return node;
+
+    const updatedFilters = traverseFiltersAndModifyValue(
+      node.filters,
+      path,
+      0,
+      keyToUpdate,
+      newValue
+    );
+    return { ...node, filters: updatedFilters };
+  });
+
+  return { ...imr, nodes };
+};
+
+export const switchKeyAtPath = (
+  imr: IntermediateRepresentation,
+  nodeId: number,
+  path: number[]
+): IntermediateRepresentation => {
+  const updatedIMR: IntermediateRepresentation = _.cloneDeep(imr);
+
+  const nodeToUpdate = updatedIMR.nodes.find((node) => node.id === nodeId);
+  if (!nodeToUpdate) {
+    throw new Error(`Node with ID ${nodeId} not found.`);
+  }
+
+  const switchKey = (filters: FilterNode[], path: number[]): FilterNode[] => {
+    if (path.length === 0) {
+      throw new Error("Path cannot be empty.");
+    }
+
+    const [index, ...restPath] = path;
+    if (index < 0 || index >= filters.length) {
+      throw new Error("Path index out of bounds.");
+    }
+
+    if (restPath.length === 0) {
+      const currentFilter = filters[index];
+      if ("and" in currentFilter) {
+        return [
+          ...filters.slice(0, index),
+          { or: currentFilter.and },
+          ...filters.slice(index + 1),
+        ];
+      } else if ("or" in currentFilter) {
+        return [
+          ...filters.slice(0, index),
+          { and: currentFilter.or },
+          ...filters.slice(index + 1),
+        ];
+      } else {
+        throw new Error("Target node is not a logical ('and'/'or') node.");
+      }
+    }
+
+    const currentFilter = filters[index];
+    if (!("and" in currentFilter || "or" in currentFilter)) {
+      throw new Error(
+        "Path leads to a non-logical node before reaching the target."
+      );
+    }
+
+    const key: "and" | "or" = "and" in currentFilter ? "and" : "or";
+    const nestedFilters: FilterNode[] = currentFilter[key] ?? [];
+    const updatedFilters = switchKey(nestedFilters, restPath);
+
+    return [
+      ...filters.slice(0, index),
+      { [key]: updatedFilters },
+      ...filters.slice(index + 1),
+    ];
+  };
+
+  if (nodeToUpdate.filters) {
+    nodeToUpdate.filters = switchKey(nodeToUpdate.filters, path);
+  } else {
+    throw new Error("The specified node does not contain any filters.");
+  }
+
+  return updatedIMR;
 };

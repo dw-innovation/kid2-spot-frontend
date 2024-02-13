@@ -1,30 +1,18 @@
-import {
-  FilterNode,
-  IntermediateRepresentation,
-  LogicOperator,
-} from "@/types/imr";
+import { FilterNode, IntermediateRepresentation } from "@/types/imr";
 
 export default interface ImrStoreInterface {
   nlSentence: string;
   setNlSentence: (nlSentence: string) => void;
   imr: IntermediateRepresentation;
   setImr: (imr: IntermediateRepresentation) => void;
-  updateFilter: (
-    nodeId: number,
-    filterIndexPath: number[],
-    updatedFilter: FilterNode
-  ) => void;
   addFilter: (
     nodeId: number,
     filterIndexPath: number[],
     newFilter: FilterNode
   ) => void;
-  deleteFilter: (nodeId: number, filterIndexPath: number[]) => void;
-  addLogicFilter: (
-    nodeId: number,
-    filterIndexPath: number[],
-    logicType: LogicOperator
-  ) => void;
+  removeRuleOrGroup: (nodeId: number, path: number[]) => void;
+  addRuleOrGroup: (nodeId: number, path: number[], newObject: Object) => void;
+  switchKeyAtPath: (nodeId: number, path: number[]) => void;
   stringifiedImr: string;
   setStringifiedImr: (stringifiedImr: string) => void;
   addNWRNode: () => void;
@@ -36,6 +24,12 @@ export default interface ImrStoreInterface {
   setImrBBox: (bbox: number[]) => void;
   setImrPolygon: (polygon: number[]) => void;
   setImrArea: (area: string) => void;
+  updateRuleValue: (
+    nodeId: number,
+    path: number[],
+    keyToUpdate: string,
+    newValue: any
+  ) => void;
   setFilterValue: (
     setId: number,
     filterId: number,
