@@ -13,6 +13,7 @@ type Props = {
   enableReset?: boolean;
   isSearchable?: boolean;
   defaultValue?: { value: string; label: string };
+  showIndicator?: boolean;
 };
 
 const Select = ({
@@ -24,6 +25,7 @@ const Select = ({
   enableReset = false,
   isSearchable,
   defaultValue,
+  showIndicator = true,
 }: Props) => {
   const [selectedValue, setSelectedValue] = useState<{
     value: string;
@@ -62,6 +64,7 @@ const Select = ({
         dropdownIndicator: (baseStyles) => ({
           ...baseStyles,
           padding: 0,
+          display: showIndicator ? "block" : "none",
         }),
       }}
       isSearchable={isSearchable}
