@@ -359,57 +359,16 @@ export const addRuleOrGroup = (
   return { ...imr, nodes };
 };
 
-const traverseFiltersAndRemove = (
-  filters: FilterNode[],
-  path: number[],
-  position: number
-): FilterNode[] => {
-  if (position >= path.length) {
-    throw new Error("Path leads beyond the target.");
-  }
-
-  const index = path[position];
-  if (index < 0 || index >= filters.length) {
-    throw new Error("Invalid path: Index out of bounds.");
-  }
-
-  if (position === path.length - 1) {
-    return [...filters.slice(0, index), ...filters.slice(index + 1)];
-  }
-
-  const currentFilter = filters[index];
-  if (currentFilter && ("and" in currentFilter || "or" in currentFilter)) {
-    const key: LogicOperator = "and" in currentFilter ? "and" : "or";
-    // Ensure we always pass a FilterNode[] to the recursive call, defaulting to an empty array if undefined
-    const nestedFilters: FilterNode[] = currentFilter[key] ?? [];
-    const updatedLogicFilter: LogicFilter = {
-      [key]: traverseFiltersAndRemove(nestedFilters, path, position + 1),
-    };
-    return [
-      ...filters.slice(0, index),
-      updatedLogicFilter,
-      ...filters.slice(index + 1),
-    ];
-  }
-
-  throw new Error(
-    "Invalid path: Expected a LogicFilter but found a regular Filter."
-  );
-};
-
 export const removeRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,
-  path: number[]
+  pathString: string
 ): IntermediateRepresentation => {
-  const nodes = imr.nodes.map((node) => {
-    if (node.id !== nodeId) return node;
+  const fullPath = `nodes[${nodeId}].${pathString}`;
+  const clonedImr = _.cloneDeep(imr);
+  _.unset(clonedImr, fullPath);
 
-    const updatedFilters = traverseFiltersAndRemove(node.filters, path, 0);
-    return { ...node, filters: updatedFilters };
-  });
-
-  return { ...imr, nodes };
+  return clonedImr;
 };
 
 export const switchOperatorAtPath = (

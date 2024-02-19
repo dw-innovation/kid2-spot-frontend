@@ -39,7 +39,6 @@ const FilterTypeSwitch = ({ filter, path, nodeId, pathString }: Props) => {
       ) : (
         <Rule
           filter={filter}
-          path={path}
           nodeId={nodeId}
           pathString={updatePathString(path, pathString)}
         />

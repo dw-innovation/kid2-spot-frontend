@@ -10,7 +10,7 @@ export default interface ImrStoreInterface {
     filterIndexPath: number[],
     newFilter: FilterNode
   ) => void;
-  removeRuleOrGroup: (nodeId: number, path: number[]) => void;
+  removeRuleOrGroup: (nodeId: number, pathString: string) => void;
   addRuleOrGroup: (nodeId: number, path: number[], newObject: Object) => void;
   switchKeyAtPath: (nodeId: number, path: number[]) => void;
   stringifiedImr: string;
