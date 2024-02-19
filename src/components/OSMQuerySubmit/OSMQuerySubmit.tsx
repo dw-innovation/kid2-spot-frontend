@@ -1,5 +1,6 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -11,32 +12,70 @@ import {
 } from "@/components/ui/tooltip";
 import { fetchOSMData } from "@/lib/apiServices";
 import useStrings from "@/lib/contexts/useStrings";
-import useApiStatus from "@/lib/hooks/useApiStatus";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { setResults } from "@/lib/utils";
+import { cn, setResults } from "@/lib/utils";
+import useImrStore from "@/stores/useImrStore";
+import { IntermediateRepresentation } from "@/types/imr";
 
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
-  const [apiStatus, fetchData, cancelRequest] = useApiStatus(fetchOSMData);
-  const elapsedTime = useElapsedTime(apiStatus === "loading", apiStatus);
+  const imr = useImrStore((state) => state.imr);
+  const queryClient = useQueryClient();
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const prevImrRef = useRef<IntermediateRepresentation>();
 
-  const handleOSMQuerySubmit = async () => {
-    await fetchData().then((data) => {
-      setResults(data);
-    });
+  useEffect(() => {
+    if (prevImrRef.current === imr) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+      prevImrRef.current = imr;
+    }
+  }, [imr]);
+
+  const { isLoading, status } = useQuery(
+    ["osmData", imr],
+    () => fetchOSMData({ imr }),
+    {
+      retry: false,
+      onSuccess: (data) => {
+        setResults(data);
+        setIsDisabled(true);
+      },
+      enabled: shouldFetch,
+      onSettled: () => {
+        setShouldFetch(false);
+      },
+    }
+  );
+
+  const elapsedTime = useElapsedTime(isLoading, status);
+
+  const handleButtonClick = () => {
+    if (isDisabled) return;
+    if (!isLoading) {
+      setShouldFetch(true);
+    } else {
+      queryClient.cancelQueries(["osmData", imr]);
+    }
   };
 
   const renderButton = () => (
     <Button
-      onClick={
-        apiStatus !== "loading" ? handleOSMQuerySubmit : () => cancelRequest()
-      }
-      className={"px-2 py-1 w-full cursor-pointer relative mt-4"}
+      onClick={handleButtonClick}
+      disabled={isDisabled}
+      className={cn(
+        isDisabled
+          ? "cursor-not-allowed bg-gray-200 hover:bg-gray-200"
+          : "cursor-pointer",
+        "relative w-full px-2 py-1 mt-4"
+      )}
       asChild
     >
       <div className="flex items-center w-full">
         <span className="text-white">
-          {apiStatus === "loading" ? (
+          {isLoading ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
             </div>
@@ -51,7 +90,7 @@ const OSMQuerySubmit = () => {
 
   return (
     <>
-      {apiStatus === "loading" ? (
+      {isLoading ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./editorOverlay.css";
 
 @layer base {
   :root {

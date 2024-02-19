@@ -28,6 +28,7 @@ const AnalyzeAnimation = ({ sentences, duration }: Props) => {
     return () => {
       clearInterval(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
   return (

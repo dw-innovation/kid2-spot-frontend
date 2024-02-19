@@ -8,15 +8,18 @@ const Entities = () => {
   const nodes = useImrStore((state) => state.imr.nodes);
 
   return (
-    <div>
-      <h3 className="text-lg font-semibold ">Entities</h3>
-      <div className="flex gap-1 ml-4">
-        {nodes &&
-          nodes.map((node) => (
-            <Entity key={node.name} name={node.name} id={node.id} />
-          ))}
+    <>
+      <hr />
+      <div>
+        <h3 className="text-lg font-semibold ">Entities</h3>
+        <div className="flex gap-1 ml-4">
+          {nodes &&
+            nodes.map((node) => (
+              <Entity key={node.name} name={node.name} id={node.id} />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

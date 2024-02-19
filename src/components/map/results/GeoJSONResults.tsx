@@ -77,7 +77,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   ) => {
     const setIndex = getSetIndex(_.properties?.set_name);
     const markerOptions: L.CircleMarkerOptions = {
-      radius: 10,
+      radius: 12,
       fillColor: sets[setIndex].fillColor,
       color: "#fff",
       weight: 5,

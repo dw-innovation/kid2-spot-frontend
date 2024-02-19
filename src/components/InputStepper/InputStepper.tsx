@@ -3,18 +3,17 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
-import Globe from "@/components/Globe";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import AreaSelectorStep from "./AreaSelectorStep";
 import { useInputStepper } from "./Context";
-import NaturalLanguageAnalyzerStep from "./NaturalLanguageAnalyzerStep";
 import NaturalLanguageInputStep from "./NaturalLanguageInputStep";
+import NaturalLanguageTranslationStep from "./NaturalLanguageTranslationStep";
 import OSMQueryScreen from "./OSMQueryStep";
 
 const STEPS = [
   () => <NaturalLanguageInputStep key="step-1" />,
-  () => <NaturalLanguageAnalyzerStep key="step-2" />,
+  () => <NaturalLanguageTranslationStep key="step-2" />,
   () => <AreaSelectorStep key="step-3" />,
   () => <OSMQueryScreen key="step-4" />,
 ];
@@ -37,11 +36,6 @@ const InputStepper = ({ minimal = false }: Props) => {
     }
   }, []);
 
-  const globeScaleProps = useSpring({
-    transform: `scale(${animateOut ? 2 : 1})`,
-    opacity: animateOut ? 0 : 1,
-  });
-
   const titleProps = useSpring({
     transform: `scale(${animateOut ? 0.9 : 1})`,
     opacity: animateOut ? 0 : 1,
@@ -49,12 +43,6 @@ const InputStepper = ({ minimal = false }: Props) => {
 
   return (
     <div className="flex items-center justify-center w-full h-full overflow-hidden">
-      {!minimal && (
-        <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full overflow-hidden">
-          <Globe scaleProps={globeScaleProps} stop={animateOut} />
-        </div>
-      )}
-
       <div className="relative z-50 flex flex-col gap-2 m-2">
         {!minimal && (
           <animated.h1

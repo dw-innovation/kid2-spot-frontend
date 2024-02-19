@@ -1,0 +1,33 @@
+.connector-container {
+  & > .connector > .up-connector {
+    @apply w-3 h-full;
+    border-width: 0 0 0 1px;
+    border-color: black;
+    height: calc(50% + 10px);
+    position: absolute;
+    top: -10px;
+  }
+  & > .connector > .down-connector {
+    @apply w-3 h-full;
+    border-width: 1px 0 0 1px;
+    border-color: black;
+    height: calc(50% + 10px);
+    position: absolute;
+    bottom: -10px;
+  }
+}
+
+.connector-container:last-of-type {
+  & > .connector > .up-connector {
+    border-width: 0 0 1px 1px;
+  }
+  & > .connector > .down-connector {
+    border: 0;
+  }
+}
+
+.connector-container:first-of-type {
+  & > .connector > .up-connector {
+    border: 0;
+  }
+}

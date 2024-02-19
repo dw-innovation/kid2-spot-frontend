@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
@@ -14,7 +14,8 @@ export default function Icon() {
       <div
         style={{
           fontSize: 24,
-          background: "black",
+          background:
+            process.env.ENVIRONMENT === "production" ? "black" : "orange",
           width: "100%",
           height: "100%",
           display: "flex",

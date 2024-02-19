@@ -34,10 +34,18 @@ const Footer = () => {
 
   return (
     <div
-      className="flex items-center gap-2 p-2 font-sans bg-white rounded-md shadow-md cursor-auto"
+      className="z-[10001yarn upgrade --latest] flex items-center gap-2 p-2 font-sans bg-white rounded-md shadow-md cursor-auto"
       ref={footerRef}
     >
-      created by DW Innovation
+      <div>
+        created by{" "}
+        <a href="https://innovation.dw.com" target="_blank">
+          DW Innovation
+        </a>
+        , &copy; map data{" "}
+        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
+      </div>
+      |
       {ITEMS.map((item) => (
         <div key={item.text} className="text-sm text-muted-foreground">
           <a

@@ -1,42 +1,42 @@
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 
 import { useInputStepper } from "@/components/InputStepper/Context";
 import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { fetchOSMData } from "@/lib/apiServices";
-import useApiStatus from "@/lib/hooks/useApiStatus";
 import { setResults } from "@/lib/utils";
+import useErrorStore from "@/stores/useErrorStore";
 import useGlobalStore from "@/stores/useGlobalStore";
+import useImrStore from "@/stores/useImrStore";
 
 import QueryAnimation from "../Animation";
 
 const OSMQueryStep = () => {
-  const router = useRouter();
   const { setAnimateOut } = useInputStepper();
-  const [, fetchData] = useApiStatus(fetchOSMData);
-  const [shouldUnmount, setShouldUnmount] = useState(false);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const imr = useImrStore((state) => state.imr);
+  const setMessage = useErrorStore((state) => state.setMessage);
 
-  useEffect(() => {
-    fetchData()
-      .then((data) => {
+  const { isLoading, isSuccess } = useQuery(
+    ["osmData", imr],
+    () => fetchOSMData({ imr }),
+    {
+      onSuccess: (data) => {
         setResults(data);
-      })
-      .then(() => {
-        setShouldUnmount(true);
         setAnimateOut(true);
         toggleDialog("inputStepper", false);
-      })
-      .then(() => setTimeout(() => router.push("/map"), 500));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      },
+      onError: () => {
+        setMessage("fetchingOSMdata");
+        toggleDialog("error");
+      },
+      enabled: !!imr,
+    }
+  );
 
   return (
-    <InputContainer
-      title="Querying OpenStreetMap"
-      shouldUnmount={shouldUnmount}
-    >
+    <InputContainer title="Querying OpenStreetMap" shouldUnmount={isSuccess}>
       <QueryAnimation
         sentences={[
           "Constructing your query",
@@ -46,7 +46,7 @@ const OSMQueryStep = () => {
         ]}
         duration={4000}
       />
-      <LoadingSpinner size="2.5rem" />
+      {isLoading && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

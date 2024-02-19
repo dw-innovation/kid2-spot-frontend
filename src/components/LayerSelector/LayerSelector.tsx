@@ -48,7 +48,7 @@ const LayerSelector = () => {
           ? `translateX(${(index + 1) * 15}%)`
           : `translateX(-${(index + 1) * 100}%)`,
         opacity: isOpen ? 1 : 0,
-        height: "40px",
+        height: "100%",
       };
     })
   );
@@ -76,7 +76,7 @@ const LayerSelector = () => {
         </Tooltip>
       </TooltipProvider>
 
-      <div className="z-0 flex items-end">
+      <div className="z-0 flex items-end h-10">
         {springs.map((props, index) => (
           <animated.div key={LAYERS[index].value} style={props}>
             <LayerItem

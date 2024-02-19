@@ -6,7 +6,7 @@ import "allotment/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-resizable/css/styles.css";
 
-import { Metadata } from "next";
+import { type Viewport, Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
@@ -17,6 +17,10 @@ const inter = Inter({
   display: "swap",
   variable: "--font-inter",
 });
+
+export const viewport: Viewport = {
+  themeColor: "black",
+};
 
 export const metadata: Metadata = {
   title: "Spot - The easy way to find locations",
@@ -29,8 +33,6 @@ export const metadata: Metadata = {
       type: "image/png",
     },
   ],
-  viewport:
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0", // prevent zooming on mobile
 };
 
 export default function RootLayout({
