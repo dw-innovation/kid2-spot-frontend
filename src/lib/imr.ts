@@ -289,7 +289,15 @@ export const addRuleOrGroup = (
 ): IntermediateRepresentation => {
   const fullPath = `nodes[${nodeId}].${pathString}`;
   const clonedImr = _.cloneDeep(imr);
-  _.set(clonedImr, fullPath, newObject);
+
+  const arrayAtPath = _.get(clonedImr, fullPath);
+
+  if (!Array.isArray(arrayAtPath)) {
+    _.set(clonedImr, fullPath, [newObject]);
+  } else {
+    arrayAtPath.push(newObject);
+  }
+
   return clonedImr;
 };
 
