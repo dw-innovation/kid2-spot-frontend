@@ -9,19 +9,40 @@ type Props = {
   filter: FilterNode;
   path: number[];
   nodeId: number;
+  pathString: string;
 };
 
-const FilterTypeSwitch = ({ filter, path, nodeId }: Props) => {
+const FilterTypeSwitch = ({ filter, path, nodeId, pathString }: Props) => {
   const isLogicFilter = (filter: FilterNode): filter is LogicFilter => {
     return "and" in filter || "or" in filter;
   };
 
+  const updatePathString = (path: number[], currentPathString: string) => {
+    if (isLogicFilter(filter)) {
+      let keys = Object.keys(filter);
+      let newPath = `${currentPathString}[${path.at(-1)}].${keys[0]}`;
+      return newPath;
+    } else {
+      let newPath = `${currentPathString}[${path.at(-1)}]`;
+      return newPath;
+    }
+  };
   return (
     <>
       {isLogicFilter(filter) ? (
-        <LogicGroup filterNode={filter} path={path} nodeId={nodeId} />
+        <LogicGroup
+          filterNode={filter}
+          path={path}
+          nodeId={nodeId}
+          pathString={updatePathString(path, pathString)}
+        />
       ) : (
-        <Rule filter={filter} path={path} nodeId={nodeId} />
+        <Rule
+          filter={filter}
+          path={path}
+          nodeId={nodeId}
+          pathString={updatePathString(path, pathString)}
+        />
       )}
     </>
   );

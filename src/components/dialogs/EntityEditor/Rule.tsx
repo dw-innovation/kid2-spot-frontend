@@ -12,9 +12,10 @@ type Props = {
   filter: Filter;
   path: number[];
   nodeId: number;
+  pathString: string;
 };
 
-const Rule = ({ filter, path, nodeId }: Props) => {
+const Rule = ({ filter, path, nodeId, pathString }: Props) => {
   const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
   const updateRuleValue = useImrStore((state) => state.updateRuleValue);
 
@@ -24,11 +25,11 @@ const Rule = ({ filter, path, nodeId }: Props) => {
 
   const handleUpdate = (
     nodeId: number,
-    path: number[],
+    pathString: string,
     keyToUpdate: string,
     newValue: string
   ) => {
-    updateRuleValue(nodeId, path, keyToUpdate, newValue);
+    updateRuleValue(nodeId, pathString, keyToUpdate, newValue);
   };
 
   return (
@@ -38,20 +39,20 @@ const Rule = ({ filter, path, nodeId }: Props) => {
         <Input
           value={filter.key}
           onChange={(e) => {
-            handleUpdate(nodeId, path, "key", e.target.value);
+            handleUpdate(nodeId, pathString, "key", e.target.value);
           }}
         />
         <Input
           value={filter.operator}
           onChange={(e) => {
-            handleUpdate(nodeId, path, "operator", e.target.value);
+            handleUpdate(nodeId, pathString, "operator", e.target.value);
           }}
           className="w-6"
         />
         <Input
           value={filter.value}
           onChange={(e) => {
-            handleUpdate(nodeId, path, "value", e.target.value);
+            handleUpdate(nodeId, pathString, "value", e.target.value);
           }}
         />
         <Button

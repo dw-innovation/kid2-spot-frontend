@@ -14,9 +14,10 @@ type Props = {
   filterNode: LogicFilter;
   path: number[];
   nodeId: number;
+  pathString: string;
 };
 
-const LogicGroup = ({ filterNode, path, nodeId }: Props) => {
+const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
   const logicOperator = Object.keys(filterNode)[0] as LogicOperator;
   const groupElements = filterNode[logicOperator];
   const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
@@ -61,6 +62,7 @@ const LogicGroup = ({ filterNode, path, nodeId }: Props) => {
                 key={index}
                 filter={filter}
                 path={[...path, index]}
+                pathString={pathString}
                 nodeId={nodeId}
               />
             ))}

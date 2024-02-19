@@ -29,6 +29,7 @@ const EntityEditor = () => {
           filter={filter}
           path={[index]}
           nodeId={node.id}
+          pathString={`filters`}
         />
       ))}
     </Dialog>
