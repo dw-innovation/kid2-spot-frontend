@@ -310,18 +310,22 @@ export const removeRuleOrGroup = (
   const fullPath = `nodes[${nodeId}].${pathString}`;
 
   const pathArray = _.toPath(fullPath);
-  const lastPathElement = pathArray[pathArray.length - 1];
-  const isArrayIndex = !isNaN(parseInt(lastPathElement, 10));
 
-  if (isArrayIndex) {
-    const arrayPath = pathArray.slice(0, -1).join(".");
-    const array = _.get(clonedImr, arrayPath);
-    if (Array.isArray(array)) {
-      const index = parseInt(lastPathElement, 10);
-      array.splice(index, 1);
-    }
-  } else {
-    _.unset(clonedImr, fullPath);
+  let parentPath = pathArray.slice(0, -1).join(".");
+  let lastPathElement = pathArray[pathArray.length - 1];
+
+  if (lastPathElement === "and" || lastPathElement === "or") {
+    parentPath = pathArray.slice(0, -2).join(".");
+
+    lastPathElement = pathArray[pathArray.length - 2];
+  }
+  const index = parseInt(lastPathElement, 10);
+
+  const parent = _.get(clonedImr, parentPath);
+
+  if (Array.isArray(parent) && !isNaN(index)) {
+    parent.splice(index, 1);
+    _.set(clonedImr, parentPath, parent);
   }
 
   return clonedImr;
