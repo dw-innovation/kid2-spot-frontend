@@ -5,7 +5,6 @@ import {
   addClusterNode,
   addContainsEdge,
   addDistanceEdge,
-  addFilter,
   addNWRNode,
   addRuleOrGroup,
   removeEdge,
@@ -24,10 +23,6 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setNlSentence: (nlSentence) => set({ nlSentence }),
   imr: initialIMR,
   setImr: (updatedImr) => set({ imr: updatedImr }),
-  addFilter: (nodeId, filterIndexPath, newFilter) =>
-    set((state) => ({
-      imr: addFilter(state.imr, nodeId, filterIndexPath, newFilter),
-    })),
   setSearchArea: (type, value) => {
     set((state) => ({ imr: updateSearchArea(state.imr, type, value) }));
   },

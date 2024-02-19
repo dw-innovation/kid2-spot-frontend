@@ -281,29 +281,6 @@ export const setNodeName = (
   };
 };
 
-export const addFilter = (
-  imr: IntermediateRepresentation,
-  nodeId: number,
-  filterIndexPath: number[],
-  newFilter: FilterNode
-): IntermediateRepresentation => {
-  const nodes = imr.nodes.map((node) => {
-    if (node.id !== nodeId) return node;
-
-    const updatedFilters = addNestedFilter(
-      node.filters,
-      filterIndexPath,
-      newFilter
-    );
-    return {
-      ...node,
-      filters: updatedFilters,
-    };
-  });
-
-  return { ...imr, nodes };
-};
-
 export const addRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,
