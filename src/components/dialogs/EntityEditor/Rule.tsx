@@ -67,7 +67,8 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
           onSelect={(value) =>
             handleUpdate(nodeId, pathString, "operator", value)
           }
-          className="w-48"
+          className="w-10"
+          showIndicator={false}
         />
         <Input
           value={filter.value}
