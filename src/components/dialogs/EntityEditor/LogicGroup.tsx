@@ -29,8 +29,8 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
 
   const isRoot = (path: number[]) => path.length === 1;
 
-  const handleRemove = (nodeId: number, path: number[]) => {
-    removeRuleOrGroup(nodeId, path);
+  const handleRemove = (nodeId: number, pathString: string) => {
+    removeRuleOrGroup(nodeId, pathString);
   };
 
   return (
@@ -70,7 +70,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
         </div>
         {!isRoot(path) && (
           <Button
-            onClick={() => handleRemove(nodeId, path)}
+            onClick={() => handleRemove(nodeId, pathString)}
             variant={"outline"}
             className="flex items-center self-start ml-4"
             size="fit"

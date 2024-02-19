@@ -10,17 +10,16 @@ import Connectors from "./Connectors";
 
 type Props = {
   filter: Filter;
-  path: number[];
   nodeId: number;
   pathString: string;
 };
 
-const Rule = ({ filter, path, nodeId, pathString }: Props) => {
+const Rule = ({ filter, nodeId, pathString }: Props) => {
   const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
   const updateRuleValue = useImrStore((state) => state.updateRuleValue);
 
-  const handleRemove = (nodeId: number, path: number[]) => {
-    removeRuleOrGroup(nodeId, path);
+  const handleRemove = (nodeId: number, pathString: string) => {
+    removeRuleOrGroup(nodeId, pathString);
   };
 
   const handleUpdate = (
@@ -56,7 +55,7 @@ const Rule = ({ filter, path, nodeId, pathString }: Props) => {
           }}
         />
         <Button
-          onClick={() => handleRemove(nodeId, path)}
+          onClick={() => handleRemove(nodeId, pathString)}
           variant={"outline"}
           size="fit"
           className="flex justify-center"
