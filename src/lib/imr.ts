@@ -431,84 +431,18 @@ export const switchOperatorAtPath = (
   return clonedNode;
 };
 
-const traverseFiltersAndModifyValue = (
-  filters: FilterNode[],
-  path: number[],
-  position: number,
-  keyToUpdate: string,
-  newValue: any
-): FilterNode[] => {
-  if (position >= path.length) {
-    throw new Error("Path leads beyond the target.");
-  }
-
-  const index = path[position];
-  if (index < 0 || index >= filters.length) {
-    throw new Error("Invalid path: Index out of bounds.");
-  }
-
-  if (position === path.length - 1) {
-    const targetFilter = filters[index];
-    if (typeof targetFilter !== "object" || Array.isArray(targetFilter)) {
-      throw new Error("Invalid target: Expected an object to modify.");
-    }
-    if (keyToUpdate in targetFilter) {
-      const updatedFilter = { ...targetFilter, [keyToUpdate]: newValue };
-      return [
-        ...filters.slice(0, index),
-        updatedFilter,
-        ...filters.slice(index + 1),
-      ];
-    }
-    throw new Error(`Key '${keyToUpdate}' not found in the target filter.`);
-  }
-
-  const currentFilter = filters[index];
-  if (currentFilter && ("and" in currentFilter || "or" in currentFilter)) {
-    const logicKey: LogicOperator = "and" in currentFilter ? "and" : "or";
-    const nestedFilters: FilterNode[] = currentFilter[logicKey] ?? [];
-    const updatedLogicFilter: LogicFilter = {
-      [logicKey]: traverseFiltersAndModifyValue(
-        nestedFilters,
-        path,
-        position + 1,
-        keyToUpdate,
-        newValue
-      ),
-    };
-    return [
-      ...filters.slice(0, index),
-      updatedLogicFilter,
-      ...filters.slice(index + 1),
-    ];
-  }
-
-  throw new Error(
-    "Invalid path: Expected a LogicFilter but found a regular Filter."
-  );
-};
-
 export const updateRuleValue = (
   imr: IntermediateRepresentation,
   nodeId: number,
-  path: number[],
+  pathString: string,
   keyToUpdate: string,
   newValue: any
 ): IntermediateRepresentation => {
-  const nodes = imr.nodes.map((node) => {
-    if (node.id !== nodeId) return node;
+  const fullPath = `nodes[${nodeId}].${pathString}.${keyToUpdate}`;
+  const clonedImr = _.cloneDeep(imr);
+  _.set(clonedImr, fullPath, newValue);
 
-    const updatedFilters = traverseFiltersAndModifyValue(
-      node.filters,
-      path,
-      0,
-      keyToUpdate,
-      newValue
-    );
-    return { ...node, filters: updatedFilters };
-  });
-
-  return { ...imr, nodes };
+  return clonedImr;
 };
 
 export const switchKeyAtPath = (
