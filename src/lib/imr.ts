@@ -322,7 +322,6 @@ export const removeRuleOrGroup = (
   const index = parseInt(lastPathElement, 10);
 
   const parent = _.get(clonedImr, parentPath);
-  console.log(parent);
 
   if (Array.isArray(parent) && !isNaN(index)) {
     parent.splice(index, 1);

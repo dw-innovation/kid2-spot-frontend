@@ -23,8 +23,6 @@ const EntityEditor = () => {
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
       <Header name={node.name} />
 
-      <pre className="text-xs">{JSON.stringify(filters, null, 2)}</pre>
-
       {filters.map((filter, index) => (
         <FilterTypeSwitch
           key={index}
