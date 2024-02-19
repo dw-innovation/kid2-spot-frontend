@@ -53,9 +53,9 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   removeRuleOrGroup: (nodeId, pathString) => {
     set((state) => ({ imr: removeRuleOrGroup(state.imr, nodeId, pathString) }));
   },
-  addRuleOrGroup: (nodeId, path, newObject) => {
+  addRuleOrGroup: (nodeId, pathString, newObject) => {
     set((state) => ({
-      imr: addRuleOrGroup(state.imr, nodeId, path, newObject),
+      imr: addRuleOrGroup(state.imr, nodeId, pathString, newObject),
     }));
   },
   updateRuleValue: (nodeId, pathString, keyToUpdate, newValue) => {
