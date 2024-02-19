@@ -8,18 +8,19 @@ import Connectors from "./Connectors";
 
 type Props = {
   nodeId: number;
+  pathString: string;
   path: number[];
 };
 
-const AddBar = ({ nodeId, path }: Props) => {
+const AddBar = ({ nodeId, pathString, path }: Props) => {
   const addRuleOrGroup = useImrStore((state) => state.addRuleOrGroup);
 
   const handleAddRuleOrGroup = (
     nodeId: number,
-    path: number[],
+    pathString: string,
     newObject: Object
   ) => {
-    addRuleOrGroup(nodeId, path, newObject);
+    addRuleOrGroup(nodeId, pathString, newObject);
   };
 
   return (
@@ -28,7 +29,7 @@ const AddBar = ({ nodeId, path }: Props) => {
       <div className="flex gap-2 ml-2">
         <Button
           onClick={() =>
-            handleAddRuleOrGroup(nodeId, path, {
+            handleAddRuleOrGroup(nodeId, pathString, {
               key: "",
               operator: "=",
               value: "",
@@ -42,7 +43,9 @@ const AddBar = ({ nodeId, path }: Props) => {
         </Button>
         {path.length < 2 && (
           <Button
-            onClick={() => handleAddRuleOrGroup(nodeId, path, { and: [] })}
+            onClick={() =>
+              handleAddRuleOrGroup(nodeId, pathString, { and: [] })
+            }
             variant="secondary"
             size="fit"
             className="bg-blue-100"
