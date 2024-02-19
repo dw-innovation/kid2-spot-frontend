@@ -1,17 +1,16 @@
-import { FilterNode, IntermediateRepresentation } from "@/types/imr";
+import { IntermediateRepresentation } from "@/types/imr";
 
 export default interface ImrStoreInterface {
   nlSentence: string;
   setNlSentence: (nlSentence: string) => void;
   imr: IntermediateRepresentation;
   setImr: (imr: IntermediateRepresentation) => void;
-  addFilter: (
-    nodeId: number,
-    filterIndexPath: number[],
-    newFilter: FilterNode
-  ) => void;
   removeRuleOrGroup: (nodeId: number, pathString: string) => void;
-  addRuleOrGroup: (nodeId: number, path: number[], newObject: Object) => void;
+  addRuleOrGroup: (
+    nodeId: number,
+    pathString: string,
+    newObject: Object
+  ) => void;
   switchKeyAtPath: (nodeId: number, path: number[]) => void;
   stringifiedImr: string;
   setStringifiedImr: (stringifiedImr: string) => void;

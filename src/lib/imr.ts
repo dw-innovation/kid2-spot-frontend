@@ -281,82 +281,16 @@ export const setNodeName = (
   };
 };
 
-export const addFilter = (
-  imr: IntermediateRepresentation,
-  nodeId: number,
-  filterIndexPath: number[],
-  newFilter: FilterNode
-): IntermediateRepresentation => {
-  const nodes = imr.nodes.map((node) => {
-    if (node.id !== nodeId) return node;
-
-    const updatedFilters = addNestedFilter(
-      node.filters,
-      filterIndexPath,
-      newFilter
-    );
-    return {
-      ...node,
-      filters: updatedFilters,
-    };
-  });
-
-  return { ...imr, nodes };
-};
-
-const traverseFiltersAndAppend = (
-  filters: FilterNode[],
-  path: number[],
-  position: number,
-  newObject: Object
-): FilterNode[] => {
-  if (path.length === position) {
-    return [...filters, newObject];
-  }
-
-  const index = path[position];
-  const currentFilter = filters[index];
-
-  if ("and" in currentFilter || "or" in currentFilter) {
-    const key: LogicOperator = "and" in currentFilter ? "and" : "or";
-    return [
-      ...filters.slice(0, index),
-      {
-        [key]: traverseFiltersAndAppend(
-          currentFilter[key] ?? [],
-          path,
-          position + 1,
-          newObject
-        ),
-      },
-      ...filters.slice(index + 1),
-    ];
-  }
-
-  throw new Error(
-    "Invalid path: encountered a non-LogicFilter node where a LogicFilter was expected."
-  );
-};
-
 export const addRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,
-  path: number[],
+  pathString: string,
   newObject: Object
 ): IntermediateRepresentation => {
-  const nodes = imr.nodes.map((node) => {
-    if (node.id !== nodeId) return node;
-
-    const updatedFilters = traverseFiltersAndAppend(
-      node.filters,
-      path,
-      0,
-      newObject
-    );
-    return { ...node, filters: updatedFilters };
-  });
-
-  return { ...imr, nodes };
+  const fullPath = `nodes[${nodeId}].${pathString}`;
+  const clonedImr = _.cloneDeep(imr);
+  _.set(clonedImr, fullPath, newObject);
+  return clonedImr;
 };
 
 export const removeRuleOrGroup = (

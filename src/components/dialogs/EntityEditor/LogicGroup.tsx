@@ -66,7 +66,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
                 nodeId={nodeId}
               />
             ))}
-          <AddBar path={path} nodeId={nodeId} />
+          <AddBar path={path} nodeId={nodeId} pathString={pathString} />
         </div>
         {!isRoot(path) && (
           <Button
