@@ -26,7 +26,7 @@ export default interface ImrStoreInterface {
   setImrArea: (area: string) => void;
   updateRuleValue: (
     nodeId: number,
-    path: number[],
+    pathString: string,
     keyToUpdate: string,
     newValue: any
   ) => void;
