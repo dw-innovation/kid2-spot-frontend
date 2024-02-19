@@ -58,9 +58,15 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       imr: addRuleOrGroup(state.imr, nodeId, path, newObject),
     }));
   },
-  updateRuleValue: (nodeId, path, keyToUpdate, newValue) => {
+  updateRuleValue: (nodeId, pathString, keyToUpdate, newValue) => {
     set((state) => ({
-      imr: updateRuleValue(state.imr, nodeId, path, keyToUpdate, newValue),
+      imr: updateRuleValue(
+        state.imr,
+        nodeId,
+        pathString,
+        keyToUpdate,
+        newValue
+      ),
     }));
   },
   switchKeyAtPath: (nodeId, path) => {
