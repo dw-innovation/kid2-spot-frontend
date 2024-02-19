@@ -1,6 +1,7 @@
 import { TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
+import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useImrStore from "@/stores/useImrStore";
@@ -13,6 +14,25 @@ type Props = {
   nodeId: number;
   pathString: string;
 };
+
+const OPTIONS = [
+  {
+    value: "=",
+    label: "=",
+  },
+  {
+    value: ">",
+    label: ">",
+  },
+  {
+    value: "<",
+    label: "<",
+  },
+  {
+    value: "~",
+    label: "~",
+  },
+];
 
 const Rule = ({ filter, nodeId, pathString }: Props) => {
   const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
@@ -41,12 +61,13 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
             handleUpdate(nodeId, pathString, "key", e.target.value);
           }}
         />
-        <Input
+        <Select
           value={filter.operator}
-          onChange={(e) => {
-            handleUpdate(nodeId, pathString, "operator", e.target.value);
-          }}
-          className="w-6"
+          options={OPTIONS}
+          onSelect={(value) =>
+            handleUpdate(nodeId, pathString, "operator", value)
+          }
+          className="w-48"
         />
         <Input
           value={filter.value}

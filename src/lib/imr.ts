@@ -306,9 +306,23 @@ export const removeRuleOrGroup = (
   nodeId: number,
   pathString: string
 ): IntermediateRepresentation => {
-  const fullPath = `nodes[${nodeId}].${pathString}`;
   const clonedImr = _.cloneDeep(imr);
-  _.unset(clonedImr, fullPath);
+  const fullPath = `nodes[${nodeId}].${pathString}`;
+
+  const pathArray = _.toPath(fullPath);
+  const lastPathElement = pathArray[pathArray.length - 1];
+  const isArrayIndex = !isNaN(parseInt(lastPathElement, 10));
+
+  if (isArrayIndex) {
+    const arrayPath = pathArray.slice(0, -1).join(".");
+    const array = _.get(clonedImr, arrayPath);
+    if (Array.isArray(array)) {
+      const index = parseInt(lastPathElement, 10);
+      array.splice(index, 1);
+    }
+  } else {
+    _.unset(clonedImr, fullPath);
+  }
 
   return clonedImr;
 };
