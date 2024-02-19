@@ -41,6 +41,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
       )}
     >
       <Connectors />
+
       <div
         className={cn(
           "flex items-center p-2",
