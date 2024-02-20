@@ -41,7 +41,6 @@ export const loadSession = async (sessionData: Record<string, any>) => {
   let toggleDialog = useGlobalStore.getState().toggleDialog;
 
   let stores = {
-    useGlobalStore: useGlobalStore.getState().initialize,
     useMapStore: useMapStore.getState().initialize,
     useQueryStore: useQueryStore.getState().initialize,
     useStreetViewStore: useStreetViewStore.getState().initialize,
@@ -52,6 +51,7 @@ export const loadSession = async (sessionData: Record<string, any>) => {
     sessionData[key] && initFn(sessionData[key]);
   });
 
+  toggleDialog("inputStepper", false);
   toggleDialog("queryOSM");
   toggleDialog("loadSession", false);
 
