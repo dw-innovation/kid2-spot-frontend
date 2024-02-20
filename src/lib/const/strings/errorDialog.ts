@@ -1,5 +1,5 @@
 export const STRINGS = {
   title: "Something went wrong!",
-  closeButton: "Close",
+  closeButton: "Okay",
   startOverButton: "Start Over",
 };

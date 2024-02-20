@@ -1,6 +1,12 @@
 export const STRINGS = {
   noResultsTitle: "No results in search area",
-  noResults: `If these detected entities are correct there are no matching results in OpenStreetMap data within the search area.<br /><br />[[DETECTED_ENTITIES]]<br /><br />If these entities are not correct please let us know.<br />[[BUTTON_REPORT]]`,
+  noResults: `If these detected entities are correct there are no matching results in OpenStreetMap data within the search area.
+  
+  [[DETECTED_ENTITIES]]
+  
+  If these entities are not correct please let us know.
+  
+  [[REPORT_BUTTON]]`,
   areaInvalidTitle: "Search area too large",
   areaInvalid: "The search area is too large, zoom in on a smaller area.",
   imrInvalidTitle: "System hick-up",
