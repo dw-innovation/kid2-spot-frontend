@@ -20,7 +20,9 @@ const ErrorDialog = () => {
   );
 
   const dialogTitle = errorKey
-    ? STRINGS[errorKey as keyof typeof STRINGS]
+    ? errorKey.endsWith("Title")
+      ? STRINGS[errorKey as keyof typeof STRINGS]
+      : STRINGS[`${errorKey}Title` as keyof typeof STRINGS]
     : errorType;
 
   const dialogDescription =
