@@ -18,7 +18,6 @@ const Relations = () => {
     <>
       {edges && edges.length > 0 && (
         <>
-          {" "}
           <hr />
           <div>
             <h3 className="text-lg font-semibold">
