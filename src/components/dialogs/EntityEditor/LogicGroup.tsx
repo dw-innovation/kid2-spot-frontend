@@ -21,11 +21,12 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
   const logicOperator = Object.keys(filterNode)[0] as LogicOperator;
   const groupElements = filterNode[logicOperator];
   const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
-  const switchKeyAtPath = useImrStore((state) => state.switchKeyAtPath);
+  const switchOperatorAtPath = useImrStore(
+    (state) => state.switchOperatorAtPath
+  );
 
-  const handleSwitchOperator = (nodeId: number, path: number[]) => {
-    switchKeyAtPath(nodeId, path);
-  };
+  const handleSwitchOperator = (nodeId: number, pathString: string) =>
+    switchOperatorAtPath(nodeId, pathString);
 
   const isRoot = (path: number[]) => path.length === 1;
 
@@ -50,7 +51,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
       >
         <Button
           className="font-bold uppercase"
-          onClick={() => handleSwitchOperator(nodeId, path)}
+          onClick={() => handleSwitchOperator(nodeId, pathString)}
         >
           {logicOperator}
           <SymbolIcon />
