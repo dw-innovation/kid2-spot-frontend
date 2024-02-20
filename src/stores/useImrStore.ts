@@ -2,17 +2,9 @@ import { create } from "zustand";
 
 import { initialIMR } from "@/lib/const/imr";
 import {
-  addClusterNode,
-  addContainsEdge,
-  addDistanceEdge,
-  addNWRNode,
   addRuleOrGroup,
-  removeEdge,
-  removeNode,
   removeRuleOrGroup,
-  setFilterValue,
-  setNodeName,
-  switchKeyAtPath,
+  switchOperatorAtPath,
   updateRuleValue,
   updateSearchArea,
 } from "@/lib/imr";
@@ -28,23 +20,12 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   },
   stringifiedImr: "",
   setStringifiedImr: (stringifiedImr) => set({ stringifiedImr }),
-  addNWRNode: () => set((state) => ({ imr: addNWRNode(state.imr) })),
-  addClusterNode: () => set((state) => ({ imr: addClusterNode(state.imr) })),
-  removeNode: (id) => set((state) => ({ imr: removeNode(state.imr, id) })),
-  addDistanceEdge: () => set((state) => ({ imr: addDistanceEdge(state.imr) })),
-  addContainsEdge: () => set((state) => ({ imr: addContainsEdge(state.imr) })),
-  removeEdge: (index) =>
-    set((state) => ({ imr: removeEdge(state.imr, index) })),
   setImrBBox: (bbox) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "bbox", bbox) })),
   setImrPolygon: (polygon) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "polygon", polygon) })),
   setImrArea: (area) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "area", area) })),
-  setFilterValue: (nodeId, filterId, key, value) =>
-    set((state) => ({
-      imr: setFilterValue(state.imr, nodeId, filterId, key, value),
-    })),
   removeRuleOrGroup: (nodeId, pathString) => {
     set((state) => ({ imr: removeRuleOrGroup(state.imr, nodeId, pathString) }));
   },
@@ -64,13 +45,10 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
       ),
     }));
   },
-  switchKeyAtPath: (nodeId, path) => {
+  switchOperatorAtPath: (nodeId, pathString) => {
     set((state) => ({
-      imr: switchKeyAtPath(state.imr, nodeId, path),
+      imr: switchOperatorAtPath(state.imr, nodeId, pathString),
     }));
-  },
-  setNodeName: (nodeId, name) => {
-    set((state) => ({ imr: setNodeName(state.imr, nodeId, name) }));
   },
   setRelationValue: (index, key, value) =>
     set((state) => ({
@@ -81,16 +59,6 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
         ),
       },
     })),
-  setClusterProp: (id, key, value) =>
-    set((state) => ({
-      imr: {
-        ...state.imr,
-        nodes: state.imr.nodes.map((node) =>
-          node.id === id ? { ...node, [key]: value } : node
-        ),
-      },
-    })),
-
   initialize: (initialData) =>
     set(() => ({
       imr: initialData.imr,
