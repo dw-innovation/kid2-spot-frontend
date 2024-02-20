@@ -4,6 +4,7 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
 import Dialog from "../Dialog";
+import AddBar from "./AddBar";
 import FilterTypeSwitch from "./FilterTypeSwitch";
 import Header from "./Header";
 
@@ -32,6 +33,10 @@ const EntityEditor = () => {
           pathString={`filters`}
         />
       ))}
+
+      {filters.length === 0 && (
+        <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
+      )}
     </Dialog>
   );
 };
