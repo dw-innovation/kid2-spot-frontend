@@ -22,12 +22,13 @@ export const fetchOSMData = async ({
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data.error;
+      const serverError = error.response?.data.errorType;
       if (serverError) {
         throw new Error(serverError);
       }
     }
-    throw new Error("An error occurred while fetching the data.");
+
+    throw new Error("UnknownError");
   }
 };
 
