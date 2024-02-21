@@ -32,6 +32,7 @@ const OSMQueryStep = () => {
         toggleDialog("error");
       },
       enabled: !!imr,
+      retry: false,
     }
   );
 

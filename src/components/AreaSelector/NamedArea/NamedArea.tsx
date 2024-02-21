@@ -43,6 +43,7 @@ const NamedArea = () => {
       },
       // Only execute this query once on component mount
       enabled: !!area, // Run query only if area is not empty
+      retry: false,
     }
   );
 

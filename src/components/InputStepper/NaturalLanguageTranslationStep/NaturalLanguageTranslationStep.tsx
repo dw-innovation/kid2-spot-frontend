@@ -36,6 +36,7 @@ const NaturalLanguageTranslationStep = () => {
         console.log(error);
       },
       enabled: !!nlSentence,
+      retry: false,
     }
   );
 
