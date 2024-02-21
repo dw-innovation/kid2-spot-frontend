@@ -9,13 +9,8 @@ const DetectedEntitiesBar = () => {
   const nodes = useImrStore((state) => state.imr.nodes);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const setDialogData = useGlobalStore((state) => state.setDialogData);
-  const clearError = useGlobalStore((state) => state.clearError);
 
   const handleEntityClick = (id: number) => {
-    toggleDialog("error", false);
-    setTimeout(() => {
-      clearError();
-    }, 300);
     setDialogData("entityEditor", { id: id });
     toggleDialog("entityEditor");
   };
