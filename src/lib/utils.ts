@@ -1,5 +1,6 @@
 import tokml from "@jlandrum/tokml";
 import { area } from "@turf/turf";
+import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
 import {
   FeatureCollection,
@@ -254,4 +255,64 @@ export const logSlider = (
 ) => {
   const base = Math.pow(max / min, 1 / ((max - min) * scale));
   return Math.round(Math.log(value / min) / (Math.log(base) * scale) + min);
+};
+
+export const trackAction = async (action: string, payload = "") => {
+  type MatomoParams = {
+    idsite: string | undefined;
+    rec: number;
+    rand: number;
+    res: string;
+    ua: string;
+    action_name: string;
+    [key: string]: string | number | undefined;
+  };
+
+  let params: MatomoParams = {
+    idsite: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
+    rec: 1,
+    rand: Math.floor(Math.random() * 10000000),
+    res: `${window?.screen?.availWidth}x${window?.screen?.availHeight}`,
+    ua: window?.navigator?.userAgent,
+    action_name: action,
+  };
+
+  switch (action) {
+    case "nlTransformation":
+      params = {
+        ...params,
+        search: payload,
+      };
+      break;
+
+    case "searchResultClick":
+    case "trailClick":
+    case "mediaTypeSelectorClick":
+    case "graphClick":
+      params = {
+        ...params,
+        url: payload,
+      };
+      break;
+
+    case "externalLink":
+      params = {
+        ...params,
+        link: payload,
+        url: payload,
+      };
+      break;
+
+    default:
+      params = {
+        ...params,
+        url: window?.location?.href,
+      };
+  }
+
+  await axios({
+    method: "get",
+    url: process.env.NEXT_PUBLIC_MATOMO_URL,
+    params,
+  });
 };
