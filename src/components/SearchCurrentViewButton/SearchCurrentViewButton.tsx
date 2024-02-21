@@ -7,6 +7,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { fetchOSMData } from "@/lib/apiServices";
 import { setResults } from "@/lib/utils";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -16,13 +17,20 @@ const SearchCurrentViewButton = () => {
   const searchArea = useImrStore((state) => state.imr.area.type);
   const bounds = useMapStore((state) => state.bounds);
   const imr = useImrStore((state) => state.imr);
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const setError = useGlobalStore((state) => state.setError);
 
   const queryClient = useQueryClient();
 
   const { isLoading, mutate } = useMutation(fetchOSMData, {
     onSuccess: (data) => {
-      queryClient.setQueryData("osmData", data);
-      setResults(data);
+      if (data.results.features.length === 0) {
+        toggleDialog("error");
+        setError("noResults");
+      } else {
+        queryClient.setQueryData("osmData", data);
+        setResults(data);
+      }
     },
   });
 

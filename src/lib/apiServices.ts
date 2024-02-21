@@ -19,10 +19,6 @@ export const fetchOSMData = async ({
   try {
     const response = await axios(config);
 
-    if (response.data.results.features.length === 0) {
-      throw new Error("noResults");
-    }
-
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

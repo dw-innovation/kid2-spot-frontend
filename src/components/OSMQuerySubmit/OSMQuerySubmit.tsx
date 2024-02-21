@@ -14,6 +14,7 @@ import { fetchOSMData } from "@/lib/apiServices";
 import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import { cn, setResults } from "@/lib/utils";
+import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -24,6 +25,8 @@ const OSMQuerySubmit = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const prevImrRef = useRef<IntermediateRepresentation>();
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const setError = useGlobalStore((state) => state.setError);
 
   useEffect(() => {
     if (prevImrRef.current === imr) {
@@ -40,7 +43,13 @@ const OSMQuerySubmit = () => {
     {
       retry: false,
       onSuccess: (data) => {
-        setResults(data);
+        if (data.results.features.length === 0) {
+          toggleDialog("error");
+          setError("noResults");
+        } else {
+          queryClient.setQueryData("osmData", data);
+          setResults(data);
+        }
         setIsDisabled(true);
       },
       enabled: shouldFetch,

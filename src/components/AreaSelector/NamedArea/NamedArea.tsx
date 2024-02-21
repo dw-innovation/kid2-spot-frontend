@@ -19,6 +19,7 @@ const NamedArea = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
   const nextStep = useGlobalStore((state) => state.nextStep);
+  const setImrArea = useImrStore((state) => state.setImrArea);
 
   const {
     data: suggestedAreas,
@@ -48,6 +49,7 @@ const NamedArea = () => {
   useEffect(() => {
     if (suggestedAreas?.length === 1) {
       setPlaceId(suggestedAreas[0].place_id);
+      setImrArea(suggestedAreas[0].display_name.toString());
       nextStep();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,10 +68,15 @@ const NamedArea = () => {
   }, [placeId, setBounds, suggestedAreas]);
 
   const options =
-    suggestedAreas?.map(({ display_name, place_id }) => ({
+    suggestedAreas?.map(({ display_name }) => ({
       label: display_name,
-      value: place_id.toString(),
+      value: display_name,
     })) || [];
+
+  const handleSetArea = (value: string) => {
+    setImrArea(value);
+    nextStep();
+  };
 
   return (
     <>
@@ -94,7 +101,7 @@ const NamedArea = () => {
           <Select
             options={options}
             value={placeId.toString()}
-            onSelect={(value) => setPlaceId(parseInt(value))}
+            onSelect={(value) => handleSetArea(value)}
             className="max-w-full"
             defaultValue={options[0]}
           />

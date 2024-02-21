@@ -108,7 +108,7 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     set((state) => ({ dialogs: setDialogData(state.dialogs, name, data) })),
   isError: false,
   errorType: "",
-  setError: (message) => set({ isError: true, errorType: message }),
+  setError: (type) => set({ isError: true, errorType: type }),
   clearError: () => set({ isError: false, errorType: "" }),
 }));
 

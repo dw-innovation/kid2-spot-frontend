@@ -12,9 +12,9 @@ import useImrStore from "@/stores/useImrStore";
 import InputContainer from "../InputContainer";
 
 const PLACEHOLDERS = [
-  "Find all restaurants that are no more than 200m away from a bus stop in Berlin.",
-  "Give me all the public parks that have a fountain in the city of Köln.",
-  "Hey! I want to know all the malls in Hamburg where I can find an ALDI supermarket.",
+  "Find me a tram stop next to a park within 150 meters of a traffic light and a parking garage in Prague.",
+  "I can see a car park, a café called “*club” and a marina within 150 meters of each other, where in The Hague is that?",
+  "Where is a bus station directly in front of a shopping mall in Yangon?",
 ];
 
 type Props = {

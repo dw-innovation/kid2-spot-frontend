@@ -1,8 +1,15 @@
 import tokml from "@jlandrum/tokml";
 import { area } from "@turf/turf";
 import { type ClassValue, clsx } from "clsx";
-import { MultiPolygon, Polygon } from "geojson";
+import {
+  FeatureCollection,
+  GeoJsonProperties,
+  Geometry,
+  MultiPolygon,
+  Polygon,
+} from "geojson";
 import { LatLngLiteral } from "leaflet";
+import _ from "lodash";
 import { twMerge } from "tailwind-merge";
 
 import useResultsStore from "@/stores/useResultsStore";
@@ -20,10 +27,12 @@ export const saveResultsToFile = (format: "geojson" | "kml") => {
 
   if (!geojson) return;
 
+  const cleanedGeoJSON = cleanGeoJSON(geojson);
+
   if (format === "geojson") {
-    fileData = JSON.stringify(geojson);
+    fileData = JSON.stringify(cleanedGeoJSON);
   } else {
-    let kml = tokml(geojson);
+    let kml = tokml(cleanedGeoJSON);
     fileData = kml;
   }
   const blob = new Blob([fileData], { type: "text/plain" });
@@ -32,6 +41,24 @@ export const saveResultsToFile = (format: "geojson" | "kml") => {
   link.download = `export.${format}`;
   link.href = url;
   link.click();
+};
+
+const cleanGeoJSON = (
+  geoJSON: FeatureCollection<Geometry, GeoJsonProperties>
+): FeatureCollection<Geometry, GeoJsonProperties> => {
+  const propsToRemove = [
+    "center",
+    "primary_osm_ids",
+    "primitive_type",
+    "set_name",
+  ];
+
+  geoJSON.features = geoJSON.features.map((feature) => ({
+    ...feature,
+    properties: _.omit(feature.properties, propsToRemove),
+  }));
+
+  return geoJSON;
 };
 
 export const createGoogleMapsEmbedUrl = (coordinates: LatLngLiteral) => {

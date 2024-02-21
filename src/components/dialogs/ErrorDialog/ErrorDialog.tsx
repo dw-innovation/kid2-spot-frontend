@@ -1,38 +1,54 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
-import { Button } from "@/components/ui/button";
 import { STRINGS } from "@/lib/const/strings/errors";
-import useStrings from "@/lib/contexts/useStrings";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";
+import ClosingButton from "./ClosingButton";
+import DetectedEntitiesBar from "./DetectedEntitiesBar";
+import ReportButton from "./ReportButton";
 
 const DIALOG_NAME = "error";
 
+const COMPONENTS = {
+  p: (props: React.HTMLProps<HTMLParagraphElement>) => {
+    if (
+      typeof props.children === "string" &&
+      props.children === "[[DETECTED_ENTITIES]]"
+    ) {
+      return <DetectedEntitiesBar />;
+    } else if (
+      typeof props.children === "string" &&
+      props.children === "[[REPORT_BUTTON]]"
+    ) {
+      return <ReportButton />;
+    } else {
+      return <p {...props} />;
+    }
+  },
+};
+
 const ErrorDialog = () => {
-  const { errorDialogTitle, errorDialogCloseButton } = useStrings();
-  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const errorType = useGlobalStore((state) => state.errorType);
-  const clearError = useGlobalStore((state) => state.clearError);
+
+  const errorKey = Object.keys(STRINGS).find(
+    (key) => key === errorType && !key.endsWith("Title")
+  );
+
+  const dialogTitle = errorKey
+    ? errorKey.endsWith("Title")
+      ? STRINGS[errorKey as keyof typeof STRINGS]
+      : STRINGS[`${errorKey}Title` as keyof typeof STRINGS]
+    : errorType;
+
+  const dialogDescription =
+    STRINGS[errorType as keyof typeof STRINGS] || errorType;
 
   return (
-    <Dialog
-      dialogName={DIALOG_NAME}
-      dialogTitle={errorDialogTitle()}
-      dialogDescription={
-        STRINGS[errorType as keyof typeof STRINGS] || errorType
-      }
-    >
-      <Button
-        onClick={() => {
-          toggleDialog(DIALOG_NAME);
-          setTimeout(() => {
-            clearError();
-          }, 300);
-        }}
-      >
-        {errorDialogCloseButton()}
-      </Button>
+    <Dialog dialogName={DIALOG_NAME} dialogTitle={dialogTitle}>
+      <ReactMarkdown components={COMPONENTS}>{dialogDescription}</ReactMarkdown>
+      <ClosingButton />
     </Dialog>
   );
 };

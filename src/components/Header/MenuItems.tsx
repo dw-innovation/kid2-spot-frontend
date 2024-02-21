@@ -5,6 +5,7 @@ import React from "react";
 
 import ActionsMenu from "@/components/menus/ActionsMenu";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 const MenuItems = () => {
@@ -13,7 +14,13 @@ const MenuItems = () => {
   return (
     <div className="flex flex-col items-end gap-2 md:flex-row">
       <ActionsMenu />
-      <Button onClick={() => toggleDialog("imr")} variant={"outline"}>
+      <Button
+        onClick={() => toggleDialog("imr")}
+        variant={"outline"}
+        className={cn(
+          process.env.NEXT_PUBLIC_ENVIRONMENT === "production" && "hidden"
+        )}
+      >
         <Pencil1Icon />
         <span>Query</span>
       </Button>

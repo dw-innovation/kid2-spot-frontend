@@ -27,20 +27,22 @@ const AddBar = ({ nodeId, pathString, path }: Props) => {
     <div className="flex items-center connector-container">
       <Connectors />
       <div className="flex gap-2 ml-2">
-        <Button
-          onClick={() =>
-            handleAddRuleOrGroup(nodeId, pathString, {
-              key: "",
-              operator: "=",
-              value: "",
-            })
-          }
-          variant="secondary"
-          size="fit"
-          className="bg-blue-100"
-        >
-          <PlusIcon /> rule
-        </Button>
+        {path.length > 0 && (
+          <Button
+            onClick={() =>
+              handleAddRuleOrGroup(nodeId, pathString, {
+                key: "",
+                operator: "=",
+                value: "",
+              })
+            }
+            variant="secondary"
+            size="fit"
+            className="bg-blue-100"
+          >
+            <PlusIcon /> rule
+          </Button>
+        )}
         {path.length < 2 && (
           <Button
             onClick={() =>

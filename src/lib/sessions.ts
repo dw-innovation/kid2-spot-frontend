@@ -51,6 +51,7 @@ export const loadSession = async (sessionData: Record<string, any>) => {
     sessionData[key] && initFn(sessionData[key]);
   });
 
+  toggleDialog("inputStepper", false);
   toggleDialog("queryOSM");
   toggleDialog("loadSession", false);
 
