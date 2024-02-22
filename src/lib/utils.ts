@@ -316,3 +316,32 @@ export const trackAction = async (action: string, payload = "") => {
     params,
   });
 };
+
+export const createMailtoLink = ({
+  to,
+  cc,
+  bcc,
+  subject,
+  body,
+}: {
+  to: string;
+  cc?: string;
+  bcc?: string;
+  subject?: string;
+  body?: string;
+}) => {
+  let link = `mailto:${encodeURIComponent(to)}`;
+
+  const params = [];
+
+  if (cc) params.push(`cc=${encodeURIComponent(cc)}`);
+  if (bcc) params.push(`bcc=${encodeURIComponent(bcc)}`);
+  if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
+  if (body) params.push(`body=${encodeURIComponent(body)}`);
+
+  if (params.length > 0) {
+    link += `?${params.join("&")}`;
+  }
+
+  return link;
+};
