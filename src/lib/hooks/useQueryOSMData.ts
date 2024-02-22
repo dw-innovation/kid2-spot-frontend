@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
@@ -20,12 +20,20 @@ const useQueryOSMData = ({
   isEnabled,
 }: Props) => {
   const imr = useImrStore((state) => state.imr);
-  const setErrorType = useGlobalStore((state) => state.setError);
+  const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const queryClient = useQueryClient();
 
   return useQuery(["osmData", imr], () => fetchOSMData({ imr }), {
     onSuccess: (data) => {
-      setResults(data);
+      console.log("here");
+      if (data.results.features.length === 0) {
+        toggleDialog("error", true);
+        setError("noResults");
+      } else {
+        queryClient.setQueryData("osmData", data);
+        setResults(data);
+      }
       onSuccessCallbacks &&
         onSuccessCallbacks.forEach((callback) => {
           if (typeof callback === "function") {
@@ -34,7 +42,7 @@ const useQueryOSMData = ({
         });
     },
     onError: (error: Error) => {
-      setErrorType(error.message);
+      setError(error.message);
       toggleDialog("error");
 
       onErrorCallbacks &&
