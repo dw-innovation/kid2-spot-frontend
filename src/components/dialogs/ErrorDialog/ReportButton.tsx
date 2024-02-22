@@ -1,16 +1,26 @@
 import React from "react";
-import { toast } from "react-toastify";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import useSaveSession from "@/lib/hooks/useSaveSession";
+import { createMailtoLink } from "@/lib/utils";
 
 const ReportButton = () => {
   const mutation = useSaveSession({
     onSuccessCallbacks: [
       (sessionLink) => {
-        window.navigator.clipboard.writeText(sessionLink);
-        toast.success("Session saved and share link copied to clipboard!");
+        const mailto = createMailtoLink({
+          to: "innovation@dw.com",
+          subject: "Incorrect Entities",
+          body: `Please describe the entities that you think are incorrect. Your session link is: ${sessionLink}`,
+        });
+        const mailLink = document.createElement("a");
+        mailLink.href = mailto;
+        mailLink.setAttribute("target", "_blank");
+        mailLink.style.display = "none";
+        document.body.appendChild(mailLink);
+        mailLink.click();
+        document.body.removeChild(mailLink);
       },
     ],
   });
