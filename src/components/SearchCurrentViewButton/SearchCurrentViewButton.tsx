@@ -1,13 +1,10 @@
 import L from "leaflet";
 import { SearchIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useEffect, useRef, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
-import { fetchOSMData } from "@/lib/apiServices";
-import { setResults } from "@/lib/utils";
-import useGlobalStore from "@/stores/useGlobalStore";
+import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -16,21 +13,12 @@ const SearchCurrentViewButton = () => {
   const setSearchArea = useImrStore((state) => state.setSearchArea);
   const searchArea = useImrStore((state) => state.imr.area.type);
   const bounds = useMapStore((state) => state.bounds);
-  const imr = useImrStore((state) => state.imr);
-  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const setError = useGlobalStore((state) => state.setError);
+  const [shouldFetch, setShouldFetch] = useState(false);
 
-  const queryClient = useQueryClient();
-
-  const { isLoading, mutate } = useMutation(fetchOSMData, {
-    onSuccess: (data) => {
-      if (data.results.features.length === 0) {
-        toggleDialog("error");
-        setError("noResults");
-      } else {
-        queryClient.setQueryData("osmData", data);
-        setResults(data);
-      }
+  const { isLoading } = useQueryOSMData({
+    isEnabled: shouldFetch,
+    onSettled() {
+      setShouldFetch(false);
     },
   });
 
@@ -50,7 +38,7 @@ const SearchCurrentViewButton = () => {
         bounds[1][0],
       ]);
     }
-    mutate({ imr });
+    setShouldFetch(true);
   };
 
   return (
