@@ -22,12 +22,13 @@ export const fetchOSMData = async ({
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data.error;
+      const serverError = error.response?.data.errorType;
       if (serverError) {
         throw new Error(serverError);
       }
     }
-    throw new Error("An error occurred while fetching the data.");
+
+    throw new Error("UnknownError");
   }
 };
 
@@ -64,6 +65,7 @@ export const fetchNLToIMRTranslation = async (
       url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
       data: {
         sentence: naturalLanguagePrompt,
+        model: process.env.NEXT_PUBLIC_NLP_MODEL,
       },
     });
 

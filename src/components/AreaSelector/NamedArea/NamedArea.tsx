@@ -13,7 +13,7 @@ import { NominatimPlace } from "@/types/nominatim";
 import SurfaceAlert from "../SurfaceAlert";
 
 const NamedArea = () => {
-  const [placeId, setPlaceId] = useState<number>(0);
+  const [selectedAreaName, setSelectedAreaName] = useState(""); // Changed from placeId to selectedAreaName
   const [surface, setSurface] = useState<number>(0);
   const area = useImrStore((state) => state.imr.area.value);
   const setBounds = useMapStore((state) => state.setBounds);
@@ -34,8 +34,8 @@ const NamedArea = () => {
     },
     {
       onSuccess: (data) => {
-        const firstOption = data[0]?.place_id;
-        if (firstOption) setPlaceId(firstOption);
+        const firstOptionName = data[0]?.display_name;
+        if (firstOptionName) setSelectedAreaName(firstOptionName);
       },
       onError: (error) => {
         console.log(error);
@@ -43,20 +43,23 @@ const NamedArea = () => {
       },
       // Only execute this query once on component mount
       enabled: !!area, // Run query only if area is not empty
+      retry: false,
     }
   );
 
   useEffect(() => {
     if (suggestedAreas?.length === 1) {
-      setPlaceId(suggestedAreas[0].place_id);
-      setImrArea(suggestedAreas[0].display_name.toString());
+      setSelectedAreaName(suggestedAreas[0].display_name);
+      setImrArea(suggestedAreas[0].display_name);
       nextStep();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedAreas]);
 
   useEffect(() => {
-    const suggestion = suggestedAreas?.find((a) => a.place_id === placeId);
+    const suggestion = suggestedAreas?.find(
+      (a) => a.display_name === selectedAreaName
+    );
     if (suggestion) {
       setSurface(calculateSurface(suggestion.geojson));
       const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
@@ -65,7 +68,7 @@ const NamedArea = () => {
         [bounds[1], bounds[3]],
       ]);
     }
-  }, [placeId, setBounds, suggestedAreas]);
+  }, [selectedAreaName, setBounds, suggestedAreas]);
 
   const options =
     suggestedAreas?.map(({ display_name }) => ({
@@ -74,6 +77,7 @@ const NamedArea = () => {
     })) || [];
 
   const handleSetArea = (value: string) => {
+    setSelectedAreaName(value);
     setImrArea(value);
     nextStep();
   };
@@ -100,8 +104,8 @@ const NamedArea = () => {
         <>
           <Select
             options={options}
-            value={placeId.toString()}
-            onSelect={(value) => handleSetArea(value)}
+            value={selectedAreaName}
+            onSelect={handleSetArea}
             className="max-w-full"
             defaultValue={options[0]}
           />

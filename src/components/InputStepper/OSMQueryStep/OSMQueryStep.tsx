@@ -6,7 +6,6 @@ import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { fetchOSMData } from "@/lib/apiServices";
 import { setResults } from "@/lib/utils";
-import useErrorStore from "@/stores/useErrorStore";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -16,7 +15,7 @@ const OSMQueryStep = () => {
   const { setAnimateOut } = useInputStepper();
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const imr = useImrStore((state) => state.imr);
-  const setMessage = useErrorStore((state) => state.setMessage);
+  const setErrorType = useGlobalStore((state) => state.setError);
 
   const { isLoading, isSuccess } = useQuery(
     ["osmData", imr],
@@ -27,11 +26,13 @@ const OSMQueryStep = () => {
         setAnimateOut(true);
         toggleDialog("inputStepper", false);
       },
-      onError: () => {
-        setMessage("fetchingOSMdata");
+      onError: (error: Error) => {
+        setErrorType(error.message);
+        toggleDialog("inputStepper", false);
         toggleDialog("error");
       },
       enabled: !!imr,
+      retry: false,
     }
   );
 

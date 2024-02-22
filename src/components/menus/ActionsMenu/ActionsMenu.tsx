@@ -6,21 +6,16 @@ import {
   UploadIcon,
 } from "@radix-ui/react-icons";
 import React, { useState } from "react";
-import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
 import { useMenu } from "@/components/Header/Context";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import useStrings from "@/lib/contexts/useStrings";
-import { saveSession } from "@/lib/sessions";
+import useSaveSession from "@/lib/hooks/useSaveSession";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
-import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useSessionsStore from "@/stores/useSessionsStore";
-import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import {
   DropdownMenu,
@@ -49,29 +44,14 @@ const ActionsMenu = () => {
 
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const sessions = useSessionsStore((state) => state.sessions);
-  const mutation = useMutation(
-    () =>
-      saveSession([
-        { name: "useGlobalStore", getState: useGlobalStore.getState },
-        { name: "useMapStore", getState: useMapStore.getState },
-        { name: "useQueryStore", getState: useQueryStore.getState },
-        { name: "useStreetViewStore", getState: useStreetViewStore.getState },
-        { name: "useImrStore", getState: useImrStore.getState },
-      ]),
-    {
-      onSuccess: (sessionLink) => {
+  const mutation = useSaveSession({
+    onSuccessCallbacks: [
+      (sessionLink) => {
         window.navigator.clipboard.writeText(sessionLink);
         toast.success("Session saved and share link copied to clipboard!");
       },
-      onError: (error) => {
-        if (error instanceof Error) {
-          toast.error("Error saving session: " + error.message);
-        } else {
-          toast.error("An unknown error occurred while saving the session");
-        }
-      },
-    }
-  );
+    ],
+  });
 
   const ShareSessionIcon = mutation.isLoading ? (
     <LoadingSpinner />

@@ -10,8 +10,6 @@ import { type Viewport, Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
-import ErrorAlert from "@/components/ErrorAlert";
-
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -43,7 +41,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <ErrorAlert />
         <ToastContainer
           position="top-center"
           autoClose={5000}
