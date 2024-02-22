@@ -65,6 +65,7 @@ export const fetchNLToIMRTranslation = async (
       url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
       data: {
         sentence: naturalLanguagePrompt,
+        model: process.env.NEXT_PUBLIC_NLP_MODEL,
       },
     });
 
