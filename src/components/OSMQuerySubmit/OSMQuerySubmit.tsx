@@ -1,6 +1,6 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -10,11 +10,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { fetchOSMData } from "@/lib/apiServices";
 import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
-import { cn, setResults } from "@/lib/utils";
-import useGlobalStore from "@/stores/useGlobalStore";
+import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
+import { cn } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -25,8 +24,6 @@ const OSMQuerySubmit = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const prevImrRef = useRef<IntermediateRepresentation>();
-  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const setError = useGlobalStore((state) => state.setError);
 
   useEffect(() => {
     if (prevImrRef.current === imr) {
@@ -37,27 +34,11 @@ const OSMQuerySubmit = () => {
     }
   }, [imr]);
 
-  const { isLoading, status } = useQuery(
-    ["osmData", imr],
-    () => fetchOSMData({ imr }),
-    {
-      retry: false,
-      onSuccess: (data) => {
-        if (data.results.features.length === 0) {
-          toggleDialog("error");
-          setError("noResults");
-        } else {
-          queryClient.setQueryData("osmData", data);
-          setResults(data);
-        }
-        setIsDisabled(true);
-      },
-      enabled: shouldFetch,
-      onSettled: () => {
-        setShouldFetch(false);
-      },
-    }
-  );
+  const { isLoading, status } = useQueryOSMData({
+    onSuccessCallbacks: [() => setIsDisabled(true)],
+    onSettled: () => setShouldFetch(false),
+    isEnabled: shouldFetch,
+  });
 
   const elapsedTime = useElapsedTime(isLoading, status);
 

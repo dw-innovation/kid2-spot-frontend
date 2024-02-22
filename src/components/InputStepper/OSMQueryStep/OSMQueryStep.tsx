@@ -1,11 +1,9 @@
 import React from "react";
-import { useQuery } from "react-query";
 
 import { useInputStepper } from "@/components/InputStepper/Context";
 import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { fetchOSMData } from "@/lib/apiServices";
-import { setResults } from "@/lib/utils";
+import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -15,26 +13,22 @@ const OSMQueryStep = () => {
   const { setAnimateOut } = useInputStepper();
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const imr = useImrStore((state) => state.imr);
-  const setErrorType = useGlobalStore((state) => state.setError);
 
-  const { isLoading, isSuccess } = useQuery(
-    ["osmData", imr],
-    () => fetchOSMData({ imr }),
-    {
-      onSuccess: (data) => {
-        setResults(data);
+  const { isLoading, isSuccess } = useQueryOSMData({
+    onSuccessCallbacks: [
+      () => {
         setAnimateOut(true);
         toggleDialog("inputStepper", false);
       },
-      onError: (error: Error) => {
-        setErrorType(error.message);
+    ],
+    onErrorCallbacks: [
+      () => {
+        setAnimateOut(true);
         toggleDialog("inputStepper", false);
-        toggleDialog("error");
       },
-      enabled: !!imr,
-      retry: false,
-    }
-  );
+    ],
+    isEnabled: !!imr,
+  });
 
   return (
     <InputContainer title="Querying OpenStreetMap" shouldUnmount={isSuccess}>
