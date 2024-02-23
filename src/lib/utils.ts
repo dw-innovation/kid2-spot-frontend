@@ -103,7 +103,7 @@ export const injectArea = (imr: IntermediateRepresentation): any => {
 
 export const calculateSurface = (polgyon: Polygon | MultiPolygon): number => {
   if (polgyon.type !== "Polygon" && polgyon.type !== "MultiPolygon") {
-    throw new Error("Input must be a Polygon");
+    return 0;
   }
   return Math.round(area(polgyon) / 1000000);
 };
