@@ -27,6 +27,7 @@ const Header = () => {
       <div className="flex items-center justify-between flex-1">
         <div className="flex items-end gap-5">
           <SpotLogo />
+          <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
           <h2 className="pb-1 text-lg font-semibold leading-none font-inter text-muted-foreground ">
             Geospatial search for OpenStreetMap
           </h2>
