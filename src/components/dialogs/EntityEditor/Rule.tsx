@@ -4,6 +4,7 @@ import React from "react";
 import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
 import useImrStore from "@/stores/useImrStore";
 import { Filter } from "@/types/imr";
 
@@ -55,11 +56,10 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
     <div className="flex items-center gap-2 mb-2 connector-container">
       <Connectors />
       <div className="flex items-center gap-2 p-1 bg-white rounded-md">
-        <Input
+        <Select
           value={filter.key}
-          onChange={(e) => {
-            handleUpdate(nodeId, pathString, "key", e.target.value);
-          }}
+          options={ALLOWED_TAGS}
+          onSelect={(value) => handleUpdate(nodeId, pathString, "key", value)}
         />
         <Select
           value={filter.operator}
@@ -67,7 +67,7 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
           onSelect={(value) =>
             handleUpdate(nodeId, pathString, "operator", value)
           }
-          className="w-10"
+          className="w-12"
           showIndicator={false}
         />
         <Input
