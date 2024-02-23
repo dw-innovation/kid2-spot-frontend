@@ -21,6 +21,7 @@ export type Cluster = {
   minPoints: number;
   maxDistance: string;
   name: string;
+  display_name: string;
 };
 
 export type NWR = {
@@ -28,6 +29,7 @@ export type NWR = {
   filters: FilterNode[];
   type: "nwr";
   name: string;
+  display_name: string;
 };
 
 export type ContainsRelation = {
