@@ -23,7 +23,7 @@ const OSMQuerySubmit = () => {
   const queryClient = useQueryClient();
   const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const prevImrRef = useRef<IntermediateRepresentation>();
+  const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
     if (prevImrRef.current === imr) {
