@@ -18,9 +18,9 @@ const DetectedEntitiesBar = () => {
 
   return (
     <div className="flex gap-2">
-      {nodes.map(({ id, name }, index) => (
+      {nodes.map(({ id, display_name }, index) => (
         <Button key={index} onClick={() => handleEntityClick(id)}>
-          <Pencil1Icon /> {capitalize(name)}
+          <Pencil1Icon /> {capitalize(display_name)}
         </Button>
       ))}
     </div>
