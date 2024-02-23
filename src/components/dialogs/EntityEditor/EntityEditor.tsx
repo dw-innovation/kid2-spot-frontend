@@ -22,7 +22,7 @@ const EntityEditor = () => {
 
   return (
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
-      <Header name={node.name} />
+      <Header name={node.display_name} />
 
       {filters.map((filter, index) => (
         <FilterTypeSwitch

@@ -13,7 +13,7 @@ import InputContainer from "../InputContainer";
 
 const PLACEHOLDERS = [
   "Find me a tram stop next to a park within 150 meters of a traffic light and a parking garage in Prague.",
-  "I can see a car park, a café called “*club” and a marina within 150 meters of each other, where in The Hague is that?",
+  "I can see a car park, a café called “club” and a marina within 150 meters of each other, where in The Hague is that?",
   "Where is a bus station directly in front of a shopping mall in Yangon?",
 ];
 
