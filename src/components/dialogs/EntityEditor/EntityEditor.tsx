@@ -5,6 +5,7 @@ import useImrStore from "@/stores/useImrStore";
 
 import Dialog from "../Dialog";
 import AddBar from "./AddBar";
+import ApplyButton from "./ApplyButton";
 import FilterTypeSwitch from "./FilterTypeSwitch";
 import Header from "./Header";
 
@@ -37,6 +38,7 @@ const EntityEditor = () => {
       {filters.length === 0 && (
         <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
       )}
+      <ApplyButton />
     </Dialog>
   );
 };
