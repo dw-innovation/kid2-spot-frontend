@@ -77,7 +77,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
             className="flex items-center self-start ml-4"
             size="fit"
           >
-            <TrashIcon /> group
+            <TrashIcon />
           </Button>
         )}
       </div>
