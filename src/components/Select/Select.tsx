@@ -78,7 +78,7 @@ const Select = ({
             padding: "0 2px",
           };
         },
-        menuList(base, props) {
+        menuList(base) {
           return {
             ...base,
             zIndex: 99999,
