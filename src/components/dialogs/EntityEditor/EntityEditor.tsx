@@ -5,6 +5,7 @@ import useImrStore from "@/stores/useImrStore";
 
 import Dialog from "../Dialog";
 import AddBar from "./AddBar";
+import ApplyButton from "./ApplyButton";
 import FilterTypeSwitch from "./FilterTypeSwitch";
 import Header from "./Header";
 
@@ -22,7 +23,7 @@ const EntityEditor = () => {
 
   return (
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
-      <Header name={node.name} />
+      <Header name={node.display_name} />
 
       {filters.map((filter, index) => (
         <FilterTypeSwitch
@@ -37,6 +38,7 @@ const EntityEditor = () => {
       {filters.length === 0 && (
         <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
       )}
+      <ApplyButton />
     </Dialog>
   );
 };

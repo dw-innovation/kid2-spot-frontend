@@ -17,6 +17,7 @@ export const initialIMR: IntermediateRepresentation = {
     {
       id: 0,
       name: "hotel",
+      display_name: "hotels",
       type: "nwr",
       filters: [
         {
@@ -42,6 +43,7 @@ export const initialIMR: IntermediateRepresentation = {
     {
       id: 1,
       name: "train station",
+      display_name: "train stations",
       type: "nwr",
       filters: [
         {

@@ -6,26 +6,21 @@ export type Spot = {
   tags: { name?: string; "addr:street"?: string };
   nodes: string[];
 };
+
+export type Set = {
+  id: string;
+  name: string;
+  visible: boolean;
+  highlighted: boolean;
+  fillColor: string;
+  display_name: string;
+};
 export default interface ResultsStoreInterface {
   geoJSON: FeatureCollection | null;
   setGeoJSON: (geoJSON: FeatureCollection) => void;
   clearGeoJSON: () => void;
-  sets: {
-    id: string;
-    name: string;
-    visible: boolean;
-    highlighted: boolean;
-    fillColor: string;
-  }[];
-  setSets: (
-    sets: {
-      id: string;
-      name: string;
-      visible: boolean;
-      highlighted: boolean;
-      fillColor: string;
-    }[]
-  ) => void;
+  sets: Set[];
+  setSets: (sets: Set[]) => void;
   clearSets: () => void;
   toggleVisible: (id: string) => void;
   toggleHighlighted: (id: string, state?: boolean) => void;

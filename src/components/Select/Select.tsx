@@ -66,6 +66,18 @@ const Select = ({
           padding: 0,
           display: showIndicator ? "block" : "none",
         }),
+        container(base) {
+          return {
+            ...base,
+            padding: 0,
+          };
+        },
+        valueContainer(base) {
+          return {
+            ...base,
+            padding: "0 2px",
+          };
+        },
       }}
       isSearchable={isSearchable}
     />

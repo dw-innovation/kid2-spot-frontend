@@ -1,4 +1,4 @@
-import { SymbolIcon, TrashIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
           onClick={() => handleSwitchOperator(nodeId, pathString)}
         >
           {logicOperator}
-          <SymbolIcon />
+          <ChevronDownIcon />
         </Button>
         <div className="flex items-center h-full" />
         <div className="flex flex-col ml-2 ">
@@ -77,7 +77,7 @@ const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
             className="flex items-center self-start ml-4"
             size="fit"
           >
-            <TrashIcon /> group
+            <TrashIcon />
           </Button>
         )}
       </div>

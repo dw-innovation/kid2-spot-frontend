@@ -1,9 +1,12 @@
+import { Label } from "@radix-ui/react-dropdown-menu";
 import { TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
+import useTagInfo from "@/lib/hooks/useTagInfo";
 import useImrStore from "@/stores/useImrStore";
 import { Filter } from "@/types/imr";
 
@@ -51,38 +54,63 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
     updateRuleValue(nodeId, pathString, keyToUpdate, newValue);
   };
 
+  const { data: allowedValues } = useTagInfo({
+    key: filter.key,
+    isEnabled: filter.key !== "",
+  });
+
   return (
     <div className="flex items-center gap-2 mb-2 connector-container">
       <Connectors />
-      <div className="flex items-center gap-2 p-1 bg-white rounded-md">
-        <Input
-          value={filter.key}
-          onChange={(e) => {
-            handleUpdate(nodeId, pathString, "key", e.target.value);
-          }}
-        />
+      <div className="flex items-end justify-end gap-2 p-1 bg-white rounded-md">
+        <div className="flex flex-col">
+          <Label className="text-xs font-semibold">OSM key</Label>
+          <Select
+            value={filter.key}
+            options={ALLOWED_TAGS}
+            onSelect={(value) => handleUpdate(nodeId, pathString, "key", value)}
+            className="w-24"
+          />
+        </div>
+
         <Select
           value={filter.operator}
           options={OPTIONS}
           onSelect={(value) =>
             handleUpdate(nodeId, pathString, "operator", value)
           }
-          className="w-10"
+          className="w-6"
           showIndicator={false}
         />
-        <Input
-          value={filter.value}
-          onChange={(e) => {
-            handleUpdate(nodeId, pathString, "value", e.target.value);
-          }}
-        />
+        <div>
+          <Label className="text-xs font-semibold">OSM value</Label>
+          {allowedValues && allowedValues.length > 0 ? (
+            <Select
+              value={filter.value}
+              options={allowedValues || []}
+              onSelect={(value) =>
+                handleUpdate(nodeId, pathString, "value", value)
+              }
+              className="w-fit"
+            />
+          ) : (
+            <Input
+              value={filter.value}
+              onChange={(e) => {
+                handleUpdate(nodeId, pathString, "value", e.target.value);
+              }}
+              className="w-24"
+            />
+          )}
+        </div>
+
         <Button
           onClick={() => handleRemove(nodeId, pathString)}
           variant={"outline"}
           size="fit"
           className="flex justify-center"
         >
-          <TrashIcon /> rule
+          <TrashIcon />
         </Button>
       </div>
     </div>
