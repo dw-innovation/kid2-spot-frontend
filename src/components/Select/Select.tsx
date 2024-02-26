@@ -78,6 +78,17 @@ const Select = ({
             padding: "0 2px",
           };
         },
+        menuList(base, props) {
+          return {
+            ...base,
+            zIndex: 99999,
+            position: "fixed",
+            backgroundColor: "white",
+            borderRadius: "4px",
+            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+            border: "1px solid #e2e8f0",
+          };
+        },
       }}
       isSearchable={isSearchable}
     />
