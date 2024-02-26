@@ -157,3 +157,18 @@ export const getOSMValueOptions = async (key: string) => {
 
   return options;
 };
+
+export const fetchTagInfo = async (key: string) => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values`,
+    {
+      params: {
+        key,
+        rp: 200,
+        sortname: "count_all",
+        sortorder: "desc",
+      },
+    }
+  );
+  return response.data;
+};
