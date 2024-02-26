@@ -23,22 +23,25 @@ const EntityEditor = () => {
 
   return (
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
-      <Header name={node.display_name} />
+      <div className="relative h-full">
+        <Header name={node.display_name} />
+        <div className="flex-1 max-h-full overflow-hidden">
+          {filters.map((filter, index) => (
+            <FilterTypeSwitch
+              key={index}
+              filter={filter}
+              path={[index]}
+              nodeId={node.id}
+              pathString={`filters`}
+            />
+          ))}
 
-      {filters.map((filter, index) => (
-        <FilterTypeSwitch
-          key={index}
-          filter={filter}
-          path={[index]}
-          nodeId={node.id}
-          pathString={`filters`}
-        />
-      ))}
-
-      {filters.length === 0 && (
-        <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
-      )}
-      <ApplyButton />
+          {filters.length === 0 && (
+            <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
+          )}
+          <ApplyButton />
+        </div>
+      </div>
     </Dialog>
   );
 };

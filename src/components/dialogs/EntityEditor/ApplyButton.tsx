@@ -12,6 +12,7 @@ const ApplyButton = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const clearError = useGlobalStore((state) => state.clearError);
   const imr = useImrStore((state) => state.imr);
   const { isLoading } = useQueryOSMData({
     isEnabled: shouldFetch,
@@ -33,6 +34,8 @@ const ApplyButton = () => {
 
   const handleButtonClick = () => {
     toggleDialog("entityEditor", false);
+    toggleDialog("error", false);
+    clearError();
     setShouldFetch(true);
   };
 

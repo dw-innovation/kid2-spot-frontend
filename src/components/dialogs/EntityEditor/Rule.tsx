@@ -62,46 +62,50 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
   return (
     <div className="flex items-center gap-2 mb-2 connector-container">
       <Connectors />
-      <div className="flex items-end justify-end gap-2 p-1 bg-white rounded-md">
-        <div className="flex flex-col">
-          <Label className="text-xs font-semibold">OSM key</Label>
-          <Select
-            value={filter.key}
-            options={ALLOWED_TAGS}
-            onSelect={(value) => handleUpdate(nodeId, pathString, "key", value)}
-            className="w-24"
-          />
-        </div>
-
-        <Select
-          value={filter.operator}
-          options={OPTIONS}
-          onSelect={(value) =>
-            handleUpdate(nodeId, pathString, "operator", value)
-          }
-          className="w-6"
-          showIndicator={false}
-        />
-        <div>
-          <Label className="text-xs font-semibold">OSM value</Label>
-          {allowedValues && allowedValues.length > 0 ? (
+      <div className="flex items-center gap-2 p-1 bg-white rounded-md">
+        <div className="flex items-end gap-2">
+          <div className="flex flex-col justify">
+            <Label className="text-xs font-semibold">OSM key</Label>
             <Select
-              value={filter.value}
-              options={allowedValues || []}
+              value={filter.key}
+              options={ALLOWED_TAGS}
               onSelect={(value) =>
-                handleUpdate(nodeId, pathString, "value", value)
+                handleUpdate(nodeId, pathString, "key", value)
               }
-              className="w-fit"
-            />
-          ) : (
-            <Input
-              value={filter.value}
-              onChange={(e) => {
-                handleUpdate(nodeId, pathString, "value", e.target.value);
-              }}
               className="w-24"
             />
-          )}
+          </div>
+
+          <Select
+            value={filter.operator}
+            options={OPTIONS}
+            onSelect={(value) =>
+              handleUpdate(nodeId, pathString, "operator", value)
+            }
+            className="w-6"
+            showIndicator={false}
+          />
+          <div>
+            <Label className="text-xs font-semibold">OSM value</Label>
+            {allowedValues && allowedValues.length > 0 ? (
+              <Select
+                value={filter.value}
+                options={allowedValues || []}
+                onSelect={(value) =>
+                  handleUpdate(nodeId, pathString, "value", value)
+                }
+                className="w-fit"
+              />
+            ) : (
+              <Input
+                value={filter.value}
+                onChange={(e) => {
+                  handleUpdate(nodeId, pathString, "value", e.target.value);
+                }}
+                className="w-24"
+              />
+            )}
+          </div>
         </div>
 
         <Button
