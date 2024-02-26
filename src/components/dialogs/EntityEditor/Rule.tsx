@@ -1,3 +1,4 @@
+import { Label } from "@radix-ui/react-dropdown-menu";
 import { TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
@@ -61,13 +62,16 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
   return (
     <div className="flex items-center gap-2 mb-2 connector-container">
       <Connectors />
-      <div className="flex items-center gap-2 p-1 bg-white rounded-md">
-        <Select
-          value={filter.key}
-          options={ALLOWED_TAGS}
-          onSelect={(value) => handleUpdate(nodeId, pathString, "key", value)}
-          className="w-fit"
-        />
+      <div className="flex items-end justify-end gap-2 p-1 bg-white rounded-md">
+        <div className="flex flex-col">
+          <Label className="text-xs font-semibold">OSM key</Label>
+          <Select
+            value={filter.key}
+            options={ALLOWED_TAGS}
+            onSelect={(value) => handleUpdate(nodeId, pathString, "key", value)}
+            className="w-24"
+          />
+        </div>
 
         <Select
           value={filter.operator}
@@ -75,27 +79,30 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
           onSelect={(value) =>
             handleUpdate(nodeId, pathString, "operator", value)
           }
-          className="w-8"
+          className="w-6"
           showIndicator={false}
         />
-
-        {allowedValues && allowedValues.length > 0 ? (
-          <Select
-            value={filter.value}
-            options={allowedValues || []}
-            onSelect={(value) =>
-              handleUpdate(nodeId, pathString, "value", value)
-            }
-            className="w-fit"
-          />
-        ) : (
-          <Input
-            value={filter.value}
-            onChange={(e) => {
-              handleUpdate(nodeId, pathString, "value", e.target.value);
-            }}
-          />
-        )}
+        <div>
+          <Label className="text-xs font-semibold">OSM value</Label>
+          {allowedValues && allowedValues.length > 0 ? (
+            <Select
+              value={filter.value}
+              options={allowedValues || []}
+              onSelect={(value) =>
+                handleUpdate(nodeId, pathString, "value", value)
+              }
+              className="w-fit"
+            />
+          ) : (
+            <Input
+              value={filter.value}
+              onChange={(e) => {
+                handleUpdate(nodeId, pathString, "value", e.target.value);
+              }}
+              className="w-24"
+            />
+          )}
+        </div>
 
         <Button
           onClick={() => handleRemove(nodeId, pathString)}
