@@ -42,7 +42,7 @@ const COMPONENTS = {
     return (
       <a
         {...props}
-        className="underline text-accent-foreground hover:no-underline focus:outline-none"
+        className="underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
       />
     );
   },
