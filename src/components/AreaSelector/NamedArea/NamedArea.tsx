@@ -77,9 +77,17 @@ const NamedArea = () => {
     })) || [];
 
   const handleSetArea = (value: string) => {
+    const suggestion = suggestedAreas?.find(
+      (a) => a.display_name === selectedAreaName
+    );
+    if (!suggestion) return;
     setSelectedAreaName(value);
+    const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
+    setBounds([
+      [bounds[0], bounds[2]],
+      [bounds[1], bounds[3]],
+    ]);
     setImrArea(value);
-    nextStep();
   };
 
   return (
