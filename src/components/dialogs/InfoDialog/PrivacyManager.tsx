@@ -1,6 +1,7 @@
-import { Switch } from "@radix-ui/react-switch";
 import React from "react";
 
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import usePersistedStore from "@/stores/usePersistedStore";
 
 const PrivacyManager = () => {
@@ -8,13 +9,15 @@ const PrivacyManager = () => {
   const toggleTracking = usePersistedStore((state) => state.toggleTracking);
 
   return (
-    <div className="bg-red">
+    <div className="flex items-center gap-2 my-2">
       <Switch
         checked={trackingEnabled}
         onCheckedChange={(checked) => toggleTracking(checked)}
-        className="w-10 h-10"
+        id="tracking-enabled"
       />
-      <span>Tracking {trackingEnabled ? `enabled` : `disabled`}</span>
+      <Label htmlFor="tracking-enabled">
+        Tracking {trackingEnabled ? `enabled` : `disabled`}
+      </Label>
     </div>
   );
 };
