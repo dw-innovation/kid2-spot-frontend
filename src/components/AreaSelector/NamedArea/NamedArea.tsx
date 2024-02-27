@@ -16,6 +16,7 @@ const NamedArea = () => {
   const [selectedAreaName, setSelectedAreaName] = useState(""); // Changed from placeId to selectedAreaName
   const [surface, setSurface] = useState<number>(0);
   const area = useImrStore((state) => state.imr.area.value);
+  const [detectedValue] = useState(area);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
   const nextStep = useGlobalStore((state) => state.nextStep);
@@ -26,11 +27,11 @@ const NamedArea = () => {
     isLoading,
     isError,
   } = useQuery<NominatimPlace[]>(
-    ["fetchAreas", area],
+    ["fetchAreas", detectedValue],
     () => {
       // Nominatim API expects a string, area could be a bbox array
-      const areaValue = typeof area === "string" ? area : area.toString();
-      return fetchAreas(areaValue);
+      const detectedValue = typeof area === "string" ? area : area.toString();
+      return fetchAreas(detectedValue);
     },
     {
       onSuccess: (data) => {
@@ -77,9 +78,18 @@ const NamedArea = () => {
     })) || [];
 
   const handleSetArea = (value: string) => {
+    const suggestion = suggestedAreas?.find(
+      (a) => a.display_name === selectedAreaName
+    );
+    if (!suggestion) return;
     setSelectedAreaName(value);
+    setSurface(calculateSurface(suggestion.geojson));
+    const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
+    setBounds([
+      [bounds[0], bounds[2]],
+      [bounds[1], bounds[3]],
+    ]);
     setImrArea(value);
-    nextStep();
   };
 
   return (

@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useInputStepper } from "@/components/InputStepper/Context";
 import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
@@ -10,23 +9,12 @@ import useImrStore from "@/stores/useImrStore";
 import QueryAnimation from "../Animation";
 
 const OSMQueryStep = () => {
-  const { setAnimateOut } = useInputStepper();
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const imr = useImrStore((state) => state.imr);
 
   const { isLoading, isSuccess } = useQueryOSMData({
-    onSuccessCallbacks: [
-      () => {
-        setAnimateOut(true);
-        toggleDialog("inputStepper", false);
-      },
-    ],
-    onErrorCallbacks: [
-      () => {
-        setAnimateOut(true);
-        toggleDialog("inputStepper", false);
-      },
-    ],
+    onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
+    onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
     isEnabled: !!imr,
   });
 
