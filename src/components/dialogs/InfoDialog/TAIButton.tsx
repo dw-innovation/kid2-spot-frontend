@@ -9,7 +9,12 @@ const TAIButton = () => {
     setDialogData("info", "tai");
   };
   return (
-    <a onClick={handleClick}>&ldquo;Trusted AI Principles&rdquo; section</a>
+    <a
+      onClick={handleClick}
+      className="underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
+    >
+      &ldquo;Trusted AI Principles&rdquo; section
+    </a>
   );
 };
 
