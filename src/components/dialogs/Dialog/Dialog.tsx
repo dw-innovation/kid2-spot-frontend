@@ -16,6 +16,7 @@ type Props = {
   dialogDescription?: string;
   children: React.ReactNode;
   className?: string;
+  isWide?: boolean;
 };
 
 const Dialog = ({
@@ -24,6 +25,7 @@ const Dialog = ({
   dialogDescription,
   children,
   className,
+  isWide,
 }: Props) => {
   const dialogs = useGlobalStore((state) => state.dialogs);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
@@ -38,7 +40,11 @@ const Dialog = ({
   return (
     <RadixDialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
       <DialogContent
-        className={cn("sm:max-w-[425px] z-[20000] max-h-[90vh]", className)}
+        className={cn(
+          isWide ? "w-[800px]" : "sm:max-w-[425px]",
+          "z-[20000] max-h-[90vh]",
+          className
+        )}
       >
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
