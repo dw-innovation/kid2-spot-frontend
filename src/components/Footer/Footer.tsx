@@ -20,6 +20,7 @@ const ITEMS = [
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   useEffect(() => {
     if (footerRef.current) {
@@ -28,7 +29,7 @@ const Footer = () => {
   }, []);
 
   const handleClick = (content: string) => {
-    console.log(content);
+    setDialogData("info", content);
     toggleDialog("info");
   };
 
