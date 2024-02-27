@@ -24,7 +24,7 @@ const InputContainer = ({ children, shouldUnmount, title }: Props) => {
 
   return (
     <animated.div
-      className="flex flex-col items-center justify-center h-full gap-2 p-4 bg-white rounded-md shadow-sm"
+      className="flex flex-col items-center justify-center h-full gap-2 p-4 bg-white"
       style={fadeProps}
     >
       {title && <h3 className="text-lg font-semibold">{title}</h3>}
