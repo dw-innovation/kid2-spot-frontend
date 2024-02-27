@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 
@@ -16,29 +16,18 @@ const STEPS = [
   () => <OSMQueryScreen key="step-4" />,
 ];
 
-type Props = {
-  minimal?: boolean;
-};
-
-const InputStepper = ({ minimal = false }: Props) => {
+const InputStepper = () => {
   const currentStep = useGlobalStore((state) => state.currentStep);
-  const [initialHeight, setInitialHeight] = useState(0);
   const stepRef = useRef<HTMLDivElement>(null);
 
   const CurrentStepComponent = useMemo(() => STEPS[currentStep], [currentStep]);
 
-  useLayoutEffect(() => {
-    if (stepRef.current) {
-      setInitialHeight(stepRef.current.clientHeight);
-    }
-  }, []);
-
   return (
     <div className="flex items-center justify-center w-full h-full overflow-hidden">
       <div className="relative z-50 flex flex-col gap-2 m-2">
-        <div style={{ height: !minimal ? `${initialHeight + 100}px` : "auto" }}>
+        <div style={{ height: "auto" }}>
           <div ref={stepRef} className="w-full max-w-[32rem] overflow-y-auto">
-            {React.createElement(CurrentStepComponent, { minimal })}
+            {React.createElement(CurrentStepComponent)}
           </div>
         </div>
       </div>
