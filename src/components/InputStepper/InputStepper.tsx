@@ -23,10 +23,10 @@ const InputStepper = () => {
   const CurrentStepComponent = useMemo(() => STEPS[currentStep], [currentStep]);
 
   return (
-    <div className="flex items-center justify-center w-full h-full overflow-hidden">
+    <div className="flex items-center justify-center w-full h-full">
       <div className="relative z-50 flex flex-col gap-2 m-2">
         <div style={{ height: "auto" }}>
-          <div ref={stepRef} className="w-full max-w-[32rem] overflow-y-auto">
+          <div ref={stepRef} className="w-full max-w-[32rem]">
             {React.createElement(CurrentStepComponent)}
           </div>
         </div>
