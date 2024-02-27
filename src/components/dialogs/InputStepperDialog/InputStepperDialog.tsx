@@ -8,7 +8,7 @@ const DIALOG_NAME = "inputStepper";
 
 const InputStepperDialog = () => (
   <Dialog dialogName={DIALOG_NAME}>
-    <InputStepper minimal />
+    <InputStepper />
   </Dialog>
 );
 
