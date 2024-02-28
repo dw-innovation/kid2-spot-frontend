@@ -86,6 +86,7 @@ const ActionsMenu = () => {
         <DropdownMenuItem
           onClick={async (e) => {
             e.preventDefault();
+            trackAction("session", "share");
             mutation.mutate();
           }}
         >

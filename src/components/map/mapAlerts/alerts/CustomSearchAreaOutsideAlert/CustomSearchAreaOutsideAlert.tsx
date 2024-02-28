@@ -60,7 +60,6 @@ const PolygonOutsideAlert = () => {
     };
 
     const onMoveEnd = () => {
-      trackAction("map", "moved");
       checkBounds();
     };
 

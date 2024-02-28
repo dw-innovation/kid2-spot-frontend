@@ -5,6 +5,7 @@ import React, { FC, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, Pane } from "react-leaflet";
 
+import { trackAction } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
@@ -91,6 +92,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     const layer = e.target as L.CircleMarker;
 
     if (layer.feature && layer.feature.properties.center) {
+      trackAction("click", "mapFeature", layer.feature.properties.osm_ids);
       setStreetViewCoordinates({
         lat: layer.feature.properties.center.coordinates[1],
         lng: layer.feature.properties.center.coordinates[0],

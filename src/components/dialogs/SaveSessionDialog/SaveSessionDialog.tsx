@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useStrings from "@/lib/contexts/useStrings";
-import { cn } from "@/lib/utils";
+import { cn, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -40,6 +40,7 @@ const SaveSessionDialog = () => {
     sessionDescription: string
   ) => {
     if (sessions.find((session) => session.name === sessionName)) return;
+    trackAction("session", "save", sessionName);
     try {
       let date = new Date();
 

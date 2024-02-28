@@ -50,6 +50,7 @@ const NamedArea = () => {
 
   useEffect(() => {
     if (suggestedAreas?.length === 1) {
+      trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
       nextStep();
