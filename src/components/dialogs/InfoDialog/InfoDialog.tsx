@@ -5,6 +5,7 @@ import { STRINGS } from "@/lib/const/strings/info";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";
+import LegalButton from "./LegalButton";
 import PrivacyManager from "./PrivacyManager";
 import TAIButton from "./TAIButton";
 
@@ -14,14 +15,42 @@ const COMPONENTS = {
   p: (props: React.HTMLProps<HTMLParagraphElement>) => {
     if (
       typeof props.children === "string" &&
-      props.children === "[[PRIVACY_MANAGER]]"
+      props.children.includes("[[PRIVACY_MANAGER]]")
     ) {
-      return <PrivacyManager />;
-    } else if (
+      const parts = props.children.split("[[PRIVACY_MANAGER]]");
+      return (
+        <p>
+          {parts[0]}
+          <PrivacyManager />
+          {parts[1]}
+        </p>
+      );
+    }
+    if (
       typeof props.children === "string" &&
-      props.children === "[[TAI_BUTTON]]"
+      props.children.includes("[[TAI_BUTTON]]")
     ) {
-      return <TAIButton />;
+      const parts = props.children.split("[[TAI_BUTTON]]");
+      return (
+        <p>
+          {parts[0]}
+          <TAIButton />
+          {parts[1]}
+        </p>
+      );
+    }
+    if (
+      typeof props.children === "string" &&
+      props.children.includes("[[LEGAL_BUTTON]]")
+    ) {
+      const parts = props.children.split("[[LEGAL_BUTTON]]");
+      return (
+        <p>
+          {parts[0]}
+          <LegalButton />
+          {parts[1]}
+        </p>
+      );
     } else {
       return <p {...props} />;
     }
@@ -33,7 +62,7 @@ const COMPONENTS = {
     return <li {...props} className="pl-2" />;
   },
   ul: (props: React.HTMLProps<HTMLUListElement>) => {
-    return <ul {...props} className="pl-4 list-disc" />;
+    return <ul {...props} className="py-4 pl-4 list-disc" />;
   },
   ol: () => {
     return <ol className="pt-2 pl-6 font-bold list-decimal" />;
