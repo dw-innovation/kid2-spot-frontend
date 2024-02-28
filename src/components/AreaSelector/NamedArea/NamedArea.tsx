@@ -16,6 +16,7 @@ const NamedArea = () => {
   const [selectedAreaName, setSelectedAreaName] = useState(""); // Changed from placeId to selectedAreaName
   const [surface, setSurface] = useState<number>(0);
   const area = useImrStore((state) => state.imr.area.value);
+  const areaType = useImrStore((state) => state.imr.area.type);
   const [detectedValue] = useState(area);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
@@ -43,7 +44,7 @@ const NamedArea = () => {
         setErrorType("errorFetchingSuggestions");
       },
       // Only execute this query once on component mount
-      enabled: !!area, // Run query only if area is not empty
+      enabled: !!area && areaType !== "bbox", // Run query only if area is not empty
       retry: false,
     }
   );
@@ -57,6 +58,12 @@ const NamedArea = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedAreas]);
+
+  useEffect(() => {
+    if (areaType === "bbox") {
+      nextStep();
+    }
+  }, []);
 
   useEffect(() => {
     const suggestion = suggestedAreas?.find(

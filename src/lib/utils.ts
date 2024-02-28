@@ -323,3 +323,14 @@ export const createMailtoLink = ({
 
   return link;
 };
+
+export const insertBBox = (
+  imr: IntermediateRepresentation,
+  bounds: number[]
+): IntermediateRepresentation => ({
+  ...imr,
+  area: {
+    type: "bbox",
+    value: bounds,
+  },
+});
