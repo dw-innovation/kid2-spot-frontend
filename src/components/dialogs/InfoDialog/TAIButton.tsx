@@ -11,7 +11,7 @@ const TAIButton = () => {
   return (
     <a
       onClick={handleClick}
-      className="underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
+      className="inline-block underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
     >
       &ldquo;Trusted AI Principles&rdquo; section
     </a>
