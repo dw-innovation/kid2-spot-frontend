@@ -4,9 +4,7 @@ export const STRINGS = {
 
   Users can search for entities (churches, traffic lights, supermarkets, etc.) and relationships between entities (a church within 200 meters from a traffic light) in specific locations. Spot can translate a natural language query into code that performs the search and then displays the results on a map, including Google Street View material for a direct verification.
   
-  Spot is an AI-powered tool that aims to comply to the principles of Trustworthy AI. You can read more about these principles and how we have implemented them in Spot in the 
-  
-  [[TAI_BUTTON]] 
+  Spot is an AI-powered tool that aims to comply to the principles of Trustworthy AI. You can read more about these principles and how we have implemented them in Spot in the [[TAI_BUTTON]]. 
   
   Spot was created by DW innovation and is co-funded by the German Secretary of State for Culture and the Media (BKM) via the KID2 Project (Künstliche Intelligenz gegen Desinformation #2)`,
   legalTitle: "Legal & Privacy Statement",
@@ -129,5 +127,71 @@ To exercise any of the aforementioned rights, please use the contact details as 
 
 Without prejudice to any other administrative or judicial remedy, you have the right to lodge a complaint with a supervisory authority, in particular in the Member State of your habitual residence, place of work, or place of the alleged infringement if you consider that the processing of personal data relating to you infringes the GDPR.`,
   taiTitle: "Trusted AI Principles",
-  tai: "Text to be added.",
+  tai: `Creating our own AI systems, we are in control of implementing aspects of responsible and trustworthy AI as required. For this reason, it is important that the end user of the media tool understands and trusts the outcome/prediction of an AI service that has been integrated into our tool. Therefore, we aim to address & implement all six principles of trustworthy AI; Explainability, Fairness, Privacy, Robustness, Security, Transparency and Governance.
+  
+  ## Explainability
+  
+  *How and why did an AI system arrive at a particular conclusion?*
+  
+  The Spot application makes use of a T5 pipeline in order to perform three tasks; entity detection, understanding of the relationship between these entities and location detection. This understanding is then translated to an Intermediate Representative Language (IMR) in order to query OpenStreetMap (OSM) for this information. The information that is found in OSM is then rendered on the front-end of the Spot application, including contextual data like the metadata from OSM and visual data from Google Street View.
+  
+  ## Fairness
+  
+  Does the AI system treat individuals and groups of individuals equally and fairly – without reinforcing bias?
+  
+  The Spot application does not handle data that include or impacts individuals and groups of individuals.
+  
+  ## Robustness
+  
+  *Has the AI system been defended against malicious attacks – is it secure and robust?*
+  
+  Yes.
+  
+  ## Privacy
+  
+  *Have aspects of consumer privacy and data rights been prioritised?*
+  
+  The user prompts that are entered in the Spot application are being used to re-train the model on real user queries to improve the user relevance of the AI model.
+  
+  Other than that the Spot application does not archive/transfer/use any user data other than mentioned in the [[LEGAL_BUTTON]].
+  
+  ## Transparency
+  
+  Is it clear how the AI system works and what its limitations are?
+  
+  The T5 pipeline is developed and trained by the DW Research and Cooperation team. An automated benchmarking of the pipeline is in place so that we can monitor the performance of the specific tasks.
+  
+  The AI models are limited by the training data that has been used. This training data was developed by the DW Research & Cooperations team. The following training datasets are implemented and available via our Github account:
+  
+  - Goldstandard queries – a human generated dataset including xxx prompt on location searches. Used for understanding human location search prompts and benchmarking the performance of the system
+  
+  - Large query dataset – based on the goldstandard dataset ChatGPT3 was used to create a body of xxxx queries to difersify & train the many ways humans could prompt the Spot application.
+  
+  - OSM key-value pairs and clusters that are relevant for verification queries – all OSM tags and key-value pairs have been analysed and clustered for specific location verification queries. By clustering key-value pair combinations we aim to provide relevant answers to users because OSM data is rather diverse in how entities are tagged
+  
+  - Spatial relative terms - this is a dataset that translates relative spatial terms like 'next to' or 'opposite of' into fixed spatial terms.
+  
+  - Etc.
+  
+  The general limitations of the system are based on:
+  
+  - The training data that was used, e.g. what the system did not learn it will not be able to do
+  
+  - The data available in OSM, if an entity has not been tagged (correctly) we will not be able to find it. Generally, we see that there is more OSM data available in specific regions (Europe, North America, etc.) as in others (Africa, Mena, etc.) [link to research on this]
+  
+  - Etc.
+  
+  [links to a model card and the github repository will be added here]
+  
+  ## Governance
+  
+  *Is the AI system controlled and managed in a responsible way – in terms of wider risk, impact on people, legal compliance and ethics guidelines?*
+  
+  - OSM copyright & usage guidelines
+  
+  - AI development guidelines DW
+  
+  - User control – no publicly anonymous available access but a certain monitoring of users will be done via login functionality.
+  
+  If you feel that we have missed something, or you need clarification of something specific please feel free to reach out to xxxx@dw.com and refer to the Spot application.`,
 };
