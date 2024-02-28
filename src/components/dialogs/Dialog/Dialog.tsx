@@ -41,7 +41,7 @@ const Dialog = ({
     <RadixDialog open={isOpen} onOpenChange={() => toggleDialog(dialogName)}>
       <DialogContent
         className={cn(
-          isWide ? "w-[800px]" : "sm:max-w-[425px]",
+          isWide ? "max-w-[800px]" : "sm:max-w-[425px]",
           "z-[20000] max-h-[90vh]",
           className
         )}
