@@ -6,6 +6,7 @@ import { useMap } from "react-leaflet";
 import { useMapAlert } from "@/components/map/mapAlerts/Context";
 import MapAlert from "@/components/map/mapAlerts/MapAlert";
 import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
+import { trackAction } from "@/lib/utils";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
 import useMapStore from "@/stores/useMapStore";
 
@@ -25,6 +26,8 @@ const PolygonOutsideAlert = () => {
   });
 
   const handleFlyToBounds = () => {
+    trackAction("map", "flyToResults");
+
     let newBBox = bbox({
       type: "Polygon",
       coordinates: [customSearchArea],
@@ -57,6 +60,7 @@ const PolygonOutsideAlert = () => {
     };
 
     const onMoveEnd = () => {
+      trackAction("map", "moved");
       checkBounds();
     };
 

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import useStrings from "@/lib/contexts/useStrings";
-import { saveResultsToFile } from "@/lib/utils";
+import { saveResultsToFile, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 import Dialog from "../Dialog";
@@ -18,6 +18,7 @@ const DownloadDialog = () => {
   } = useStrings();
 
   const handleSaveClick = (format: "geojson" | "kml") => {
+    trackAction("click", "downloadResults", format);
     saveResultsToFile(format);
     toggleDialog(DIALOG_NAME);
   };

@@ -3,6 +3,7 @@ import { Feature } from "geojson";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
+import { trackAction } from "@/lib/utils";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import FeatureInfo from "./FeatureInfo";
@@ -21,6 +22,9 @@ const Popup = ({ feature }: Props) => {
 
   const handleClick = () => {
     if (!feature.properties || !feature.properties.center) return;
+
+    feature.properties.tags.name &&
+      trackAction("click", "openStreetView", feature.properties.tags.name);
 
     setStreetViewCoordinates({
       lat: feature.properties.center.coordinates[1],

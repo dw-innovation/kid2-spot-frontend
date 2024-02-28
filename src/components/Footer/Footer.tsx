@@ -1,6 +1,7 @@
 import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 
+import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 const ITEMS = [
@@ -29,6 +30,7 @@ const Footer = () => {
   }, []);
 
   const handleClick = (content: string) => {
+    trackAction("click", "footer", content);
     setDialogData("info", content);
     toggleDialog("info");
   };

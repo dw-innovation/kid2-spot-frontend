@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn, trackAction } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 
 const IMAGES = [
@@ -49,6 +49,7 @@ const LayerItem = ({ value, name }: Props) => {
   }, []);
 
   const handleLayerItemClick = (value: "vector" | "satellite" | "osm") => {
+    trackAction("mapLayer", "switchLayer", value);
     setTilesLayer(value);
   };
 

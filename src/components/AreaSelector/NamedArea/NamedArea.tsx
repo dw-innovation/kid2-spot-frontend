@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
 import { fetchAreas } from "@/lib/apiServices";
-import { calculateSurface } from "@/lib/utils";
+import { calculateSurface, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -82,6 +82,7 @@ const NamedArea = () => {
       (a) => a.display_name === selectedAreaName
     );
     if (!suggestion) return;
+    trackAction("inputStepper", "areaSet", value);
     setSelectedAreaName(value);
     setSurface(calculateSurface(suggestion.geojson));
     const bounds = suggestion.boundingbox.map((b) => parseFloat(b));

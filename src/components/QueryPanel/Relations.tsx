@@ -1,7 +1,12 @@
 import React from "react";
 
 import { Slider } from "@/components/ui/slider";
-import { distanceToMeters, expSlider, logSlider } from "@/lib/utils";
+import {
+  distanceToMeters,
+  expSlider,
+  logSlider,
+  trackAction,
+} from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 
 const Relations = () => {
@@ -12,6 +17,22 @@ const Relations = () => {
   const findNameById = (id: number) => {
     const node = nodes.find((node) => node.id === id);
     return node ? node.name : "";
+  };
+
+  const handleValueChange = (
+    index: number,
+    value: number[],
+    source: string,
+    target: string
+  ) => {
+    let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
+    setRelationValue(index, "distance", newValue);
+
+    trackAction(
+      "relations",
+      "changeDistance",
+      `${source} to ${target}: ${newValue}`
+    );
   };
 
   return (
@@ -52,13 +73,14 @@ const Relations = () => {
                             ),
                           ]}
                           className="my-2"
-                          onValueChange={(value) => {
-                            setRelationValue(
+                          onValueChange={(value) =>
+                            handleValueChange(
                               index,
-                              "distance",
-                              `${expSlider(value[0], 10, 2000, 0.8)}m`
-                            );
-                          }}
+                              value,
+                              findNameById(edge.source),
+                              findNameById(edge.target)
+                            )
+                          }
                         />
                       </>
                     )}

@@ -1,11 +1,13 @@
 import React from "react";
 
+import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 const LegalButton = () => {
   const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   const handleClick = () => {
+    trackAction("click", "modal", "legal");
     setDialogData("info", "legal");
   };
   return (

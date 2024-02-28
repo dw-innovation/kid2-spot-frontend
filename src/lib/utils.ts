@@ -13,6 +13,7 @@ import { LatLngLiteral } from "leaflet";
 import _ from "lodash";
 import { twMerge } from "tailwind-merge";
 
+import usePersistedStore from "@/stores/usePersistedStore";
 import useResultsStore from "@/stores/useResultsStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -257,16 +258,23 @@ export const logSlider = (
   return Math.round(Math.log(value / min) / (Math.log(base) * scale) + min);
 };
 
-export const trackAction = async (action: string, payload = "") => {
+export const trackAction = async (
+  category: string,
+  action?: string,
+  value?: string
+) => {
   type MatomoParams = {
     idsite: string | undefined;
     rec: number;
     rand: number;
     res: string;
     ua: string;
-    action_name: string;
-    [key: string]: string | number | undefined;
+    e_c: string;
+    e_a?: string;
+    e_n?: string;
   };
+  const trackingEnabled = usePersistedStore.getState().trackingEnabled;
+  if (!trackingEnabled) return;
 
   let params: MatomoParams = {
     idsite: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
@@ -274,41 +282,11 @@ export const trackAction = async (action: string, payload = "") => {
     rand: Math.floor(Math.random() * 10000000),
     res: `${window?.screen?.availWidth}x${window?.screen?.availHeight}`,
     ua: window?.navigator?.userAgent,
-    action_name: action,
+    e_c: category,
   };
 
-  switch (action) {
-    case "nlTransformation":
-      params = {
-        ...params,
-        search: payload,
-      };
-      break;
-
-    case "searchResultClick":
-    case "trailClick":
-    case "mediaTypeSelectorClick":
-    case "graphClick":
-      params = {
-        ...params,
-        url: payload,
-      };
-      break;
-
-    case "externalLink":
-      params = {
-        ...params,
-        link: payload,
-        url: payload,
-      };
-      break;
-
-    default:
-      params = {
-        ...params,
-        url: window?.location?.href,
-      };
-  }
+  if (action) params.e_a = action;
+  if (value) params.e_n = value;
 
   await axios({
     method: "get",

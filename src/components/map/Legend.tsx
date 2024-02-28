@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import useStrings from "@/lib/contexts/useStrings";
+import { trackAction } from "@/lib/utils";
 import useResultsStore from "@/stores/useResultsStore";
 
 const Legend = () => {
@@ -19,6 +20,10 @@ const Legend = () => {
     L.DomEvent.disableScrollPropagation(divRef.current);
   });
 
+  const handleToggle = (id: string) => {
+    trackAction("mapLegend", "toggleSet", id);
+    toggleVisible(id);
+  };
   const renderSets = () =>
     sets.map((set, index) => {
       return (
@@ -27,7 +32,7 @@ const Legend = () => {
           key={`${set.name}${index}`}
         >
           <Checkbox
-            onCheckedChange={() => toggleVisible(set.id)}
+            onCheckedChange={() => handleToggle(set.id)}
             checked={set.visible}
             id={index.toString()}
           />

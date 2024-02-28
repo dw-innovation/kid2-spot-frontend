@@ -3,6 +3,7 @@ import { capitalize } from "lodash";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
+import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -12,6 +13,7 @@ const DetectedEntitiesBar = () => {
   const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   const handleEntityClick = (id: number) => {
+    trackAction("errorDialog", "entityEditor", `entity: ${id}`);
     setDialogData("entityEditor", { id: id });
     toggleDialog("entityEditor");
   };
