@@ -42,7 +42,7 @@ const useQueryOSMData = ({
     },
     onError: (error: Error) => {
       setError(error.message);
-      toggleDialog("error");
+      toggleDialog("error", true);
 
       onErrorCallbacks &&
         onErrorCallbacks.forEach((callback) => {
