@@ -11,11 +11,10 @@ const Entities = () => {
     <>
       {nodes && nodes.length > 0 && (
         <>
-          {" "}
           <hr />
           <div>
             <h3 className="text-lg font-semibold ">Entities</h3>
-            <div className="flex gap-1 ml-4">
+            <div className="flex flex-wrap gap-1 ml-4">
               {nodes.map((node) => (
                 <Entity key={node.name} name={node.display_name} id={node.id} />
               ))}
