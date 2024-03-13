@@ -2,7 +2,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import "allotment/dist/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-resizable/css/styles.css";
 
