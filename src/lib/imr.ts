@@ -23,8 +23,6 @@ export const updateName = (
   const clonedImr = _.cloneDeep(imr);
   _.set(clonedImr, fullPath, displayName);
 
-  console.log(clonedImr.nodes[nodeId]);
-
   return clonedImr;
 };
 
