@@ -5,6 +5,7 @@ import {
   addRuleOrGroup,
   removeRuleOrGroup,
   switchOperatorAtPath,
+  updateName,
   updateRuleValue,
   updateSearchArea,
 } from "@/lib/imr";
@@ -43,6 +44,11 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
         keyToUpdate,
         newValue
       ),
+    }));
+  },
+  updateName: (nodeId, displayName) => {
+    set((state) => ({
+      imr: updateName(state.imr, nodeId, displayName),
     }));
   },
   switchOperatorAtPath: (nodeId, pathString) => {

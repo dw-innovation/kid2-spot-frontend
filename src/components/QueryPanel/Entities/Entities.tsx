@@ -16,7 +16,7 @@ const Entities = () => {
             <h3 className="text-lg font-semibold ">Entities</h3>
             <div className="flex flex-wrap gap-1 ml-4">
               {nodes.map((node) => (
-                <Entity key={node.name} name={node.display_name} id={node.id} />
+                <Entity key={node.name} name={node.name} id={node.id} />
               ))}
             </div>
           </div>

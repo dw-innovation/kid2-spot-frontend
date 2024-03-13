@@ -14,6 +14,20 @@ export const updateSearchArea = (
   },
 });
 
+export const updateName = (
+  imr: IntermediateRepresentation,
+  nodeId: number,
+  displayName: string
+): IntermediateRepresentation => {
+  const fullPath = `nodes[${nodeId}].name`;
+  const clonedImr = _.cloneDeep(imr);
+  _.set(clonedImr, fullPath, displayName);
+
+  console.log(clonedImr.nodes[nodeId]);
+
+  return clonedImr;
+};
+
 export const addRuleOrGroup = (
   imr: IntermediateRepresentation,
   nodeId: number,

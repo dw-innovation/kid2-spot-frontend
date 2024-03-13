@@ -23,6 +23,7 @@ export default interface ImrStoreInterface {
     keyToUpdate: string,
     newValue: any
   ) => void;
+  updateName: (nodeId: number, displayName: string) => void;
   setSearchArea: (
     type: "area" | "polygon" | "bbox",
     value: string | number[]

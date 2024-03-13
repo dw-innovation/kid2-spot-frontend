@@ -25,7 +25,7 @@ const EntityEditor = () => {
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
       {node && (
         <div className="relative h-full">
-          <Header name={node.display_name} />
+          <Header name={node.name} nodeId={node.id} />
           <div className="flex-1 max-h-full overflow-hidden">
             {filters &&
               filters.map((filter, index) => (
