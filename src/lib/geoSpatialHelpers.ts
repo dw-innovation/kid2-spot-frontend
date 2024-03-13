@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { FeatureCollection, GeoJsonProperties } from "geojson";
+import { FeatureCollection } from "geojson";
 import { LatLng } from "leaflet";
 
 type BoundingBox = [number, number, number, number];
@@ -67,15 +67,26 @@ export const expandPolygonByDistance = (
 };
 
 export const allFeaturesWithinBoundingBox = (
-  geojson: turf.FeatureCollection<turf.Geometry, GeoJsonProperties>,
-  boundingBox: BoundingBox
+  geojson: turf.FeatureCollection<turf.Geometry>,
+  boundingBox: turf.BBox
 ): boolean => {
   const boundingBoxPolygon = turf.bboxPolygon(boundingBox);
   let allFeaturesWithin = true;
 
   turf.featureEach(geojson, (currentFeature) => {
-    if (!turf.booleanContains(boundingBoxPolygon, currentFeature)) {
-      allFeaturesWithin = false;
+    if (currentFeature.geometry.type === "MultiPolygon") {
+      (currentFeature.geometry.coordinates as turf.Position[][][]).forEach(
+        (polygonCoordinates) => {
+          const polygon = turf.polygon(polygonCoordinates as turf.Position[][]);
+          if (!turf.booleanContains(boundingBoxPolygon, polygon)) {
+            allFeaturesWithin = false;
+          }
+        }
+      );
+    } else {
+      if (!turf.booleanContains(boundingBoxPolygon, currentFeature)) {
+        allFeaturesWithin = false;
+      }
     }
   });
 
