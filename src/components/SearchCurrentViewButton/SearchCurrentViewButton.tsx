@@ -61,7 +61,7 @@ const SearchCurrentViewButton = () => {
       className="rounded-lg shadow-lg"
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
-      disabled={isLoading || isDisabled}
+      disabled={searchArea !== "bbox" ? false : isLoading || isDisabled}
     >
       {isLoading ? (
         <div className="w-4 h-4">
