@@ -7,18 +7,33 @@ import { Button } from "@/components/ui/button";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
+import { IntermediateRepresentation } from "@/types/imr";
 
 const SearchCurrentViewButton = () => {
+  const [isDisabled, setIsDisabled] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const imr = useImrStore((state) => state.imr);
   const setSearchArea = useImrStore((state) => state.setSearchArea);
   const searchArea = useImrStore((state) => state.imr.area.type);
   const bounds = useMapStore((state) => state.bounds);
   const [shouldFetch, setShouldFetch] = useState(false);
+  const prevImrRef = useRef<IntermediateRepresentation>(imr);
+
+  useEffect(() => {
+    if (prevImrRef.current === imr) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+      prevImrRef.current = imr;
+    }
+  }, [imr]);
 
   const { isLoading } = useQueryOSMData({
     isEnabled: shouldFetch,
     onSettled() {
       setShouldFetch(false);
+      setIsDisabled(true);
     },
   });
 
@@ -46,6 +61,7 @@ const SearchCurrentViewButton = () => {
       className="rounded-lg shadow-lg"
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
+      disabled={isLoading || isDisabled}
     >
       {isLoading ? (
         <div className="w-4 h-4">
