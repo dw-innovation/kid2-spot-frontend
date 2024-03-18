@@ -10,8 +10,13 @@ import useMapStore from "@/stores/useMapStore";
 
 import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
+import { useSession } from "next-auth/react";
+import { JWTSession } from "@/types/next-auth";
+import { JWT } from "next-auth/jwt";
 
 const NaturalLanguageTranslationStep = () => {
+  const { data: sessionData } = useSession();
+  const session = sessionData as JWTSession;
   const nextStep = useGlobalStore((state) => state.nextStep);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);
@@ -21,7 +26,8 @@ const NaturalLanguageTranslationStep = () => {
 
   const translationQuery = useQuery(
     ["translateNLToIMR", nlSentence],
-    () => fetchNLToIMRTranslation(nlSentence),
+    () =>
+      fetchNLToIMRTranslation(nlSentence, (session?.user?.jwt as JWT) || ""),
     {
       onSuccess: (data) => {
         let imr = data.imr;
