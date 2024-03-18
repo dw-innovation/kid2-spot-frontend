@@ -1,15 +1,15 @@
 "use client";
 
+import { JWT } from "next-auth/jwt";
 import { useSession } from "next-auth/react";
 import { useQuery, useQueryClient } from "react-query";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
+import { JWTSession } from "@/types/next-auth";
 
 import { fetchOSMData } from "../apiServices";
 import { setResults } from "../utils";
-import { JWTSession } from "@/types/next-auth";
-import { JWT } from "next-auth/jwt";
 
 type Props = {
   onSuccessCallbacks?: ((sessionLink: string) => void)[];

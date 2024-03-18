@@ -1,7 +1,7 @@
 import axios from "axios";
+import { type JWT } from "next-auth/jwt";
 
 import { IntermediateRepresentation } from "@/types/imr";
-import { type JWT } from "next-auth/jwt";
 
 export const fetchOSMData = async (
   imr: IntermediateRepresentation,

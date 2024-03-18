@@ -1,6 +1,6 @@
+import jsonwebtoken from "jsonwebtoken";
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import jsonwebtoken from "jsonwebtoken";
 
 export const authOptions: NextAuthOptions = {
   jwt: {
