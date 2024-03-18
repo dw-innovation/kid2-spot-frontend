@@ -1,3 +1,5 @@
+import { JWT } from "next-auth/jwt";
+import { useSession } from "next-auth/react";
 import React from "react";
 
 import useLoadSessionState from "@/hooks/useLoadSessionState";
@@ -5,6 +7,7 @@ import useSessionActions from "@/hooks/useSessionActions";
 import useStrings from "@/lib/contexts/useStrings";
 import { loadSession } from "@/lib/sessions";
 import { trackAction } from "@/lib/utils";
+import { JWTSession } from "@/types/next-auth";
 
 import Dialog from "../Dialog";
 import SessionActions from "./SessionActions";
@@ -14,8 +17,12 @@ import SessionSelect from "./SessionSelect";
 const DIALOG_NAME = "loadSession";
 
 const LoadSessionDialog = () => {
+  const { data: sessionData } = useSession();
+
+  const authSession = sessionData as JWTSession;
   const { sessionId, setSessionId, options, selectedSession, findSessionById } =
     useLoadSessionState();
+
   const { removeSession } = useSessionActions();
   const { loadSessionDialogDescription, loadSessionDialogTitle } = useStrings();
 
@@ -29,7 +36,7 @@ const LoadSessionDialog = () => {
 
     const { data } = session;
 
-    await loadSession(data);
+    await loadSession(data, (authSession?.user?.jwt as JWT) || "");
   };
 
   const handleRemoveSession = (sessionId: string | undefined) => {

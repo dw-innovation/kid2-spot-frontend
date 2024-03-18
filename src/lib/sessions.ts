@@ -1,4 +1,5 @@
 import axios from "axios";
+import { JWT } from "next-auth/jwt";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
@@ -37,7 +38,10 @@ export const saveSession = async (
   return `${window.location.origin}/${response.data.id}`;
 };
 
-export const loadSession = async (sessionData: Record<string, any>) => {
+export const loadSession = async (
+  sessionData: Record<string, any>,
+  token: JWT | string
+) => {
   let toggleDialog = useGlobalStore.getState().toggleDialog;
 
   let stores = {
@@ -57,7 +61,7 @@ export const loadSession = async (sessionData: Record<string, any>) => {
 
   const imr = useImrStore.getState().imr;
 
-  await fetchOSMData({ imr }).then((data) => {
+  await fetchOSMData(imr, token).then((data) => {
     if (data) {
       setResults(data);
       toggleDialog("queryOSM", false);

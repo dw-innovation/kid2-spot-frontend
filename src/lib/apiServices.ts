@@ -5,7 +5,7 @@ import { IntermediateRepresentation } from "@/types/imr";
 
 export const fetchOSMData = async (
   imr: IntermediateRepresentation,
-  token: JWT
+  token: JWT | string
 ): Promise<any> => {
   var config: any = {
     method: "post",
