@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sheet";
 import useStrings from "@/lib/contexts/useStrings";
 
+import AuthBar from "./AuthBar";
 import { useMenu } from "./Context";
 import MenuItems from "./MenuItems";
 
@@ -59,6 +60,7 @@ const Header = () => {
           </Sheet>
         </div>
       </div>
+      <AuthBar />
     </div>
   );
 };
