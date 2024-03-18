@@ -9,6 +9,8 @@ import { type Viewport, Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
+import NextAuthProvider from "@/components/SessionProvider";
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -39,21 +41,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={true}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-        {children}
-      </body>
+      <NextAuthProvider>
+        <body>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          {children}
+        </body>
+      </NextAuthProvider>
     </html>
   );
 }
