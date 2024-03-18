@@ -1,17 +1,18 @@
 import axios from "axios";
 
 import { IntermediateRepresentation } from "@/types/imr";
+import { type JWT } from "next-auth/jwt";
 
-export const fetchOSMData = async ({
-  imr,
-}: {
-  imr: IntermediateRepresentation;
-}): Promise<any> => {
+export const fetchOSMData = async (
+  imr: IntermediateRepresentation,
+  token: JWT
+): Promise<any> => {
   var config: any = {
     method: "post",
     url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     data: imr,
   };
@@ -57,12 +58,16 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
 };
 
 export const fetchNLToIMRTranslation = async (
-  naturalLanguagePrompt: string
+  naturalLanguagePrompt: string,
+  token: JWT
 ): Promise<any> => {
   try {
     const response = await axios({
       method: "POST",
       url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       data: {
         sentence: naturalLanguagePrompt,
         model: process.env.NEXT_PUBLIC_NLP_MODEL,
