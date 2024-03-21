@@ -1,10 +1,13 @@
 "use client";
 
+import { FeatureCollection } from "geojson";
 import * as L from "leaflet";
-import React, { FC, useEffect, useMemo, useRef } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, Pane } from "react-leaflet";
 
+import { deflateGeoJSON } from "@/lib/geoSpatialHelpers";
+import useMapZoom from "@/lib/hooks/useMapZoom";
 import {
   getSetColor,
   getSetFillOpacity,
@@ -19,12 +22,14 @@ import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Popup from "../Popup";
 
-type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
+export type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
 const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const spots = useResultsStore((state) => state.spots);
   const activeSpot = useMapStore((state) => state.activeSpot);
   const geoJSON = useResultsStore((state) => state.geoJSON);
+  const [deflatedFeatures, setDeflatedFeatures] =
+    useState<FeatureCollection | null>(null);
   const sets = useResultsStore((state) => state.sets);
   const previousClickedLayer = useRef<L.CircleMarker | null>(null);
   const setStreetViewCoordinates = useStreetViewStore(
@@ -33,7 +38,15 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
   const [spotNodes, setSpotNodes] = React.useState<string[]>([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const stableKey = useMemo(() => Date.now().toString(), [geoJSON]);
+  const stableKey = useMemo(() => Date.now().toString(), [deflatedFeatures]);
+
+  const mapZoom = useMapZoom();
+
+  useEffect(() => {
+    if (geoJSON) {
+      setDeflatedFeatures(deflateGeoJSON(geoJSON, mapZoom, 16));
+    }
+  }, [geoJSON, mapZoom]);
 
   useEffect(() => {
     if (spots && activeSpot) {
@@ -124,11 +137,11 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       <Pane name="circleMarkers" style={{ zIndex: 500 }} />
       <Pane name="polygons" style={{ zIndex: 400 }} />
 
-      {geoJSON ? (
+      {deflatedFeatures ? (
         <GeoJSON
           key={stableKey}
           {...props}
-          data={geoJSON}
+          data={deflatedFeatures}
           pointToLayer={pointToLayer}
           style={styleFunction}
           onEachFeature={onEachFeature}
