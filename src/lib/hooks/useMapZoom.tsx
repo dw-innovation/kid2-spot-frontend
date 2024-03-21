@@ -17,11 +17,7 @@ const useMapZoom = () => {
     };
   }, [map]);
 
-  const updateZoom = (newZoomLevel: number) => {
-    map.setZoom(newZoomLevel);
-  };
-
-  return [zoom, updateZoom];
+  return zoom;
 };
 
 export default useMapZoom;
