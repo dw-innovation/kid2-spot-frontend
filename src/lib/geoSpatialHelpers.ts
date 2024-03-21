@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { FeatureCollection } from "geojson";
+import { Feature, FeatureCollection, Point } from "geojson";
 import { LatLng } from "leaflet";
 
 type BoundingBox = [number, number, number, number];
@@ -171,4 +171,34 @@ export const convertToLatLng = (input: string): LatLng | null => {
   }
 
   return window === undefined ? null : new window.L.LatLng(lat, lng);
+};
+
+export const deflateGeoJSON = (
+  geojson: FeatureCollection,
+  zoomLevel: number,
+  threshold: number
+): FeatureCollection => {
+  if (!geojson) return geojson;
+
+  const deflatedGeoJson = geojson.features.map((feature) => {
+    if (
+      zoomLevel < threshold &&
+      (feature.geometry.type === "Polygon" ||
+        feature.geometry.type === "MultiPolygon")
+    ) {
+      const pointFeature: Feature<Point> = {
+        type: "Feature",
+        properties: feature.properties,
+        geometry: {
+          type: "Point",
+          coordinates: feature.properties?.center?.coordinates || [0, 0],
+        },
+      };
+      return pointFeature;
+    } else {
+      return feature;
+    }
+  });
+
+  return { ...geojson, features: deflatedGeoJson };
 };
