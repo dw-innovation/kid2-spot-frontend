@@ -187,8 +187,7 @@ export const deflateGeoJSON = (
         feature.geometry.type === "MultiPolygon")
     ) {
       const pointFeature: Feature<Point> = {
-        type: "Feature",
-        properties: feature.properties,
+        ...feature,
         geometry: {
           type: "Point",
           coordinates: feature.properties?.center?.coordinates || [0, 0],
