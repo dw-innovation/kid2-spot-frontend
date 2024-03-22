@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 
 import usePersistedStore from "@/stores/usePersistedStore";
 import useResultsStore from "@/stores/useResultsStore";
-import { IntermediateRepresentation } from "@/types/imr";
+import { IntermediateRepresentation, Node } from "@/types/imr";
 
 import { FILL_COLORS } from "./const/colors";
 
@@ -334,3 +334,8 @@ export const insertBBox = (
     value: bounds,
   },
 });
+
+export const findNameById = (id: number, nodes: Node[]) => {
+  const node = nodes.find((node) => node.id === id);
+  return node ? node.name : "";
+};
