@@ -2,6 +2,8 @@ import * as turf from "@turf/turf";
 import { Feature, FeatureCollection, Point } from "geojson";
 import { LatLng } from "leaflet";
 
+import { MINSIZES } from "./const/const";
+
 type BoundingBox = [number, number, number, number];
 type Coordinate = [number, number];
 
@@ -175,17 +177,25 @@ export const convertToLatLng = (input: string): LatLng | null => {
 
 export const deflateGeoJSON = (
   geojson: FeatureCollection,
-  zoomLevel: number,
-  threshold: number
+  zoomLevel: number
 ): FeatureCollection => {
   if (!geojson) return geojson;
 
+  const minSizeObj = MINSIZES.find((size) => zoomLevel <= size.zoomLevel);
+
+  const minSize = minSizeObj
+    ? minSizeObj.minArea
+    : MINSIZES[MINSIZES.length - 1].minArea;
+
   const deflatedGeoJson = geojson.features.map((feature) => {
     if (
-      zoomLevel < threshold &&
-      (feature.geometry.type === "Polygon" ||
-        feature.geometry.type === "MultiPolygon")
+      feature.geometry.type === "Polygon" ||
+      feature.geometry.type === "MultiPolygon"
     ) {
+      const surface = turf.area(feature.geometry);
+
+      if (surface > minSize) return feature;
+
       const pointFeature: Feature<Point> = {
         ...feature,
         geometry: {
@@ -193,6 +203,7 @@ export const deflateGeoJSON = (
           coordinates: feature.properties?.center?.coordinates || [0, 0],
         },
       };
+
       return pointFeature;
     } else {
       return feature;

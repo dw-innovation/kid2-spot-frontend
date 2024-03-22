@@ -44,7 +44,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   useEffect(() => {
     if (geoJSON) {
-      setDeflatedFeatures(deflateGeoJSON(geoJSON, mapZoom, 16));
+      setDeflatedFeatures(deflateGeoJSON(geoJSON, mapZoom));
     }
   }, [geoJSON, mapZoom]);
 
