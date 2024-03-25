@@ -1,7 +1,7 @@
-import { Slider } from "@radix-ui/react-slider";
 import { debounce } from "lodash";
 import React, { useCallback } from "react";
 
+import { Slider } from "@/components/ui/slider";
 import {
   distanceToMeters,
   expSlider,
