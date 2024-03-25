@@ -1,5 +1,6 @@
 import { Slider } from "@radix-ui/react-slider";
-import React from "react";
+import { debounce } from "lodash";
+import React, { useCallback } from "react";
 
 import {
   distanceToMeters,
@@ -18,24 +19,23 @@ type Props = {
 
 const Distance = ({ edge, index }: Props) => {
   const nodes = useImrStore((state) => state.imr.nodes);
-
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
-  const handleValueChange = (
-    index: number,
-    value: number[],
-    source: string,
-    target: string
-  ) => {
-    let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
-    setRelationValue(index, "distance", newValue);
+  const handleValueChange = useCallback(
+    (index: number, value: number[], source: string, target: string) => {
+      debounce((index, value, source, target) => {
+        let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
+        setRelationValue(index, "distance", newValue);
 
-    trackAction(
-      "relations",
-      "changeDistance",
-      `${source} to ${target}: ${newValue}`
-    );
-  };
+        trackAction(
+          "relations",
+          "changeDistance",
+          `${source} to ${target}: ${newValue}`
+        );
+      }, 500)(index, value, source, target);
+    },
+    [setRelationValue]
+  );
 
   return (
     <>
@@ -55,14 +55,11 @@ const Distance = ({ edge, index }: Props) => {
         step={1}
         value={[logSlider(distanceToMeters(edge.distance), 10, 2000, 0.8)]}
         className="my-2"
-        onValueChange={(value) =>
-          handleValueChange(
-            index,
-            value,
-            findNameById(edge.source, nodes),
-            findNameById(edge.target, nodes)
-          )
-        }
+        onValueChange={(value) => {
+          const source = findNameById(edge.source, nodes);
+          const target = findNameById(edge.target, nodes);
+          handleValueChange(index, value, source, target);
+        }}
       />
     </>
   );
