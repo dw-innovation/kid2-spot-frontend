@@ -21,20 +21,25 @@ const Distance = ({ edge, index }: Props) => {
   const nodes = useImrStore((state) => state.imr.nodes);
   const setRelationValue = useImrStore((state) => state.setRelationValue);
 
+  const debouncedTrackAction = useCallback(
+    debounce((actionType, actionName, actionDetail) => {
+      trackAction(actionType, actionName, actionDetail);
+    }, 500),
+    []
+  );
+
   const handleValueChange = useCallback(
     (index: number, value: number[], source: string, target: string) => {
-      debounce((index, value, source, target) => {
-        let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
-        setRelationValue(index, "distance", newValue);
+      let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
+      setRelationValue(index, "distance", newValue);
 
-        trackAction(
-          "relations",
-          "changeDistance",
-          `${source} to ${target}: ${newValue}`
-        );
-      }, 500)(index, value, source, target);
+      debouncedTrackAction(
+        "relations",
+        "changeDistance",
+        `${source} to ${target}: ${newValue}`
+      );
     },
-    [setRelationValue]
+    [setRelationValue, debouncedTrackAction]
   );
 
   return (
