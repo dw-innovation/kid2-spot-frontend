@@ -57,14 +57,11 @@ export type Area = {
 
 export type Bbox = {
   type: "bbox";
-  value: "";
+  value: "" | number[];
 };
 
 export interface IntermediateRepresentation {
-  area: {
-    type: Area | Bbox;
-    value: string | number[];
-  };
+  area: Area | Bbox;
   nodes: (Cluster | NWR)[];
   edges: Edge[];
 }

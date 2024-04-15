@@ -13,7 +13,7 @@ import { NominatimPlace } from "@/types/nominatim";
 import SurfaceAlert from "../SurfaceAlert";
 
 const NamedArea = () => {
-  const [selectedAreaName, setSelectedAreaName] = useState(""); // Changed from placeId to selectedAreaName
+  const [selectedAreaName, setSelectedAreaName] = useState("");
   const [surface, setSurface] = useState<number>(0);
   const area = useImrStore((state) => state.imr.area.value);
   const areaType = useImrStore((state) => state.imr.area.type);

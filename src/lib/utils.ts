@@ -96,12 +96,6 @@ export const checkInputType = (input: string): "address" | "coordinates" => {
   return "address";
 };
 
-export const injectArea = (imr: IntermediateRepresentation): any => {
-  if (imr.area.type === "bbox" || imr.area.type === "polygon") {
-    return imr;
-  }
-};
-
 export const calculateSurface = (polgyon: Polygon | MultiPolygon): number => {
   if (polgyon.type !== "Polygon" && polgyon.type !== "MultiPolygon") {
     return 0;
