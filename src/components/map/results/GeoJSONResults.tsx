@@ -117,7 +117,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     const paneName =
       feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
-    return {
+    let styleOptions: L.PathOptions = {
       fillColor: sets[setIndex].fillColor,
       color: getSetColor(
         setIndex,
@@ -130,6 +130,16 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
       fillOpacity: getSetFillOpacity(setIndex, sets),
       pane: paneName,
     };
+
+    if (feature.geometry.type === "LineString") {
+      styleOptions = {
+        ...styleOptions,
+        weight: 4,
+        color: sets[setIndex].fillColor,
+      };
+    }
+
+    return styleOptions;
   };
 
   return (
