@@ -134,7 +134,7 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     if (feature.geometry.type === "LineString") {
       styleOptions = {
         ...styleOptions,
-        weight: 4,
+        weight: 2,
         color: sets[setIndex].fillColor,
       };
     }
