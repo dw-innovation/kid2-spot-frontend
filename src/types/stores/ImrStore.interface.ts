@@ -15,7 +15,6 @@ export default interface ImrStoreInterface {
   stringifiedImr: string;
   setStringifiedImr: (stringifiedImr: string) => void;
   setImrBBox: (bbox: number[]) => void;
-  setImrPolygon: (polygon: number[]) => void;
   setImrArea: (area: string) => void;
   updateRuleValue: (
     nodeId: number,
@@ -24,10 +23,7 @@ export default interface ImrStoreInterface {
     newValue: any
   ) => void;
   updateName: (nodeId: number, displayName: string) => void;
-  setSearchArea: (
-    type: "area" | "polygon" | "bbox",
-    value: string | number[]
-  ) => void;
+  setSearchArea: (type: "area" | "bbox", value: string | number[]) => void;
   setRelationValue: (
     index: number,
     key: string,

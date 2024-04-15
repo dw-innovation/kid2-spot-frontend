@@ -4,15 +4,27 @@ import { IntermediateRepresentation } from "@/types/imr";
 
 export const updateSearchArea = (
   imr: IntermediateRepresentation,
-  type: "area" | "polygon" | "bbox",
-  value: string | number[]
-): IntermediateRepresentation => ({
-  ...imr,
-  area: {
-    type,
-    value,
-  },
-});
+  type: "area" | "bbox",
+  value: string | number[] | ""
+): IntermediateRepresentation => {
+  if (type === "area") {
+    return {
+      ...imr,
+      area: {
+        type: "area",
+        value: typeof value === "string" ? value : "",
+      },
+    };
+  } else {
+    return {
+      ...imr,
+      area: {
+        type: "bbox",
+        value: Array.isArray(value) ? value : [],
+      },
+    };
+  }
+};
 
 export const updateName = (
   imr: IntermediateRepresentation,

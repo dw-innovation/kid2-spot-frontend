@@ -57,7 +57,7 @@ export type Area = {
 
 export type Bbox = {
   type: "bbox";
-  value: "" | number[];
+  value: string | number[];
 };
 
 export interface IntermediateRepresentation {

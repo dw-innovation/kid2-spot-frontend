@@ -23,8 +23,6 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setStringifiedImr: (stringifiedImr) => set({ stringifiedImr }),
   setImrBBox: (bbox) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "bbox", bbox) })),
-  setImrPolygon: (polygon) =>
-    set((state) => ({ imr: updateSearchArea(state.imr, "polygon", polygon) })),
   setImrArea: (area) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "area", area) })),
   removeRuleOrGroup: (nodeId, pathString) => {
