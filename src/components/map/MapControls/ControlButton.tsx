@@ -12,7 +12,7 @@ type Props = {
 };
 
 const ControlButton = ({ onClick, children, className }: Props) => {
-  const buttonRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (buttonRef.current) {
