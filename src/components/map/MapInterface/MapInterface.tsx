@@ -6,6 +6,7 @@ import LayerSelector from "@/components/LayerSelector";
 import Legend from "@/components/map/Legend";
 import PolygonOutsideAlert from "@/components/map/mapAlerts/alerts/CustomSearchAreaOutsideAlert";
 import ResultsOutsideAlert from "@/components/map/mapAlerts/alerts/ResultsOutsideAlert";
+import MapControls from "@/components/map/MapControls";
 import QueryPanel from "@/components/QueryPanel";
 import SearchCurrentViewButton from "@/components/SearchCurrentViewButton";
 
@@ -31,6 +32,7 @@ const MapInterface = () => (
 
     <div className="absolute bottom-0 left-0 z-[400] flex items-end gap-2 justify-between p-2">
       <Legend />
+      <MapControls />
       <LayerSelector />
     </div>
 
