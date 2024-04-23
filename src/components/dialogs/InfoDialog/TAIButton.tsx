@@ -10,6 +10,7 @@ const TAIButton = () => {
     trackAction("click", "modal", "tai");
     setDialogData("info", "tai");
   };
+
   return (
     <a
       onClick={handleClick}

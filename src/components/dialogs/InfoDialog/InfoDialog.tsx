@@ -18,6 +18,7 @@ const COMPONENTS = {
       props.children.includes("[[PRIVACY_MANAGER]]")
     ) {
       const parts = props.children.split("[[PRIVACY_MANAGER]]");
+
       return (
         <p>
           {parts[0]}
@@ -31,6 +32,7 @@ const COMPONENTS = {
       props.children.includes("[[TAI_BUTTON]]")
     ) {
       const parts = props.children.split("[[TAI_BUTTON]]");
+
       return (
         <p>
           {parts[0]}
@@ -44,6 +46,7 @@ const COMPONENTS = {
       props.children.includes("[[LEGAL_BUTTON]]")
     ) {
       const parts = props.children.split("[[LEGAL_BUTTON]]");
+
       return (
         <p>
           {parts[0]}
@@ -55,26 +58,22 @@ const COMPONENTS = {
       return <p {...props} />;
     }
   },
-  h2: (props: React.HTMLProps<HTMLHeadingElement>) => {
-    return <h2 {...props} className="py-2 font-bold text-md" />;
-  },
-  li: (props: React.HTMLProps<HTMLLIElement>) => {
-    return <li {...props} className="pl-2" />;
-  },
-  ul: (props: React.HTMLProps<HTMLUListElement>) => {
-    return <ul {...props} className="py-4 pl-4 list-disc" />;
-  },
-  ol: () => {
-    return <ol className="pt-2 pl-6 font-bold list-decimal" />;
-  },
-  a: (props: React.HTMLProps<HTMLAnchorElement>) => {
-    return (
-      <a
-        {...props}
-        className="underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
-      />
-    );
-  },
+  h2: (props: React.HTMLProps<HTMLHeadingElement>) => (
+    <h2 {...props} className="py-2 font-bold text-md" />
+  ),
+  li: (props: React.HTMLProps<HTMLLIElement>) => (
+    <li {...props} className="pl-2" />
+  ),
+  ul: (props: React.HTMLProps<HTMLUListElement>) => (
+    <ul {...props} className="py-4 pl-4 list-disc" />
+  ),
+  ol: () => <ol className="pt-2 pl-6 font-bold list-decimal" />,
+  a: (props: React.HTMLProps<HTMLAnchorElement>) => (
+    <a
+      {...props}
+      className="underline text-accent-foreground hover:no-underline focus:outline-none hover:cursor-pointer"
+    />
+  ),
 };
 
 const InfoDialog = () => {

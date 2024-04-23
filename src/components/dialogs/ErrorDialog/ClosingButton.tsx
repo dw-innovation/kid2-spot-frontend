@@ -12,17 +12,15 @@ const ClosingButton = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
 
+  const handleClose = () => {
+    toggleDialog(DIALOG_NAME);
+    setTimeout(() => {
+      clearError();
+    }, 300);
+  };
+
   return (
-    <Button
-      variant={"secondary"}
-      className="self-end"
-      onClick={() => {
-        toggleDialog(DIALOG_NAME);
-        setTimeout(() => {
-          clearError();
-        }, 300);
-      }}
-    >
+    <Button variant={"secondary"} className="self-end" onClick={handleClose}>
       {errorDialogCloseButton()}
     </Button>
   );

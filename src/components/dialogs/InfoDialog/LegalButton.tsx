@@ -10,6 +10,7 @@ const LegalButton = () => {
     trackAction("click", "modal", "legal");
     setDialogData("info", "legal");
   };
+
   return (
     <a
       onClick={handleClick}

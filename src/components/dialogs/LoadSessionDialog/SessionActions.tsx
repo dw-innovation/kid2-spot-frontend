@@ -19,6 +19,7 @@ const SessionActions: React.FC<SessionActionsProps> = ({
     loadSessionDialogLoadSessionButton,
     loadSessionDialogRemoveSessionButton,
   } = useStrings();
+
   return (
     <div className="flex w-full gap-2 ">
       <Button
@@ -28,6 +29,7 @@ const SessionActions: React.FC<SessionActionsProps> = ({
       >
         {loadSessionDialogLoadSessionButton()}
       </Button>
+
       <Button
         onClick={handleRemoveSession}
         variant={"destructive"}
