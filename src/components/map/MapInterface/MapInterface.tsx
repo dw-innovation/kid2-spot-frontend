@@ -3,10 +3,10 @@ import React from "react";
 import AddressSearchBox from "@/components/addressSearch";
 import Footer from "@/components/Footer";
 import LayerSelector from "@/components/LayerSelector";
-import Legend from "@/components/map/Legend";
 import PolygonOutsideAlert from "@/components/map/mapAlerts/alerts/CustomSearchAreaOutsideAlert";
 import ResultsOutsideAlert from "@/components/map/mapAlerts/alerts/ResultsOutsideAlert";
 import MapControls from "@/components/map/MapControls";
+import MapLegend from "@/components/map/MapLegend";
 import QueryPanel from "@/components/QueryPanel";
 import SearchCurrentViewButton from "@/components/SearchCurrentViewButton";
 
@@ -31,7 +31,7 @@ const MapInterface = () => (
     </div>
 
     <div className="absolute bottom-0 left-0 z-[400] flex items-end gap-2 justify-between p-2">
-      <Legend />
+      <MapLegend />
       <MapControls />
       <LayerSelector />
     </div>

@@ -29,6 +29,14 @@ const useResultsStore = create<ResultsStoreInterface>((set) => ({
   clearSpots: () => set({ spots: [] }),
   searchArea: null,
   setSearchArea: (searchArea) => set({ searchArea }),
+  showSearchArea: true,
+  toggleSearchArea: (show) =>
+    set((state) => ({ showSearchArea: show ? show : !state.showSearchArea })),
+  highlightSearchArea: false,
+  toggleHighlightSearchArea: (highlight) =>
+    set((state) => ({
+      highlightSearchArea: highlight ? highlight : !state.highlightSearchArea,
+    })),
 }));
 
 export default useResultsStore;
