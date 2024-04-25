@@ -3,24 +3,18 @@
 import { FeatureCollection } from "geojson";
 import * as L from "leaflet";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
 import { GeoJSON, GeoJSONProps, Pane } from "react-leaflet";
 
 import { deflateGeoJSON } from "@/lib/geoSpatialHelpers";
 import useMapZoom from "@/lib/hooks/useMapZoom";
 import {
-  getSetColor,
-  getSetFillOpacity,
-  getSetIndex,
-  getWeight,
-  resetPreviousLayerStyle,
+  onEachFeature,
+  pointToLayer,
+  styleFunction,
 } from "@/lib/mapStyleUtils";
-import { trackAction } from "@/lib/utils";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
-
-import Popup from "../Popup";
 
 export type GeoJSONResultsProps = Omit<GeoJSONProps, "data">;
 
@@ -57,91 +51,6 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
     }
   }, [activeSpot, spots]);
 
-  const pointToLayer = (
-    _: GeoJSON.Feature<GeoJSON.Point>,
-    latlng: L.LatLng
-  ) => {
-    const setIndex = getSetIndex(_.properties?.set_name, sets);
-    const markerOptions: L.CircleMarkerOptions = {
-      radius: 12,
-      fillColor: sets[setIndex].fillColor,
-      color: "#fff",
-      weight: 5,
-      opacity: 1,
-      fillOpacity: getSetFillOpacity(setIndex, sets),
-    };
-
-    return L.circleMarker(latlng, markerOptions);
-  };
-
-  const onFeatureClick = (e: L.LeafletEvent) => {
-    const layer = e.target as L.CircleMarker;
-
-    if (layer.feature && layer.feature.properties.center) {
-      trackAction("click", "mapFeature", layer.feature.properties.osm_ids);
-      setStreetViewCoordinates({
-        lat: layer.feature.properties.center.coordinates[1],
-        lng: layer.feature.properties.center.coordinates[0],
-      });
-    }
-
-    resetPreviousLayerStyle(previousClickedLayer);
-    layer.setStyle({ color: "#ff0000" });
-    previousClickedLayer.current = layer;
-  };
-
-  const bindPopupToLayer = (feature: GeoJSON.Feature, layer: L.Layer) => {
-    let popupContainer = document.createElement("div");
-    let root = createRoot(popupContainer);
-
-    layer.bindPopup(popupContainer, { maxWidth: 400 });
-
-    layer.on("popupopen", () => {
-      root.render(<Popup feature={feature} />);
-    });
-  };
-
-  const onEachFeature = (feature: GeoJSON.Feature, layer: L.Layer) => {
-    if (feature.properties) {
-      bindPopupToLayer(feature, layer);
-    }
-    layer.on("click", onFeatureClick);
-  };
-
-  const styleFunction: L.StyleFunction<GeoJSON.Geometry> = (
-    feature?: GeoJSON.Feature
-  ) => {
-    if (!feature) return {};
-
-    const setIndex = getSetIndex(feature.properties?.set_name, sets);
-    const paneName =
-      feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
-
-    let styleOptions: L.PathOptions = {
-      fillColor: sets[setIndex].fillColor,
-      color: getSetColor(
-        setIndex,
-        feature.properties?.osm_ids,
-        sets,
-        spotNodes
-      ),
-      weight: getWeight(setIndex, feature.properties?.osm_ids, sets, spotNodes),
-      opacity: 1,
-      fillOpacity: getSetFillOpacity(setIndex, sets),
-      pane: paneName,
-    };
-
-    if (feature.geometry.type === "LineString") {
-      styleOptions = {
-        ...styleOptions,
-        weight: 2,
-        color: sets[setIndex].fillColor,
-      };
-    }
-
-    return styleOptions;
-  };
-
   return (
     <>
       <Pane name="circleMarkers" style={{ zIndex: 500 }} />
@@ -152,9 +61,16 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
           key={stableKey}
           {...props}
           data={deflatedFeatures}
-          pointToLayer={pointToLayer}
-          style={styleFunction}
-          onEachFeature={onEachFeature}
+          pointToLayer={(point, latLng) => pointToLayer(point, latLng, sets)}
+          style={(feature) => styleFunction(sets, spotNodes, feature)}
+          onEachFeature={(feature, layer) =>
+            onEachFeature(
+              feature,
+              layer,
+              setStreetViewCoordinates,
+              previousClickedLayer
+            )
+          }
         />
       ) : null}
     </>
