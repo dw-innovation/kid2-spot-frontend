@@ -1,7 +1,7 @@
-import L from "leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import { trackAction } from "@/lib/utils";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 const ITEMS = [
@@ -20,14 +20,9 @@ const ITEMS = [
 ];
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  useDisableMapInteraction(footerRef);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const setDialogData = useGlobalStore((state) => state.setDialogData);
-
-  useEffect(() => {
-    if (footerRef.current) {
-      L.DomEvent.disableClickPropagation(footerRef.current);
-    }
-  }, []);
 
   const handleClick = (content: string) => {
     trackAction("click", "footer", content);

@@ -1,7 +1,7 @@
-import L from "leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import useStrings from "@/lib/contexts/useStrings";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useResultsStore from "@/stores/useResultsStore";
 
 import LegendItem from "./LegendItem";
@@ -13,11 +13,7 @@ const Legend = () => {
   const sets = useResultsStore((state) => state.sets);
   const searchArea = useResultsStore((state) => state.searchArea);
 
-  useEffect(() => {
-    if (!divRef.current) return;
-    L.DomEvent.disableClickPropagation(divRef.current);
-    L.DomEvent.disableScrollPropagation(divRef.current);
-  });
+  useDisableMapInteraction(divRef);
 
   return (
     <>

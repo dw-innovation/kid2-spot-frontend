@@ -1,17 +1,13 @@
-import L from "leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 
 import PromptInput from "./PromptInput";
 import SearchRefinement from "./SearchRefinement";
 
 const QueryPanel = () => {
   const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!panelRef.current) return;
-    L.DomEvent.disableClickPropagation(panelRef.current);
-    L.DomEvent.disableScrollPropagation(panelRef.current);
-  });
+  useDisableMapInteraction(panelRef);
 
   return (
     <div ref={panelRef} className="w-[20rem] flex flex-col gap-2">

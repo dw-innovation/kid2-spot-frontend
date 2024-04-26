@@ -1,10 +1,10 @@
-import L from "leaflet";
 import { SearchIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
 import { IntermediateRepresentation } from "@/types/imr";
@@ -12,6 +12,7 @@ import { IntermediateRepresentation } from "@/types/imr";
 const SearchCurrentViewButton = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  useDisableMapInteraction(buttonRef);
 
   const imr = useImrStore((state) => state.imr);
   const setSearchArea = useImrStore((state) => state.setSearchArea);
@@ -36,13 +37,6 @@ const SearchCurrentViewButton = () => {
       setIsDisabled(true);
     },
   });
-
-  useEffect(() => {
-    if (buttonRef.current) {
-      L.DomEvent.disableClickPropagation(buttonRef.current);
-      L.DomEvent.disableScrollPropagation(buttonRef.current);
-    }
-  }, []);
 
   const handleSearchCurrentViewClick = () => {
     if (searchArea === "area") {

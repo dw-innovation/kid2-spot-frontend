@@ -1,10 +1,10 @@
 "use client";
 
-import L from "leaflet";
 import { PlusIcon } from "lucide-react";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 
 import { useMapAlert } from "../Context";
 
@@ -21,11 +21,7 @@ const MapAlert = ({ handleAction, buttonText, alertText }: Props) => {
     setShowAlert(false);
   };
 
-  useEffect(() => {
-    if (!alertRef.current) return;
-    L.DomEvent.disableClickPropagation(alertRef.current);
-    L.DomEvent.disableScrollPropagation(alertRef.current);
-  });
+  useDisableMapInteraction(alertRef);
 
   return (
     <>

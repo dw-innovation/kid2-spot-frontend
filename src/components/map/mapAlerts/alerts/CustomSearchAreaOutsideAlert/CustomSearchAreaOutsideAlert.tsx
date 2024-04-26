@@ -1,5 +1,4 @@
 import { BBox, bbox } from "@turf/turf";
-import L from "leaflet";
 import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
@@ -8,6 +7,7 @@ import MapAlert from "@/components/map/mapAlerts/MapAlert";
 import { isPolygonWithinBoundingBox } from "@/lib/geoSpatialHelpers";
 import { trackAction } from "@/lib/utils";
 import useCustomSearchAreaStore from "@/stores/useCustomSearchAreaStore";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useMapStore from "@/stores/useMapStore";
 
 const PolygonOutsideAlert = () => {
@@ -18,12 +18,7 @@ const PolygonOutsideAlert = () => {
   const map = useMap();
   const alertRef = useRef<HTMLDivElement>(null);
   const { setShowAlert } = useMapAlert();
-
-  useEffect(() => {
-    if (!alertRef.current) return;
-    L.DomEvent.disableClickPropagation(alertRef.current);
-    L.DomEvent.disableScrollPropagation(alertRef.current);
-  });
+  useDisableMapInteraction(alertRef);
 
   const handleFlyToBounds = () => {
     trackAction("map", "flyToResults");

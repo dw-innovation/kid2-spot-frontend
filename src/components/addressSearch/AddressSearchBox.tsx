@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
 import Downshift from "downshift";
-import L from "leaflet";
 import { debounce, DebouncedFunc } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 
@@ -10,6 +9,7 @@ import useStrings from "@/lib/contexts/useStrings";
 import { convertToLatLng, getNewBoundingBox } from "@/lib/geoSpatialHelpers";
 import { checkInputType } from "@/lib/utils";
 import useAddressStore from "@/stores/useAddressStore";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useMapStore from "@/stores/useMapStore";
 
 import AddressSuggestions from "./AddressSuggestions";
@@ -30,12 +30,7 @@ const AddressSearchBox = () => {
 
   const lastSearchAddressRef = useRef("");
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      L.DomEvent.disableClickPropagation(inputRef.current);
-    }
-  }, []);
+  useDisableMapInteraction(inputRef);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFetchGeocodeApiData = useCallback(

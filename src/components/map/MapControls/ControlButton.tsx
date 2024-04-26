@@ -1,9 +1,9 @@
 import { type Map } from "leaflet";
-import L from "leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 
 type Props = {
   onClick: () => Map;
@@ -13,12 +13,7 @@ type Props = {
 
 const ControlButton = ({ onClick, children, className }: Props) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (buttonRef.current) {
-      L.DomEvent.disableClickPropagation(buttonRef.current);
-    }
-  }, []);
+  useDisableMapInteraction(buttonRef);
 
   return (
     <div>
