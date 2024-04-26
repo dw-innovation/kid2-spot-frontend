@@ -147,7 +147,8 @@ const AddressSearchBox = () => {
                     placeholder={commonAddressSearchPlaceholder()}
                     className="w-full p-2 rounded-lg"
                     {...getInputProps({
-                      onChange: (e) => setSearchAddress(e.target.value),
+                      onChange: (e) =>
+                        setSearchAddress((e.target as HTMLInputElement).value),
                       onKeyDown: (e) => handleKeyDown(e, selectItem),
                       onFocus: () => setState({ isOpen: true }),
                       value: searchAddress,
