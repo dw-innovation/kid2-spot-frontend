@@ -62,7 +62,7 @@ export const fetchNLToIMRTranslation = async (
   try {
     const response = await axios({
       method: "POST",
-      url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
+      url: `/api/transformSentence`,
       data: {
         sentence: naturalLanguagePrompt,
         model: process.env.NEXT_PUBLIC_NLP_MODEL,
