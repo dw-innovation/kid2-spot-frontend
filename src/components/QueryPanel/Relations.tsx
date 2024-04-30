@@ -24,7 +24,7 @@ const Relations = () => {
                     {edge.type === "dist" && (
                       <Distance edge={edge} index={index} />
                     )}
-                    {edge.type === "cnt" && <Contains edge={edge} />}
+                    {edge.type === "contains" && <Contains edge={edge} />}
                   </li>
                 ))}
             </ol>

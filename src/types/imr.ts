@@ -36,7 +36,7 @@ export type ContainsRelation = {
   id: number;
   source: number;
   target: number;
-  type: "cnt";
+  type: "contains";
 };
 
 export type DistanceRelation = {
