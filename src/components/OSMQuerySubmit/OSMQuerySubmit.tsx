@@ -13,7 +13,7 @@ import {
 import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
-import { cn } from "@/lib/utils";
+import { cn, trackAction } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -46,6 +46,7 @@ const OSMQuerySubmit = () => {
     if (isDisabled) return;
     if (!isLoading) {
       setShouldFetch(true);
+      trackAction("osmQuery", "modal", "loadSession");
     } else {
       queryClient.cancelQueries(["osmData", imr]);
     }

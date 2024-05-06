@@ -1,6 +1,5 @@
-import L from "leaflet";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 
 import OSMIconImage from "@/assets/images/osm.png";
 import SatelliteImage from "@/assets/images/satellite.png";
@@ -11,7 +10,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn, trackAction } from "@/lib/utils";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useMapStore from "@/stores/useMapStore";
 
 const IMAGES = [
@@ -41,14 +41,10 @@ const LayerItem = ({ value, name }: Props) => {
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const currentTilesLayer = useMapStore((state) => state.tilesLayer);
   const setTilesLayer = useMapStore((state) => state.setTilesLayer);
-
-  useEffect(() => {
-    if (!triggerRef.current) return;
-    L.DomEvent.disableClickPropagation(triggerRef.current);
-    L.DomEvent.disableScrollPropagation(triggerRef.current);
-  }, []);
+  useDisableMapInteraction(triggerRef);
 
   const handleLayerItemClick = (value: "vector" | "satellite" | "osm") => {
+    trackAction("mapLayer", "switchLayer", value);
     setTilesLayer(value);
   };
 

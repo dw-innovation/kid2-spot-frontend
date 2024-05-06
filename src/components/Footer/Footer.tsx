@@ -1,6 +1,7 @@
-import L from "leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
+import { trackAction } from "@/lib/utils";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 const ITEMS = [
@@ -19,22 +20,19 @@ const ITEMS = [
 ];
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  useDisableMapInteraction(footerRef);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-
-  useEffect(() => {
-    if (footerRef.current) {
-      L.DomEvent.disableClickPropagation(footerRef.current);
-    }
-  }, []);
+  const setDialogData = useGlobalStore((state) => state.setDialogData);
 
   const handleClick = (content: string) => {
-    console.log(content);
+    trackAction("click", "footer", content);
+    setDialogData("info", content);
     toggleDialog("info");
   };
 
   return (
     <div
-      className="z-[10001yarn upgrade --latest] flex items-center gap-2 p-2 font-sans bg-white rounded-md shadow-md cursor-auto"
+      className="z-[10001] flex items-center gap-2 p-2 font-sans bg-white rounded-md shadow-md cursor-auto"
       ref={footerRef}
     >
       <div>

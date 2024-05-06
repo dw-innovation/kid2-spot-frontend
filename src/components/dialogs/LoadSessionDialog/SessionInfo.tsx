@@ -9,6 +9,7 @@ interface SessionInfoProps {
 
 const SessionInfo: React.FC<SessionInfoProps> = ({ session }) => {
   const { loadSessionDialogSessionSavedInfo } = useStrings();
+
   return (
     <>
       {session?.created && (
@@ -19,6 +20,7 @@ const SessionInfo: React.FC<SessionInfoProps> = ({ session }) => {
           })}
         </p>
       )}
+
       {session?.description && (
         <p className="text-sm text-muted-foreground">{session.description}</p>
       )}

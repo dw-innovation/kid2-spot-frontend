@@ -3,7 +3,7 @@ import React from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import useSaveSession from "@/lib/hooks/useSaveSession";
-import { createMailtoLink } from "@/lib/utils";
+import { createMailtoLink, trackAction } from "@/lib/utils";
 
 const ReportButton = () => {
   const mutation = useSaveSession({
@@ -28,6 +28,7 @@ const ReportButton = () => {
   const handleClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    trackAction("errorDialog", "reportButton");
     e.preventDefault();
     await mutation.mutateAsync();
   };

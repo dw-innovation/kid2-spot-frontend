@@ -5,6 +5,7 @@ import {
   addRuleOrGroup,
   removeRuleOrGroup,
   switchOperatorAtPath,
+  updateName,
   updateRuleValue,
   updateSearchArea,
 } from "@/lib/imr";
@@ -22,8 +23,6 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
   setStringifiedImr: (stringifiedImr) => set({ stringifiedImr }),
   setImrBBox: (bbox) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "bbox", bbox) })),
-  setImrPolygon: (polygon) =>
-    set((state) => ({ imr: updateSearchArea(state.imr, "polygon", polygon) })),
   setImrArea: (area) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "area", area) })),
   removeRuleOrGroup: (nodeId, pathString) => {
@@ -43,6 +42,11 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
         keyToUpdate,
         newValue
       ),
+    }));
+  },
+  updateName: (nodeId, displayName) => {
+    set((state) => ({
+      imr: updateName(state.imr, nodeId, displayName),
     }));
   },
   switchOperatorAtPath: (nodeId, pathString) => {

@@ -29,4 +29,8 @@ export default interface ResultsStoreInterface {
   clearSpots: () => void;
   searchArea: FeatureCollection | null;
   setSearchArea: (searchArea: FeatureCollection) => void;
+  showSearchArea: boolean;
+  toggleSearchArea: (show?: boolean) => void;
+  highlightSearchArea: boolean;
+  toggleHighlightSearchArea: (highlight?: boolean) => void;
 }

@@ -19,7 +19,7 @@ const Entity = ({ name, id }: Props) => {
 
   return (
     <div className="flex gap-1 capitalize rounded-md w-fit border-[1px] border-black overflow-clip">
-      <span className="p-1">{name}</span>
+      <span className="p-1 leading-tight">{name}</span>
       <div className="flex h-full">
         <span className="border-r-[1px] border-black " />
         <button

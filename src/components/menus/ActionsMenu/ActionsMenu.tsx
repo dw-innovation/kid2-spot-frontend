@@ -13,6 +13,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import useStrings from "@/lib/contexts/useStrings";
 import useSaveSession from "@/lib/hooks/useSaveSession";
+import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useSessionsStore from "@/stores/useSessionsStore";
@@ -85,18 +86,27 @@ const ActionsMenu = () => {
         <DropdownMenuItem
           onClick={async (e) => {
             e.preventDefault();
+            trackAction("session", "share");
             mutation.mutate();
           }}
         >
           {ShareSessionIcon}
           {actionMenuShareSession()}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => toggleDialog("saveSession")}>
+        <DropdownMenuItem
+          onClick={() => {
+            trackAction("open", "modal", "saveSession");
+            toggleDialog("saveSession");
+          }}
+        >
           <BookmarkIcon />
           {actionMenuSaveSession()}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => toggleDialog("loadSession")}
+          onClick={() => {
+            trackAction("open", "modal", "loadSession");
+            toggleDialog("loadSession");
+          }}
           disabled={sessions.length === 0}
         >
           <UploadIcon />
@@ -108,6 +118,7 @@ const ActionsMenu = () => {
         </DropdownMenuLabel>
         <DropdownMenuItem
           onClick={() => {
+            trackAction("open", "modal", "downloadResults");
             toggleDialog("downloadResults");
           }}
           disabled={!isGeoJSONAvailable}

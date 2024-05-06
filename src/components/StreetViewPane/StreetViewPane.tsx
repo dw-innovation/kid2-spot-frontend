@@ -1,7 +1,6 @@
 "use client";
 
 import { Cross1Icon, MoveIcon, SizeIcon } from "@radix-ui/react-icons";
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable } from "react-resizable";
@@ -64,7 +63,7 @@ const StreetViewPane = () => {
       <Draggable handle=".drag-handle" position={dragData} onDrag={handleDrag}>
         <Resizable width={600} height={400}>
           <div
-            className={clsx(
+            className={cn(
               "rounded-lg bg-white shadow-md cursor-grab",
               isStreetViewFullscreen
                 ? "fixed z-[10000] top-0 left-0 w-screen h-screen p-2"

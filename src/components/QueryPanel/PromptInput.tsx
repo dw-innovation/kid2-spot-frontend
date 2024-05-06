@@ -3,7 +3,7 @@ import React, { KeyboardEvent, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import { cn, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -25,6 +25,7 @@ const PromptInput = () => {
       resetSteps();
       nextStep();
       toggleDialog("inputStepper");
+      trackAction("promptInput", "search", inputValue);
       setNlSentence(inputValue);
     }
   };

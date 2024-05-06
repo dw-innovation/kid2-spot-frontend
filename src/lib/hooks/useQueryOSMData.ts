@@ -26,7 +26,6 @@ const useQueryOSMData = ({
 
   return useQuery(["osmData", imr], () => fetchOSMData({ imr }), {
     onSuccess: (data) => {
-      console.log("here");
       if (data.results.features.length === 0) {
         toggleDialog("error", true);
         setError("noResults");
@@ -43,7 +42,7 @@ const useQueryOSMData = ({
     },
     onError: (error: Error) => {
       setError(error.message);
-      toggleDialog("error");
+      toggleDialog("error", true);
 
       onErrorCallbacks &&
         onErrorCallbacks.forEach((callback) => {

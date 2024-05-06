@@ -36,7 +36,7 @@ export type ContainsRelation = {
   id: number;
   source: number;
   target: number;
-  type: "cnt";
+  type: "contains";
 };
 
 export type DistanceRelation = {
@@ -50,11 +50,18 @@ export type Edge = ContainsRelation | DistanceRelation;
 
 export type Node = Cluster | NWR;
 
+export type Area = {
+  type: "area";
+  value: string;
+};
+
+export type Bbox = {
+  type: "bbox";
+  value: string | number[];
+};
+
 export interface IntermediateRepresentation {
-  area: {
-    type: "area" | "polygon" | "bbox";
-    value: string | number[];
-  };
+  area: Area | Bbox;
   nodes: (Cluster | NWR)[];
   edges: Edge[];
 }

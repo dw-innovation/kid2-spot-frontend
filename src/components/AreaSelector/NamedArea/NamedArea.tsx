@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
 import { fetchAreas } from "@/lib/apiServices";
-import { calculateSurface } from "@/lib/utils";
+import { calculateSurface, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
@@ -13,9 +13,10 @@ import { NominatimPlace } from "@/types/nominatim";
 import SurfaceAlert from "../SurfaceAlert";
 
 const NamedArea = () => {
-  const [selectedAreaName, setSelectedAreaName] = useState(""); // Changed from placeId to selectedAreaName
+  const [selectedAreaName, setSelectedAreaName] = useState("");
   const [surface, setSurface] = useState<number>(0);
   const area = useImrStore((state) => state.imr.area.value);
+  const areaType = useImrStore((state) => state.imr.area.type);
   const [detectedValue] = useState(area);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
@@ -43,19 +44,26 @@ const NamedArea = () => {
         setErrorType("errorFetchingSuggestions");
       },
       // Only execute this query once on component mount
-      enabled: !!area, // Run query only if area is not empty
+      enabled: !!area && areaType !== "bbox", // Run query only if area is not empty
       retry: false,
     }
   );
 
   useEffect(() => {
     if (suggestedAreas?.length === 1) {
+      trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
       nextStep();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedAreas]);
+
+  useEffect(() => {
+    if (areaType === "bbox") {
+      nextStep();
+    }
+  }, []);
 
   useEffect(() => {
     const suggestion = suggestedAreas?.find(
@@ -82,6 +90,7 @@ const NamedArea = () => {
       (a) => a.display_name === selectedAreaName
     );
     if (!suggestion) return;
+    trackAction("inputStepper", "areaSet", value);
     setSelectedAreaName(value);
     setSurface(calculateSurface(suggestion.geojson));
     const bounds = suggestion.boundingbox.map((b) => parseFloat(b));

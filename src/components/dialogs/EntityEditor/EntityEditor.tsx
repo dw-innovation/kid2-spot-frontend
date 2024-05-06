@@ -20,14 +20,16 @@ const EntityEditor = () => {
 
   const node = useImrStore((state) => state.imr.nodes[dialogData?.id || 0]);
 
+  const filters = node ? node.filters : undefined;
+
   return (
     <Dialog dialogName={DIALOG_NAME} className="sm:max-w-[40rem] w-fit">
       {node && (
         <div className="relative h-full">
-          <Header name={node.display_name} />
+          <Header name={node.name} nodeId={node.id} />
           <div className="flex-1 max-h-full overflow-hidden">
-            {node.filters &&
-              node.filters.map((filter, index) => (
+            {filters &&
+              filters.map((filter, index) => (
                 <FilterTypeSwitch
                   key={index}
                   filter={filter}
@@ -37,7 +39,7 @@ const EntityEditor = () => {
                 />
               ))}
 
-            {node.filters && node.filters.length === 0 && (
+            {filters && filters.length === 0 && (
               <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
             )}
             <ApplyButton />

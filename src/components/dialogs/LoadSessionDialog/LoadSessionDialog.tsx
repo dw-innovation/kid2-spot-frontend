@@ -4,6 +4,7 @@ import useLoadSessionState from "@/hooks/useLoadSessionState";
 import useSessionActions from "@/hooks/useSessionActions";
 import useStrings from "@/lib/contexts/useStrings";
 import { loadSession } from "@/lib/sessions";
+import { trackAction } from "@/lib/utils";
 
 import Dialog from "../Dialog";
 import SessionActions from "./SessionActions";
@@ -18,9 +19,12 @@ const LoadSessionDialog = () => {
   const { removeSession } = useSessionActions();
   const { loadSessionDialogDescription, loadSessionDialogTitle } = useStrings();
 
-  const handleLoadSession = async () => {
+  const handleLoadSession = async (sessionId: string | undefined) => {
     if (!sessionId) return;
     const session = findSessionById(sessionId);
+
+    trackAction("session", "load", session?.name);
+
     if (!session) return;
 
     const { data } = session;
@@ -28,9 +32,12 @@ const LoadSessionDialog = () => {
     await loadSession(data);
   };
 
-  const handleRemoveSession = () => {
+  const handleRemoveSession = (sessionId: string | undefined) => {
     if (!sessionId) return;
     const session = findSessionById(sessionId);
+
+    trackAction("session", "remove", session?.name);
+
     if (!session) return;
     removeSession(sessionId);
     setSessionId("");
@@ -50,8 +57,8 @@ const LoadSessionDialog = () => {
       <SessionInfo session={selectedSession} />
       <SessionActions
         selectedSession={selectedSession}
-        handleLoadSession={handleLoadSession}
-        handleRemoveSession={handleRemoveSession}
+        handleLoadSession={() => handleLoadSession(sessionId)}
+        handleRemoveSession={() => handleRemoveSession(sessionId)}
       />
     </Dialog>
   );

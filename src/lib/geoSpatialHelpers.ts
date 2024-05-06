@@ -1,6 +1,8 @@
 import * as turf from "@turf/turf";
-import { FeatureCollection, GeoJsonProperties } from "geojson";
+import { Feature, FeatureCollection, Point } from "geojson";
 import { LatLng } from "leaflet";
+
+import { MINSIZES } from "./const/const";
 
 type BoundingBox = [number, number, number, number];
 type Coordinate = [number, number];
@@ -67,15 +69,26 @@ export const expandPolygonByDistance = (
 };
 
 export const allFeaturesWithinBoundingBox = (
-  geojson: turf.FeatureCollection<turf.Geometry, GeoJsonProperties>,
-  boundingBox: BoundingBox
+  geojson: turf.FeatureCollection<turf.Geometry>,
+  boundingBox: turf.BBox
 ): boolean => {
   const boundingBoxPolygon = turf.bboxPolygon(boundingBox);
   let allFeaturesWithin = true;
 
   turf.featureEach(geojson, (currentFeature) => {
-    if (!turf.booleanContains(boundingBoxPolygon, currentFeature)) {
-      allFeaturesWithin = false;
+    if (currentFeature.geometry.type === "MultiPolygon") {
+      (currentFeature.geometry.coordinates as turf.Position[][][]).forEach(
+        (polygonCoordinates) => {
+          const polygon = turf.polygon(polygonCoordinates as turf.Position[][]);
+          if (!turf.booleanContains(boundingBoxPolygon, polygon)) {
+            allFeaturesWithin = false;
+          }
+        }
+      );
+    } else {
+      if (!turf.booleanContains(boundingBoxPolygon, currentFeature)) {
+        allFeaturesWithin = false;
+      }
     }
   });
 
@@ -160,4 +173,42 @@ export const convertToLatLng = (input: string): LatLng | null => {
   }
 
   return window === undefined ? null : new window.L.LatLng(lat, lng);
+};
+
+export const deflateGeoJSON = (
+  geojson: FeatureCollection,
+  zoomLevel: number
+): FeatureCollection => {
+  if (!geojson) return geojson;
+
+  const minSizeObj = MINSIZES.find((size) => zoomLevel <= size.zoomLevel);
+
+  const minSize = minSizeObj
+    ? minSizeObj.minArea
+    : MINSIZES[MINSIZES.length - 1].minArea;
+
+  const deflatedGeoJson = geojson.features.map((feature) => {
+    if (
+      feature.geometry.type === "Polygon" ||
+      feature.geometry.type === "MultiPolygon"
+    ) {
+      const surface = turf.area(feature.geometry);
+
+      if (surface > minSize) return feature;
+
+      const pointFeature: Feature<Point> = {
+        ...feature,
+        geometry: {
+          type: "Point",
+          coordinates: feature.properties?.center?.coordinates || [0, 0],
+        },
+      };
+
+      return pointFeature;
+    } else {
+      return feature;
+    }
+  });
+
+  return { ...geojson, features: deflatedGeoJson };
 };

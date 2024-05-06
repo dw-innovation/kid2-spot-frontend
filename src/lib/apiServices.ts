@@ -9,7 +9,7 @@ export const fetchOSMData = async ({
 }): Promise<any> => {
   var config: any = {
     method: "post",
-    url: `${process.env.NEXT_PUBLIC_OSM_API}/run-osm-query`,
+    url: `/api/queryOSM`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -62,7 +62,7 @@ export const fetchNLToIMRTranslation = async (
   try {
     const response = await axios({
       method: "POST",
-      url: `${process.env.NEXT_PUBLIC_NLP_API}/transform-sentence-to-imr`,
+      url: `/api/transformSentence`,
       data: {
         sentence: naturalLanguagePrompt,
         model: process.env.NEXT_PUBLIC_NLP_MODEL,
@@ -82,7 +82,7 @@ export const validateIMR = async (
   try {
     const response = await axios({
       method: "POST",
-      url: `${process.env.NEXT_PUBLIC_OSM_API}/validate-imr`,
+      url: `/api/validateQuery`,
       data: imr,
     });
 

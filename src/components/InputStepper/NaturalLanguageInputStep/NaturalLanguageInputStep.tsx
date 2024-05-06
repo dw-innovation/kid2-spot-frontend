@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import SpotLogo from "@/assets/icons/SpotLogo";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
 
@@ -30,6 +31,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
 
   const handleSearchTrigger = () => {
     if (nlSentence === "") return;
+    trackAction("inputStepper", "nlTransformation", nlSentence);
     setShouldUnmount(true);
     setTimeout(() => {
       nextStep();
