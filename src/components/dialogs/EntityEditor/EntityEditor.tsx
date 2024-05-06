@@ -19,6 +19,7 @@ const EntityEditor = () => {
   )?.data;
 
   const node = useImrStore((state) => state.imr.nodes[dialogData?.id || 0]);
+
   const filters = node ? node.filters : undefined;
 
   return (
