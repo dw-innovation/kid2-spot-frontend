@@ -79,7 +79,7 @@ export const styleFunction = (
     styleOptions = {
       ...styleOptions,
       weight: 2,
-      color: sets[setIndex].fillColor,
+      color: sets[setIndex]?.fillColor ?? "#000",
     };
   }
 
