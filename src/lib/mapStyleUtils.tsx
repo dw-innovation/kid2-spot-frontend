@@ -7,6 +7,7 @@ import { Set } from "@/types/stores/ResultsStore.interface";
 import { trackAction } from "./utils";
 
 export const getSetIndex = (setName: string | undefined, sets: Set[]) => {
+  console.log(setName, sets);
   return sets.findIndex((set) => set.name === setName);
 };
 
@@ -61,11 +62,12 @@ export const styleFunction = (
   if (!feature) return {};
 
   const setIndex = getSetIndex(feature.properties?.set_name, sets);
+  console.log("setIndex", setIndex);
   const paneName =
     feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
   let styleOptions: L.PathOptions = {
-    fillColor: sets[setIndex].fillColor,
+    fillColor: sets[setIndex]?.fillColor ?? "#000",
     color: getSetColor(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     weight: getWeight(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     opacity: 1,
