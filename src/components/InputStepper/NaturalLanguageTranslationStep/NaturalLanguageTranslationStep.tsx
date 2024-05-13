@@ -10,6 +10,7 @@ import useMapStore from "@/stores/useMapStore";
 
 import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
+import { AxiosError } from "axios";
 
 const NaturalLanguageTranslationStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
@@ -47,8 +48,16 @@ const NaturalLanguageTranslationStep = () => {
             toggleDialog("error");
           });
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: unknown) => {
+        if (typeof error === "object" && error !== null && "message" in error) {
+          const err = error as { message: string };
+          setErrorType(err.message);
+        } else {
+          setErrorType("An unexpected error occurred");
+        }
+
+        toggleDialog("inputStepper", false);
+        toggleDialog("error");
       },
       enabled: !!nlSentence,
       retry: false,

@@ -7,7 +7,10 @@ import "react-resizable/css/styles.css";
 
 import { type Viewport, Metadata } from "next";
 import { Inter } from "next/font/google";
+import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
+
+import SessionProvider from "@/components/SessionsProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,24 +35,29 @@ export const metadata: Metadata = {
   ],
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" className={inter.variable}>
-    <body>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      {children}
-    </body>
-  </html>
-);
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getServerSession();
+  return (
+    <html lang="en" className={inter.variable}>
+      <body>
+        <SessionProvider session={session}>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          {children}
+        </SessionProvider>
+      </body>
+    </html>
+  );
+};
 
 export default RootLayout;

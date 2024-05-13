@@ -6,10 +6,8 @@ import { Set } from "@/types/stores/ResultsStore.interface";
 
 import { trackAction } from "./utils";
 
-export const getSetIndex = (setName: string | undefined, sets: Set[]) => {
-  console.log(setName, sets);
-  return sets.findIndex((set) => set.name === setName);
-};
+export const getSetIndex = (setName: string | undefined, sets: Set[]) =>
+  sets.findIndex((set) => set.name === setName);
 
 export const getSetColor = (
   setIndex: number,
@@ -62,7 +60,6 @@ export const styleFunction = (
   if (!feature) return {};
 
   const setIndex = getSetIndex(feature.properties?.set_name, sets);
-  console.log("setIndex", setIndex);
   const paneName =
     feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
