@@ -1,7 +1,23 @@
+import { authOptions } from "@/lib/auth";
 import axios from "axios";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message: "unauthenticated",
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+
   const data = await req.json();
 
   try {
