@@ -75,7 +75,6 @@ export const fetchNLToIMRTranslation = async (
     if (axios.isAxiosError(error)) {
       const serverError = error.response?.data.message;
       if (serverError) {
-        console.log("error message", serverError);
         throw new Error(serverError);
       }
     } else {
