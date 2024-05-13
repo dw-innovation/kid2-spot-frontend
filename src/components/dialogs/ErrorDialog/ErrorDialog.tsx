@@ -8,6 +8,7 @@ import Dialog from "../Dialog";
 import ClosingButton from "./ClosingButton";
 import DetectedEntitiesBar from "./DetectedEntitiesBar";
 import ReportButton from "./ReportButton";
+import SignIn from "@/components/Header/AuthNav/SignIn";
 
 const DIALOG_NAME = "error";
 
@@ -23,6 +24,11 @@ const COMPONENTS = {
       props.children === "[[REPORT_BUTTON]]"
     ) {
       return <ReportButton />;
+    } else if (
+      typeof props.children === "string" &&
+      props.children === "[[LOGIN_BUTTON]]"
+    ) {
+      return <SignIn />;
     } else {
       return <p {...props} />;
     }
