@@ -18,4 +18,8 @@ export const STRINGS = {
   terraIncognitaTitle: "Patience please",
   terraIncognita:
     "You are searching in an area that is not frequently searched, this search may take a little longer.",
+  unauthenticatedTitle: "Unauthenticated",
+  unauthenticated: `Unauthenticated. Please log in. 
+    
+    [[LOGIN_BUTTON]]`,
 };
