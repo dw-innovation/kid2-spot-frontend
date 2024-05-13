@@ -21,5 +21,5 @@ export const STRINGS = {
   unauthenticatedTitle: "Unauthenticated",
   unauthenticated: `Unauthenticated. Please log in. 
     
-    [[LOGIN_BUTTON]]`,
+  [[LOGIN_BUTTON]]`,
 };
