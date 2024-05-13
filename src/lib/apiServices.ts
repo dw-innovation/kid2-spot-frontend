@@ -26,9 +26,9 @@ export const fetchOSMData = async ({
       if (serverError) {
         throw new Error(serverError);
       }
+    } else {
+      throw new Error("UnknownError");
     }
-
-    throw new Error("UnknownError");
   }
 };
 
@@ -71,8 +71,16 @@ export const fetchNLToIMRTranslation = async (
 
     const result = await response.data;
     return result;
-  } catch (e) {
-    throw new Error("nlpTransformationError");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error.response?.data.message;
+      if (serverError) {
+        console.log("error message", serverError);
+        throw new Error(serverError);
+      }
+    } else {
+      throw new Error("UnknownError");
+    }
   }
 };
 
