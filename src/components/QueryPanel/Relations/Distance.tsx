@@ -52,7 +52,7 @@ const Distance = ({ edge, index }: Props) => {
         <span className="font-bold capitalize">
           {findNameById(edge.target, nodes)}
         </span>
-        : <strong>{edge.distance}</strong>
+        : <span>within</span> <strong>{edge.distance}</strong>
       </div>
       <Slider
         max={2000}
