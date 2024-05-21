@@ -67,7 +67,7 @@ const NaturalLanguageTranslationStep = () => {
   return (
     <InputContainer
       shouldUnmount={translationQuery.isSuccess}
-      title="Analyzing your sentence"
+      title="Analyzing your input"
     >
       <AnalyzeAnimation
         sentences={[
