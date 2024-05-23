@@ -14,6 +14,7 @@ import MapResizeHandler from "./MapResizeHandler";
 import GeoJSONResults from "./results/GeoJSONResults";
 import SearchArea from "./results/SearchArea";
 import TileLayer from "./TileLayer";
+import { MAX_ZOOM } from "@/lib/const/const";
 
 const MapContainer = () => {
   const mapContainerRef = useRef(null);
@@ -30,6 +31,7 @@ const MapContainer = () => {
           className="w-full h-full"
           bounds={bounds}
           zoomControl={false}
+          maxZoom={MAX_ZOOM}
         >
           <MapInterface />
           <TileLayer layerType={tilesLayer} />

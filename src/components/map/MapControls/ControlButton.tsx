@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 
 type Props = {
-  onClick: () => Map;
+  onClick: () => void;
   children: React.ReactNode;
   className?: string;
 };

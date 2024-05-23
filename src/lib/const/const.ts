@@ -7,3 +7,5 @@ export const MINSIZES = [
   { minArea: 1000, zoomLevel: 17 },
   { minArea: 0, zoomLevel: 18 },
 ];
+
+export const MAX_ZOOM = 18;
