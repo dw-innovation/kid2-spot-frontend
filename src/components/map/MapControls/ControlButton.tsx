@@ -22,7 +22,7 @@ const ControlButton = ({ onClick, children, className }: Props) => {
         size={"fit"}
         ref={buttonRef}
         className={cn(
-          "flex items-center justify-center w-5 leading-none shadow-lg aspect-square",
+          "flex items-center justify-center w-5 leading-none shadow-lg aspect-squar hover:opacity-80",
           className
         )}
       >
