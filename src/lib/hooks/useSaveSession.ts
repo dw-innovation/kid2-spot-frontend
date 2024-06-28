@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import useGlobalStore from "@/stores/useGlobalStore";
@@ -13,9 +13,9 @@ type Props = {
   onSuccessCallbacks?: ((sessionLink: string) => void)[];
 };
 
-const useSaveSession = ({ onSuccessCallbacks }: Props) =>
-  useMutation(
-    () =>
+const useSaveSession = ({ onSuccessCallbacks }: Props) => {
+  const mutation = useMutation({
+    mutationFn: () =>
       saveSession([
         { name: "useGlobalStore", getState: useGlobalStore.getState },
         { name: "useMapStore", getState: useMapStore.getState },
@@ -23,23 +23,25 @@ const useSaveSession = ({ onSuccessCallbacks }: Props) =>
         { name: "useStreetViewStore", getState: useStreetViewStore.getState },
         { name: "useImrStore", getState: useImrStore.getState },
       ]),
-    {
-      onSuccess: (sessionLink) => {
-        onSuccessCallbacks &&
-          onSuccessCallbacks.forEach((callback) => {
-            if (typeof callback === "function") {
-              callback(sessionLink);
-            }
-          });
-      },
-      onError: (error) => {
-        if (error instanceof Error) {
-          toast.error("Error saving session: " + error.message);
-        } else {
-          toast.error("An unknown error occurred while saving the session");
-        }
-      },
-    }
-  );
+    onSuccess: (sessionLink) => {
+      if (onSuccessCallbacks) {
+        onSuccessCallbacks.forEach((callback) => {
+          if (typeof callback === "function") {
+            callback(sessionLink);
+          }
+        });
+      }
+    },
+    onError: (error) => {
+      if (error instanceof Error) {
+        toast.error("Error saving session: " + error.message);
+      } else {
+        toast.error("An unknown error occurred while saving the session");
+      }
+    },
+  });
+
+  return mutation;
+};
 
 export default useSaveSession;

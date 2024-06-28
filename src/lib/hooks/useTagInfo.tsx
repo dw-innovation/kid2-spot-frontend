@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { TagInfoResponse } from "@/types/tagInfo";
 
@@ -9,15 +9,20 @@ type Props = {
   isEnabled: boolean;
 };
 
+type TransformedTagInfo = { label: string; value: string }[];
+
 const useTagInfo = ({ key, isEnabled }: Props) => {
-  return useQuery([key], () => fetchTagInfo(key), {
+  return useQuery<TagInfoResponse, Error, TransformedTagInfo>({
+    queryKey: [key],
+    queryFn: () => fetchTagInfo(key),
     enabled: isEnabled,
     retry: false,
-    select: (data: TagInfoResponse) => {
+    select: (data: TagInfoResponse): TransformedTagInfo => {
       if (!data) return [];
       if (data.total > 200) return [];
       return data.data.map((tag) => ({ label: tag.value, value: tag.value }));
     },
   });
 };
+
 export default useTagInfo;

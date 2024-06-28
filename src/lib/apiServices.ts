@@ -2,33 +2,17 @@ import axios from "axios";
 
 import { IntermediateRepresentation } from "@/types/imr";
 
-export const fetchOSMData = async ({
-  imr,
-}: {
-  imr: IntermediateRepresentation;
-}): Promise<any> => {
-  var config: any = {
-    method: "post",
-    url: `/api/queryOSM`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: imr,
-  };
-
+export const fetchOSMData = async ({ imr }: { imr: IntermediateRepresentation }): Promise<any> => {
   try {
-    const response = await axios(config);
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data.errorType;
-      if (serverError) {
-        throw new Error(serverError);
-      }
+    const response = await axios.post("/api/queryOSM", imr);
+    if (response.data) {
+      return response.data;
     } else {
-      throw new Error("UnknownError");
+      throw new Error("No data returned from API");
     }
+  } catch (error) {
+    console.error("Error fetching OSM data:", error);
+    throw error;
   }
 };
 

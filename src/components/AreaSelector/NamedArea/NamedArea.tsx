@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
@@ -23,61 +23,54 @@ const NamedArea = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const setImrArea = useImrStore((state) => state.setImrArea);
 
-  const {
-    data: suggestedAreas,
-    isLoading,
-    isError,
-  } = useQuery<NominatimPlace[]>(
-    ["fetchAreas", detectedValue],
-    () => {
-      // Nominatim API expects a string, area could be a bbox array
-      const detectedValue = typeof area === "string" ? area : area.toString();
-      return fetchAreas(detectedValue);
+  const queryKey = ["fetchAreas", detectedValue];
+
+  const { data: suggestedAreas, isLoading, isError } = useQuery<NominatimPlace[]>({
+    queryKey,
+    queryFn: () => {
+      const detectedValueStr = typeof area === "string" ? area : area.toString();
+      return fetchAreas(detectedValueStr);
     },
-    {
-      onSuccess: (data) => {
-        const firstOptionName = data[0]?.display_name;
-        if (firstOptionName) setSelectedAreaName(firstOptionName);
-      },
-      onError: (error) => {
-        console.log(error);
-        setErrorType("errorFetchingSuggestions");
-      },
-      // Only execute this query once on component mount
-      enabled: !!area && areaType !== "bbox", // Run query only if area is not empty
-      retry: false,
-    }
-  );
+    enabled: !!area && areaType !== "bbox",
+    retry: false,
+  });
 
   useEffect(() => {
-    if (suggestedAreas?.length === 1) {
+    if (suggestedAreas && suggestedAreas.length === 1) {
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
       nextStep();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [suggestedAreas]);
+  }, [suggestedAreas, setImrArea, nextStep]);
 
   useEffect(() => {
     if (areaType === "bbox") {
       nextStep();
     }
-  }, []);
+  }, [areaType, nextStep]);
 
   useEffect(() => {
-    const suggestion = suggestedAreas?.find(
-      (a) => a.display_name === selectedAreaName
-    );
-    if (suggestion) {
-      setSurface(calculateSurface(suggestion.geojson));
-      const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
-      setBounds([
-        [bounds[0], bounds[2]],
-        [bounds[1], bounds[3]],
-      ]);
+    if (suggestedAreas) {
+      const suggestion = suggestedAreas.find(
+        (a) => a.display_name === selectedAreaName
+      );
+      if (suggestion) {
+        setSurface(calculateSurface(suggestion.geojson));
+        const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
+        setBounds([
+          [bounds[0], bounds[2]],
+          [bounds[1], bounds[3]],
+        ]);
+      }
     }
-  }, [selectedAreaName, setBounds, suggestedAreas]);
+  }, [selectedAreaName, suggestedAreas, setBounds]);
+
+  useEffect(() => {
+    if (isError) {
+      setErrorType("errorFetchingSuggestions");
+    }
+  }, [isError, setErrorType]);
 
   const options =
     suggestedAreas?.map(({ display_name }) => ({
@@ -87,7 +80,7 @@ const NamedArea = () => {
 
   const handleSetArea = (value: string) => {
     const suggestion = suggestedAreas?.find(
-      (a) => a.display_name === selectedAreaName
+      (a) => a.display_name === value
     );
     if (!suggestion) return;
     trackAction("inputStepper", "areaSet", value);

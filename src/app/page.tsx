@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Dialogs from "@/components/dialogs";
 import Div100vh from "@/components/Div100vh";

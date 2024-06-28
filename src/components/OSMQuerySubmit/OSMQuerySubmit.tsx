@@ -1,6 +1,6 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import { cn, trackAction } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
+type ApiStatus = "idle" | "loading" | "success" | "error";
+
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
   const imr = useImrStore((state) => state.imr);
@@ -26,7 +28,7 @@ const OSMQuerySubmit = () => {
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
-    if (prevImrRef.current === imr) {
+    if (JSON.stringify(prevImrRef.current) === JSON.stringify(imr)) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -40,7 +42,7 @@ const OSMQuerySubmit = () => {
     isEnabled: shouldFetch,
   });
 
-  const elapsedTime = useElapsedTime(isLoading, status);
+  const elapsedTime = useElapsedTime(isLoading, status as ApiStatus);
 
   const handleButtonClick = () => {
     if (isDisabled) return;
@@ -48,7 +50,7 @@ const OSMQuerySubmit = () => {
       setShouldFetch(true);
       trackAction("osmQuery", "modal", "loadSession");
     } else {
-      queryClient.cancelQueries(["osmData", imr]);
+      queryClient.cancelQueries({ queryKey: ["osmData", imr] });
     }
   };
 
