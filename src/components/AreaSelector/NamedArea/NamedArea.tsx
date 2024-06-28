@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Select from "@/components/Select";
@@ -25,7 +25,7 @@ const NamedArea = () => {
 
   const queryKey = ["fetchAreas", detectedValue];
 
-  const { data: suggestedAreas, isLoading, isError } = useQuery<NominatimPlace[]>({
+  const { data: suggestedAreas, isPending, isError } = useQuery<NominatimPlace[]>({
     queryKey,
     queryFn: () => {
       const detectedValueStr = typeof area === "string" ? area : area.toString();
@@ -37,6 +37,7 @@ const NamedArea = () => {
 
   useEffect(() => {
     if (suggestedAreas && suggestedAreas.length === 1) {
+      console.log(suggestedAreas[0])
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
@@ -96,7 +97,7 @@ const NamedArea = () => {
 
   return (
     <>
-      {!isLoading && (
+      {!isPending && (
         <p className="text-sm text-muted-foreground">
           We have detected{" "}
           <span className="font-semibold contents">&quot;{area}&quot;</span> as
@@ -105,7 +106,7 @@ const NamedArea = () => {
         </p>
       )}
 
-      {isLoading ? (
+      {isPending ? (
         <div className="flex items-center gap-2">
           <LoadingSpinner />
           Loading suggestions

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+import SignIn from "@/components/Header/AuthNav/SignIn";
 import { STRINGS } from "@/lib/const/strings/errors";
 import useGlobalStore from "@/stores/useGlobalStore";
 
@@ -8,7 +9,6 @@ import Dialog from "../Dialog";
 import ClosingButton from "./ClosingButton";
 import DetectedEntitiesBar from "./DetectedEntitiesBar";
 import ReportButton from "./ReportButton";
-import SignIn from "@/components/Header/AuthNav/SignIn";
 
 const DIALOG_NAME = "error";
 

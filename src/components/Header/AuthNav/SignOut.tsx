@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
 import { LockClosedIcon } from "@radix-ui/react-icons";
+import { signOut } from "next-auth/react";
 import React from "react";
+
+import { Button } from "@/components/ui/button";
 
 const SignOut = () => (
   <Button onClick={() => signOut()}>

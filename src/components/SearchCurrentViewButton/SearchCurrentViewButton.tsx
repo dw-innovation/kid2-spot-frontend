@@ -35,7 +35,7 @@ const SearchCurrentViewButton = () => {
     }
   }, [imr]);
 
-  const { isLoading } = useQueryOSMData({
+  const { isPending } = useQueryOSMData({
     isEnabled: shouldFetch,
     onSettled() {
       setShouldFetch(false);
@@ -61,10 +61,10 @@ const SearchCurrentViewButton = () => {
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
       disabled={
-        searchArea !== "bbox" ? false || isDisabled : isLoading || isDisabled
+        searchArea !== "bbox" ? false || isDisabled : isPending || isDisabled
       }
     >
-      {isLoading ? (
+      {isPending ? (
         <div className="w-4 h-4">
           <LoadingSpinner />
         </div>

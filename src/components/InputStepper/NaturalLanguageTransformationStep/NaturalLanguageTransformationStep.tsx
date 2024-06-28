@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { fetchNLToIMRTransformation, validateIMR } from "@/lib/apiServices";
@@ -26,7 +26,7 @@ const NaturalLanguageTransformationStep = () => {
     retry: false,
   });
 
-  const { data, error, isSuccess, isError, isLoading } = transformationQuery;
+  const { data, error, isSuccess, isError, isPending } = transformationQuery;
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -83,7 +83,7 @@ const NaturalLanguageTransformationStep = () => {
         ]}
         duration={2500}
       />
-      {isLoading && <LoadingSpinner size="2.5rem" />}
+      {isPending && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };
