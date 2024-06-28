@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { fetchNLToIMRTranslation, validateIMR } from "@/lib/apiServices";
+import { fetchNLToIMRTransformation, validateIMR } from "@/lib/apiServices";
 import { insertBBox } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
@@ -12,7 +12,7 @@ import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
 import { AxiosError } from "axios";
 
-const NaturalLanguageTranslationStep = () => {
+const NaturalLanguageTransformationStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
   const nlSentence = useImrStore((state) => state.nlSentence);
   const setImr = useImrStore((state) => state.setImr);
@@ -20,12 +20,14 @@ const NaturalLanguageTranslationStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const bounds = useMapStore((state) => state.bounds);
 
-  const translationQuery = useQuery(
-    ["translateNLToIMR", nlSentence],
-    () => fetchNLToIMRTranslation(nlSentence),
+  const transformationQuery = useQuery(
+    ["transformNLToIMR", nlSentence],
+    () => fetchNLToIMRTransformation(nlSentence),
     {
       onSuccess: (data) => {
         let imr = data.imr;
+
+        
         validateIMR(imr)
           .then(() => {
             if (imr.area.value === "bbox") {
@@ -66,7 +68,7 @@ const NaturalLanguageTranslationStep = () => {
 
   return (
     <InputContainer
-      shouldUnmount={translationQuery.isSuccess}
+      shouldUnmount={transformationQuery.isSuccess}
       title="Analyzing your input"
     >
       <AnalyzeAnimation
@@ -78,9 +80,9 @@ const NaturalLanguageTranslationStep = () => {
         ]}
         duration={2500}
       />
-      {translationQuery.isLoading && <LoadingSpinner size="2.5rem" />}
+      {transformationQuery.isLoading && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };
 
-export default NaturalLanguageTranslationStep;
+export default NaturalLanguageTransformationStep;

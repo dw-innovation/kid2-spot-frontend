@@ -56,7 +56,7 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   }
 };
 
-export const fetchNLToIMRTranslation = async (
+export const fetchNLToIMRTransformation = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
   try {
