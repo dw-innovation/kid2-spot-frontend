@@ -5,7 +5,7 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-resizable/css/styles.css";
 
-import { Metadata,type Viewport } from "next";
+import { Metadata, type Viewport } from "next";
 import { Inter } from "next/font/google";
 import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
