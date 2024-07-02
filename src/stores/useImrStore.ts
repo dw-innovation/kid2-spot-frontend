@@ -8,6 +8,7 @@ import {
   updateName,
   updateRuleValue,
   updateSearchArea,
+  updateSearchGeometry,
 } from "@/lib/imr";
 import ImrStoreInterface from "@/types/stores/ImrStore.interface";
 
@@ -25,6 +26,8 @@ const useImrStore = create<ImrStoreInterface>((set) => ({
     set((state) => ({ imr: updateSearchArea(state.imr, "bbox", bbox) })),
   setImrArea: (area) =>
     set((state) => ({ imr: updateSearchArea(state.imr, "area", area) })),
+  setImrGeometry: (geometry) =>
+    set((state) => ({ imr: updateSearchGeometry(state.imr, geometry) })),
   removeRuleOrGroup: (nodeId, pathString) => {
     set((state) => ({ imr: removeRuleOrGroup(state.imr, nodeId, pathString) }));
   },

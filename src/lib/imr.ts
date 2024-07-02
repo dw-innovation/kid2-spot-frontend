@@ -1,6 +1,20 @@
+import * as turf from "@turf/turf"
 import _ from "lodash";
 
-import { IntermediateRepresentation } from "@/types/imr";
+import { Area, IntermediateRepresentation } from "@/types/imr";
+
+
+export const updateSearchGeometry = (
+  imr: IntermediateRepresentation,
+  value: turf.FeatureCollection<turf.Geometry>
+): IntermediateRepresentation => ({
+  ...imr,
+  area: {
+    type: "area",
+    geometry: value,
+    value: (imr.area as Area).value,
+  },
+});
 
 export const updateSearchArea = (
   imr: IntermediateRepresentation,

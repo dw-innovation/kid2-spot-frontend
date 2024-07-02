@@ -1,3 +1,5 @@
+import * as turf from "@turf/turf"
+
 export type LogicOperator = "and" | "or";
 
 export interface LogicFilter {
@@ -53,6 +55,7 @@ export type Node = Cluster | NWR;
 export type Area = {
   type: "area";
   value: string;
+  geometry?: turf.FeatureCollection<turf.Geometry>
 };
 
 export type Bbox = {
