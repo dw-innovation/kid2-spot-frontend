@@ -18,7 +18,6 @@ const SearchCurrentViewButton = () => {
   const setSearchArea = useImrStore((state) => state.setSearchArea);
   const searchArea = useImrStore((state) => state.imr.area.type);
   const bounds = useMapStore((state) => state.bounds);
-  const [shouldFetch, setShouldFetch] = useState(false);
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
@@ -35,12 +34,8 @@ const SearchCurrentViewButton = () => {
     }
   }, [imr]);
 
-  const { isPending } = useQueryOSMData({
-    isEnabled: shouldFetch,
-    onSettled() {
-      setShouldFetch(false);
-      setIsDisabled(true);
-    },
+  const { isLoading, refetch } = useQueryOSMData({
+    onSuccessCallbacks: [() => setIsDisabled(true)],
   });
 
   const handleSearchCurrentViewClick = () => {
@@ -52,7 +47,7 @@ const SearchCurrentViewButton = () => {
         bounds[1][0],
       ]);
     }
-    setShouldFetch(true);
+    refetch();
   };
 
   return (
@@ -61,10 +56,10 @@ const SearchCurrentViewButton = () => {
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
       disabled={
-        searchArea !== "bbox" ? false || isDisabled : isPending || isDisabled
+        searchArea !== "bbox" ? false || isDisabled : isLoading || isDisabled
       }
     >
-      {isPending ? (
+      {isLoading ? (
         <div className="w-4 h-4">
           <LoadingSpinner />
         </div>
