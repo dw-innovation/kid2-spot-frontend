@@ -25,11 +25,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const results = await axios({
+      method: "POST",
       url: `${process.env.OSM_API}/run-spot-query`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      method: "POST",
       data,
     });
 
