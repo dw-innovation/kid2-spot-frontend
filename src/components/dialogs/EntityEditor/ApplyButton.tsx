@@ -13,9 +13,7 @@ const ApplyButton = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
   const imr = useImrStore((state) => state.imr);
-  const { isLoading, refetch } = useQueryOSMData({
-    
-  });
+  const { isLoading, refetch } = useQueryOSMData({});
 
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
@@ -32,7 +30,7 @@ const ApplyButton = () => {
     toggleDialog("entityEditor", false);
     toggleDialog("error", false);
     clearError();
-    refetch()
+    refetch();
   };
 
   return (
