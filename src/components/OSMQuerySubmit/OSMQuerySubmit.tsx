@@ -23,7 +23,6 @@ const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
   const imr = useImrStore((state) => state.imr);
   const queryClient = useQueryClient();
-  const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
@@ -36,18 +35,16 @@ const OSMQuerySubmit = () => {
     }
   }, [imr]);
 
-  const { isPending, status } = useQueryOSMData({
+  const { isLoading, status, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
-    onSettled: () => setShouldFetch(false),
-    isEnabled: shouldFetch,
   });
 
-  const elapsedTime = useElapsedTime(isPending, status as ApiStatus);
+  const elapsedTime = useElapsedTime(isLoading, status as ApiStatus);
 
   const handleButtonClick = () => {
     if (isDisabled) return;
-    if (!isPending) {
-      setShouldFetch(true);
+    if (!isLoading) {
+      refetch();
       trackAction("osmQuery", "modal", "loadSession");
     } else {
       queryClient.cancelQueries({ queryKey: ["osmData", imr] });
@@ -68,7 +65,7 @@ const OSMQuerySubmit = () => {
     >
       <div className="flex items-center w-full">
         <span className="text-white">
-          {isPending ? (
+          {isLoading ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
             </div>
@@ -83,7 +80,7 @@ const OSMQuerySubmit = () => {
 
   return (
     <>
-      {isPending ? (
+      {isLoading ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>
