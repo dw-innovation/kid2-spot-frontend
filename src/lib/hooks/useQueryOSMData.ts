@@ -10,7 +10,6 @@ import { setResults } from "../utils";
 type Props = {
   onSuccessCallbacks?: ((data: OSMData) => void)[];
   onErrorCallbacks?: ((error: Error) => void)[];
-  isEnabled: boolean;
   onSettled?: () => void;
 };
 
@@ -24,19 +23,17 @@ const useQueryOSMData = ({
   onSuccessCallbacks,
   onErrorCallbacks,
   onSettled,
-  isEnabled,
 }: Props) => {
   const imr = useImrStore((state) => state.imr);
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const queryClient = useQueryClient();
 
-  const queryKey: QueryKey = ["osmData", JSON.stringify(imr)];
+  const queryKey: QueryKey = ["osmData"];
 
   const queryResult = useQuery<OSMData, Error>({
     queryKey,
     queryFn: () => fetchOSMData({ imr }),
-    enabled: isEnabled,
     retry: false,
   });
 
