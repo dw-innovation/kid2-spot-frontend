@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const results = await axios({
-      url: `${process.env.OSM_API}/validate-imr`,
+      url: `${process.env.OSM_API}/validate-spot-query`,
       method: "POST",
       data,
     });
