@@ -14,7 +14,7 @@ const ApplyButton = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
   const imr = useImrStore((state) => state.imr);
-  const { isLoading } = useQueryOSMData({
+  const { isPending } = useQueryOSMData({
     isEnabled: shouldFetch,
     onSettled() {
       setShouldFetch(false);
@@ -47,7 +47,7 @@ const ApplyButton = () => {
         disabled={isDisabled}
         className={cn(isDisabled ? "cursor-not-allowed" : "cursor-pointer")}
       >
-        {isLoading && <LoadingSpinner />} Apply Changes
+        {isPending && <LoadingSpinner />} Apply Changes
       </Button>
     </div>
   );

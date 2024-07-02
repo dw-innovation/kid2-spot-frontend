@@ -12,7 +12,7 @@ const OSMQueryStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const imr = useImrStore((state) => state.imr);
 
-  const { isLoading, isSuccess } = useQueryOSMData({
+  const { isPending, isSuccess } = useQueryOSMData({
     onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
     onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
     isEnabled: !!imr,
@@ -29,7 +29,7 @@ const OSMQueryStep = () => {
         ]}
         duration={4000}
       />
-      {isLoading && <LoadingSpinner size="2.5rem" />}
+      {isPending && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

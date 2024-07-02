@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
 
+import AuthNavBar from "./AuthNavBar";
+
 const MenuItems = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
@@ -24,6 +26,7 @@ const MenuItems = () => {
         <Pencil1Icon />
         <span>Query</span>
       </Button>
+      <AuthNavBar />
     </div>
   );
 };

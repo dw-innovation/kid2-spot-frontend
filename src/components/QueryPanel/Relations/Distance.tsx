@@ -31,7 +31,7 @@ const Distance = ({ edge, index }: Props) => {
   const handleValueChange = useCallback(
     (index: number, value: number[], source: string, target: string) => {
       let newValue = `${expSlider(value[0], 10, 2000, 0.8)}m`;
-      setRelationValue(index, "distance", newValue);
+      setRelationValue(index, "value", newValue);
 
       debouncedTrackAction(
         "relations",
@@ -52,13 +52,13 @@ const Distance = ({ edge, index }: Props) => {
         <span className="font-bold capitalize">
           {findNameById(edge.target, nodes)}
         </span>
-        : <strong>{edge.distance}</strong>
+        : <span>within</span> <strong>{edge.value}</strong>
       </div>
       <Slider
         max={2000}
         min={10}
         step={1}
-        value={[logSlider(distanceToMeters(edge.distance), 10, 2000, 0.8)]}
+        value={[logSlider(distanceToMeters(edge.value), 10, 2000, 0.8)]}
         className="my-2"
         onValueChange={(value) => {
           const source = findNameById(edge.source, nodes);

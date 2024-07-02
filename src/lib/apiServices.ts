@@ -7,28 +7,16 @@ export const fetchOSMData = async ({
 }: {
   imr: IntermediateRepresentation;
 }): Promise<any> => {
-  var config: any = {
-    method: "post",
-    url: `/api/queryOSM`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: imr,
-  };
-
   try {
-    const response = await axios(config);
-
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data.errorType;
-      if (serverError) {
-        throw new Error(serverError);
-      }
+    const response = await axios.post("/api/queryOSM", imr);
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error("No data returned from API");
     }
-
-    throw new Error("UnknownError");
+  } catch (error) {
+    console.error("Error fetching OSM data:", error);
+    throw error;
   }
 };
 
@@ -56,7 +44,7 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   }
 };
 
-export const fetchNLToIMRTranslation = async (
+export const fetchNLToIMRTransformation = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
   try {
@@ -71,8 +59,15 @@ export const fetchNLToIMRTranslation = async (
 
     const result = await response.data;
     return result;
-  } catch (e) {
-    throw new Error("nlpTransformationError");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error.response?.data.message;
+      if (serverError) {
+        throw new Error(serverError);
+      }
+    } else {
+      throw new Error("UnknownError");
+    }
   }
 };
 

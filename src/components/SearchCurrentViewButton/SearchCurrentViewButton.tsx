@@ -22,6 +22,11 @@ const SearchCurrentViewButton = () => {
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
+    if (imr.nodes.length === 0) {
+      console.log("no nodes");
+      setIsDisabled(true);
+    }
+
     if (prevImrRef.current === imr) {
       setIsDisabled(true);
     } else {
@@ -30,7 +35,7 @@ const SearchCurrentViewButton = () => {
     }
   }, [imr]);
 
-  const { isLoading } = useQueryOSMData({
+  const { isPending } = useQueryOSMData({
     isEnabled: shouldFetch,
     onSettled() {
       setShouldFetch(false);
@@ -55,9 +60,11 @@ const SearchCurrentViewButton = () => {
       className="rounded-lg shadow-lg"
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
-      disabled={searchArea !== "bbox" ? false : isLoading || isDisabled}
+      disabled={
+        searchArea !== "bbox" ? false || isDisabled : isPending || isDisabled
+      }
     >
-      {isLoading ? (
+      {isPending ? (
         <div className="w-4 h-4">
           <LoadingSpinner />
         </div>

@@ -43,7 +43,7 @@ export type DistanceRelation = {
   source: number;
   target: number;
   type: "dist";
-  distance: string;
+  value: string;
 };
 
 export type Edge = ContainsRelation | DistanceRelation;

@@ -1,4 +1,5 @@
-import { useQuery, useQueryClient } from "react-query";
+import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
 import useImrStore from "@/stores/useImrStore";
@@ -7,10 +8,16 @@ import { fetchOSMData } from "../apiServices";
 import { setResults } from "../utils";
 
 type Props = {
-  onSuccessCallbacks?: ((sessionLink: string) => void)[];
+  onSuccessCallbacks?: ((data: OSMData) => void)[];
   onErrorCallbacks?: ((error: Error) => void)[];
   isEnabled: boolean;
   onSettled?: () => void;
+};
+
+type OSMData = {
+  results: {
+    features: Array<any>;
+  };
 };
 
 const useQueryOSMData = ({
@@ -24,37 +31,67 @@ const useQueryOSMData = ({
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const queryClient = useQueryClient();
 
-  return useQuery(["osmData", imr], () => fetchOSMData({ imr }), {
-    onSuccess: (data) => {
+  const queryKey: QueryKey = ["osmData", JSON.stringify(imr)];
+
+  const queryResult = useQuery<OSMData, Error>({
+    queryKey,
+    queryFn: () => fetchOSMData({ imr }),
+    enabled: isEnabled,
+    retry: false,
+  });
+
+  const { data, error, isSuccess, isError } = queryResult;
+
+  const previousIMR = useRef(imr);
+  useEffect(() => {
+    if (JSON.stringify(previousIMR.current) !== JSON.stringify(imr)) {
+      previousIMR.current = imr;
+    }
+  }, [imr]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
       if (data.results.features.length === 0) {
         toggleDialog("error", true);
         setError("noResults");
       } else {
-        queryClient.setQueryData("osmData", data);
+        queryClient.setQueryData(queryKey, data);
         setResults(data);
       }
-      onSuccessCallbacks &&
+
+      if (onSuccessCallbacks) {
         onSuccessCallbacks.forEach((callback) => {
           if (typeof callback === "function") {
             callback(data);
           }
         });
-    },
-    onError: (error: Error) => {
+      }
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError && error) {
       setError(error.message);
       toggleDialog("error", true);
 
-      onErrorCallbacks &&
+      if (onErrorCallbacks) {
         onErrorCallbacks.forEach((callback) => {
           if (typeof callback === "function") {
             callback(error);
           }
         });
+      }
       toggleDialog("inputStepper", false);
-    },
-    onSettled: onSettled,
-    enabled: isEnabled,
-    retry: false,
-  });
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if ((isSuccess || isError) && onSettled) {
+      onSettled();
+    }
+  }, [isSuccess, isError]);
+
+  return queryResult;
 };
+
 export default useQueryOSMData;

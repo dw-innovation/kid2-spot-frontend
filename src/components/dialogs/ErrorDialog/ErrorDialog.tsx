@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+import SignIn from "@/components/Header/AuthNav/SignIn";
 import { STRINGS } from "@/lib/const/strings/errors";
 import useGlobalStore from "@/stores/useGlobalStore";
 
@@ -23,6 +24,11 @@ const COMPONENTS = {
       props.children === "[[REPORT_BUTTON]]"
     ) {
       return <ReportButton />;
+    } else if (
+      typeof props.children === "string" &&
+      props.children === "[[LOGIN_BUTTON]]"
+    ) {
+      return <SignIn />;
     } else {
       return <p {...props} />;
     }

@@ -6,9 +6,8 @@ import { Set } from "@/types/stores/ResultsStore.interface";
 
 import { trackAction } from "./utils";
 
-export const getSetIndex = (setName: string | undefined, sets: Set[]) => {
-  return sets.findIndex((set) => set.name === setName);
-};
+export const getSetIndex = (setName: string | undefined, sets: Set[]) =>
+  sets.findIndex((set) => set.name === setName);
 
 export const getSetColor = (
   setIndex: number,
@@ -65,7 +64,7 @@ export const styleFunction = (
     feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
   let styleOptions: L.PathOptions = {
-    fillColor: sets[setIndex].fillColor,
+    fillColor: sets[setIndex]?.fillColor ?? "#000",
     color: getSetColor(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     weight: getWeight(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     opacity: 1,
@@ -77,7 +76,7 @@ export const styleFunction = (
     styleOptions = {
       ...styleOptions,
       weight: 2,
-      color: sets[setIndex].fillColor,
+      color: sets[setIndex]?.fillColor ?? "#000",
     };
   }
 

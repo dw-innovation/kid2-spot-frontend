@@ -1,13 +1,35 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { getToken } from "next-auth/jwt";
+
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  const token = await getToken({req, raw: true})
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message: "unauthenticated",
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+
   const data = await req.json();
 
   try {
     const results = await axios({
-      url: `${process.env.NLP_API}/transform-sentence-to-imr`,
       method: "POST",
+      url: `${process.env.NLP_API}/transform-sentence-to-imr`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       data,
     });
 

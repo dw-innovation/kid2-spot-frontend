@@ -15,7 +15,11 @@ export const STRINGS = {
   timeoutTitle: "Time out",
   timeout:
     "Sorry, we took too long, the system timed out. Try and reduce your search area.",
-  terraIcognitaTitle: "Patience please",
-  terraIcognita:
+  terraIncognitaTitle: "Patience please",
+  terraIncognita:
     "You are searching in an area that is not frequently searched, this search may take a little longer.",
+  unauthenticatedTitle: "Unauthenticated",
+  unauthenticated: `Unauthenticated. Please log in. 
+    
+  [[LOGIN_BUTTON]]`,
 };

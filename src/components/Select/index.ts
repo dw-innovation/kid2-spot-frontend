@@ -1,3 +1,7 @@
-import Select from "./Select";
+import dynamic from "next/dynamic";
 
-export default Select;
+const DynamicSelect = dynamic(() => import("./Select"), {
+  ssr: false,
+});
+
+export default DynamicSelect;

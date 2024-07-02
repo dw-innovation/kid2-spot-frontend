@@ -1,6 +1,6 @@
 import { UpdateIcon } from "@radix-ui/react-icons";
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
-import { useQueryClient } from "react-query";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import { cn, trackAction } from "@/lib/utils";
 import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
+type ApiStatus = "idle" | "loading" | "success" | "error";
+
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
   const imr = useImrStore((state) => state.imr);
@@ -26,7 +28,7 @@ const OSMQuerySubmit = () => {
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
-    if (prevImrRef.current === imr) {
+    if (JSON.stringify(prevImrRef.current) === JSON.stringify(imr)) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -34,21 +36,21 @@ const OSMQuerySubmit = () => {
     }
   }, [imr]);
 
-  const { isLoading, status } = useQueryOSMData({
+  const { isPending, status } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
     onSettled: () => setShouldFetch(false),
     isEnabled: shouldFetch,
   });
 
-  const elapsedTime = useElapsedTime(isLoading, status);
+  const elapsedTime = useElapsedTime(isPending, status as ApiStatus);
 
   const handleButtonClick = () => {
     if (isDisabled) return;
-    if (!isLoading) {
+    if (!isPending) {
       setShouldFetch(true);
       trackAction("osmQuery", "modal", "loadSession");
     } else {
-      queryClient.cancelQueries(["osmData", imr]);
+      queryClient.cancelQueries({ queryKey: ["osmData", imr] });
     }
   };
 
@@ -66,7 +68,7 @@ const OSMQuerySubmit = () => {
     >
       <div className="flex items-center w-full">
         <span className="text-white">
-          {isLoading ? (
+          {isPending ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
             </div>
@@ -81,7 +83,7 @@ const OSMQuerySubmit = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isPending ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>
