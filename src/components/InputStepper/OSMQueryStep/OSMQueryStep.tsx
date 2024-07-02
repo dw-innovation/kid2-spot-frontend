@@ -11,7 +11,7 @@ import QueryAnimation from "../Animation";
 const OSMQueryStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
-  const { isLoading, isSuccess, refetch } = useQueryOSMData({
+  const { isFetching, isSuccess, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
     onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
   });
@@ -31,7 +31,7 @@ const OSMQueryStep = () => {
         ]}
         duration={4000}
       />
-      {isLoading && <LoadingSpinner size="2.5rem" />}
+      {isFetching && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

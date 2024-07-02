@@ -34,7 +34,7 @@ const SearchCurrentViewButton = () => {
     }
   }, [imr]);
 
-  const { isLoading, refetch } = useQueryOSMData({
+  const { isFetching, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
   });
 
@@ -56,10 +56,10 @@ const SearchCurrentViewButton = () => {
       ref={buttonRef}
       onClick={handleSearchCurrentViewClick}
       disabled={
-        searchArea !== "bbox" ? false || isDisabled : isLoading || isDisabled
+        searchArea !== "bbox" ? false || isDisabled : isFetching || isDisabled
       }
     >
-      {isLoading ? (
+      {isFetching ? (
         <div className="w-4 h-4">
           <LoadingSpinner />
         </div>

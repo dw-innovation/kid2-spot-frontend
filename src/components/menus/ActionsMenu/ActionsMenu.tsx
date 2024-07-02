@@ -54,7 +54,7 @@ const ActionsMenu = () => {
     ],
   });
 
-  const ShareSessionIcon = mutation.isPending ? (
+  const ShareSessionIcon = mutation.isFetching ? (
     <LoadingSpinner />
   ) : (
     <Share1Icon />

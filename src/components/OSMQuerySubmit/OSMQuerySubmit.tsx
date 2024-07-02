@@ -39,15 +39,15 @@ const OSMQuerySubmit = () => {
     }
   }, [imr]);
 
-  const { isLoading, status, refetch } = useQueryOSMData({
+  const { isFetching, status, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
   });
 
-  const elapsedTime = useElapsedTime(isLoading, status as ApiStatus);
+  const elapsedTime = useElapsedTime(isFetching, status as ApiStatus);
 
   const handleButtonClick = () => {
     if (isDisabled) return;
-    if (!isLoading) {
+    if (!isFetching) {
       refetch();
       trackAction("osmQuery", "modal", "loadSession");
     } else {
@@ -69,7 +69,7 @@ const OSMQuerySubmit = () => {
     >
       <div className="flex items-center w-full">
         <span className="text-white">
-          {isLoading ? (
+          {isFetching ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
             </div>
@@ -84,7 +84,7 @@ const OSMQuerySubmit = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>

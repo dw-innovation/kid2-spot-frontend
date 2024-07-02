@@ -35,7 +35,7 @@ const ReportButton = () => {
 
   return (
     <Button variant={"secondary"} className="w-fit" onClick={handleClick}>
-      {mutation.isPending && <LoadingSpinner />} Report Incorrect Entities
+      {mutation.isFetching && <LoadingSpinner />} Report Incorrect Entities
     </Button>
   );
 };

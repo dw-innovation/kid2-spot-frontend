@@ -26,7 +26,7 @@ const NaturalLanguageTransformationStep = () => {
     retry: false,
   });
 
-  const { data, error, isSuccess, isError, isPending } = transformationQuery;
+  const { data, error, isSuccess, isError, isFetching } = transformationQuery;
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -80,7 +80,7 @@ const NaturalLanguageTransformationStep = () => {
         ]}
         duration={2500}
       />
-      {isPending && <LoadingSpinner size="2.5rem" />}
+      {isFetching && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

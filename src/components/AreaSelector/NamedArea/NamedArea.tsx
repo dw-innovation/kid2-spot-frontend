@@ -27,7 +27,7 @@ const NamedArea = () => {
 
   const {
     data: suggestedAreas,
-    isPending,
+    isFetching,
     isError,
   } = useQuery<NominatimPlace[]>({
     queryKey,
@@ -100,7 +100,7 @@ const NamedArea = () => {
 
   return (
     <>
-      {!isPending && (
+      {!isFetching && (
         <p className="text-sm text-muted-foreground">
           We have detected{" "}
           <span className="font-semibold contents">&quot;{area}&quot;</span> as
@@ -109,7 +109,7 @@ const NamedArea = () => {
         </p>
       )}
 
-      {isPending ? (
+      {isFetching ? (
         <div className="flex items-center gap-2">
           <LoadingSpinner />
           Loading suggestions
