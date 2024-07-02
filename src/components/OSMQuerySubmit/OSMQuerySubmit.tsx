@@ -27,7 +27,11 @@ const OSMQuerySubmit = () => {
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
 
   useEffect(() => {
-    if (JSON.stringify(prevImrRef.current) === JSON.stringify(imr)) {
+    if (imr.nodes.length === 0) {
+      setIsDisabled(true);
+    }
+
+    if (prevImrRef.current === imr) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
