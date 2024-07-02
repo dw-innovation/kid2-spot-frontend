@@ -34,6 +34,7 @@ const useQueryOSMData = ({
   const queryResult = useQuery<OSMData, Error>({
     queryKey,
     queryFn: () => fetchOSMData({ imr }),
+    enabled: false,
     retry: false,
   });
 
