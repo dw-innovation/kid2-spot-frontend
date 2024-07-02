@@ -10,12 +10,10 @@ import QueryAnimation from "../Animation";
 
 const OSMQueryStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const imr = useImrStore((state) => state.imr);
 
-  const { isPending, isSuccess } = useQueryOSMData({
+  const { isLoading, isSuccess } = useQueryOSMData({
     onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
     onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
-    isEnabled: !!imr,
   });
 
   return (
@@ -29,7 +27,7 @@ const OSMQueryStep = () => {
         ]}
         duration={4000}
       />
-      {isPending && <LoadingSpinner size="2.5rem" />}
+      {isLoading && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

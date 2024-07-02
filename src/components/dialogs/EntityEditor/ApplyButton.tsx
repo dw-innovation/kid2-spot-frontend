@@ -9,16 +9,12 @@ import useImrStore from "@/stores/useImrStore";
 import { IntermediateRepresentation } from "@/types/imr";
 
 const ApplyButton = () => {
-  const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
   const imr = useImrStore((state) => state.imr);
-  const { isPending } = useQueryOSMData({
-    isEnabled: shouldFetch,
-    onSettled() {
-      setShouldFetch(false);
-    },
+  const { isLoading, refetch } = useQueryOSMData({
+    
   });
 
   const prevImrRef = useRef<IntermediateRepresentation>(imr);
@@ -36,7 +32,7 @@ const ApplyButton = () => {
     toggleDialog("entityEditor", false);
     toggleDialog("error", false);
     clearError();
-    setShouldFetch(true);
+    refetch()
   };
 
   return (
@@ -47,7 +43,7 @@ const ApplyButton = () => {
         disabled={isDisabled}
         className={cn(isDisabled ? "cursor-not-allowed" : "cursor-pointer")}
       >
-        {isPending && <LoadingSpinner />} Apply Changes
+        {isLoading && <LoadingSpinner />} Apply Changes
       </Button>
     </div>
   );
