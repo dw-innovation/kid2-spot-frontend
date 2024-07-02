@@ -1,11 +1,13 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { getToken } from "next-auth/jwt";
 
 import { authOptions } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
+  const token = await getToken({ req, raw: true });
 
   if (!session) {
     return NextResponse.json(
@@ -23,7 +25,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const results = await axios({
-      url: `${process.env.OSM_API}/run-osm-query`,
+      url: `${process.env.OSM_API}/run-spot-query`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       method: "POST",
       data,
     });
