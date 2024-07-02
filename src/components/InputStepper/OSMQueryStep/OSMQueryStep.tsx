@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -11,10 +11,14 @@ import QueryAnimation from "../Animation";
 const OSMQueryStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
-  const { isLoading, isSuccess } = useQueryOSMData({
+  const { isLoading, isSuccess, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
     onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <InputContainer title="Querying OpenStreetMap" shouldUnmount={isSuccess}>
