@@ -1,4 +1,4 @@
-import { QueryKey,useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";

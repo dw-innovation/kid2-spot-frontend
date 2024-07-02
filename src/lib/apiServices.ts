@@ -2,7 +2,11 @@ import axios from "axios";
 
 import { IntermediateRepresentation } from "@/types/imr";
 
-export const fetchOSMData = async ({ imr }: { imr: IntermediateRepresentation }): Promise<any> => {
+export const fetchOSMData = async ({
+  imr,
+}: {
+  imr: IntermediateRepresentation;
+}): Promise<any> => {
   try {
     const response = await axios.post("/api/queryOSM", imr);
     if (response.data) {

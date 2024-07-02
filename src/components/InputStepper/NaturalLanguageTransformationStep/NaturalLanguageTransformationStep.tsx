@@ -70,10 +70,7 @@ const NaturalLanguageTransformationStep = () => {
   }, [isError, error, setErrorType, toggleDialog]);
 
   return (
-    <InputContainer
-      shouldUnmount={isSuccess}
-      title="Analyzing your input"
-    >
+    <InputContainer shouldUnmount={isSuccess} title="Analyzing your input">
       <AnalyzeAnimation
         sentences={[
           "Identifying the area in your query",

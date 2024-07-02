@@ -25,10 +25,15 @@ const NamedArea = () => {
 
   const queryKey = ["fetchAreas", detectedValue];
 
-  const { data: suggestedAreas, isPending, isError } = useQuery<NominatimPlace[]>({
+  const {
+    data: suggestedAreas,
+    isPending,
+    isError,
+  } = useQuery<NominatimPlace[]>({
     queryKey,
     queryFn: () => {
-      const detectedValueStr = typeof area === "string" ? area : area.toString();
+      const detectedValueStr =
+        typeof area === "string" ? area : area.toString();
       return fetchAreas(detectedValueStr);
     },
     enabled: !!area && areaType !== "bbox",
@@ -37,7 +42,7 @@ const NamedArea = () => {
 
   useEffect(() => {
     if (suggestedAreas && suggestedAreas.length === 1) {
-      console.log(suggestedAreas[0])
+      console.log(suggestedAreas[0]);
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
@@ -80,9 +85,7 @@ const NamedArea = () => {
     })) || [];
 
   const handleSetArea = (value: string) => {
-    const suggestion = suggestedAreas?.find(
-      (a) => a.display_name === value
-    );
+    const suggestion = suggestedAreas?.find((a) => a.display_name === value);
     if (!suggestion) return;
     trackAction("inputStepper", "areaSet", value);
     setSelectedAreaName(value);
