@@ -1,4 +1,4 @@
-import * as turf from "@turf/turf"
+import { MultiPolygon, Polygon } from "@turf/turf";
 
 import { IntermediateRepresentation } from "@/types/imr";
 
@@ -18,7 +18,7 @@ export default interface ImrStoreInterface {
   setStringifiedImr: (stringifiedImr: string) => void;
   setImrBBox: (bbox: number[]) => void;
   setImrArea: (area: string) => void;
-  setImrGeometry: (geometry: turf.FeatureCollection<turf.Geometry>)=> void;
+  setImrGeometry: (geometry: Polygon | MultiPolygon) => void;
   updateRuleValue: (
     nodeId: number,
     pathString: string,

@@ -1,4 +1,4 @@
-import * as turf from "@turf/turf"
+import { MultiPolygon, Polygon } from "@turf/turf";
 
 export type LogicOperator = "and" | "or";
 
@@ -55,7 +55,7 @@ export type Node = Cluster | NWR;
 export type Area = {
   type: "area";
   value: string;
-  geometry?: turf.FeatureCollection<turf.Geometry>
+  geometry?: Polygon | MultiPolygon;
 };
 
 export type Bbox = {
