@@ -1,12 +1,11 @@
-import * as turf from "@turf/turf"
+import { MultiPolygon, Polygon } from "@turf/turf";
 import _ from "lodash";
 
 import { Area, IntermediateRepresentation } from "@/types/imr";
 
-
 export const updateSearchGeometry = (
   imr: IntermediateRepresentation,
-  value: turf.FeatureCollection<turf.Geometry>
+  value: Polygon | MultiPolygon
 ): IntermediateRepresentation => ({
   ...imr,
   area: {
