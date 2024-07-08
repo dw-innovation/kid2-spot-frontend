@@ -22,6 +22,7 @@ const NamedArea = () => {
   const setErrorType = useGlobalStore((state) => state.setError);
   const nextStep = useGlobalStore((state) => state.nextStep);
   const setImrArea = useImrStore((state) => state.setImrArea);
+  const setImrGeometry = useImrStore((state) => state.setImrGeometry);
 
   const queryKey = ["fetchAreas", detectedValue];
 
@@ -42,11 +43,17 @@ const NamedArea = () => {
 
   useEffect(() => {
     if (suggestedAreas && suggestedAreas.length === 1) {
-      console.log(suggestedAreas[0]);
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setImrArea(suggestedAreas[0].display_name);
+      setImrGeometry(suggestedAreas[0].geojson);
       nextStep();
+    }
+
+    if (suggestedAreas) {
+      setSelectedAreaName(suggestedAreas[0].display_name);
+      setImrArea(suggestedAreas[0].display_name);
+      setImrGeometry(suggestedAreas[0].geojson);
     }
   }, [suggestedAreas, setImrArea, nextStep]);
 
@@ -96,6 +103,7 @@ const NamedArea = () => {
       [bounds[1], bounds[3]],
     ]);
     setImrArea(value);
+    setImrGeometry(suggestion.geojson);
   };
 
   return (
