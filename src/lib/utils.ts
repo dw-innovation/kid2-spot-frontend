@@ -109,7 +109,7 @@ type PrefixKeys<Obj extends Record<string, any>, Prefix extends string> = {
 
 export const prefixKeys = <
   Obj extends Record<string, any>,
-  Prefix extends string
+  Prefix extends string,
 >(
   obj: Obj,
   prefix: Prefix
@@ -325,7 +325,7 @@ export const insertBBox = (
   ...spotQuery,
   area: {
     type: "bbox",
-    value: bounds,
+    bbox: bounds,
   },
 });
 
