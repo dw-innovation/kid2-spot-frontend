@@ -133,7 +133,7 @@ Without prejudice to any other administrative or judicial remedy, you have the r
   
   *How and why did an AI system arrive at a particular conclusion?*
   
-  The Spot application makes use of a T5 pipeline in order to perform three tasks; entity detection, understanding of the relationship between these entities and location detection. This understanding is then translated to an Intermediate Representative Language (IMR) in order to query OpenStreetMap (OSM) for this information. The information that is found in OSM is then rendered on the front-end of the Spot application, including contextual data like the metadata from OSM and visual data from Google Street View.
+  The Spot application makes use of a T5 pipeline in order to perform three tasks; entity detection, understanding of the relationship between these entities and location detection. This understanding is then translated to an Intermediate Representative Language (SpotQuery) in order to query OpenStreetMap (OSM) for this information. The information that is found in OSM is then rendered on the front-end of the Spot application, including contextual data like the metadata from OSM and visual data from Google Street View.
   
   ## Fairness
   

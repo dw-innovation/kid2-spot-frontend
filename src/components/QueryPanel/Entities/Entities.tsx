@@ -1,11 +1,11 @@
 import React from "react";
 
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import Entity from "./Entity";
 
 const Entities = () => {
-  const nodes = useImrStore((state) => state.imr.nodes);
+  const nodes = useSpotQueryStore((state) => state.spotQuery.nodes);
 
   return (
     <>

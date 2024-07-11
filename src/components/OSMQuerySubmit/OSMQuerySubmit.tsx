@@ -14,30 +14,30 @@ import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import { cn, trackAction } from "@/lib/utils";
-import useImrStore from "@/stores/useImrStore";
-import { IntermediateRepresentation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { SpotQuery } from "@/types/spotQuery";
 
 type ApiStatus = "idle" | "loading" | "success" | "error";
 
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
-  const imr = useImrStore((state) => state.imr);
+  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
   const queryClient = useQueryClient();
   const [isDisabled, setIsDisabled] = useState(false);
-  const prevImrRef = useRef<IntermediateRepresentation>(imr);
+  const prevSpotQueryRef = useRef<SpotQuery>(spotQuery);
 
   useEffect(() => {
-    if (imr.nodes.length === 0) {
+    if (spotQuery.nodes.length === 0) {
       setIsDisabled(true);
     }
 
-    if (prevImrRef.current === imr) {
+    if (prevSpotQueryRef.current === spotQuery) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
-      prevImrRef.current = imr;
+      prevSpotQueryRef.current = spotQuery;
     }
-  }, [imr]);
+  }, [spotQuery]);
 
   const { isFetching, status, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
@@ -51,7 +51,7 @@ const OSMQuerySubmit = () => {
       refetch();
       trackAction("osmQuery", "modal", "loadSession");
     } else {
-      queryClient.cancelQueries({ queryKey: ["osmData", imr] });
+      queryClient.cancelQueries({ queryKey: ["osmData", spotQuery] });
     }
   };
 

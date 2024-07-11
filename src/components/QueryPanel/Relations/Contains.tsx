@@ -1,15 +1,15 @@
 import React from "react";
 
 import { findNameById } from "@/lib/utils";
-import useImrStore from "@/stores/useImrStore";
-import { ContainsRelation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { ContainsRelation } from "@/types/spotQuery";
 
 type Props = {
   edge: ContainsRelation;
 };
 
 const Contains = ({ edge }: Props) => {
-  const nodes = useImrStore((state) => state.imr.nodes);
+  const nodes = useSpotQueryStore((state) => state.spotQuery.nodes);
 
   return (
     <div>

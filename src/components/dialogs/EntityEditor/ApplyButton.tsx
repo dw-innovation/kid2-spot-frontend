@@ -5,26 +5,26 @@ import { Button } from "@/components/ui/button";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import { cn } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
-import { IntermediateRepresentation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { SpotQuery } from "@/types/spotQuery";
 
 const ApplyButton = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
-  const imr = useImrStore((state) => state.imr);
+  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
   const { isLoading, refetch } = useQueryOSMData({});
 
-  const prevImrRef = useRef<IntermediateRepresentation>(imr);
+  const prevSpotQueryRef = useRef<SpotQuery>(spotQuery);
 
   useEffect(() => {
-    if (prevImrRef.current === imr) {
+    if (prevSpotQueryRef.current === spotQuery) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
-      prevImrRef.current = imr;
+      prevSpotQueryRef.current = spotQuery;
     }
-  }, [imr]);
+  }, [spotQuery]);
 
   const handleButtonClick = () => {
     toggleDialog("entityEditor", false);

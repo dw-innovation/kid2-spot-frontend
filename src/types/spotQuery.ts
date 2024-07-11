@@ -60,10 +60,10 @@ export type Area = {
 
 export type Bbox = {
   type: "bbox";
-  value: string | number[];
+  bbox: number[];
 };
 
-export interface IntermediateRepresentation {
+export interface SpotQuery {
   area: Area | Bbox;
   nodes: (Cluster | NWR)[];
   edges: Edge[];

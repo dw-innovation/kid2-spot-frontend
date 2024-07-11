@@ -6,8 +6,8 @@ import Select from "@/components/Select";
 import { fetchAreas } from "@/lib/apiServices";
 import { calculateSurface, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import { NominatimPlace } from "@/types/nominatim";
 
 import SurfaceAlert from "../SurfaceAlert";
@@ -15,14 +15,18 @@ import SurfaceAlert from "../SurfaceAlert";
 const NamedArea = () => {
   const [selectedAreaName, setSelectedAreaName] = useState("");
   const [surface, setSurface] = useState<number>(0);
-  const area = useImrStore((state) => state.imr.area.value);
-  const areaType = useImrStore((state) => state.imr.area.type);
-  const [detectedValue] = useState(area);
+  const areaType = useSpotQueryStore((state) => state.spotQuery.area.type);
+  const areaName = useSpotQueryStore((state) => state.spotQuery.area.value);
+  const [detectedValue] = useState(areaName);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);
   const nextStep = useGlobalStore((state) => state.nextStep);
-  const setImrArea = useImrStore((state) => state.setImrArea);
-  const setImrGeometry = useImrStore((state) => state.setImrGeometry);
+  const setSearchAreaName = useSpotQueryStore(
+    (state) => state.setSearchAreaName
+  );
+  const setSearchAreaGeometry = useSpotQueryStore(
+    (state) => state.setSearchAreaGeometry
+  );
 
   const queryKey = ["fetchAreas", detectedValue];
 
@@ -33,11 +37,9 @@ const NamedArea = () => {
   } = useQuery<NominatimPlace[]>({
     queryKey,
     queryFn: () => {
-      const detectedValueStr =
-        typeof area === "string" ? area : area.toString();
-      return fetchAreas(detectedValueStr);
+      return fetchAreas(areaName);
     },
-    enabled: !!area && areaType !== "bbox",
+    enabled: !!areaName && areaType !== "bbox",
     retry: false,
   });
 
@@ -45,17 +47,17 @@ const NamedArea = () => {
     if (suggestedAreas && suggestedAreas.length === 1) {
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
       setSelectedAreaName(suggestedAreas[0].display_name);
-      setImrArea(suggestedAreas[0].display_name);
-      setImrGeometry(suggestedAreas[0].geojson);
+      setSearchAreaName(suggestedAreas[0].display_name);
+      setSearchAreaGeometry(suggestedAreas[0].geojson);
       nextStep();
     }
 
     if (suggestedAreas) {
       setSelectedAreaName(suggestedAreas[0].display_name);
-      setImrArea(suggestedAreas[0].display_name);
-      setImrGeometry(suggestedAreas[0].geojson);
+      setSearchAreaName(suggestedAreas[0].display_name);
+      setSearchAreaGeometry(suggestedAreas[0].geojson);
     }
-  }, [suggestedAreas, setImrArea, nextStep]);
+  }, [suggestedAreas, setSearchAreaName, nextStep]);
 
   useEffect(() => {
     if (areaType === "bbox") {
@@ -93,17 +95,21 @@ const NamedArea = () => {
 
   const handleSetArea = (value: string) => {
     const suggestion = suggestedAreas?.find((a) => a.display_name === value);
+
     if (!suggestion) return;
+
     trackAction("inputStepper", "areaSet", value);
     setSelectedAreaName(value);
     setSurface(calculateSurface(suggestion.geojson));
+
     const bounds = suggestion.boundingbox.map((b) => parseFloat(b));
     setBounds([
       [bounds[0], bounds[2]],
       [bounds[1], bounds[3]],
     ]);
-    setImrArea(value);
-    setImrGeometry(suggestion.geojson);
+
+    setSearchAreaName(value);
+    setSearchAreaGeometry(suggestion.geojson);
   };
 
   return (
@@ -111,8 +117,8 @@ const NamedArea = () => {
       {!isFetching && (
         <p className="text-sm text-muted-foreground">
           We have detected{" "}
-          <span className="font-semibold contents">&quot;{area}&quot;</span> as
-          search area from your input. Please confirm or select another area
+          <span className="font-semibold contents">&quot;{areaName}&quot;</span>{" "}
+          as search area from your input. Please confirm or select another area
           from the list.
         </p>
       )}

@@ -5,20 +5,24 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 const PromptInput = () => {
-  const nlSentence = useImrStore((state) => state.nlSentence);
-  const setNlSentence = useImrStore((state) => state.setNlSentence);
+  const naturalLanguageSentence = useSpotQueryStore(
+    (state) => state.naturalLanguageSentence
+  );
+  const setNaturaLanguageSentence = useSpotQueryStore(
+    (state) => state.setNaturaLanguageSentence
+  );
   const resetSteps = useGlobalStore((state) => state.resetSteps);
   const nextStep = useGlobalStore((state) => state.nextStep);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
-  const [inputValue, setInputValue] = useState(nlSentence);
+  const [inputValue, setInputValue] = useState(naturalLanguageSentence);
 
   useEffect(() => {
-    setInputValue(nlSentence);
-  }, [nlSentence]);
+    setInputValue(naturalLanguageSentence);
+  }, [naturalLanguageSentence]);
 
   const handleSearchTrigger = () => {
     if (inputValue !== "") {
@@ -26,7 +30,7 @@ const PromptInput = () => {
       nextStep();
       toggleDialog("inputStepper");
       trackAction("promptInput", "search", inputValue);
-      setNlSentence(inputValue);
+      setNaturaLanguageSentence(inputValue);
     }
   };
 
@@ -37,7 +41,8 @@ const PromptInput = () => {
     }
   };
 
-  const isDisabled = inputValue === nlSentence || inputValue === "";
+  const isDisabled =
+    inputValue === naturalLanguageSentence || inputValue === "";
 
   return (
     <div className="flex flex-col gap-2">

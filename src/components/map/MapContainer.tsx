@@ -5,8 +5,6 @@ import { MapContainer as LeafletMapContainer } from "react-leaflet";
 
 import useMapStore from "@/stores/useMapStore";
 
-import PolygonBuffer from "./CustomSearchArea/CustomSearchAreaBuffer";
-import PolygonDrawer from "./CustomSearchArea/CustomSearchAreaDrawer";
 import MapEvents from "./MapEvents";
 import MapInterface from "./MapInterface";
 import MapKeyEvents from "./MapKeyEvents";
@@ -36,8 +34,6 @@ const MapContainer = () => {
           <MapResizeHandler mapContainerRef={mapContainerRef} />
           <MapEvents />
           <MapKeyEvents />
-          <PolygonDrawer />
-          <PolygonBuffer />
           <GeoJSONResults />
           <SearchArea />
         </LeafletMapContainer>
