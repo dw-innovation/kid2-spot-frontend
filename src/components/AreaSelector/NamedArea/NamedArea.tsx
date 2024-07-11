@@ -15,8 +15,9 @@ import SurfaceAlert from "../SurfaceAlert";
 const NamedArea = () => {
   const [selectedAreaName, setSelectedAreaName] = useState("");
   const [surface, setSurface] = useState<number>(0);
-  const areaType = useSpotQueryStore((state) => state.spotQuery.area.type);
-  const areaName = useSpotQueryStore((state) => state.spotQuery.area.value);
+  const area = useSpotQueryStore((state) => state.spotQuery.area);
+  const areaType = area.type;
+  const areaName = areaType === "area" ? area.value : "";
   const [detectedValue] = useState(areaName);
   const setBounds = useMapStore((state) => state.setBounds);
   const setErrorType = useGlobalStore((state) => state.setError);

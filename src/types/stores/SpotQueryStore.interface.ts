@@ -32,5 +32,4 @@ export default interface SpotQueryStoreInterface {
     value: string | number
   ) => void;
   initialize: (initialData: any) => void;
-  setSearchAreaName: (value: string) => void;
 }
