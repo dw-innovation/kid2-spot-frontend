@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 
 import usePersistedStore from "@/stores/usePersistedStore";
 import useResultsStore from "@/stores/useResultsStore";
-import { SpotQuery, Node } from "@/types/spotQuery";
+import { Node, SpotQuery } from "@/types/spotQuery";
 
 import { FILL_COLORS } from "./const/colors";
 

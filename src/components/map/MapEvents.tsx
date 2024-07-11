@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useMapStore from "@/stores/useMapStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 const MapEvents = () => {
   const setBounds = useMapStore((state) => state.setBounds);
