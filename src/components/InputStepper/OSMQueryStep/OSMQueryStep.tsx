@@ -4,7 +4,6 @@ import InputContainer from "@/components/InputStepper/InputContainer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 
 import QueryAnimation from "../Animation";
 

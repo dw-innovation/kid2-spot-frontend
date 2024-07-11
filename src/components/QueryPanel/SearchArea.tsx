@@ -1,10 +1,14 @@
 import React from "react";
 
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 const SearchArea = () => {
-  const currentSearchArea = useImrStore((state) => state.imr.area.value);
-  const searchAreaType = useImrStore((state) => state.imr.area.type);
+  const currentSearchArea = useSpotQueryStore(
+    (state) => state.spotQuery.area.value
+  );
+  const searchAreaType = useSpotQueryStore(
+    (state) => state.spotQuery.area.type
+  );
 
   return (
     <>

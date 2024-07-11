@@ -3,7 +3,7 @@ import { useWindowSize } from "usehooks-ts";
 
 import useStrings from "@/lib/contexts/useStrings";
 import { capitalize } from "@/lib/utils";
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useMapStore from "@/stores/useMapStore";
 import useResultsStore from "@/stores/useResultsStore";
 import { Spot } from "@/types/stores/ResultsStore.interface";
@@ -14,7 +14,7 @@ const SpotSelector = () => {
   const { commonSelectSpotPlaceholder } = useStrings();
   const spots = useResultsStore((state) => state.spots);
   const sets = useResultsStore((state) => state.sets);
-  const nodes = useImrStore((state: any) => state.imr.nodes);
+  const nodes = useSpotQueryStore((state: any) => state.spotQuery.nodes);
   const setBounds = useMapStore((state) => state.setBounds);
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []

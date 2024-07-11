@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import InputContainer from "../InputContainer";
 
@@ -26,12 +26,16 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [typingActive, setTypingActive] = useState(true);
   const nextStep = useGlobalStore((state) => state.nextStep);
-  const setNlSentence = useImrStore((state) => state.setNlSentence);
-  const nlSentence = useImrStore((state) => state.nlSentence);
+  const setNaturaLanguageSentence = useSpotQueryStore(
+    (state) => state.setNaturaLanguageSentence
+  );
+  const naturalLanguageSentence = useSpotQueryStore(
+    (state) => state.naturalLanguageSentence
+  );
 
   const handleSearchTrigger = () => {
-    if (nlSentence === "") return;
-    trackAction("inputStepper", "nlTransformation", nlSentence);
+    if (naturalLanguageSentence === "") return;
+    trackAction("inputStepper", "nlTransformation", naturalLanguageSentence);
     setShouldUnmount(true);
     setTimeout(() => {
       nextStep();
@@ -128,18 +132,18 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               className={"w-full text-xl shadow-lg focus-visible:"}
               rows={4}
               placeholder={displayedText}
-              onChange={(e) => setNlSentence(e.target.value)}
+              onChange={(e) => setNaturaLanguageSentence(e.target.value)}
               onFocus={() => {
                 setTypingActive(false);
                 setCurrentText("");
               }}
               onBlur={() => setTypingActive(true)}
-              value={nlSentence}
+              value={naturalLanguageSentence}
               onKeyDown={handleKeyPress}
             />
             <Button
               onClick={handleSearchTrigger}
-              disabled={nlSentence === ""}
+              disabled={naturalLanguageSentence === ""}
               type="button"
             >
               <SearchIcon />

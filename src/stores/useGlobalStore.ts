@@ -59,7 +59,7 @@ const DIALOGS = [
   "downloadResults",
   "saveSession",
   "loadSession",
-  "imr",
+  "spotQuery",
   "error",
   "stepperError",
   "queryOSM",
