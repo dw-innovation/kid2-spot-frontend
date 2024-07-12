@@ -22,13 +22,15 @@ const MapInterface = () => (
 
     <div className="absolute top-0 right-0 z-[400] flex items-start justify-between !font-sans p-2 w-fit">
       <div className="flex flex-col-reverse items-end gap-2 font-sans text-base">
-        <div className="flex flex-col items-end gap-2">
-          <PolygonOutsideAlert />
-          <ResultsOutsideAlert />
-        </div>
         <div className="flex gap-2 flex-col items-end">
           <AddressSearchBox />
-          <MapControls />
+          <div className="flex gap-2 justify-end">
+            <div className="flex flex-col items-end gap-2">
+              <PolygonOutsideAlert />
+              <ResultsOutsideAlert />
+            </div>
+            <MapControls />
+          </div>
         </div>
       </div>
     </div>
