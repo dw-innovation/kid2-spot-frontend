@@ -1,7 +1,9 @@
-import React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import React, { useRef } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { trackAction } from "@/lib/utils";
+import useDisableMapInteraction from "@/stores/useDisableMapInteraction";
 import useResultsStore from "@/stores/useResultsStore";
 
 type Props = {
@@ -17,6 +19,10 @@ const LegendItem = ({ set: { visible, name, id }, index }: Props) => {
   const toggleHighlighted = useResultsStore((state) => state.toggleHighlighted);
   const toggleVisible = useResultsStore((state) => state.toggleVisible);
   const sets = useResultsStore((state) => state.sets);
+  const checkBoxRef =
+    useRef<React.ElementRef<typeof CheckboxPrimitive.Root>>(null);
+
+  useDisableMapInteraction(checkBoxRef);
 
   const handleToggle = (id: string) => {
     trackAction("mapLegend", "toggleSet", id);
@@ -29,6 +35,7 @@ const LegendItem = ({ set: { visible, name, id }, index }: Props) => {
         onCheckedChange={() => handleToggle(id)}
         checked={visible}
         id={name}
+        ref={checkBoxRef}
       />
       <label
         htmlFor={name}
