@@ -47,6 +47,11 @@ const NamedArea = () => {
   useEffect(() => {
     if (suggestedAreas && suggestedAreas.length === 1) {
       trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
+      const bounds = suggestedAreas[0].boundingbox.map((b) => parseFloat(b));
+      setBounds([
+        [bounds[0], bounds[2]],
+        [bounds[1], bounds[3]],
+      ]);
       setSelectedAreaName(suggestedAreas[0].display_name);
       setSearchAreaName(suggestedAreas[0].display_name);
       setSearchAreaGeometry(suggestedAreas[0].geojson);
