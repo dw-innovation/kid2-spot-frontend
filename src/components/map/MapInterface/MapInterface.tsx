@@ -26,14 +26,16 @@ const MapInterface = () => (
           <PolygonOutsideAlert />
           <ResultsOutsideAlert />
         </div>
-        <AddressSearchBox />
+        <div className="flex gap-2 flex-col items-end">
+          <AddressSearchBox />
+          <MapControls />
+        </div>
       </div>
     </div>
 
     <div className="absolute bottom-0 left-0 z-[400] flex items-end gap-2 justify-between p-2">
       <MapLegend />
       <div className="flex gap-1">
-        <MapControls />
         <LayerSelector />
       </div>
     </div>
