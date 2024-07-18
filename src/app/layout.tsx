@@ -10,6 +10,7 @@ import { Inter } from "next/font/google";
 import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
 
+import Login from "@/components/Login";
 import SessionProvider from "@/components/SessionsProvider";
 
 const inter = Inter({
@@ -37,23 +38,32 @@ export const metadata: Metadata = {
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getServerSession();
+
   return (
     <html lang="en" className={inter.variable}>
       <body>
         <SessionProvider session={session}>
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-          {children}
+          {session ? (
+            <>
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+              {children}
+            </>
+          ) : (
+            <>
+              <Login />
+            </>
+          )}
         </SessionProvider>
       </body>
     </html>
