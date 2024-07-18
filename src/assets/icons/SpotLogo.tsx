@@ -1,9 +1,9 @@
 import React from "react";
 
-const SpotLogo = () => (
+const SpotLogo = ({ width = 80 }: { width?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="80"
+    width={width}
     fill="none"
     viewBox="0 0 157 70"
   >
