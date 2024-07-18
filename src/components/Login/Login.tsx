@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 const Login = () => {
   return (
     <div className="w-screen h-screen flex items-center justify-center">
-      <div className="flex flex-col gap-2 items-center text-center">
+      <div className="flex flex-col gap-2 items-center text-center p-8 border-2 border-gray-100 shadow-md rounded-md">
         <SpotLogo width={120} />
         <p className="text-xl">Search OpenStreetMap with your words.</p>
         <Button onClick={() => signIn()} className="text-xl w-full">
