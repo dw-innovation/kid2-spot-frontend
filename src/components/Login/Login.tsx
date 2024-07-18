@@ -11,9 +11,9 @@ const Login = () => {
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <div className="flex flex-col gap-2 items-center text-center">
-        <SpotLogo />
-        <p className="text-2xl">Search OpenStreetMap with your words.</p>
-        <Button onClick={() => signIn()} className="text-xl">
+        <SpotLogo width={120} />
+        <p className="text-xl">Search OpenStreetMap with your words.</p>
+        <Button onClick={() => signIn()} className="text-xl w-full">
           <LockOpen1Icon />
           log in to SPOT
         </Button>
