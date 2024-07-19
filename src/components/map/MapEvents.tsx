@@ -43,11 +43,11 @@ const MapEvents = () => {
     updateZoom();
     updateBounds();
     map.on("moveend", () => updateBounds());
-    map.on("zoomlevelschange", () => updateZoom());
+    map.on("zoomend", () => updateZoom());
 
     return () => {
       map.off("moveend", () => updateBounds());
-      map.off("zoomlevelschange", () => updateZoom());
+      map.off("zoomend", () => updateZoom());
     };
   }, [map, setBounds, updateBounds, updateZoom]);
 
