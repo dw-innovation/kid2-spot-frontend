@@ -21,7 +21,7 @@ const MapServiceButtons = ({ coordinates }: Props) => {
 
     switch (service) {
       case "google":
-        url = `https://www.google.com/maps/@${lat},${lng},${mapZoom}z?hl=en&markers=${lat},${lng}`;
+        url = `https://www.google.com/maps?q=${lat},${lng}&z=${mapZoom}`;
         break;
       case "bing":
         url = `https://www.bing.com/maps?cp=${lat}~${lng}&lvl=${mapZoom}&sp=point.${lat}_${lng}_Marker`;
