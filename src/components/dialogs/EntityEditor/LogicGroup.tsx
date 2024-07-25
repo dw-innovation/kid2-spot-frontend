@@ -3,8 +3,8 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
-import { LogicFilter, LogicOperator } from "@/types/spotQuery";
+import useImrStore from "@/stores/useImrStore";
+import { LogicFilter, LogicOperator } from "@/types/imr";
 
 import AddBar from "./AddBar";
 import Connectors from "./Connectors";
@@ -20,10 +20,8 @@ type Props = {
 const LogicGroup = ({ filterNode, path, nodeId, pathString }: Props) => {
   const logicOperator = Object.keys(filterNode)[0] as LogicOperator;
   const groupElements = filterNode[logicOperator];
-  const removeRuleOrGroup = useSpotQueryStore(
-    (state) => state.removeRuleOrGroup
-  );
-  const switchOperatorAtPath = useSpotQueryStore(
+  const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
+  const switchOperatorAtPath = useImrStore(
     (state) => state.switchOperatorAtPath
   );
 

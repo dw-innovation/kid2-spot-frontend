@@ -1,12 +1,12 @@
 import React from "react";
 
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 import Contains from "./Relations/Contains";
 import Distance from "./Relations/Distance";
 
 const Relations = () => {
-  const edges = useSpotQueryStore((state) => state.spotQuery.edges);
+  const edges = useImrStore((state) => state.imr.edges);
 
   return (
     <>

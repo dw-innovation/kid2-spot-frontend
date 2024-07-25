@@ -2,7 +2,7 @@ import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 import { fetchOSMData } from "../apiServices";
 import { setResults } from "../utils";
@@ -10,6 +10,7 @@ import { setResults } from "../utils";
 type Props = {
   onSuccessCallbacks?: ((data: OSMData) => void)[];
   onErrorCallbacks?: ((error: Error) => void)[];
+  isEnabled: boolean;
   onSettled?: () => void;
 };
 
@@ -23,31 +24,30 @@ const useQueryOSMData = ({
   onSuccessCallbacks,
   onErrorCallbacks,
   onSettled,
+  isEnabled,
 }: Props) => {
-  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
+  const imr = useImrStore((state) => state.imr);
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const queryClient = useQueryClient();
 
-  const queryKey: QueryKey = ["osmData"];
+  const queryKey: QueryKey = ["osmData", JSON.stringify(imr)];
 
   const queryResult = useQuery<OSMData, Error>({
     queryKey,
-    queryFn: () => fetchOSMData({ spotQuery }),
-    enabled: false,
+    queryFn: () => fetchOSMData({ imr }),
+    enabled: isEnabled,
     retry: false,
   });
 
   const { data, error, isSuccess, isError } = queryResult;
 
-  const previousSpotQuery = useRef(spotQuery);
+  const previousIMR = useRef(imr);
   useEffect(() => {
-    if (
-      JSON.stringify(previousSpotQuery.current) !== JSON.stringify(spotQuery)
-    ) {
-      previousSpotQuery.current = spotQuery;
+    if (JSON.stringify(previousIMR.current) !== JSON.stringify(imr)) {
+      previousIMR.current = imr;
     }
-  }, [spotQuery]);
+  }, [imr]);
 
   useEffect(() => {
     if (isSuccess && data) {

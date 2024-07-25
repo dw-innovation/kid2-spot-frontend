@@ -4,32 +4,21 @@ import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { useMap } from "react-leaflet";
 
-import ZoomControl from "../ZoomControl";
 import ControlButton from "./ControlButton";
 
 const MapControls = () => {
   const map = useMap();
 
-  if (!map) {
-    return null;
-  }
-
   return (
-    <div className="flex flex-col w-fit">
+    <div className="flex flex-col">
       <ControlButton
-        onClick={() => map.getZoom() > 0 && map.zoomOut()}
-        className="rounded-b-none"
-      >
-        <MinusIcon />
-      </ControlButton>
-
-      <ZoomControl />
-
-      <ControlButton
-        onClick={() => map.getZoom() < 19 && map.zoomIn()}
-        className="rounded-t-none"
+        onClick={() => map.zoomIn()}
+        className="rounded-b-none border-b-white border-b-[1px]"
       >
         <PlusIcon />
+      </ControlButton>
+      <ControlButton onClick={() => map.zoomOut()} className="rounded-t-none">
+        <MinusIcon />
       </ControlButton>
     </div>
   );

@@ -5,10 +5,10 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 const DetectedEntitiesBar = () => {
-  const nodes = useSpotQueryStore((state) => state.spotQuery.nodes);
+  const nodes = useImrStore((state) => state.imr.nodes);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const setDialogData = useGlobalStore((state) => state.setDialogData);
 

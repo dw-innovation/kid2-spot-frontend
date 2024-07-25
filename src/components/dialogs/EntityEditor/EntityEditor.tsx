@@ -1,7 +1,7 @@
 import React from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 import Dialog from "../Dialog";
 import AddBar from "./AddBar";
@@ -18,9 +18,7 @@ const EntityEditor = () => {
     (dialog) => dialog.name === DIALOG_NAME
   )?.data;
 
-  const node = useSpotQueryStore(
-    (state) => state.spotQuery.nodes[dialogData?.id || 0]
-  );
+  const node = useImrStore((state) => state.imr.nodes[dialogData?.id || 0]);
 
   const filters = node ? node.filters : undefined;
 

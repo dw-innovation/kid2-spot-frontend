@@ -1,5 +1,3 @@
-export const maxDuration = 60;
-
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
@@ -9,7 +7,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  const token = await getToken({ req, raw: true });
+  const token = await getToken({req, raw: true})
 
   if (!session) {
     return NextResponse.json(
