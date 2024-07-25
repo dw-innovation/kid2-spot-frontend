@@ -122,6 +122,8 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
 
   const handleFocus = () => {
     !sessionData ? handleLoginClick() : true;
+    setTypingActive(false);
+    setCurrentText("");
   };
 
   return (
@@ -146,14 +148,10 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               rows={4}
               placeholder={displayedText}
               onChange={(e) => setNaturaLanguageSentence(e.target.value)}
-              onFocus={() => {
-                setTypingActive(false);
-                setCurrentText("");
-              }}
+              onFocus={handleFocus}
               onBlur={() => setTypingActive(true)}
               value={naturalLanguageSentence}
               onKeyDown={handleKeyPress}
-              onFocusCapture={handleFocus}
             />
             {sessionData ? (
               <Button
