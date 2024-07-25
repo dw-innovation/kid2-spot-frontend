@@ -43,27 +43,19 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className={inter.variable}>
       <body>
         <SessionProvider session={session}>
-          {session ? (
-            <>
-              <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-              {children}
-            </>
-          ) : (
-            <>
-              <Login />
-            </>
-          )}
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          {children}
         </SessionProvider>
       </body>
     </html>

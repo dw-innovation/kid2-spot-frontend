@@ -1,6 +1,7 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 import SpotLogo from "@/assets/icons/SpotLogo";
@@ -23,6 +24,7 @@ type Props = {
 };
 
 const NaturalLanguageInputStep = ({ minimal }: Props) => {
+  const { data: sessionData } = useSession();
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [typingActive, setTypingActive] = useState(true);
   const nextStep = useGlobalStore((state) => state.nextStep);
@@ -32,6 +34,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
   const naturalLanguageSentence = useSpotQueryStore(
     (state) => state.naturalLanguageSentence
   );
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   const handleSearchTrigger = () => {
     if (naturalLanguageSentence === "") return;
@@ -112,6 +115,15 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
     }
   };
 
+  const handleLoginClick = () => {
+    toggleDialog("inputStepper");
+    toggleDialog("signIn");
+  };
+
+  const handleFocus = () => {
+    !sessionData ? handleLoginClick() : true;
+  };
+
   return (
     <InputContainer shouldUnmount={shouldUnmount}>
       <div className="flex items-center justify-center w-full h-full overflow-hidden">
@@ -124,6 +136,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               </h2>
             </div>
           )}
+
           <form
             onSubmit={(e) => e.preventDefault()}
             className="flex flex-col gap-2"
@@ -140,15 +153,20 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               onBlur={() => setTypingActive(true)}
               value={naturalLanguageSentence}
               onKeyDown={handleKeyPress}
+              onFocusCapture={handleFocus}
             />
-            <Button
-              onClick={handleSearchTrigger}
-              disabled={naturalLanguageSentence === ""}
-              type="button"
-            >
-              <SearchIcon />
-              Search
-            </Button>
+            {sessionData ? (
+              <Button
+                onClick={handleSearchTrigger}
+                disabled={naturalLanguageSentence === ""}
+                type="button"
+              >
+                <SearchIcon />
+                Search
+              </Button>
+            ) : (
+              <Button onClick={handleLoginClick}>login</Button>
+            )}
           </form>
         </div>
       </div>

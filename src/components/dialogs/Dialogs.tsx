@@ -7,6 +7,7 @@ import InfoDialog from "./InfoDialog";
 import InputStepperDialog from "./InputStepperDialog";
 import LoadSessionDialog from "./LoadSessionDialog";
 import SaveSessionDialog from "./SaveSessionDialog";
+import SignInDialog from "./SignInDialog";
 import SpotQueryDialog from "./SpotQueryDialog";
 import StepperErrorDialog from "./StepperErrorDialog";
 
@@ -21,6 +22,7 @@ const Dialogs = () => (
     <InputStepperDialog />
     <InfoDialog />
     <EntityEditor />
+    <SignInDialog />
   </>
 );
 
