@@ -109,19 +109,19 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
   }`;
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    !sessionData ? handleLogin() : true;
     if (e.key === "Enter") {
       e.preventDefault();
       handleSearchTrigger();
     }
   };
 
-  const handleLoginClick = () => {
+  const handleLogin = () => {
     toggleDialog("inputStepper");
     toggleDialog("signIn");
   };
 
   const handleFocus = () => {
-    !sessionData ? handleLoginClick() : true;
     setTypingActive(false);
     setCurrentText("");
   };
@@ -163,7 +163,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
                 Search
               </Button>
             ) : (
-              <Button onClick={handleLoginClick}>login</Button>
+              <Button onClick={handleLogin}>login</Button>
             )}
           </form>
         </div>
