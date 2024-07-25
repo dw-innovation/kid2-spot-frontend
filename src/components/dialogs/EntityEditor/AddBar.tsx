@@ -2,7 +2,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 import Connectors from "./Connectors";
 
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const AddBar = ({ nodeId, pathString, path }: Props) => {
-  const addRuleOrGroup = useSpotQueryStore((state) => state.addRuleOrGroup);
+  const addRuleOrGroup = useImrStore((state) => state.addRuleOrGroup);
 
   const handleAddRuleOrGroup = (
     nodeId: number,

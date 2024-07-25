@@ -2,54 +2,48 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
-import {
-  fetchNLToSpotQueryTransformation,
-  validateSpotQuery,
-} from "@/lib/apiServices";
+import { fetchNLToIMRTransformation, validateIMR } from "@/lib/apiServices";
+import { insertBBox } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import AnalyzeAnimation from "../Animation";
 import InputContainer from "../InputContainer";
 
 const NaturalLanguageTransformationStep = () => {
   const nextStep = useGlobalStore((state) => state.nextStep);
-  const naturalLanguageSentence = useSpotQueryStore(
-    (state) => state.naturalLanguageSentence
-  );
-  const setSpotQuery = useSpotQueryStore((state) => state.setSpotQuery);
-  const setSearchAreaBBox = useSpotQueryStore(
-    (state) => state.setSearchAreaBBox
-  );
+  const nlSentence = useImrStore((state) => state.nlSentence);
+  const setImr = useImrStore((state) => state.setImr);
   const setErrorType = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const bounds = useMapStore((state) => state.bounds);
 
-  const { data, error, isSuccess, isError, isFetching } = useQuery({
-    queryKey: ["transformNLToSpotQuery", naturalLanguageSentence],
-    queryFn: () => fetchNLToSpotQueryTransformation(naturalLanguageSentence),
-    enabled: !!naturalLanguageSentence,
+  const transformationQuery = useQuery({
+    queryKey: ["transformNLToIMR", nlSentence],
+    queryFn: () => fetchNLToIMRTransformation(nlSentence),
+    enabled: !!nlSentence,
     retry: false,
   });
 
+  const { data, error, isSuccess, isError, isPending } = transformationQuery;
+
   useEffect(() => {
     if (isSuccess && data) {
-      // if transformation was successful and returned data
-      let spotQuery = data.imr;
-
-      // validate SpotQuery
-      validateSpotQuery(spotQuery)
+      let imr = data.imr;
+      validateIMR(imr)
         .then(() => {
-          // this should be spotQuery.area.type === "bbox" in the future. Change model output accordingly
-          setSpotQuery(spotQuery);
-          if (spotQuery.area.value === "bbox") {
-            setSearchAreaBBox([
-              bounds[0][1],
-              bounds[0][0],
-              bounds[1][1],
-              bounds[1][0],
-            ]);
+          if (imr.area.value === "bbox") {
+            setImr(
+              insertBBox(imr, [
+                bounds[0][1],
+                bounds[0][0],
+                bounds[1][1],
+                bounds[1][0],
+              ])
+            );
+          } else {
+            setImr(imr);
           }
           nextStep();
         })
@@ -59,15 +53,7 @@ const NaturalLanguageTransformationStep = () => {
           toggleDialog("error");
         });
     }
-  }, [
-    isSuccess,
-    data,
-    setSpotQuery,
-    bounds,
-    nextStep,
-    setErrorType,
-    toggleDialog,
-  ]);
+  }, [isSuccess, data, setImr, bounds, nextStep, setErrorType, toggleDialog]);
 
   useEffect(() => {
     if (isError && error) {
@@ -94,7 +80,7 @@ const NaturalLanguageTransformationStep = () => {
         ]}
         duration={2500}
       />
-      {isFetching && <LoadingSpinner size="2.5rem" />}
+      {isPending && <LoadingSpinner size="2.5rem" />}
     </InputContainer>
   );
 };

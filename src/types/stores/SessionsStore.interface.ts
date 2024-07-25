@@ -1,8 +1,9 @@
 import { UUID } from "short-uuid";
 
 import AppStoreInterface from "./GlobalStore.interface";
+import ImrStoreInterface from "./ImrStore.interface";
 import MapStoreInterface from "./MapStore.interface";
-import SpotQueryStoreInterface from "./SpotQueryStore.interface";
+import QueryStoreInterface from "./QueryStore.interface";
 import StreetViewStoreInterface from "./StreetViewStore.interface";
 
 export type Session = {
@@ -14,8 +15,9 @@ export type Session = {
   data: {
     useGlobalStore: AppStoreInterface;
     useMapStore: MapStoreInterface;
+    useQueryStore: QueryStoreInterface;
     useStreetViewStore: StreetViewStoreInterface;
-    useSpotQueryStore: SpotQueryStoreInterface;
+    useImrStore: ImrStoreInterface;
   };
 };
 

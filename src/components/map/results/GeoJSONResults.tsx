@@ -53,9 +53,8 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   return (
     <>
-      <Pane name="points" style={{ zIndex: 500 }} />
+      <Pane name="circleMarkers" style={{ zIndex: 500 }} />
       <Pane name="polygons" style={{ zIndex: 400 }} />
-      <Pane name="lineStrings" style={{ zIndex: 400 }} />
 
       {deflatedFeatures ? (
         <GeoJSON

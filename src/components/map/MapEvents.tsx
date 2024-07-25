@@ -2,18 +2,16 @@ import { useCallback, useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 import useGlobalStore from "@/stores/useGlobalStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 const MapEvents = () => {
   const setBounds = useMapStore((state) => state.setBounds);
   const setMapZoom = useMapStore((state) => state.setMapZoom);
   const bounds = useMapStore((state) => state.bounds);
   const view = useGlobalStore((state) => state.view);
-  const searchArea = useSpotQueryStore((state) => state.spotQuery.area.type);
-  const setSearchAreaBBox = useSpotQueryStore(
-    (state) => state.setSearchAreaBBox
-  );
+  const searchArea = useImrStore((state) => state.imr.area.type);
+  const setImrBBox = useImrStore((state) => state.setImrBBox);
 
   const map = useMap();
 
@@ -43,11 +41,11 @@ const MapEvents = () => {
     updateZoom();
     updateBounds();
     map.on("moveend", () => updateBounds());
-    map.on("zoomend", () => updateZoom());
+    map.on("zoomlevelschange", () => updateZoom());
 
     return () => {
       map.off("moveend", () => updateBounds());
-      map.off("zoomend", () => updateZoom());
+      map.off("zoomlevelschange", () => updateZoom());
     };
   }, [map, setBounds, updateBounds, updateZoom]);
 
@@ -64,15 +62,10 @@ const MapEvents = () => {
   useEffect(() => {
     if (searchArea === "bbox") {
       try {
-        setSearchAreaBBox([
-          bounds[0][1],
-          bounds[0][0],
-          bounds[1][1],
-          bounds[1][0],
-        ]);
+        setImrBBox([bounds[0][1], bounds[0][0], bounds[1][1], bounds[1][0]]);
       } catch (e) {}
     }
-  }, [bounds, searchArea, setSearchAreaBBox]);
+  }, [bounds, searchArea, setImrBBox]);
 
   return null;
 };

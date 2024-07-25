@@ -8,9 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import useStrings from "@/lib/contexts/useStrings";
 import { cn, trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
+import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
+import useQueryStore from "@/stores/useQueryStore";
 import useSessionsStore from "@/stores/useSessionsStore";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import Dialog from "../Dialog";
@@ -48,8 +49,9 @@ const SaveSessionDialog = () => {
         data: {
           useGlobalStore: useGlobalStore.getState(),
           useMapStore: useMapStore.getState(),
+          useQueryStore: useQueryStore.getState(),
           useStreetViewStore: useStreetViewStore.getState(),
-          useSpotQueryStore: useSpotQueryStore.getState(),
+          useImrStore: useImrStore.getState(),
         },
         created: date,
         modified: date,

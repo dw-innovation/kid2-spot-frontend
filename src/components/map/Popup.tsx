@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { trackAction } from "@/lib/utils";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
-import FeatureInfo from "../FeatureInfo";
-import MapServiceButtons from "./MapServiceButtons";
+import FeatureInfo from "./FeatureInfo";
 
 type Props = {
   feature: Feature;
@@ -38,15 +37,6 @@ const Popup = ({ feature }: Props) => {
     <div className="flex flex-col w-full gap-2 !font-sans">
       <FeatureInfo feature={feature} />
       <hr />
-      {feature.properties && (
-        <MapServiceButtons
-          coordinates={[
-            feature.properties.center.coordinates[1],
-            feature.properties.center.coordinates[0],
-          ]}
-        />
-      )}
-
       <Button onClick={handleClick} variant={"secondary"}>
         <EyeOpenIcon />
         Open Google Street View

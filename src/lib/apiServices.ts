@@ -1,14 +1,14 @@
 import axios from "axios";
 
-import { SpotQuery } from "@/types/spotQuery";
+import { IntermediateRepresentation } from "@/types/imr";
 
 export const fetchOSMData = async ({
-  spotQuery,
+  imr,
 }: {
-  spotQuery: SpotQuery;
+  imr: IntermediateRepresentation;
 }): Promise<any> => {
   try {
-    const response = await axios.post("/api/queryOSM", spotQuery);
+    const response = await axios.post("/api/queryOSM", imr);
     if (response.data) {
       return response.data;
     } else {
@@ -44,7 +44,7 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   }
 };
 
-export const fetchNLToSpotQueryTransformation = async (
+export const fetchNLToIMRTransformation = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
   try {
@@ -71,17 +71,19 @@ export const fetchNLToSpotQueryTransformation = async (
   }
 };
 
-export const validateSpotQuery = async (spotQuery: SpotQuery): Promise<any> => {
+export const validateIMR = async (
+  imr: IntermediateRepresentation
+): Promise<any> => {
   try {
     const response = await axios({
       method: "POST",
       url: `/api/validateQuery`,
-      data: spotQuery,
+      data: imr,
     });
 
     return response.data;
   } catch (error) {
-    throw new Error("spotQueryInvalid");
+    throw new Error("imrInvalid");
   }
 };
 

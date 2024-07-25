@@ -1,5 +1,3 @@
-import { MultiPolygon, Polygon } from "@turf/turf";
-
 export type LogicOperator = "and" | "or";
 
 export interface LogicFilter {
@@ -55,15 +53,14 @@ export type Node = Cluster | NWR;
 export type Area = {
   type: "area";
   value: string;
-  geometry?: Polygon | MultiPolygon;
 };
 
 export type Bbox = {
   type: "bbox";
-  bbox: number[];
+  value: string | number[];
 };
 
-export interface SpotQuery {
+export interface IntermediateRepresentation {
   area: Area | Bbox;
   nodes: (Cluster | NWR)[];
   edges: Edge[];

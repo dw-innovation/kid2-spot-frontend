@@ -60,25 +60,8 @@ export const styleFunction = (
   if (!feature) return {};
 
   const setIndex = getSetIndex(feature.properties?.set_name, sets);
-
-  let paneName;
-
-  if (
-    feature?.geometry?.type === "Point" ||
-    feature?.geometry?.type === "MultiPoint"
-  ) {
-    paneName = "points";
-  } else if (
-    feature?.geometry?.type === "LineString" ||
-    feature?.geometry?.type === "MultiLineString"
-  ) {
-    paneName = "lineStrings";
-  } else if (
-    feature?.geometry?.type === "Polygon" ||
-    feature?.geometry?.type === "MultiPolygon"
-  ) {
-    paneName = "polygons";
-  }
+  const paneName =
+    feature?.geometry?.type === "Point" ? "circleMarkers" : "polygons";
 
   let styleOptions: L.PathOptions = {
     fillColor: sets[setIndex]?.fillColor ?? "#000",
@@ -93,7 +76,6 @@ export const styleFunction = (
     styleOptions = {
       ...styleOptions,
       weight: 2,
-      opacity: getSetFillOpacity(setIndex, sets),
       color: sets[setIndex]?.fillColor ?? "#000",
     };
   }

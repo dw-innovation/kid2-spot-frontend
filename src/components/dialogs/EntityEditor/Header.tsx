@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Input } from "@/components/ui/input";
-import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import useImrStore from "@/stores/useImrStore";
 
 type Props = {
   nodeId: number;
@@ -9,12 +9,10 @@ type Props = {
 };
 
 const Header = ({ nodeId, name }: Props) => {
-  const updateNodeDisplayName = useSpotQueryStore(
-    (state) => state.updateNodeDisplayName
-  );
+  const updateName = useImrStore((state) => state.updateName);
 
   const handleUpdateName = (newName: string) => {
-    updateNodeDisplayName(nodeId, newName);
+    updateName(nodeId, newName);
   };
 
   return (

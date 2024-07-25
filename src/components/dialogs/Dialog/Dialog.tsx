@@ -17,7 +17,6 @@ type Props = {
   children: React.ReactNode;
   className?: string;
   isWide?: boolean;
-  showCloseButton?: boolean;
 };
 
 const Dialog = ({
@@ -27,7 +26,6 @@ const Dialog = ({
   children,
   className,
   isWide,
-  showCloseButton,
 }: Props) => {
   const dialogs = useGlobalStore((state) => state.dialogs);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
@@ -45,10 +43,8 @@ const Dialog = ({
         className={cn(
           isWide ? "max-w-[800px]" : "sm:max-w-[425px]",
           "z-[20000] max-h-[90vh]",
-          "overflow-hidden",
           className
         )}
-        showCloseButton={showCloseButton}
       >
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
