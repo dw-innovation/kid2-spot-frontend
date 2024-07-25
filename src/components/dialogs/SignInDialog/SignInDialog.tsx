@@ -19,7 +19,7 @@ const PROVIDERS = [
 ];
 
 const SignInDialogDialog = () => (
-  <Dialog dialogName={DIALOG_NAME} showCloseButton={false}>
+  <Dialog dialogName={DIALOG_NAME} showCloseButton={false} preventClose={true}>
     <div className="flex items-center flex-col gap-2">
       <h2 className="font-bold text-xl">Sign in with</h2>
       {PROVIDERS.map((provider) => (

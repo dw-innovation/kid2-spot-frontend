@@ -18,6 +18,7 @@ type Props = {
   className?: string;
   isWide?: boolean;
   showCloseButton?: boolean;
+  preventClose?: boolean;
 };
 
 const Dialog = ({
@@ -28,6 +29,7 @@ const Dialog = ({
   className,
   isWide,
   showCloseButton,
+  preventClose,
 }: Props) => {
   const dialogs = useGlobalStore((state) => state.dialogs);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
@@ -49,6 +51,10 @@ const Dialog = ({
           className
         )}
         showCloseButton={showCloseButton}
+        onInteractOutside={(e) => {
+          preventClose && e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => preventClose && e.preventDefault()}
       >
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
