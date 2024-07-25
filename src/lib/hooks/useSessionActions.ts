@@ -1,18 +1,18 @@
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
 import useResultsStore from "@/stores/useResultsStore";
 import useSessionsStore from "@/stores/useSessionsStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const useSessionActions = () => {
   const initializeMapStore = useMapStore((state) => state.initialize);
-  const initializeQueryStore = useQueryStore((state) => state.initialize);
   const initializeStreetViewStore = useStreetViewStore(
     (state) => state.initialize
   );
-  const initializeImrStore = useImrStore((state) => state.initialize);
+  const initializeSpotQueryStore = useSpotQueryStore(
+    (state) => state.initialize
+  );
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
   const clearSets = useResultsStore((state) => state.clearSets);
@@ -21,9 +21,8 @@ const useSessionActions = () => {
 
   return {
     initializeMapStore,
-    initializeQueryStore,
     initializeStreetViewStore,
-    initializeImrStore,
+    initializeSpotQueryStore,
     toggleDialog,
     clearGeoJSON,
     clearSets,

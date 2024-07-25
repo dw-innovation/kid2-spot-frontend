@@ -9,8 +9,8 @@ import {
   logSlider,
   trackAction,
 } from "@/lib/utils";
-import useImrStore from "@/stores/useImrStore";
-import { DistanceRelation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { DistanceRelation } from "@/types/spotQuery";
 
 type Props = {
   edge: DistanceRelation;
@@ -18,8 +18,8 @@ type Props = {
 };
 
 const Distance = ({ edge, index }: Props) => {
-  const nodes = useImrStore((state) => state.imr.nodes);
-  const setRelationValue = useImrStore((state) => state.setRelationValue);
+  const nodes = useSpotQueryStore((state) => state.spotQuery.nodes);
+  const setRelationValue = useSpotQueryStore((state) => state.setRelationValue);
 
   const debouncedTrackAction = useCallback(
     debounce((actionType, actionName, actionDetail) => {

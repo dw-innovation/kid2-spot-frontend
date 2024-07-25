@@ -1,9 +1,8 @@
 import axios from "axios";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import { fetchOSMData } from "./apiServices";
@@ -42,9 +41,8 @@ export const loadSession = async (sessionData: Record<string, any>) => {
 
   let stores = {
     useMapStore: useMapStore.getState().initialize,
-    useQueryStore: useQueryStore.getState().initialize,
     useStreetViewStore: useStreetViewStore.getState().initialize,
-    useImrStore: useImrStore.getState().initialize,
+    useSpotQueryStore: useSpotQueryStore.getState().initialize,
   };
 
   Object.entries(stores).forEach(([key, initFn]) => {
@@ -55,9 +53,9 @@ export const loadSession = async (sessionData: Record<string, any>) => {
   toggleDialog("queryOSM");
   toggleDialog("loadSession", false);
 
-  const imr = useImrStore.getState().imr;
+  const spotQuery = useSpotQueryStore.getState().spotQuery;
 
-  await fetchOSMData({ imr }).then((data) => {
+  await fetchOSMData({ spotQuery }).then((data) => {
     if (data) {
       setResults(data);
       toggleDialog("queryOSM", false);

@@ -12,7 +12,7 @@ The application requires the following environment variables to be set:
 - `NEXT_PUBLIC_MAPBOX_KEY`: The API key needed for accessing Mapbox services. Required for rendering satellite layer.
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: The API key for integrating Google Maps into the application. This key allows you to use Google Maps' functionalities.
 - `NEXT_PUBLIC_OSM_API`: The API key for querying OpenStreetMap (OSM).
-- `NEXT_PUBLIC_NLP_API`: The API key for accessing any Natural Language Processing service that the application uses, for prompt to IMR transformation.
+- `NEXT_PUBLIC_NLP_API`: The API key for accessing any Natural Language Processing service that the application uses, for prompt to SpotQuery transformation.
 - `MONGODB_URI`: The URI for connecting to the MongoDB database for saving and loading sessions.
 - `MONGODB_DBNAME`: The name of the MongoDB database that the application will connect to.
 - `NEXT_PUBLIC_API_BASE_URL`: The base URL for making API calls within the application.

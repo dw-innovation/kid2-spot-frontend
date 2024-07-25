@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FilterNode, LogicFilter } from "@/types/imr";
+import { FilterNode, LogicFilter } from "@/types/spotQuery";
 
 import LogicGroup from "./LogicGroup";
 import Rule from "./Rule";

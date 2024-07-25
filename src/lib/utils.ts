@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 
 import usePersistedStore from "@/stores/usePersistedStore";
 import useResultsStore from "@/stores/useResultsStore";
-import { IntermediateRepresentation, Node } from "@/types/imr";
+import { Node, SpotQuery } from "@/types/spotQuery";
 
 import { FILL_COLORS } from "./const/colors";
 
@@ -224,8 +224,8 @@ export const setResults = (data: any) => {
   setGeoJSON(data.results);
   const parsedGeoJSON =
     data.area.type === "bbox"
-      ? bboxToGeoJSON(data.area.value)
-      : JSON.parse(data.area.value);
+      ? bboxToGeoJSON(data.area.bbox)
+      : JSON.parse(data.area.geometry);
 
   setSearchArea(parsedGeoJSON);
   setSpots(data.spots);
@@ -319,13 +319,13 @@ export const createMailtoLink = ({
 };
 
 export const insertBBox = (
-  imr: IntermediateRepresentation,
+  spotQuery: SpotQuery,
   bounds: number[]
-): IntermediateRepresentation => ({
-  ...imr,
+): SpotQuery => ({
+  ...spotQuery,
   area: {
     type: "bbox",
-    value: bounds,
+    bbox: bounds,
   },
 });
 

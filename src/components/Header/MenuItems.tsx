@@ -17,7 +17,7 @@ const MenuItems = () => {
     <div className="flex flex-col items-end gap-2 md:flex-row">
       <ActionsMenu />
       <Button
-        onClick={() => toggleDialog("imr")}
+        onClick={() => toggleDialog("spotQuery")}
         variant={"outline"}
         className={cn(
           process.env.NEXT_PUBLIC_ENVIRONMENT === "production" && "hidden"

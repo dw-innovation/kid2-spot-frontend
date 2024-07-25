@@ -7,26 +7,30 @@ import React, { useEffect } from "react";
 import AceEditor from "react-ace";
 
 import { Button } from "@/components/ui/button";
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 type Props = {
   setOpen: () => void;
 };
 
-const ImrEditor = ({ setOpen }: Props) => {
-  const imr = useImrStore((state) => state.imr);
-  const setImr = useImrStore((state) => state.setImr);
-  const stringifiedImr = useImrStore((state) => state.stringifiedImr);
-  const setStringifiedImr = useImrStore((state) => state.setStringifiedImr);
+const SpotQueryEditor = ({ setOpen }: Props) => {
+  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
+  const setSpotQuery = useSpotQueryStore((state) => state.setSpotQuery);
+  const stringifiedSpotQuery = useSpotQueryStore(
+    (state) => state.stringifiedSpotQuery
+  );
+  const setStringifiedSpotQuery = useSpotQueryStore(
+    (state) => state.setStringifiedSpotQuery
+  );
 
   const onChange = (newValue: any) => {
-    setStringifiedImr(newValue);
+    setStringifiedSpotQuery(newValue);
   };
 
   const handleSave = () => {
     try {
-      const parsedValue = JSON.parse(stringifiedImr);
-      setImr(parsedValue);
+      const parsedValue = JSON.parse(stringifiedSpotQuery);
+      setSpotQuery(parsedValue);
       setOpen();
     } catch (e) {
       if (e instanceof Error) {
@@ -36,17 +40,17 @@ const ImrEditor = ({ setOpen }: Props) => {
   };
 
   useEffect(() => {
-    setStringifiedImr(JSON.stringify(imr, null, 2));
-  }, [imr, setStringifiedImr]);
+    setStringifiedSpotQuery(JSON.stringify(spotQuery, null, 2));
+  }, [spotQuery, setStringifiedSpotQuery]);
 
   return (
     <div className="flex flex-col gap-2">
       <AceEditor
-        value={stringifiedImr}
+        value={stringifiedSpotQuery}
         mode="json"
         theme="xcode"
         onChange={onChange}
-        name="imr-editor"
+        name="spotQuery-editor"
         editorProps={{ $blockScrolling: true }}
         setOptions={{
           enableBasicAutocompletion: true,
@@ -61,4 +65,4 @@ const ImrEditor = ({ setOpen }: Props) => {
   );
 };
 
-export default ImrEditor;
+export default SpotQueryEditor;

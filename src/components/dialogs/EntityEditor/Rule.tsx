@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
 import useTagInfo from "@/lib/hooks/useTagInfo";
-import useImrStore from "@/stores/useImrStore";
-import { Filter } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { Filter } from "@/types/spotQuery";
 
 import Connectors from "./Connectors";
 
@@ -38,8 +38,10 @@ const OPTIONS = [
 ];
 
 const Rule = ({ filter, nodeId, pathString }: Props) => {
-  const removeRuleOrGroup = useImrStore((state) => state.removeRuleOrGroup);
-  const updateRuleValue = useImrStore((state) => state.updateRuleValue);
+  const removeRuleOrGroup = useSpotQueryStore(
+    (state) => state.removeRuleOrGroup
+  );
+  const updateRuleValue = useSpotQueryStore((state) => state.updateRuleValue);
 
   const handleRemove = (nodeId: number, pathString: string) => {
     removeRuleOrGroup(nodeId, pathString);

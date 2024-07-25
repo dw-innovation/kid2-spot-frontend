@@ -59,13 +59,14 @@ const DIALOGS = [
   "downloadResults",
   "saveSession",
   "loadSession",
-  "imr",
+  "spotQuery",
   "error",
   "stepperError",
   "queryOSM",
   "inputStepper",
   "info",
   "entityEditor",
+  "signIn",
 ];
 
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({

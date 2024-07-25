@@ -2,9 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
 import useMapStore from "@/stores/useMapStore";
-import useQueryStore from "@/stores/useQueryStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 import { saveSession } from "../sessions";
@@ -19,9 +18,8 @@ const useSaveSession = ({ onSuccessCallbacks }: Props) => {
       saveSession([
         { name: "useGlobalStore", getState: useGlobalStore.getState },
         { name: "useMapStore", getState: useMapStore.getState },
-        { name: "useQueryStore", getState: useQueryStore.getState },
         { name: "useStreetViewStore", getState: useStreetViewStore.getState },
-        { name: "useImrStore", getState: useImrStore.getState },
+        { name: "useSpotQueryStore", getState: useSpotQueryStore.getState },
       ]),
     onSuccess: (sessionLink) => {
       if (onSuccessCallbacks) {

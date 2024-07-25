@@ -5,38 +5,32 @@ import { Button } from "@/components/ui/button";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import { cn } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
-import { IntermediateRepresentation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { SpotQuery } from "@/types/spotQuery";
 
 const ApplyButton = () => {
-  const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
-  const imr = useImrStore((state) => state.imr);
-  const { isPending } = useQueryOSMData({
-    isEnabled: shouldFetch,
-    onSettled() {
-      setShouldFetch(false);
-    },
-  });
+  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
+  const { isLoading, refetch } = useQueryOSMData({});
 
-  const prevImrRef = useRef<IntermediateRepresentation>(imr);
+  const prevSpotQueryRef = useRef<SpotQuery>(spotQuery);
 
   useEffect(() => {
-    if (prevImrRef.current === imr) {
+    if (prevSpotQueryRef.current === spotQuery) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
-      prevImrRef.current = imr;
+      prevSpotQueryRef.current = spotQuery;
     }
-  }, [imr]);
+  }, [spotQuery]);
 
   const handleButtonClick = () => {
     toggleDialog("entityEditor", false);
     toggleDialog("error", false);
     clearError();
-    setShouldFetch(true);
+    refetch();
   };
 
   return (
@@ -47,7 +41,7 @@ const ApplyButton = () => {
         disabled={isDisabled}
         className={cn(isDisabled ? "cursor-not-allowed" : "cursor-pointer")}
       >
-        {isPending && <LoadingSpinner />} Apply Changes
+        {isLoading && <LoadingSpinner />} Apply Changes
       </Button>
     </div>
   );

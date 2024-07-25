@@ -14,43 +14,44 @@ import useStrings from "@/lib/contexts/useStrings";
 import useElapsedTime from "@/lib/hooks/useElapsedTime";
 import useQueryOSMData from "@/lib/hooks/useQueryOSMData";
 import { cn, trackAction } from "@/lib/utils";
-import useImrStore from "@/stores/useImrStore";
-import { IntermediateRepresentation } from "@/types/imr";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
+import { SpotQuery } from "@/types/spotQuery";
 
 type ApiStatus = "idle" | "loading" | "success" | "error";
 
 const OSMQuerySubmit = () => {
   const { commonUpdateResultsButton } = useStrings();
-  const imr = useImrStore((state) => state.imr);
+  const spotQuery = useSpotQueryStore((state) => state.spotQuery);
   const queryClient = useQueryClient();
-  const [shouldFetch, setShouldFetch] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const prevImrRef = useRef<IntermediateRepresentation>(imr);
+  const prevSpotQueryRef = useRef<SpotQuery>(spotQuery);
 
   useEffect(() => {
-    if (JSON.stringify(prevImrRef.current) === JSON.stringify(imr)) {
+    if (spotQuery.nodes.length === 0) {
+      setIsDisabled(true);
+    }
+
+    if (prevSpotQueryRef.current === spotQuery) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
-      prevImrRef.current = imr;
+      prevSpotQueryRef.current = spotQuery;
     }
-  }, [imr]);
+  }, [spotQuery]);
 
-  const { isPending, status } = useQueryOSMData({
+  const { isFetching, status, refetch } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
-    onSettled: () => setShouldFetch(false),
-    isEnabled: shouldFetch,
   });
 
-  const elapsedTime = useElapsedTime(isPending, status as ApiStatus);
+  const elapsedTime = useElapsedTime(isFetching, status as ApiStatus);
 
   const handleButtonClick = () => {
     if (isDisabled) return;
-    if (!isPending) {
-      setShouldFetch(true);
+    if (!isFetching) {
+      refetch();
       trackAction("osmQuery", "modal", "loadSession");
     } else {
-      queryClient.cancelQueries({ queryKey: ["osmData", imr] });
+      queryClient.cancelQueries({ queryKey: ["osmData", spotQuery] });
     }
   };
 
@@ -68,7 +69,7 @@ const OSMQuerySubmit = () => {
     >
       <div className="flex items-center w-full">
         <span className="text-white">
-          {isPending ? (
+          {isFetching ? (
             <div className="w-4 h-4">
               <LoadingSpinner />
             </div>
@@ -83,7 +84,7 @@ const OSMQuerySubmit = () => {
 
   return (
     <>
-      {isPending ? (
+      {isFetching ? (
         <TooltipProvider>
           <Tooltip defaultOpen>
             <TooltipTrigger className="w-full">{renderButton()}</TooltipTrigger>

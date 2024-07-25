@@ -1,6 +1,7 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 import SpotLogo from "@/assets/icons/SpotLogo";
@@ -8,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { trackAction } from "@/lib/utils";
 import useGlobalStore from "@/stores/useGlobalStore";
-import useImrStore from "@/stores/useImrStore";
+import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import InputContainer from "../InputContainer";
 
@@ -23,15 +24,21 @@ type Props = {
 };
 
 const NaturalLanguageInputStep = ({ minimal }: Props) => {
+  const { data: sessionData } = useSession();
   const [shouldUnmount, setShouldUnmount] = useState(false);
   const [typingActive, setTypingActive] = useState(true);
   const nextStep = useGlobalStore((state) => state.nextStep);
-  const setNlSentence = useImrStore((state) => state.setNlSentence);
-  const nlSentence = useImrStore((state) => state.nlSentence);
+  const setNaturaLanguageSentence = useSpotQueryStore(
+    (state) => state.setNaturaLanguageSentence
+  );
+  const naturalLanguageSentence = useSpotQueryStore(
+    (state) => state.naturalLanguageSentence
+  );
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   const handleSearchTrigger = () => {
-    if (nlSentence === "") return;
-    trackAction("inputStepper", "nlTransformation", nlSentence);
+    if (naturalLanguageSentence === "") return;
+    trackAction("inputStepper", "nlTransformation", naturalLanguageSentence);
     setShouldUnmount(true);
     setTimeout(() => {
       nextStep();
@@ -108,6 +115,15 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
     }
   };
 
+  const handleLoginClick = () => {
+    toggleDialog("inputStepper");
+    toggleDialog("signIn");
+  };
+
+  const handleFocus = () => {
+    !sessionData ? handleLoginClick() : true;
+  };
+
   return (
     <InputContainer shouldUnmount={shouldUnmount}>
       <div className="flex items-center justify-center w-full h-full overflow-hidden">
@@ -120,6 +136,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               </h2>
             </div>
           )}
+
           <form
             onSubmit={(e) => e.preventDefault()}
             className="flex flex-col gap-2"
@@ -128,23 +145,28 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               className={"w-full text-xl shadow-lg focus-visible:"}
               rows={4}
               placeholder={displayedText}
-              onChange={(e) => setNlSentence(e.target.value)}
+              onChange={(e) => setNaturaLanguageSentence(e.target.value)}
               onFocus={() => {
                 setTypingActive(false);
                 setCurrentText("");
               }}
               onBlur={() => setTypingActive(true)}
-              value={nlSentence}
+              value={naturalLanguageSentence}
               onKeyDown={handleKeyPress}
+              onFocusCapture={handleFocus}
             />
-            <Button
-              onClick={handleSearchTrigger}
-              disabled={nlSentence === ""}
-              type="button"
-            >
-              <SearchIcon />
-              Search
-            </Button>
+            {sessionData ? (
+              <Button
+                onClick={handleSearchTrigger}
+                disabled={naturalLanguageSentence === ""}
+                type="button"
+              >
+                <SearchIcon />
+                Search
+              </Button>
+            ) : (
+              <Button onClick={handleLoginClick}>login</Button>
+            )}
           </form>
         </div>
       </div>
