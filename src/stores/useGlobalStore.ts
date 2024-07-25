@@ -66,6 +66,7 @@ const DIALOGS = [
   "inputStepper",
   "info",
   "entityEditor",
+  "signIn",
 ];
 
 const useGlobalStore = create<GlobalStoreInterface>((set) => ({
