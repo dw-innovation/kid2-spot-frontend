@@ -61,6 +61,7 @@ const SignInDialog: React.FC = () => {
             onClick={() => signIn(provider.id)}
             className="w-full"
             key={provider.id}
+            variant={"secondary"}
           >
             Sign in with {provider.label}
           </Button>
