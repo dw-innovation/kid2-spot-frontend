@@ -32,7 +32,7 @@ const AnalyzeAnimation = ({ sentences, duration }: Props) => {
   }, [index]);
 
   return (
-    <animated.div style={props} className="leading-6 text-center">
+    <animated.div style={props} className="leading-4 text-center">
       {sentences[index]}
     </animated.div>
   );
