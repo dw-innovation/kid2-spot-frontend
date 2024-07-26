@@ -109,7 +109,6 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
   }`;
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    !sessionData ? handleLogin() : true;
     if (e.key === "Enter") {
       e.preventDefault();
       handleSearchTrigger();
@@ -152,6 +151,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               onBlur={() => setTypingActive(true)}
               value={naturalLanguageSentence}
               onKeyDown={handleKeyPress}
+              disabled={!sessionData}
             />
             {sessionData ? (
               <Button
@@ -163,7 +163,9 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
                 Search
               </Button>
             ) : (
-              <Button onClick={handleLogin}>login</Button>
+              <Button onClick={handleLogin} className="uppercase">
+                Sign In
+              </Button>
             )}
           </form>
         </div>
