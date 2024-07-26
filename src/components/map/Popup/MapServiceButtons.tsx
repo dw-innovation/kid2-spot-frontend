@@ -7,26 +7,26 @@ type Props = {
   coordinates: [number, number];
 };
 
-const SERVICES: ["google", "bing", "yandex"] = ["google", "bing", "yandex"];
+const SERVICES: ["Google", "Bing", "Yandex"] = ["Google", "Bing", "Yandex"];
 
 const MapServiceButtons = ({ coordinates }: Props) => {
   const mapZoom = useMapStore((state) => state.mapZoom);
 
   const handleOpen = (
-    service: "google" | "bing" | "yandex",
+    service: "Google" | "Bing" | "Yandex",
     mapZoom: number
   ) => {
     const [lat, lng] = coordinates;
     let url = "";
 
     switch (service) {
-      case "google":
+      case "Google":
         url = `https://www.google.com/maps?q=${lat},${lng}&z=${mapZoom}`;
         break;
-      case "bing":
+      case "Bing":
         url = `https://www.bing.com/maps?cp=${lat}~${lng}&lvl=${mapZoom}&sp=point.${lat}_${lng}_Marker`;
         break;
-      case "yandex":
+      case "Yandex":
         url = `https://yandex.com/maps/?ll=${lng},${lat}&z=${mapZoom}&pt=${lng},${lat},comma`;
         break;
       default:
@@ -39,12 +39,13 @@ const MapServiceButtons = ({ coordinates }: Props) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 w-full">
       {SERVICES.map((service) => (
         <Button
           onClick={() => handleOpen(service, mapZoom)}
           key={service}
           variant={"secondary"}
+          className="flex-1"
         >
           {service}
         </Button>
