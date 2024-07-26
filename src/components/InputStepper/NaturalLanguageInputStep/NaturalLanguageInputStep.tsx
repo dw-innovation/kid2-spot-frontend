@@ -128,7 +128,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
   return (
     <InputContainer shouldUnmount={shouldUnmount}>
       <div className="flex items-center justify-center w-full h-full overflow-hidden">
-        <div className="flex flex-col w-full gap-5">
+        <div className="flex flex-col w-full gap-4">
           {!minimal && (
             <div className="flex flex-col items-start w-full gap-2">
               <SpotLogo />
@@ -140,14 +140,14 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
           {!sessionData && (
             <span>
               <p className="pb-2">
-                Spot allows you to search for relations of entities in
+                Spot allows you to search for relations between entities in
                 OpenStreetMap.
               </p>
               <p className="pb-2">
                 Spot can analyse your prompt for entities, their relations and
                 location and display the matching results on a map.
               </p>
-              <p className="pb-2">Like so:</p>
+              <p>Like so:</p>
             </span>
           )}
 
@@ -176,9 +176,7 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
                 Search
               </Button>
             ) : (
-              <Button onClick={handleLogin} className="uppercase">
-                Sign In
-              </Button>
+              <Button onClick={handleLogin}>Sign In</Button>
             )}
           </form>
         </div>

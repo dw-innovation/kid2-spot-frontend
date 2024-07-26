@@ -76,7 +76,6 @@ const SignInDialog: React.FC = () => {
             <Label className="text-gray-500 font-bold">Username</Label>
             <Input
               name="username"
-              placeholder="kid2"
               onChange={handleUserNameChange}
               value={userName}
             />
@@ -85,7 +84,6 @@ const SignInDialog: React.FC = () => {
             <Input
               type="password"
               name="password"
-              placeholder="kid2"
               onChange={handlePasswordChange}
               value={password}
             />

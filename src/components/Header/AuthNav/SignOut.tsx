@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const SignOut = () => (
   <Button onClick={() => signOut()}>
     <LockClosedIcon />
-    sign out
+    Sign out
   </Button>
 );
 
