@@ -35,21 +35,26 @@ const Popup = ({ feature }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-2 !font-sans">
+    <div className="flex flex-col w-full gap-4 !font-sans">
       <FeatureInfo feature={feature} />
       <hr />
-      {feature.properties && (
-        <MapServiceButtons
-          coordinates={[
-            feature.properties.center.coordinates[1],
-            feature.properties.center.coordinates[0],
-          ]}
-        />
-      )}
+      <div className="flex flex-col w-full gap-2">
+        <span>Open this location in</span>
+        {feature.properties && (
+          <MapServiceButtons
+            coordinates={[
+              feature.properties.center.coordinates[1],
+              feature.properties.center.coordinates[0],
+            ]}
+          />
+        )}
+      </div>
+
+      <hr />
 
       <Button onClick={handleClick} variant={"secondary"}>
-        <EyeOpenIcon />
         Open Google Street View
+        <EyeOpenIcon />
       </Button>
     </div>
   );
