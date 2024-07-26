@@ -137,10 +137,23 @@ const NaturalLanguageInputStep = ({ minimal }: Props) => {
               </h2>
             </div>
           )}
+          {!sessionData && (
+            <span>
+              <p className="pb-2">
+                Spot allows you to search for relations of entities in
+                OpenStreetMap.
+              </p>
+              <p className="pb-2">
+                Spot can analyse your prompt for entities, their relations and
+                location and display the matching results on a map.
+              </p>
+              <p className="pb-2">Like so:</p>
+            </span>
+          )}
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-6"
           >
             <Textarea
               className={"w-full text-xl shadow-lg focus-visible:"}
