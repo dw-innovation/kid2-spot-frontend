@@ -85,7 +85,7 @@ export const styleFunction = (
     color: getSetColor(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     weight: getWeight(setIndex, feature.properties?.osm_ids, sets, spotNodes),
     opacity: 1,
-    fillOpacity: getSetFillOpacity(setIndex, sets),
+    fillOpacity: 0.8,
     pane: paneName,
   };
 
@@ -93,7 +93,7 @@ export const styleFunction = (
     styleOptions = {
       ...styleOptions,
       weight: 2,
-      opacity: getSetFillOpacity(setIndex, sets),
+      opacity: 0.8,
       color: sets[setIndex]?.fillColor ?? "#000",
     };
   }
@@ -133,7 +133,7 @@ export const pointToLayer = (
     color: "#fff",
     weight: 5,
     opacity: 1,
-    fillOpacity: getSetFillOpacity(setIndex, sets),
+    fillOpacity: 0.8,
   };
 
   return L.circleMarker(latlng, markerOptions);

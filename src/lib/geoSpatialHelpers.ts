@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { Feature, FeatureCollection, Point } from "geojson";
+import { type Feature, type FeatureCollection, type Point } from "geojson";
 import { LatLng } from "leaflet";
 
 import { MINSIZES } from "./const/const";

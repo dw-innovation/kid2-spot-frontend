@@ -2,6 +2,7 @@
 
 import { FeatureCollection } from "geojson";
 import * as L from "leaflet";
+import { pipe } from "lodash/fp";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { GeoJSON, GeoJSONProps, Pane } from "react-leaflet";
 
@@ -38,9 +39,28 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
 
   useEffect(() => {
     if (geoJSON) {
-      setDeflatedFeatures(deflateGeoJSON(geoJSON, mapZoom));
+      setDeflatedFeatures(
+        pipe(
+          () => deflateGeoJSON(geoJSON, mapZoom),
+          (data) => {
+            // Get an array of all visible set names
+            const visibleSetNames = sets
+              .filter((set) => set.visible)
+              .map((set) => set.name);
+
+            // Filter the features based on whether their set name is in the visibleSetNames array
+            const filteredFeatures = data.features.filter((feature) => {
+              const setName = feature.properties && feature.properties.set_name;
+              return visibleSetNames.includes(setName);
+            });
+
+            // Return the modified data with filtered features
+            return { ...data, features: filteredFeatures };
+          }
+        )
+      );
     }
-  }, [geoJSON, mapZoom]);
+  }, [geoJSON, mapZoom, sets]);
 
   useEffect(() => {
     if (spots && activeSpot) {
