@@ -39,7 +39,7 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
               slug === item.slug && "underline text-yellow-300"
             )}
           >
-            {item.slug}
+            {index + 1}. {item.slug}
           </Link>
         ))}
       </div>
