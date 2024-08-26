@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon, RocketIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 import ActionsMenu from "@/components/menus/ActionsMenu";
@@ -25,6 +25,12 @@ const MenuItems = () => {
       >
         <Pencil1Icon />
         <span>Query</span>
+      </Button>
+      <Button
+        onClick={() => window.open("/tutorial/instructions", "_blank")}
+        variant="outline"
+      >
+        <RocketIcon /> Tutorial
       </Button>
       <AuthNavBar />
     </div>
