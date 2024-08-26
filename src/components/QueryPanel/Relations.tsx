@@ -21,7 +21,7 @@ const Relations = () => {
               {edges &&
                 edges.map((edge, index) => (
                   <li key={index}>
-                    {edge.type === "dist" && (
+                    {edge.type === "distance" && (
                       <Distance edge={edge} index={index} />
                     )}
                     {edge.type === "contains" && <Contains edge={edge} />}
