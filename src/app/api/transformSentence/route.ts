@@ -32,7 +32,10 @@ export async function POST(req: NextRequest) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      data,
+      data: {
+        ...data,
+        model: process.env.NLP_MODEL || "t5",
+      },
     });
 
     return NextResponse.json(results.data, { status: 200 });

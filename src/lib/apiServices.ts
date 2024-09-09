@@ -53,7 +53,6 @@ export const fetchNLToSpotQueryTransformation = async (
       url: `/api/transformSentence`,
       data: {
         sentence: naturalLanguagePrompt,
-        model: process.env.NEXT_PUBLIC_NLP_MODEL,
       },
     });
 
