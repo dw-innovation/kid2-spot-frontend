@@ -15,7 +15,6 @@ export const fetchOSMData = async ({
       throw new Error("No data returned from API");
     }
   } catch (error) {
-    console.error("Error fetching OSM data:", error);
     throw error;
   }
 };
