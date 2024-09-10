@@ -20,6 +20,8 @@ const StepperErrorDialog = () => {
   const handleStartOverClick = () => {
     resetSteps();
     toggleDialog(DIALOG_NAME);
+    toggleDialog("inputStepper", true);
+
     setTimeout(() => {
       clearError();
     }, 300);
