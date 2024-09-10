@@ -10,7 +10,7 @@ const ReportButton = () => {
     onSuccessCallbacks: [
       (sessionLink) => {
         const mailto = createMailtoLink({
-          to: "innovation@dw.com",
+          to: "hey@findthatspot.io",
           subject: "Incorrect Entities",
           body: `Please describe the entities that you think are incorrect. Your session link is: ${sessionLink}`,
         });
