@@ -74,7 +74,7 @@ const useQueryOSMData = ({
     if (isError && error) {
       // @ts-ignore
       setError(error.response.data.message || "");
-      toggleDialog("error", true);
+      toggleDialog("stepperError", true);
 
       if (onErrorCallbacks) {
         onErrorCallbacks.forEach((callback) => {
