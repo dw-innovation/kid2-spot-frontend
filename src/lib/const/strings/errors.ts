@@ -7,8 +7,8 @@ export const STRINGS = {
   If these entities are not correct please let us know.
   
   [[REPORT_BUTTON]]`,
-  areaInvalidTitle: "Search area too large",
-  areaInvalid: "The search area is too large, zoom in on a smaller area.",
+  areaExceedsLimitTitle: "Search area too large",
+  areaExceedsLimit: "The search area is too large, zoom in on a smaller area.",
   spotQueryInvalidTitle: "System hick-up",
   spotQueryInvalid:
     "The model created incorrect output, please rephrase your search.",
