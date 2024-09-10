@@ -43,7 +43,7 @@ const NaturalLanguageTransformationStep = () => {
         .then(() => {
           // this should be spotQuery.area.type === "bbox" in the future. Change model output accordingly
           setSpotQuery(spotQuery);
-          if (spotQuery.area.value === "bbox") {
+          if (spotQuery.area.type === "bbox") {
             setSearchAreaBBox([
               bounds[0][1],
               bounds[0][0],
