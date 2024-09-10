@@ -27,15 +27,17 @@ const Header = () => {
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
         <div className="flex items-end gap-5">
-          <SpotLogo />
-          <div className="flex flex-col w-10">
-            <BetaIcon />
-            <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
+          <div className="flex gap-2 items-end">
+            <SpotLogo />
+            <div className="flex  items-baseline gap-2">
+              <BetaIcon className="w-10" />
+              <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
+            </div>
           </div>
-          <h2 className="pb-1 text-lg font-semibold leading-none font-inter text-muted-foreground ">
-            Geospatial search for OpenStreetMap
-          </h2>
         </div>
+        <h2 className="pb-1 text-lg font-semibold leading-none font-inter text-muted-foreground ">
+          Geospatial search for OpenStreetMap
+        </h2>
         <div className="items-start hidden gap-2 md:flex">
           <SpotSelector />
           <MenuItems />
