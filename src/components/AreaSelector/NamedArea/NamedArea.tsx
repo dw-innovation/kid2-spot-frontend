@@ -28,6 +28,7 @@ const NamedArea = () => {
   const setSearchAreaGeometry = useSpotQueryStore(
     (state) => state.setSearchAreaGeometry
   );
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   const queryKey = ["fetchAreas", detectedValue];
 
@@ -45,22 +46,32 @@ const NamedArea = () => {
   });
 
   useEffect(() => {
+    if (!suggestedAreas || suggestedAreas.length === 0) {
+      toggleDialog("inputStepper", false);
+      setErrorType("noLocations");
+      toggleDialog("error", true);
+
+      return;
+    }
+
+    const displayName = suggestedAreas[0].display_name
+      ? suggestedAreas[0].display_name
+      : "";
+
     if (suggestedAreas && suggestedAreas.length === 1) {
-      trackAction("inputStepper", "areaSet", suggestedAreas[0].display_name);
+      trackAction("inputStepper", "areaSet", displayName);
       const bounds = suggestedAreas[0].boundingbox.map((b) => parseFloat(b));
       setBounds([
         [bounds[0], bounds[2]],
         [bounds[1], bounds[3]],
       ]);
-      setSelectedAreaName(suggestedAreas[0].display_name);
-      setSearchAreaName(suggestedAreas[0].display_name);
+      setSelectedAreaName(displayName);
+      setSearchAreaName(displayName);
       setSearchAreaGeometry(suggestedAreas[0].geojson);
       nextStep();
-    }
-
-    if (suggestedAreas) {
-      setSelectedAreaName(suggestedAreas[0].display_name);
-      setSearchAreaName(suggestedAreas[0].display_name);
+    } else {
+      setSelectedAreaName(displayName);
+      setSearchAreaName(displayName);
       setSearchAreaGeometry(suggestedAreas[0].geojson);
     }
   }, [suggestedAreas, setSearchAreaName, nextStep]);

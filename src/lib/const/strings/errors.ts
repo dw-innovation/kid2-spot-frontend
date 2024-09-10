@@ -9,6 +9,9 @@ export const STRINGS = {
   [[REPORT_BUTTON]]`,
   areaExceedsLimitTitle: "Search area too large",
   areaExceedsLimit: "The search area is too large, zoom in on a smaller area.",
+  noLocationsTitle: "Geocoding failed",
+  noLocations:
+    "We couldn't find any locations when geocoding the area you provided",
   spotQueryInvalidTitle: "System hick-up",
   spotQueryInvalid:
     "The model created incorrect output, please rephrase your search.",
