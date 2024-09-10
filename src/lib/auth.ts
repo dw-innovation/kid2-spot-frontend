@@ -2,6 +2,14 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 
+const parseEnvCredentials = (envCreds: string) => {
+  const credsArray = envCreds.split(";").map((cred) => {
+    const [username, password] = cred.split(":");
+    return { username, password };
+  });
+  return credsArray;
+};
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -17,10 +25,25 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const { username, password } = credentials || {};
-        const user = { id: "1", name: "kid2", email: "kid2" };
+        const envCreds = process.env.CREDENTIALS;
 
-        if (username === "kid2" && password === "kid2") {
-          return user;
+        if (!envCreds) {
+          throw new Error("Credentials environment variable not set");
+        }
+
+        const parsedCredentials = parseEnvCredentials(envCreds);
+
+        const user = parsedCredentials.find(
+          (userCred) =>
+            userCred.username === username && userCred.password === password
+        );
+
+        if (user) {
+          return {
+            id: user.username,
+            name: user.username,
+            email: user.username,
+          };
         } else {
           return null;
         }
