@@ -7,9 +7,10 @@ import useGlobalStore from "@/stores/useGlobalStore";
 const DIALOG_NAME = "error";
 
 const ClosingButton = () => {
-  const { errorDialogCloseButton } = useStrings();
+  const { errorDialogCloseButton, errorDialogStartOverButton } = useStrings();
 
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
+  const errorType = useGlobalStore((state) => state.errorType);
   const clearError = useGlobalStore((state) => state.clearError);
 
   const handleClose = () => {
@@ -20,8 +21,14 @@ const ClosingButton = () => {
   };
 
   return (
-    <Button variant={"secondary"} className="self-end" onClick={handleClose}>
-      {errorDialogCloseButton()}
+    <Button
+      variant={errorType === "noResults" ? "default" : "secondary"}
+      className="self-end"
+      onClick={handleClose}
+    >
+      {errorType === "noResults"
+        ? errorDialogStartOverButton()
+        : errorDialogCloseButton()}
     </Button>
   );
 };
