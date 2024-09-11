@@ -46,6 +46,7 @@ const NamedArea = () => {
   });
 
   useEffect(() => {
+    if (areaType === "bbox") return;
     if (!suggestedAreas || suggestedAreas.length === 0) {
       toggleDialog("inputStepper", false);
       setErrorType("noLocations");
