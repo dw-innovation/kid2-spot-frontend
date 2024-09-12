@@ -7,7 +7,7 @@ import ResultsStoreInterface, {
 const useResultsStore = create<ResultsStoreInterface>((set) => ({
   geoJSON: null,
   setGeoJSON: (geoJSON) => set({ geoJSON }),
-  clearGeoJSON: () => set({ geoJSON: null, sets: [] }),
+  clearGeoJSON: () => set({ geoJSON: null, sets: [], spots: [] }),
   sets: [],
   setSets: (sets) => set({ sets }),
   toggleVisible: (id) =>
