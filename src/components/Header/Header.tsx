@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
-        <div className="flex items-end gap-5">
+        <div className="flex items-end gap-5 ml-2">
           <div
             className="flex gap-2 items-end"
             style={{ transform: "translateY(-4px)" }}
