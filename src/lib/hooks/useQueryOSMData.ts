@@ -7,6 +7,7 @@ import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import { fetchOSMData } from "../apiServices";
 import { setResults } from "../utils";
+import useResultsStore from "@/stores/useResultsStore";
 
 type Props = {
   onSuccessCallbacks?: ((data: OSMData) => void)[];
@@ -29,6 +30,8 @@ const useQueryOSMData = ({
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const queryClient = useQueryClient();
+  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
+  const clearSets = useResultsStore((state) => state.clearSets);
 
   const queryKey: QueryKey = ["osmData"];
 
@@ -53,6 +56,8 @@ const useQueryOSMData = ({
   useEffect(() => {
     if (isSuccess && data) {
       if (data.results.features.length === 0) {
+        clearGeoJSON();
+        clearSets();
         toggleDialog("error", true);
         setError("noResults");
       } else {
