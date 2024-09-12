@@ -3,11 +3,11 @@ import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
+import useResultsStore from "@/stores/useResultsStore";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import { fetchOSMData } from "../apiServices";
 import { setResults } from "../utils";
-import useResultsStore from "@/stores/useResultsStore";
 
 type Props = {
   onSuccessCallbacks?: ((data: OSMData) => void)[];
