@@ -27,15 +27,23 @@ const Header = () => {
     <div className="flex gap-2">
       <div className="flex items-center justify-between flex-1">
         <div className="flex items-end gap-5">
-          <div className="flex gap-2 items-end">
-            <SpotLogo />
+          <div
+            className="flex gap-2 items-end"
+            style={{ transform: "translateY(-4px)" }}
+          >
+            <div style={{ transform: "translateY(4px)" }}>
+              <SpotLogo />
+            </div>
             <div className="flex  items-baseline gap-2">
               <BetaIcon className="w-10" />
               <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
             </div>
           </div>
         </div>
-        <h2 className="pb-1 text-lg font-semibold leading-none font-inter text-muted-foreground ">
+        <h2
+          className="pb-1 text-lg font-semibold font-inter text-muted-foreground "
+          style={{ transform: "translateY(4px)" }}
+        >
           Geospatial search for OpenStreetMap
         </h2>
         <div className="items-start hidden gap-2 md:flex">
