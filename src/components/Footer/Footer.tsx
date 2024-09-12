@@ -45,7 +45,7 @@ const Footer = () => {
       </div>
       |
       {ITEMS.map((item) => (
-        <div key={item.text} className="text-sm text-muted-foreground">
+        <div key={item.text} className="text-muted-foreground">
           <a
             href="#"
             onClick={(e) => {
