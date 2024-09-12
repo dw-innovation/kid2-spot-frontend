@@ -59,6 +59,9 @@ const GeoJSONResults: FC<GeoJSONResultsProps> = (props) => {
           }
         )
       );
+    } else {
+      // in case we clear the results
+      setDeflatedFeatures(null);
     }
   }, [geoJSON, mapZoom, sets]);
 
