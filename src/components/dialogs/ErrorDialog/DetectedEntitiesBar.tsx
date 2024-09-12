@@ -19,7 +19,7 @@ const DetectedEntitiesBar = () => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-wrap">
       {nodes.map(({ id, name }, index) => (
         <Button key={index} onClick={() => handleEntityClick(id)}>
           <Pencil1Icon /> {capitalize(name)}
