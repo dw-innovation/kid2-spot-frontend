@@ -38,16 +38,14 @@ const NamedArea = () => {
     isError,
   } = useQuery<NominatimPlace[]>({
     queryKey,
-    queryFn: () => {
-      return fetchAreas(areaName);
-    },
+    queryFn: () => fetchAreas(areaName),
     enabled: !!areaName && areaType !== "bbox",
     retry: false,
   });
 
   useEffect(() => {
-    if (areaType === "bbox") return;
-    if (!suggestedAreas || suggestedAreas.length === 0) {
+    if (areaType === "bbox" || !suggestedAreas) return;
+    if (suggestedAreas.length === 0) {
       toggleDialog("inputStepper", false);
       setErrorType("noLocations");
       toggleDialog("error", true);
@@ -59,6 +57,10 @@ const NamedArea = () => {
       ? suggestedAreas[0].display_name
       : "";
 
+    setSelectedAreaName(displayName);
+    setSearchAreaName(displayName);
+    setSearchAreaGeometry(suggestedAreas[0].geojson);
+
     if (suggestedAreas && suggestedAreas.length === 1) {
       trackAction("inputStepper", "areaSet", displayName);
       const bounds = suggestedAreas[0].boundingbox.map((b) => parseFloat(b));
@@ -66,14 +68,7 @@ const NamedArea = () => {
         [bounds[0], bounds[2]],
         [bounds[1], bounds[3]],
       ]);
-      setSelectedAreaName(displayName);
-      setSearchAreaName(displayName);
-      setSearchAreaGeometry(suggestedAreas[0].geojson);
       nextStep();
-    } else {
-      setSelectedAreaName(displayName);
-      setSearchAreaName(displayName);
-      setSearchAreaGeometry(suggestedAreas[0].geojson);
     }
   }, [suggestedAreas, setSearchAreaName, nextStep]);
 
