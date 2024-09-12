@@ -1,9 +1,8 @@
-import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
-import useResultsStore from "@/stores/useResultsStore";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 import { fetchOSMData } from "../apiServices";
@@ -29,11 +28,8 @@ const useQueryOSMData = ({
   const spotQuery = useSpotQueryStore((state) => state.spotQuery);
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
-  const queryClient = useQueryClient();
-  const clearGeoJSON = useResultsStore((state) => state.clearGeoJSON);
-  const clearSets = useResultsStore((state) => state.clearSets);
 
-  const queryKey: QueryKey = ["osmData"];
+  const queryKey: QueryKey = ["osmData", spotQuery];
 
   const queryResult = useQuery<OSMData, AxiosError>({
     queryKey,
@@ -56,12 +52,10 @@ const useQueryOSMData = ({
   useEffect(() => {
     if (isSuccess && data) {
       if (data.results.features.length === 0) {
-        clearGeoJSON();
-        clearSets();
+        setResults(data);
         toggleDialog("error", true);
         setError("noResults");
       } else {
-        queryClient.setQueryData(queryKey, data);
         setResults(data);
       }
 
