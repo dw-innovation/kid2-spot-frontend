@@ -8,17 +8,19 @@ Familiarize yourself with the basic types of OSM data before starting to build q
 There are three main types of object in the OSM database: nodes, ways, relations.
 
 **Nodes**: 
+![Node](/images/node.png 'Node')
+
 (pic like here https://publish.obsidian.md/dukera-gewel/How+to+Use+Overpass+Turbo)
 
 A node is a specific point on Earth's surface, defined by latitude and longitude, with an ID number and coordinates. Nodes can be used to define standalone point features (park bench, fountain). Nodes are used to shape line features in ways (road, lakes, parks) and nodes can be included as a member of a more complex structure in relations () 
 
 **Ways**: 
-(pic like here https://publish.obsidian.md/dukera-gewel/How+to+Use+Overpass+Turbo)
+![Way](/images/way.png 'Way')
 
 Ways are ordered lists of nodes that form polylines or polygons. Ways are used to represent linear features such as rivers and roads. A way becomes a polygon if the sequence of nodes is closed (the last node is the same as the first node). 
 
 **Relations**: 
-(pic https://publish.obsidian.md/dukera-gewel/How+to+Use+Overpass+Turbo)
+![Relation](/images/relation.png 'Relation')
 
 Relations are more complex data structures used to define relationships between two or more data elements (nodes, ways, and other relations). Relations can describe various situations such as: 
 Routes: A sequence of ways that create a larger itinerary, like a bus route or a long-distance hiking trail or a major highway. 
