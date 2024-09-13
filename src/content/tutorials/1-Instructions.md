@@ -3,38 +3,36 @@ slug: instructions
 order: 1
 ---
 
-SPOT is an AI-powered tool designed to assist journalists and the OSINT community in verifying locations. It allows users to identify geospatial information patterns, such as "a shopping mall near a traffic light with a park within 300 meters in Nairobi," by using natural language prompts in OpenStreetMap.
+SPOT is an AI-powered tool designed to help journalists and the OSINT community in verifying locations. Identifying the exact location is essential for verifying where an image or video was taken and for gathering information fro corss-referencing eyewitnesses and official reports. 
+
+**Why SPOT**
+The tool enables users to find geospatial patterns by using natural language prompts on OpenStreetMap. This involves describing distinctive geospatial elements visible in the image, such as landmarks, infrastructure or buildings, and instruct SPOT to search for locations where these connected elements are.
 
 **How to get started**
-There are two steps necessary:
 1. sign in to SPOT 
 2. write your prompt 
 
-A good prompt in SPOT is clear sentence which contains a location like a country or city, visuals clues like buildings or infrastructure and the distances to each other in unites of measurements like metres or kilometres. This information ensures the system to provides the most accurate results for your search.
+**How to prompt in SPOT**
+A good prompt in SPOT is clear sentence which contains a location like a country or city, visuals clues like buildings or infrastructure and the distances to each other in unites of measurements like meters or kilometers. This information ensures the system to provides the most accurate results for your search.
+For example: **"Show me all shopping malls near a traffic light with a park within 300 meters in Nairobi"**
 
 **Results**
-SPOT will display matching results within your search area based on your prompt. If you've defined multiple visual clues with specific distances between them, SPOT will highlight the results in individual colored circles. Click a circle to view the location on Google, Bing, Yandex and if available, view it in Street View.
+SPOT will display matching results within your search area based on your prompt. If you've defined multiple geospatial elements with specific distances between them, SPOT will highlight the results in individual colored circles. Just click on a circle to view the location on Google, Bing, Yandex and if available, view it in Google Street View directly in SPOT.
 
-You can always refine your prompt in "Your search" and zoom in to adjust the search area.
+You can refine your prompt in the field box "Your search" and zoom in on the right to adjust the search area. If you like to adjust the distances between the elements, open the **Search Parameters**. 
 
-**Let's do a test together:**
-Start with the following prompt: 
-"Find me a church and a mall in Berlin" and click search. You'll see many results.
-Now, refine the prompt to:
-"Find me a church 20 metres next to a mall in Berlin" and you'll get just one. 
+**Let's do it together:**
+1. Enter the prompt "Find me a church and a mall in Berlin" and click search. You will see many results.
+2. Refine the prompt "Find me a church 20 meters next to a mall in Berlin" and you will get just one result. 
 
-Keep in mind, the results are based on data from OpenStreetMap, a crowdsourced mapping service. If a church you know is 20 meters from a mall in Berlin and doesn't appear in SPOT, it might be because the information hasn't been added to OSM yet.
+**Keep in mind** 
+The results in SPOT are based on data from OpenStreetMap, a crowdsourced mapping platform. If a church you know is 20 meters from a mall in Berlin and doesn't appear in SPOT, it could be because the information hasn't been added to OpenStreetMap yet. You can add it. 
 
-**Examples**
-Some videos or images are easier to geolocate than others, when it comes with location info in the metadata or the visual itself. As well as a reverse image search tools like Google Lens or Yandex can automatically identify the location.
-When none of these apply, geolocation becomes more challenging and requires a more methodical approach. Here we take you step-by-step through visual analyses to find the location with SPOT. 
+**Tips**
+Location data might be attached in metadata of the image and video https://www.howtoverify.info/Image/Where/Metadata. As well as a reverse image search can help to identify the location or specific pbjetcs in the visual. https://www.howtoverify.info/Image/Where/Geolocation/Object_identification/RIS_(Image) 
+When none of these apply, geolocation becomes more challenging and requires a more methodical approach. 
 
-Example 1:
-Create a list of 20 specific details, like street signs, restaurant names, architecture, or logos, to help focus your search for visual clues. Even if the content is low quality, enhancing it might assist your investigation (Link to howtoverify). By listing these clues—such as street names, shops, cars, landmarks, and more—you can ensure no information is overlooked, making it easier to identify key details that can be written in the prompt. 
-
-..... example...
-
-Example 2:
-Let’s start with the scenario where you’ve spoken to a source over the phone who describes what happened and where it occurred.
-
-..... example...
+**First steps** 
+Look at this image and create a list with 10 geospatial elements you can detect on it. For example, street signs, restaurant names, parks, trains. If you want to challenge yourself, go till 20 hints. 
+If the visual is low quality, enhance it https://www.howtoverify.info/Image/What/Enhance_Image_(Image) 
+Use the first two hints from your list and start writing your prompt. Now you can refine it and narrow down your search. Did you find it? Share the result with us here.

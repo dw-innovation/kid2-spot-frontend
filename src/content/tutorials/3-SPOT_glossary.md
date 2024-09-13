@@ -3,7 +3,7 @@ slug: glossary
 order: 3
 ---
 
-We created a SPOT glossary to understand the user interface and all its elements and the architecture behind it . 
+We have created a SPOT glossary to understand the user interface. Let us know if anything is unclear here. 
 
 **Your search:** SPOT takes a natural language sentence, extracts all entities and relations, and provides you with the information you're looking for.  
 

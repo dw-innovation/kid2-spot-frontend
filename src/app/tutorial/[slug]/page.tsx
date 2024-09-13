@@ -35,7 +35,7 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
             href={`/tutorial/${item.slug}`}
             key={index}
             className={cn(
-              "text-white hover:text-yellow-300 hover:underline py-1 px-2 rounded",
+              "text-white hover:text-yellow-300 hover:underline py-1 px-2 rounded capitalize",
               slug === item.slug && "underline text-yellow-300"
             )}
           >
