@@ -1,3 +1,8 @@
+---
+slug: example
+order: 2
+---
+
 We have an image taken in Amsterdam, The Netherlands, and our goal is to pinpoint the exact location where it was captured.
 
 ![Bicycle park](/images/bicycle-park.jpg 'Bicycle park')
