@@ -10,8 +10,6 @@ There are three main types of object in the OSM database: nodes, ways, relations
 **Nodes**: 
 ![Node](/images/node.png 'Node')
 
-(pic like here https://publish.obsidian.md/dukera-gewel/How+to+Use+Overpass+Turbo)
-
 A node is a specific point on Earth's surface, defined by latitude and longitude, with an ID number and coordinates. Nodes can be used to define standalone point features (park bench, fountain). Nodes are used to shape line features in ways (road, lakes, parks) and nodes can be included as a member of a more complex structure in relations () 
 
 **Ways**: 
