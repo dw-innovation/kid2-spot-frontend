@@ -79,6 +79,9 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
                 {...props}
               />
             ),
+            a: ({ node, ...props }) => (
+              <a className="underline hover:no-underline" {...props} />
+            ),
           }}
         >
           {content}
