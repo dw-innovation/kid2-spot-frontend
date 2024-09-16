@@ -1,6 +1,6 @@
 ---
 slug: collaboration
-order: 5
+order: 6
 ---
 
 SPOT is not perfect, and perfection is not our goal. Our aim is to provide a tool that significantly simplifies location verification and helps your research. It can be used to verify the locations of images and videos, and to conduct location research. 

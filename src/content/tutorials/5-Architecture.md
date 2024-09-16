@@ -1,6 +1,6 @@
 ---
 slug: architecture
-order: 4
+order: 5
 ---
 
 ... let's see ... 

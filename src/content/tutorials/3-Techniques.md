@@ -1,6 +1,6 @@
 ---
 slug: techniques
-order: 2
+order: 3
 ---
 
 Results on SPOT are based on data from OpenStreetMap. OpenStreetMap (OSM) is a crowdsourced project that creates and provides free geographic data, giving everyone the opportunity to create maps of the world. The OSM database holds detailed information about nearly every square meter of the planet’s surface. It includes data on building types, infrastructure, restaurants, street names, parks and even park benches and millions of other data points, all centrally mapped.
