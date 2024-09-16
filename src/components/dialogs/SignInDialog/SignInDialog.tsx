@@ -20,6 +20,10 @@ const PROVIDERS: Provider[] = [
     id: "github",
     label: "GitHub",
   },
+  {
+    id: "google",
+    label: "Google",
+  },
 ];
 
 const SignInDialog: React.FC = () => {
