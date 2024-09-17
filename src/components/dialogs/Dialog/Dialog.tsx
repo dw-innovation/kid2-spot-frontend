@@ -47,7 +47,7 @@ const Dialog = ({
         className={cn(
           isWide ? "max-w-[800px]" : "sm:max-w-[425px]",
           "z-[20000] max-h-[90vh]",
-          "overflow-hidden",
+          "overflow-scroll",
           className
         )}
         showCloseButton={showCloseButton}
