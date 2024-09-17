@@ -14,6 +14,13 @@ type Props = {
   };
 };
 
+const extractMaxWidth = (title: string | undefined): string | null => {
+  if (!title) return null;
+
+  const match = title.match(/max-width:(\d+)/);
+  return match ? `${match[1]}px` : null;
+};
+
 const TutorialPage = async ({ params: { slug } }: Props) => {
   const content = loadMarkdownContent(slug);
   const tutorials = getOrderedSlugs();
@@ -64,9 +71,17 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
             ol: ({ node, ...props }) => (
               <ol className="list-decimal list-inside mb-4" {...props} />
             ),
-            img: ({ node, ...props }) => (
-              <img className="max-w-md mx-auto" {...props} />
-            ),
+            img: ({ node, ...props }) => {
+              const maxWidth = extractMaxWidth(props.title);
+
+              return (
+                <img
+                  style={{ maxWidth: maxWidth }}
+                  className={cn(!maxWidth && "mx-auto max-w-md")}
+                  {...props}
+                />
+              );
+            },
             code: ({ node, ...props }) => (
               <code
                 className="bg-gray-200 text-red-600 p-1 rounded"
