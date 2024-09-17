@@ -17,11 +17,11 @@ export const STRINGS = {
 Deutsche Welle | DW 
 
 represented by the Director General Peter Limbourg 
-
+##
 Kurt-Schumacher-Str. 3 
 
-53113 Bonn 
-
+53113 Bonn
+##
 Phone: 0049 228 429-0 
 
 E-Mail: [info@dw.com](mailto:info@dw.com)
