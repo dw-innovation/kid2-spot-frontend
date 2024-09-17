@@ -76,7 +76,7 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
 
               return (
                 <img
-                  style={{ maxWidth: maxWidth }}
+                  style={maxWidth ? { maxWidth } : undefined}
                   className={cn(!maxWidth && "mx-auto max-w-md")}
                   {...props}
                 />
