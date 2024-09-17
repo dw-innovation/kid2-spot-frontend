@@ -4,7 +4,7 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 import BetaIcon from "@/assets/icons/BetaIcon";
 import SpotLogo from "@/assets/icons/SpotLogo";
-import SpotSelector from "@/components/SpotSelector";
+// import SpotSelector from "@/components/SpotSelector";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -47,11 +47,11 @@ const Header = () => {
           Geospatial search for OpenStreetMap
         </h2>
         <div className="items-start hidden gap-2 md:flex">
-          <SpotSelector />
+          {/* <SpotSelector /> */}
           <MenuItems />
         </div>
         <div className="flex items-start gap-2 md:hidden">
-          <SpotSelector />
+          {/* <SpotSelector /> */}
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
             <SheetTrigger className="block md:hidden" asChild>
               <Button onClick={() => setOpen((prev) => !prev)}>
