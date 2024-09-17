@@ -19,6 +19,11 @@ We have created a SPOT glossary to understand the user interface. Let us know if
 
 **Map Legend**: explanatory section at the bottom left corner of the map, explaining coloring of results that are displayed. 
 
+**Bounding Box** 
+The bounding box defines the extent of a geographic area. It is represented by two pairs of coordinates 
+	The coordinates for the lower-left corner (minimum longitude, minimum latitude) 
+	The coordinates for the upper-right corner (maximum longitude, maximum latitude)
+
 **Actions**: Share, save or export results in KML (Keyhole Markup Language), a file format used to display geographic data in Earth browsers such as Google Earth.  
 
 **KML** (Keyhole Markup Language) is a file format used to display geographic data in Earth browsers like Google Earth. It is an XML-based format for representing 3D geospatial data. 

@@ -18,3 +18,5 @@ What can we do to improve the system? Any idea is weclome and will be carefully 
 **Feedback**
 
 Always remember, every investigation is worthwhile when it comes to strengthening your skills (quote by Bellingcat). We value your feedback and want to hear from you.
+
+And of course you can spread your work by sharing your session or create screenshots with © SPOT/OpenStreetMap. 
