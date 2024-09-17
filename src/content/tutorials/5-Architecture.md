@@ -21,12 +21,3 @@ The tool performs best when the user input closely resembles the sentences in th
 **Use full sentences** While the system is designed to understand short, straightforward queries and tolerate minor typos, using overly abbreviated language may cause issues. Stick to complete sentences where possible.
 
 **More behind the scenes** on [GitHub](https://github.com/dw-innovation/kid2-spot)
-
-**YAML** 
-is a human-readable data serialization format that can be used in conjunction with all programming languages and is often used for configuration files. It focuses on data readability and the simplicity of its syntax. YAML uses indentation to represent hierarchical relationships within data, which makes it particularly suited for configuration where a setting might be nested within a broader category.
-
-**Natural Language API** 
-that takes a natural language sentence, extracts all entities (and their properties) and relations, outputs a YAML representation of the sentences, finds all corresponding OSM tags and returns a JSON representation (IMR) that can be consumed by the OSM Query API and the frontend. 
-
-**OSM Query API** 
-that validates the IMR (type and formatting checks as well as logical tests), generates the PostGIS query, runs it against the OSM database and post-processed the result from the database to return map data that can be consumed by the frontend.  

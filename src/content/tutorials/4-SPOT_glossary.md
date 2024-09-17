@@ -3,21 +3,21 @@ slug: glossary
 order: 4
 ---
 
-We have created a SPOT glossary to understand the user interface. Let us know if anything is unclear here. 
+We have created a SPOT glossary to help you understand the user interface. Let us know if anything is unclear here. 
 
 **Your search:** SPOT takes a natural language sentence, extracts all entities and relations, and provides you with the information you're looking for.  
 
-**Search Parameter**: Refine the search by defining the selected tags. A tag is a combination of a key and a value such as amenity=café 
+**Search Parameters**: Refine the search by defining the selected tags. A tag is a combination of a key and a value such as amenity=café 
 
-**Entities**: An entity refers to one of the basic data elements used to represent geographic features like node, way and relation. Each entity can have associated tags that provide additional information, such as the type of road, the name of a place, or specific attributes like speed limits or surface types.
+**Entities**: An entity is one of the basic data elements used to represent geographic features such as nodes, ways and relations. Each entity can have associated tags that provide additional information, such as the type of a road, the name of a place, or specific attributes like speed limits or surface types.
 
 **OSM Key**: This is the identifier for the attribute you want to describe. It acts as a category or type. For example, "highway", "amenity", "landuse" are common keys in OSM, each relating to different types of geographical features or uses. 
 
 **OSM Value**: The value provides specific information about the attribute identified by the key. It specifies what the attribute actually is for the given feature. For example, for the key "highway", the value might be "motorway", "primary", or "footpath", indicating the type of road or path the way represents. 
 
-**Relations between entities:** You can estimate the distances between the visual clues in numbers in your prompt. However, you can also write near by, close to, on the opposite side and move the cursor up and down to adjust it.
+**Relations between entities:** You can estimate the distances between the visual clues in numbers in your prompt using numbers. However, you can also write nearby, close to, on the opposite side and move the cursor up and down to adjust it.
 
-**Map Legend**: explanatory section at the bottom left corner of the map, explaining coloring of results that are displayed. 
+**Map Legend**: Explanatory text at the bottom left corner of the map, explaining coloring of results that are displayed. 
 
 **Bounding Box** 
 The bounding box defines the extent of a geographic area. It is represented by two pairs of coordinates 
