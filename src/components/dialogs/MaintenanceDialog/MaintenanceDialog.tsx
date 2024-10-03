@@ -2,7 +2,7 @@ import Dialog from "../Dialog";
 
 const DIALOG_NAME = "maintenance";
 
-const DownloadDialog = () => {
+const MaintenanceDialog = () => {
   return (
     <Dialog
       dialogName={DIALOG_NAME}
@@ -14,4 +14,4 @@ const DownloadDialog = () => {
   );
 };
 
-export default DownloadDialog;
+export default MaintenanceDialog;
