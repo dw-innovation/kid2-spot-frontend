@@ -1,4 +1,4 @@
-const MINSIZES = [
+export const MINSIZES = [
   { zoomLevel: 0, minArea: 5000000 }, // Very coarse detail at global level
   { zoomLevel: 3, minArea: 1000000 }, // Continental view
   { zoomLevel: 6, minArea: 100000 }, // Country-level view
