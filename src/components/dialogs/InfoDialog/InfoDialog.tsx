@@ -89,7 +89,7 @@ const InfoDialog = () => {
     <>
       {dialogData && (
         <Dialog dialogName={DIALOG_NAME} dialogTitle={dialogTitle} isWide>
-          <div className="overflow-scroll">
+          <div>
             <ReactMarkdown components={COMPONENTS}>
               {dialogDescription}
             </ReactMarkdown>
