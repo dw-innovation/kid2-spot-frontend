@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Input } from "@/components/ui/input";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
 type Props = {
@@ -13,19 +12,19 @@ const Header = ({ nodeId, name }: Props) => {
     (state) => state.updateNodeDisplayName
   );
 
-  const handleUpdateName = (newName: string) => {
-    updateNodeDisplayName(nodeId, newName);
+  const handleUpdateName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateNodeDisplayName(nodeId, event.target.value);
   };
 
   return (
     <div className="flex items-center text-xl font-bold">
-      <h2 className="mr-2">Edit OSM tags and rules for &quot;</h2>
-      <Input
+      <h2 className="mr-2">Edit OSM tags and rules for</h2>
+      <input
+        type="text"
         value={name}
-        onChange={(e) => handleUpdateName(e.target.value)}
-        className="inline-block w-24 capitalize"
+        onChange={handleUpdateName}
+        className="inline-block w-fit bg-slate-200 rounded-sm px-2 capitalize"
       />
-      <span>&quot;</span>
     </div>
   );
 };
