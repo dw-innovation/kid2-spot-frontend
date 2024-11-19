@@ -4,7 +4,6 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import useTagInfo from "@/lib/hooks/useTagInfo";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import { Filter } from "@/types/spotQuery";
 
@@ -54,11 +53,6 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
     updateRuleValue(nodeId, pathString, keyToUpdate, newValue);
   };
 
-  const { data: allowedValues } = useTagInfo({
-    key: filter.key,
-    isEnabled: filter.key !== "",
-  });
-
   return (
     <div className="flex items-center gap-2 mb-2 connector-container">
       <Connectors />
@@ -95,7 +89,6 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
                 onChange={(e) => {
                   handleUpdate(nodeId, pathString, "value", e.target.value);
                 }}
-                className="w-24"
               />
               <Button
                 onClick={() => handleRemove(nodeId, pathString)}
