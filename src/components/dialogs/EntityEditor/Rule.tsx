@@ -73,6 +73,7 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
               handleUpdate(nodeId, pathString, "operator", event.target.value)
             }
             className=" border border-input bg-background text-sm ring-offset-background rounded-sm shadow-sm h-10 p-1"
+            value={filter.operator}
           >
             {OPTIONS.map((option, index) => (
               <option key={index} value={option.value}>
