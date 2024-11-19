@@ -18,7 +18,7 @@ const SearchCurrentViewButton = () => {
   const searchArea = useSpotQueryStore((state) => state.spotQuery.area.type);
   const bounds = useMapStore((state) => state.bounds);
 
-  const { isFetching, refetch } = useQueryOSMData({
+  const { isFetching, queryOSM } = useQueryOSMData({
     onSuccessCallbacks: [],
   });
 
@@ -31,7 +31,7 @@ const SearchCurrentViewButton = () => {
         bounds[1][0],
       ]);
     }
-    refetch();
+    queryOSM();
   };
 
   return (

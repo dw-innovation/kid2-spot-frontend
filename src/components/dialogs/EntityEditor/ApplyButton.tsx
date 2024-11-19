@@ -13,7 +13,7 @@ const ApplyButton = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
   const clearError = useGlobalStore((state) => state.clearError);
   const spotQuery = useSpotQueryStore((state) => state.spotQuery);
-  const { isLoading, refetch } = useQueryOSMData({});
+  const { isLoading, queryOSM } = useQueryOSMData({});
 
   const prevSpotQueryRef = useRef<SpotQuery>(spotQuery);
 
@@ -30,7 +30,7 @@ const ApplyButton = () => {
     toggleDialog("entityEditor", false);
     toggleDialog("error", false);
     clearError();
-    refetch();
+    queryOSM();
   };
 
   return (

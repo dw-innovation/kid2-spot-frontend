@@ -10,14 +10,14 @@ import QueryAnimation from "../Animation";
 const OSMQueryStep = () => {
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
-  const { isFetching, isSuccess, refetch } = useQueryOSMData({
+  const { isFetching, isSuccess, queryOSM } = useQueryOSMData({
     onSuccessCallbacks: [() => toggleDialog("inputStepper", false)],
     onErrorCallbacks: [() => toggleDialog("inputStepper", false)],
   });
 
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    queryOSM();
+  }, []);
 
   return (
     <InputContainer title="Querying OpenStreetMap" shouldUnmount={isSuccess}>

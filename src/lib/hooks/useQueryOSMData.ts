@@ -1,4 +1,4 @@
-import { QueryKey, useQuery } from "@tanstack/react-query";
+import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 
@@ -25,6 +25,7 @@ const useQueryOSMData = ({
   onErrorCallbacks,
   onSettled,
 }: Props) => {
+  const queryClient = useQueryClient();
   const spotQuery = useSpotQueryStore((state) => state.spotQuery);
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
@@ -93,7 +94,12 @@ const useQueryOSMData = ({
     }
   }, [isSuccess, isError]);
 
-  return queryResult;
+  const queryOSM = async () => {
+    await queryClient.cancelQueries();
+    queryResult.refetch();
+  };
+
+  return { ...queryResult, queryOSM };
 };
 
 export default useQueryOSMData;

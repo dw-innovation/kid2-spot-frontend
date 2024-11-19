@@ -39,7 +39,7 @@ const OSMQuerySubmit = () => {
     }
   }, [spotQuery]);
 
-  const { isFetching, status, refetch } = useQueryOSMData({
+  const { isFetching, status, queryOSM } = useQueryOSMData({
     onSuccessCallbacks: [() => setIsDisabled(true)],
   });
 
@@ -48,7 +48,7 @@ const OSMQuerySubmit = () => {
   const handleButtonClick = () => {
     if (isDisabled) return;
     if (!isFetching) {
-      refetch();
+      queryOSM();
       trackAction("osmQuery", "modal", "loadSession");
     } else {
       queryClient.cancelQueries({ queryKey: ["osmData", spotQuery] });
