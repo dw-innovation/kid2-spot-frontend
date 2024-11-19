@@ -29,7 +29,7 @@ const useQueryOSMData = ({
   const setError = useGlobalStore((state) => state.setError);
   const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
-  const queryKey: QueryKey = ["osmData", spotQuery];
+  const queryKey: QueryKey = ["osmData", JSON.stringify(spotQuery)];
 
   const queryResult = useQuery<OSMData, AxiosError>({
     queryKey,
@@ -41,13 +41,14 @@ const useQueryOSMData = ({
   const { data, error, isSuccess, isError } = queryResult;
 
   const previousSpotQuery = useRef(spotQuery);
+
   useEffect(() => {
     if (
       JSON.stringify(previousSpotQuery.current) !== JSON.stringify(spotQuery)
     ) {
       previousSpotQuery.current = spotQuery;
     }
-  }, [spotQuery]);
+  }, [JSON.stringify(spotQuery)]);
 
   useEffect(() => {
     if (isSuccess && data) {
