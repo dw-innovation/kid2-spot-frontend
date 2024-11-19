@@ -2,10 +2,8 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { TrashIcon } from "@radix-ui/react-icons";
 import React from "react";
 
-import Select from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ALLOWED_TAGS } from "@/lib/const/allowedTags";
 import useTagInfo from "@/lib/hooks/useTagInfo";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 import { Filter } from "@/types/spotQuery";
@@ -66,39 +64,32 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
       <Connectors />
       <div className="flex items-center gap-2 p-1 bg-white rounded-md">
         <div className="flex items-end gap-2">
-          <div className="flex flex-col justify">
+          <div className="flex flex-col">
             <Label className="text-xs font-semibold">OSM key</Label>
-            <Select
+            <Input
               value={filter.key}
-              options={ALLOWED_TAGS}
-              onSelect={(value) =>
-                handleUpdate(nodeId, pathString, "key", value)
+              onChange={(event) =>
+                handleUpdate(nodeId, pathString, "key", event.target.value)
               }
-              className="w-24"
             />
           </div>
 
-          <Select
-            value={filter.operator}
-            options={OPTIONS}
-            onSelect={(value) =>
-              handleUpdate(nodeId, pathString, "operator", value)
+          <select
+            onChange={(event) =>
+              handleUpdate(nodeId, pathString, "operator", event.target.value)
             }
-            className="w-6"
-            showIndicator={false}
-          />
+            className=" border border-input bg-background text-sm ring-offset-background rounded-sm shadow-sm h-10 p-1"
+          >
+            {OPTIONS.map((option, index) => (
+              <option key={index} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
           <div>
             <Label className="text-xs font-semibold">OSM value</Label>
-            {allowedValues && allowedValues.length > 0 ? (
-              <Select
-                value={filter.value}
-                options={allowedValues || []}
-                onSelect={(value) =>
-                  handleUpdate(nodeId, pathString, "value", value)
-                }
-                className="w-fit"
-              />
-            ) : (
+            <div className="flex gap-2 items-center">
               <Input
                 value={filter.value}
                 onChange={(e) => {
@@ -106,18 +97,17 @@ const Rule = ({ filter, nodeId, pathString }: Props) => {
                 }}
                 className="w-24"
               />
-            )}
+              <Button
+                onClick={() => handleRemove(nodeId, pathString)}
+                variant={"outline"}
+                size="fit"
+                className="flex justify-center"
+              >
+                <TrashIcon />
+              </Button>
+            </div>
           </div>
         </div>
-
-        <Button
-          onClick={() => handleRemove(nodeId, pathString)}
-          variant={"outline"}
-          size="fit"
-          className="flex justify-center"
-        >
-          <TrashIcon />
-        </Button>
       </div>
     </div>
   );
