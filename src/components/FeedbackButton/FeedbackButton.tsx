@@ -5,10 +5,12 @@ import FeedbackIcon from "@/assets/icons/FeedbackIcon";
 const FeedbackButton = () => {
   const [stripeWidth, setStripeWidth] = useState(0);
   const [hover, setHover] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    setStripeWidth(ref?.current?.clientWidth);
+    if (ref.current) {
+      setStripeWidth(ref.current.clientWidth);
+    }
   }, [ref]);
 
   return (
