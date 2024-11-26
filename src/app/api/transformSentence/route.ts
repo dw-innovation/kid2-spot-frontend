@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
       },
       data: {
         ...data,
+        username: session.user?.name,
         model: process.env.NLP_MODEL || "t5",
       },
     });
