@@ -15,7 +15,7 @@ interface Provider {
   label: string;
 }
 
-/* const PROVIDERS: Provider[] = [
+const PROVIDERS: Provider[] = [
   {
     id: "github",
     label: "GitHub",
@@ -24,8 +24,8 @@ interface Provider {
     id: "google",
     label: "Google",
   },
-]; */
-const PROVIDERS: Provider[] = [];
+];
+//const PROVIDERS: Provider[] = [];
 
 const SignInDialog: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
