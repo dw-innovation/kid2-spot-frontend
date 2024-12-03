@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Spot - The easy way to find locations",
+  title: "SPOT - the easy way to verify locations",
   description:
     "Spot is a tool for finding combinations of objects in the public space world-wide.",
   icons: [
