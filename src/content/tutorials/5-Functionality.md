@@ -1,10 +1,10 @@
 ---
-slug: architecture
+slug: functionality
 order: 5
 ---
 **How the system works**
 
-The tool is based on a machine learning model (Llama3) trained on a dataset of artificially generated sentences. These sentences are created by randomly selecting areas, objects from a fixed database, spatial terms (such as “nearby”), and distance values. A large language model then converts this information into natural language sentences.
+The tool is based on a machine learning model (Llama3) trained on a dataset of artificially generated sentences. These sentences are created by randomly selecting areas, objects from a fixed database, spatial terms (such as “nearby”), and distance values. A large language model then converts this information into natural language sentences that are used as training data for adapting Llama3 to our task.
 
 When the tool is in use, the user's input sentence is analysed by the model to extract key information, such as area specifications, object references, and spatial relationships. The object references are matched to the underlying object database, which assigns the corresponding OSM tags that best fit the description.
 
