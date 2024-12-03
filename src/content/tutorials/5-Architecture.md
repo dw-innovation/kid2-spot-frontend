@@ -20,4 +20,4 @@ The tool performs best when the user input closely resembles the sentences in th
 
 **Use full sentences** While the system is designed to understand short, straightforward queries and tolerate minor typos, using overly abbreviated language may cause issues. Stick to complete sentences where possible.
 
-**More behind the scenes** on [GitHub](https://github.com/dw-innovation/kid2-spot)
+**More behind the scenes** on [GitHub](https://github.com/dw-innovation/kid2-spot). Feel free to reach out if you'd like to collaborate with us on SPOT.

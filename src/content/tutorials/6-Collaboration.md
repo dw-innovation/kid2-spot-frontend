@@ -9,11 +9,16 @@ Collaboration and transparency is at the heart of our development process, and w
 
 **Reporting bugs**
 
-If you notice any inconsistencies or bugs, such as the map not loading properly, incorrect results, or missing entities, please let us know via hey@findthatspot.io. 
+If you notice any inconsistencies or bugs, such as the map not loading properly, incorrect results, or missing entities, please let us know via our feedback formular [here](https://forms.office.com/e/1er3hx6GrX). 
+ 
 
 **Pointing out weaknesses**
 
-What can we do to improve the system? Any idea is weclome and will be carefully considered and discussed by our team. 
+What can we do to improve the system? Any idea is weclome and will be carefully considered and discussed by our team. Send us an email to hey@findthatspot.io
+
+**Collaboration**
+
+Check out our [GitHub repository](https://github.com/dw-innovation/kid2-spot), and feel free to reach out if you'd like to collaborate with us on SPOT.
 
 **Feedback**
 

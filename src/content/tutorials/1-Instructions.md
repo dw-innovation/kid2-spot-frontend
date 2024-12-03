@@ -3,7 +3,7 @@ slug: instructions
 order: 1
 ---
 
-SPOT is an AI-powered tool designed to help journalists and the OSINT community in find the locations they are searching for. Identifying the exact location is essential for verifying where an image or video was taken and for gathering information to cross-reference eyewitness and official reports. 
+SPOT is an AI-powered tool designed to help journalists and the OSINT community in finding the locations they are searching for. Identifying the exact location is essential for verifying where an image or video was taken and for gathering information to cross-reference eyewitness and official reports. 
 
 **Why SPOT**
 The tool allows users to find geospatial patterns by using natural language prompts on OpenStreetMap. This involves describing distinctive geospatial elements visible in the image, such as landmarks, infrastructure or buildings, and instructing SPOT to search for locations where these related elements are located.
@@ -12,9 +12,11 @@ The tool allows users to find geospatial patterns by using natural language prom
 1. Sign in to SPOT 
 2. Write your prompt 
 
+You can sign in using your GitHub or Google account, or enter your existing credentials if you already have an account. https://www.findthatspot.io/
+
 **How to prompt in SPOT**
 
-A good prompt in SPOT is a clear sentence that contains a location like a country or city, visual clues like buildings or infrastructure and their distances to each other in units like measurements like meters or kilometers. This information helps the system provide the most accurate results for your search.
+A good prompt in SPOT is a clear sentence that contains a location like a country or city, visual clues like buildings or infrastructure and their distances to each other in units like measurements like meters or kilometers. This information helps the system provide the most accurate results for your search. It supports multiple languages, but English is the most effective.
 
 For example:**"Show me all shopping malls near a traffic light with a park within 300 meters in Nairobi"**
 
