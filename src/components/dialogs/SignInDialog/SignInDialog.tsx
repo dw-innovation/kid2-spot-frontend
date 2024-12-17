@@ -24,6 +24,10 @@ const PROVIDERS: Provider[] = [
     id: "google",
     label: "Google",
   },
+  {
+    id: "azuread",
+    label: "Microsoft SSO (DW)",
+  },
 ];
 //const PROVIDERS: Provider[] = [];
 
