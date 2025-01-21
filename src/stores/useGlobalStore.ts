@@ -102,7 +102,7 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     })),
   dialogs: DIALOGS.map((dialog) => ({
     name: dialog,
-    isOpen: dialog === "inputStepper" ? true : false,
+    isOpen: dialog === "inputStepper",
   })),
   toggleDialog: (name, isOpen) =>
     set((state) => ({ dialogs: toggleDialog(state.dialogs, name, isOpen) })),
