@@ -21,8 +21,8 @@ const TileLayer = ({ layerType }: Props) => (
 
     {layerType === "satellite" && (
       <LeafletTileLayer
-        url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/{z}/{x}/{y}?access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`}
-        attribution='© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url={`https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
+        attribution='© <a href="https://www.maptiler.com/">MapTiler</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
     )}
   </>
