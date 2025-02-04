@@ -28,6 +28,7 @@ const MapContainer = () => {
           className="w-full h-full"
           bounds={bounds}
           zoomControl={false}
+          attributionControl={false}
         >
           <MapInterface />
           <TileLayer layerType={tilesLayer} />
