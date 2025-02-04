@@ -15,10 +15,10 @@ import { cn } from "@/lib/utils";
 import LayerItem from "./LayerItem";
 
 const LAYERS = [
-  {
+  /* {
     name: "Vector Map",
     value: "vector",
-  },
+  }, */
   {
     name: "Hybrid Map",
     value: "satellite",
