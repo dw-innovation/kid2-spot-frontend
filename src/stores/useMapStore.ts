@@ -11,7 +11,7 @@ const useMapStore = create<MapStoreInterface>((set) => ({
   mapCenter: { lat: 52.540906, lng: 13.383965 },
   mapZoom: 13,
   setMapZoom: (mapZoom) => set({ mapZoom }),
-  tilesLayer: "vector",
+  tilesLayer: "osm",
   setTilesLayer: (newLayer: "vector" | "satellite" | "osm") =>
     set({ tilesLayer: newLayer }),
   initialize: (initialData) =>
