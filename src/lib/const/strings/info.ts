@@ -30,7 +30,7 @@ VAT ID: DE123052407 
 
 ## Attribution
 
-SPOT utilizes Leaflet as its mapping library and OpenStreetMap (OSM) data for map visualization.. 
+SPOT utilizes Leaflet as its mapping library and OpenStreetMap (OSM) data for map visualization.
 
 ## Privacy Policy 
 
