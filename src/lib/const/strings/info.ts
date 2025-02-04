@@ -28,6 +28,10 @@ E-Mail: [info@dw.com](mailto:info@dw.com)
 
 VAT ID: DE123052407 
 
+## Attribution
+
+SPOT utilizes Leaflet as its mapping library and OpenStreetMap (OSM) data for map visualization.. 
+
 ## Privacy Policy 
 
 We strongly support the right to privacy. Protecting your personal data and treating it in a confidential way is something we take seriously. We'll process your personal data exclusively within the legal framework of the data protection provisions of the European Union, particularly the General Data Protection Regulation (hereinafter: GDPR). 
