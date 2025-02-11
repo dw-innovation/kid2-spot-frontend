@@ -16,9 +16,7 @@ const TileLayer = ({ layerType }: Props) => (
     )}
 
     {layerType === "vector" && (
-      <VectorTileLayer
-        styleUrl={`https://tiles.versatiles.org/assets/styles/colorful/style.json`}
-      />
+      <VectorTileLayer styleUrl={`/vectorStyles/style.json`} />
     )}
 
     {layerType === "satellite" && (
