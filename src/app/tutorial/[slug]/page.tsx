@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+import VideoPlayer from "@/components/VideoPlayer";
 import {
   getOrderedSlugs,
   loadMarkdownContent,
@@ -94,9 +95,19 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
                 {...props}
               />
             ),
-            a: ({ node, ...props }) => (
-              <a className="underline hover:no-underline" {...props} />
-            ),
+            a: ({ node, href, ...props }) => {
+              if (props.children === "youtube" && href) {
+                return <VideoPlayer videoUrl={href} />;
+              }
+
+              return (
+                <a
+                  className="underline hover:no-underline"
+                  href={href}
+                  {...props}
+                />
+              );
+            },
           }}
         >
           {content}

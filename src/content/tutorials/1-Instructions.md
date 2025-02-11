@@ -3,7 +3,9 @@ slug: instructions
 order: 1
 ---
 
-SPOT is an AI-powered tool designed to help journalists and the OSINT community in finding the locations they are searching for. Identifying the exact location is essential for verifying where an image or video was taken and for gathering information to cross-reference eyewitness and official reports. 
+
+
+[youtube](https://youtube.com/embed/ULDRe0s3fg8) SPOT is an AI-powered tool designed to help journalists and the OSINT community in finding the locations they are searching for. Identifying the exact location is essential for verifying where an image or video was taken and for gathering information to cross-reference eyewitness and official reports. 
 
 **Why SPOT**
 The tool allows users to find geospatial patterns by using natural language prompts on OpenStreetMap. This involves describing distinctive geospatial elements visible in the image, such as landmarks, infrastructure or buildings, and instructing SPOT to search for locations where these related elements are located.
