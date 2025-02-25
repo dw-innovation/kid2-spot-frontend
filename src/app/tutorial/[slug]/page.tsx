@@ -97,7 +97,10 @@ const TutorialPage = async ({ params: { slug } }: Props) => {
             ),
             a: ({ node, href, ...props }) => {
               if (props.children === "youtube" && href) {
-                return <VideoPlayer videoUrl={href} />;
+                const [videoUrl, posterUrl] = href.split(",");
+                return (
+                  <VideoPlayer videoUrl={videoUrl} posterUrl={posterUrl} />
+                );
               }
 
               return (

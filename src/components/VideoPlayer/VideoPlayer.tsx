@@ -1,38 +1,56 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import { Button } from "../ui/button";
 
 type Props = {
   videoUrl: string;
+  posterUrl: string;
 };
 
-const VideoPlayer = ({ videoUrl }: Props) => {
-  const [showPlayer, setShowPlayer] = useState(false);
+const VideoPlayer = ({ videoUrl, posterUrl }: Props) => {
+  const youTubeConsent = useGlobalStore((state) => state.youTubeConsent);
+  const toggleYouTubeConsent = useGlobalStore(
+    (state) => state.toggleYouTubeConsent
+  );
 
   const handleClick = () => {
-    setShowPlayer(true);
+    toggleYouTubeConsent();
   };
 
   return (
     <>
       <div className="my-4 flex justify-center">
-        {!showPlayer ? (
-          <Button onClick={handleClick}>
-            agree to YouTube privacy statement and show video
-          </Button>
+        {!youTubeConsent ? (
+          <div className="relative">
+            <img
+              src={posterUrl}
+              alt="preview image of the video"
+              className="w-full"
+              style={{
+                filter: "blur(4px)",
+              }}
+            />
+            <div className="absolute z-10 h-full w-full flex items-center justify-center top-0 left-0">
+              <Button onClick={handleClick}>
+                I agree with YouTube privacy statement, please show the video
+              </Button>
+            </div>
+          </div>
         ) : (
-          <iframe
-            width="560"
-            height="315"
-            src={videoUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="rounded-lg shadow-lg"
-          ></iframe>
+          <div className="w-full aspect-video relative">
+            <iframe
+              src={videoUrl}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full rounded-lg shadow-lg"
+            ></iframe>
+          </div>
         )}
       </div>
     </>

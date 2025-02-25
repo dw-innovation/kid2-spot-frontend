@@ -31,4 +31,6 @@ export default interface GlobalStoreInterface {
   setError: (message: string) => void;
   clearError: () => void;
   setDialogData: (name: string, data: any) => void;
+  youTubeConsent: boolean;
+  toggleYouTubeConsent: () => void;
 }

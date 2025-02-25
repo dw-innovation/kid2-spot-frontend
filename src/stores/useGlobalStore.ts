@@ -112,6 +112,9 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
   errorType: "",
   setError: (type) => set({ isError: true, errorType: type }),
   clearError: () => set({ isError: false, errorType: "" }),
+  youTubeConsent: false,
+  toggleYouTubeConsent: () =>
+    set((state) => ({ youTubeConsent: !state.youTubeConsent })),
 }));
 
 export default useGlobalStore;
