@@ -25,7 +25,7 @@ const VideoPlayer = ({ videoUrl, posterUrl }: Props) => {
     <>
       <div className="my-4 flex justify-center">
         {!youTubeConsent ? (
-          <div className="relative w-1/2">
+          <div className="relative w-3/4">
             <img
               src={posterUrl}
               alt="preview image of the video"
@@ -41,7 +41,7 @@ const VideoPlayer = ({ videoUrl, posterUrl }: Props) => {
             </div>
           </div>
         ) : (
-          <div className="w-1/2 aspect-video relative">
+          <div className="w-3/4 aspect-video relative">
             <iframe
               src={videoUrl}
               title="YouTube video player"
