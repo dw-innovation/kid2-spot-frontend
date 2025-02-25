@@ -1,6 +1,6 @@
 ---
 slug: functionality
-order: 5
+order: 6
 ---
 **How the system works**
 

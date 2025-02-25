@@ -1,6 +1,6 @@
 ---
 slug: glossary
-order: 4
+order: 5
 ---
 
 We have created a SPOT glossary to help you understand the user interface. Let us know if anything is unclear here. 

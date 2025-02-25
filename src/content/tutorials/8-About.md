@@ -1,6 +1,6 @@
 ---
 slug: about
-order: 7
+order: 8
 ---
 SPOT is the result of the collaborative creativity of journalists, concept creators, designers, and developers 
  at DW innovation and is co-funded by the German Minister of State for Culture and the Media (BKM) via the KID2 Project (Künstliche Intelligenz gegen Desinformation).
