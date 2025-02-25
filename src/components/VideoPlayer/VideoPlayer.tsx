@@ -25,16 +25,16 @@ const VideoPlayer = ({ videoUrl, posterUrl }: Props) => {
     <>
       <div className="my-4 flex justify-center">
         {!youTubeConsent ? (
-          <div className="relative">
+          <div className="relative w-1/2">
             <img
               src={posterUrl}
               alt="preview image of the video"
-              className="w-1/2"
+              className="w-full"
               style={{
                 filter: "blur(4px)",
               }}
             />
-            <div className="absolute z-10 h-full w-1/2 flex items-center justify-center top-0 left-0">
+            <div className="absolute z-10 h-full w-full flex items-center justify-center top-0 left-0">
               <Button onClick={handleClick}>
                 I agree with YouTube privacy statement, please show the video
               </Button>
@@ -48,7 +48,7 @@ const VideoPlayer = ({ videoUrl, posterUrl }: Props) => {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="w-1/2 h-full rounded-lg shadow-lg"
+              className="w-full h-full rounded-lg shadow-lg"
             ></iframe>
           </div>
         )}
