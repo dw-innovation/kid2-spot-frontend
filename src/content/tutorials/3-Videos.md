@@ -1,3 +1,7 @@
+---
+slug: videos
+order: 3
+---
 ## Introduction to SPOT
 SPOT uses AI to help you find the exact location you are looking for. Turn on the sound and see SPOT in action.
 
