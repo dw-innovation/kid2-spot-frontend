@@ -1,7 +1,7 @@
 export const maxDuration = 60;
 
 import axios from "axios";
-import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
       }
     );
   }
+
   const userEmail = session.user?.email || "";
   const userName = session.user?.name || "";
   const data = await req.json();
@@ -35,11 +36,12 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join("-");
 
-  const saltedUsername = await bcrypt.hash(userName + APP_SALT, 10);
+  const hash = crypto
+    .createHash("sha256")
+    .update(userName + APP_SALT)
+    .digest("hex");
 
-  const finalUsername = prefix
-    ? `${prefix}-${saltedUsername.slice(-5)}`
-    : saltedUsername.slice(-5);
+  const finalUsername = prefix ? `${prefix}-${hash.slice(-5)}` : hash.slice(-5);
 
   try {
     const results = await axios({
