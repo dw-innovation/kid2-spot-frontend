@@ -1,6 +1,9 @@
 import { Db, MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import shortUUID from "short-uuid";
+
+import { authOptions } from "@/lib/auth";
 
 let cachedDb: Db;
 
@@ -15,6 +18,20 @@ async function connectToDatabase(): Promise<Db> {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message: "unauthenticated",
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+
   // Generate a short UUID for the new session
   const id = shortUUID.generate();
 
