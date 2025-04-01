@@ -29,8 +29,8 @@ export async function POST(req: NextRequest) {
   const APP_SALT = process.env.APP_SALT || "";
 
   const prefix = [
-    userEmail.endsWith("@dw.com") ? "DW" : null,
-    userName.includes("kid2") ? "KID2" : null,
+    userEmail.toLowerCase().endsWith("@dw.com") ? "DW" : null,
+    userName.toLowerCase().includes("kid2") ? "KID2" : null,
   ]
     .filter(Boolean)
     .join("-");
