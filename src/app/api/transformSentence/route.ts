@@ -1,6 +1,7 @@
 export const maxDuration = 60;
 
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const token = await getToken({ req, raw: true });
 
-  if (!session) {
+  if (!session || !session.user?.name) {
     return NextResponse.json(
       {
         status: "error",
@@ -24,6 +25,12 @@ export async function POST(req: NextRequest) {
   }
 
   const data = await req.json();
+  const userEmail = session.user?.email || "";
+  const userName = session.user?.name || "";
+  const isDWEmail = userEmail.endsWith("@dw.com");
+
+  const APP_SALT = process.env.APP_SALT;
+  const saltedUsername = await bcrypt.hash(userName + APP_SALT, 10);
 
   try {
     const results = await axios({
@@ -34,7 +41,7 @@ export async function POST(req: NextRequest) {
       },
       data: {
         ...data,
-        username: session.user?.name,
+        username: `${isDWEmail ? "DW-" : ""}${saltedUsername}`,
         model: process.env.NLP_MODEL || "t5",
       },
     });
