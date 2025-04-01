@@ -37,7 +37,9 @@ export async function POST(req: NextRequest) {
 
   const saltedUsername = await bcrypt.hash(userName + APP_SALT, 10);
 
-  const finalUsername = prefix ? `${prefix}-${saltedUsername}` : saltedUsername;
+  const finalUsername = prefix
+    ? `${prefix}-${saltedUsername.slice(-5)}`
+    : saltedUsername.slice(-5);
 
   try {
     const results = await axios({
