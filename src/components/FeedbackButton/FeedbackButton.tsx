@@ -63,7 +63,7 @@ const FeedbackButton = () => {
       onMouseOut={() => setHover(false)}
     >
       <div className="grid grid-cols-[auto,1fr]">
-        <div className="p-2 col-span-1 bg-blue-500 rounded-l-md  flex items-center gap-1 hover:brighter font-noto right-0 bottom-[12.5%] flex-col">
+        <div className="p-2 col-span-1 bg-blue-500 rounded-l-md  flex items-center justify-center gap-1 hover:brighter font-noto right-0 bottom-[12.5%] flex-col">
           <div className="text-white">
             {sessionMutation.isPending ? <LoadingSpinner /> : <FeedbackIcon />}
           </div>
