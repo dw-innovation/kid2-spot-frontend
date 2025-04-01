@@ -23,14 +23,21 @@ export async function POST(req: NextRequest) {
       }
     );
   }
-
-  const data = await req.json();
   const userEmail = session.user?.email || "";
   const userName = session.user?.name || "";
-  const isDWEmail = userEmail.endsWith("@dw.com");
+  const data = await req.json();
+  const APP_SALT = process.env.APP_SALT || "";
 
-  const APP_SALT = process.env.APP_SALT;
+  const prefix = [
+    userEmail.endsWith("@dw.com") ? "DW" : null,
+    userName.includes("kid2") ? "KID2" : null,
+  ]
+    .filter(Boolean)
+    .join("-");
+
   const saltedUsername = await bcrypt.hash(userName + APP_SALT, 10);
+
+  const finalUsername = prefix ? `${prefix}-${saltedUsername}` : saltedUsername;
 
   try {
     const results = await axios({
@@ -41,13 +48,13 @@ export async function POST(req: NextRequest) {
       },
       data: {
         ...data,
-        username: `${isDWEmail ? "DW-" : ""}${saltedUsername}`,
+        username: finalUsername,
         model: process.env.NLP_MODEL || "t5",
       },
     });
 
     return NextResponse.json(results.data, { status: 200 });
-  } catch (error: unknown) {
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response) {
         return NextResponse.json(
