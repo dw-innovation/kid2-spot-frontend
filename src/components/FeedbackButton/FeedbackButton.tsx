@@ -2,13 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
-import FeedbackIcon from "@/assets/icons/FeedbackIcon";
 import ThumbIcon from "@/assets/icons/ThumbIcon";
 import { saveFeedback } from "@/lib/feedback";
 import useSaveSession from "@/lib/hooks/useSaveSession";
 
 import LoadingSpinner from "../LoadingSpinner";
 import { Button } from "../ui/button";
+import FeedbackLabel from "./FeedbackLabel";
 
 const FeedbackButton = () => {
   const [sessionLink, setSessionLink] = useState<string>();
@@ -17,12 +17,17 @@ const FeedbackButton = () => {
   const [submitted, setSubmitted] = useState(false);
   const [hover, setHover] = useState(false);
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [thumbsFeedback, setThumbsFeedback] = useState<boolean | undefined>();
 
   const ref = useRef<HTMLDivElement>(null);
   const sessionMutation = useSaveSession({});
 
   useEffect(() => {
-    if (ref.current) setWidth(ref.current.clientWidth);
+    if (ref.current) {
+      setWidth(ref.current.offsetWidth);
+      setHeight(ref.current.offsetHeight);
+    }
   }, []);
 
   const { mutate } = useMutation({
@@ -33,6 +38,7 @@ const FeedbackButton = () => {
       thumbs?: boolean;
       textFeedback?: string;
     }) => {
+      thumbs && setThumbsFeedback(thumbs);
       const link =
         sessionLink ??
         (await sessionMutation.mutateAsync().then((link) => {
@@ -61,15 +67,18 @@ const FeedbackButton = () => {
     <div
       className="flex items-center gap-1 hover:brighter font-noto fixed right-0 bottom-[12.5%] transition-all"
       style={{
-        transform: `translateX(${hover ? 0 : width + 8}px)`,
+        transform: `translateX(${hover ? 0 : width}px)`,
         zIndex: 100000,
       }}
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
     >
       <div className="grid grid-cols-[auto,1fr]">
-        <div className="p-2 bg-blue-500 rounded-l-md flex flex-col items-center justify-center text-white">
-          {sessionMutation.isPending ? <LoadingSpinner /> : <FeedbackIcon />}
+        <div
+          className="p-2 bg-orange-600 rounded-l-md flex flex-col items-center justify-center text-white"
+          style={{ height: `${height}px` }}
+        >
+          {sessionMutation.isPending ? <LoadingSpinner /> : <FeedbackLabel />}
         </div>
 
         <div className="bg-white" ref={ref}>
@@ -106,6 +115,11 @@ const FeedbackButton = () => {
               value={text}
               onChange={(e) => setText(e.target.value)}
               disabled={submitted}
+              placeholder={
+                thumbsFeedback
+                  ? "Want to share more? What did you like?"
+                  : "Want to share more? What didn’t you like?"
+              }
             />
             <Button
               type="button"
