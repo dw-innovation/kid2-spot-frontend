@@ -96,7 +96,7 @@ export const fetchAreas = async (area: string): Promise<any> => {
     }
   );
 
-  return response.data;
+  return response.data.filter((item: any) => item.geojson.type !== "Point");
 };
 
 export const getSession = async (id: string) => {
