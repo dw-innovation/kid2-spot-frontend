@@ -12,15 +12,17 @@ type Props = {
   onSuccessCallbacks?: ((sessionLink: string) => void)[];
 };
 
+export const saveSessionStores = () =>
+  saveSession([
+    { name: "useGlobalStore", getState: useGlobalStore.getState },
+    { name: "useMapStore", getState: useMapStore.getState },
+    { name: "useStreetViewStore", getState: useStreetViewStore.getState },
+    { name: "useSpotQueryStore", getState: useSpotQueryStore.getState },
+  ]);
+
 const useSaveSession = ({ onSuccessCallbacks }: Props) => {
   const mutation = useMutation({
-    mutationFn: () =>
-      saveSession([
-        { name: "useGlobalStore", getState: useGlobalStore.getState },
-        { name: "useMapStore", getState: useMapStore.getState },
-        { name: "useStreetViewStore", getState: useStreetViewStore.getState },
-        { name: "useSpotQueryStore", getState: useSpotQueryStore.getState },
-      ]),
+    mutationFn: () => saveSessionStores(),
     onSuccess: (sessionLink) => {
       if (onSuccessCallbacks) {
         onSuccessCallbacks.forEach((callback) => {

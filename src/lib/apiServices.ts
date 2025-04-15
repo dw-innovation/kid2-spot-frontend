@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { SpotQuery } from "@/types/spotQuery";
+import useSaveSession from "./hooks/useSaveSession";
 
 export const fetchOSMData = async ({
   spotQuery,
@@ -158,6 +159,19 @@ export const fetchTagInfo = async (key: string) => {
         rp: 200,
         sortname: "count_all",
         sortorder: "desc",
+      },
+    }
+  );
+  return response.data;
+};
+
+export const trackError = async (errorType: string, sessionLink: string) => {
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/trackError`,
+    {
+      params: {
+        errorType,
+        sessionLink,
       },
     }
   );

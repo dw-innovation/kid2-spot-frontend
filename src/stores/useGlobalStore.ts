@@ -1,9 +1,12 @@
 import { create } from "zustand";
 
+import { trackError } from "@/lib/apiServices";
+import { saveSession } from "@/lib/sessions";
 import GlobalStoreInterface, {
   Dialog,
   Step,
 } from "@/types/stores/GlobalStore.interface";
+import { saveSessionStores } from "@/lib/hooks/useSaveSession";
 
 const resetSteps = (steps: Step[]): Step[] =>
   steps.map((step) => ({
@@ -110,7 +113,11 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     set((state) => ({ dialogs: setDialogData(state.dialogs, name, data) })),
   isError: false,
   errorType: "",
-  setError: (type) => set({ isError: true, errorType: type }),
+  setError: async (type) => {
+    set({ isError: true, errorType: type });
+    const sessionLink = await saveSessionStores();
+    await trackError(type, sessionLink);
+  },
   clearError: () => set({ isError: false, errorType: "" }),
   youTubeConsent: false,
   toggleYouTubeConsent: () =>
