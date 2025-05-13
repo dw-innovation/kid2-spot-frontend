@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { SpotQuery } from "@/types/spotQuery";
-import useSaveSession from "./hooks/useSaveSession";
 
 export const fetchOSMData = async ({
   spotQuery,

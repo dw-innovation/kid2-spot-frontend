@@ -1,12 +1,11 @@
 import { create } from "zustand";
 
 import { trackError } from "@/lib/apiServices";
-import { saveSession } from "@/lib/sessions";
+import { saveSessionStores } from "@/lib/hooks/useSaveSession";
 import GlobalStoreInterface, {
   Dialog,
   Step,
 } from "@/types/stores/GlobalStore.interface";
-import { saveSessionStores } from "@/lib/hooks/useSaveSession";
 
 const resetSteps = (steps: Step[]): Step[] =>
   steps.map((step) => ({
