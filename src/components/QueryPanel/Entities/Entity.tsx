@@ -19,7 +19,7 @@ const Entity = ({ name, id, type }: Props) => {
   };
 
   return (
-    <div className="flex gap-1 capitalize rounded-md w-fit border-[1px] border-black overflow-clip">
+    <div className="flex gap-1 capitalize rounded-md w-fit border-[1px] border-black overflow-clip items-center">
       <span className="p-1 leading-tight">{name}</span>
       {type === "cluster" && (
         <span className="uppercase text-xs font-bold">cluster</span>
