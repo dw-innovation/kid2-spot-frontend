@@ -1,6 +1,7 @@
 "use client";
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
 
 import BetaIcon from "@/assets/icons/BetaIcon";
 import SpotLogo from "@/assets/icons/SpotLogo";
@@ -15,6 +16,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import useStrings from "@/lib/contexts/useStrings";
+import useGlobalStore from "@/stores/useGlobalStore";
 
 import { useMenu } from "./Context";
 import MenuItems from "./MenuItems";
@@ -22,6 +24,10 @@ import MenuItems from "./MenuItems";
 const Header = () => {
   const { open, setOpen } = useMenu();
   const { commonMenu } = useStrings();
+
+  const session = useSession();
+
+  const toggleDialog = useGlobalStore((state) => state.toggleDialog);
 
   return (
     <div className="flex gap-2">
@@ -51,7 +57,16 @@ const Header = () => {
           <MenuItems />
         </div>
         <div className="flex items-start gap-2 md:hidden">
-          {/* <SpotSelector /> */}
+          {session.data?.user?.name === "kid2" && (
+            <button
+              onClick={() => {
+                toggleDialog("spotQuery", true);
+              }}
+            >
+              Query
+            </button>
+          )}
+
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
             <SheetTrigger className="block md:hidden" asChild>
               <Button onClick={() => setOpen((prev) => !prev)}>
