@@ -52,6 +52,7 @@ export async function POST(req: NextRequest) {
       },
       data: {
         ...data,
+        environment: process.env.ENVIRONMENT || "production",
         username: finalUsername,
         model: process.env.NLP_MODEL || "t5",
       },
