@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Input } from "@/components/ui/input";
 import useGlobalStore from "@/stores/useGlobalStore";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
 
@@ -43,6 +44,22 @@ const EntityEditor = () => {
 
             {filters && filters.length === 0 && (
               <AddBar pathString={`filters`} nodeId={node.id} path={[]} />
+            )}
+
+            {node.type === "cluster" && (
+              <div>
+                <h3 className="font-bold">Edit cluster settings</h3>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2 items-center w-1/3">
+                    <span className="text-nowrap">min. points:</span>
+                    <Input onChange={() => {}} value={node.minPoints} />
+                  </div>
+                  <div className="flex gap-2 items-center w-1/3">
+                    <span className="text-nowrap">max. distance:</span>
+                    <Input onChange={(e) => {}} value={node.maxDistance} />
+                  </div>
+                </div>
+              </div>
             )}
             <ApplyButton />
           </div>
