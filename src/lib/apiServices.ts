@@ -101,18 +101,15 @@ export const fetchAreas = async (area: string): Promise<any> => {
 
 export const getSession = async (id: string) => {
   const auth = process.env.HTTP_BASIC_AUTH?.split(":") || [];
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getSession`,
-    {
-      params: {
-        id: id,
-      },
-      auth: {
-        username: auth[0] || "",
-        password: auth[1] || "",
-      },
-    }
-  );
+  const res = await axios.get(`/api/getSession`, {
+    params: {
+      id: id,
+    },
+    auth: {
+      username: auth[0] || "",
+      password: auth[1] || "",
+    },
+  });
   return { props: { data: res.data.data } };
 };
 
@@ -165,14 +162,11 @@ export const fetchTagInfo = async (key: string) => {
 };
 
 export const trackError = async (errorType: string, sessionLink: string) => {
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/trackError`,
-    {
-      params: {
-        errorType,
-        sessionLink,
-      },
-    }
-  );
+  const response = await axios.post(`/api/trackError`, {
+    params: {
+      errorType,
+      sessionLink,
+    },
+  });
   return response.data;
 };
