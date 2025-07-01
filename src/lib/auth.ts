@@ -31,8 +31,8 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "kid2" },
-        password: { label: "Password", type: "password", placeholder: "kid2" },
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         const { username, password } = credentials || {};
