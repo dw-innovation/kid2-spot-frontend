@@ -44,6 +44,12 @@ export async function POST(req: NextRequest) {
   const finalUsername = prefix ? `${prefix}-${hash.slice(-5)}` : hash.slice(-5);
 
   try {
+    console.log({
+      ...data,
+      environment: process.env.ENVIRONMENT || "production",
+      username: finalUsername,
+      model: process.env.NLP_MODEL || "t5",
+    });
     const results = await axios({
       method: "POST",
       url: `${process.env.NLP_API}/transform-sentence-to-imr`,
@@ -60,6 +66,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(results.data, { status: 200 });
   } catch (error) {
+    console.log(error);
     if (axios.isAxiosError(error)) {
       if (error.response) {
         return NextResponse.json(

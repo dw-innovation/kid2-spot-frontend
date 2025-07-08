@@ -101,7 +101,8 @@ export const fetchAreas = async (area: string): Promise<any> => {
 
 export const getSession = async (id: string) => {
   const auth = process.env.HTTP_BASIC_AUTH?.split(":") || [];
-  const res = await axios.get(`/api/getSession`, {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+  const res = await axios.get(`${baseUrl}/api/getSession`, {
     params: {
       id: id,
     },

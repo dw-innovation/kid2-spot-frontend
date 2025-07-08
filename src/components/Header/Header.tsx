@@ -57,16 +57,6 @@ const Header = () => {
           <MenuItems />
         </div>
         <div className="flex items-start gap-2 md:hidden">
-          {session.data?.user?.name === "kid2" && (
-            <button
-              onClick={() => {
-                toggleDialog("spotQuery", true);
-              }}
-            >
-              Query
-            </button>
-          )}
-
           <Sheet open={open} onOpenChange={(state) => setOpen(state)}>
             <SheetTrigger className="block md:hidden" asChild>
               <Button onClick={() => setOpen((prev) => !prev)}>
