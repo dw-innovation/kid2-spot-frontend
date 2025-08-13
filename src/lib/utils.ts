@@ -109,7 +109,7 @@ type PrefixKeys<Obj extends Record<string, any>, Prefix extends string> = {
 
 export const prefixKeys = <
   Obj extends Record<string, any>,
-  Prefix extends string,
+  Prefix extends string
 >(
   obj: Obj,
   prefix: Prefix
@@ -263,6 +263,7 @@ export const trackAction = async (
     rand: number;
     res: string;
     ua: string;
+    url: string;
     e_c: string;
     e_a?: string;
     e_n?: string;
@@ -273,6 +274,7 @@ export const trackAction = async (
   let params: MatomoParams = {
     idsite: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
     rec: 1,
+    url: process.env.NEXT_PUBLIC_SITE_URL || "",
     rand: Math.floor(Math.random() * 10000000),
     res: `${window?.screen?.availWidth}x${window?.screen?.availHeight}`,
     ua: window?.navigator?.userAgent,
