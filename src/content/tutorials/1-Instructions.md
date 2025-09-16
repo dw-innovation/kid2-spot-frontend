@@ -26,6 +26,8 @@ SPOT will display matching results within your search area based on your prompt.
 
 You can refine your prompt at any time in the field box **Your search** or zoom in on the right to adjust the search area. If you like to adjust the distances between the elements, open the **Search Parameters**. 
 
+You can also do a cluster search and find grouped features like "4 wind turbines within 400 meters of a highway". In case you are not sure about the exact distances, no worries, "next to" and "near" will also work, or you can leave it to the model to select the distance value.
+
 **Let's do it together:**
 1. Enter the prompt "Find me a church and a mall in Berlin" and click Search. You will see many results.
 2. Refine the prompt "Find me a church 20 meters next from a mall in Berlin" and you will get just one result. 
