@@ -11,21 +11,26 @@ export const contentType = "image/png";
 export default function Icon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontSize: 24,
-          background:
-            process.env.ENVIRONMENT === "production" ? "black" : "orange",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
-        }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 80 80"
+        width={size.width}
+        height={size.height}
       >
-        S
-      </div>
+        <g id="Layer_2">
+          <path d="M0 0h80v80H0z" fill="#8100bf" />
+          <path
+            d="M38.35-10.98h2.91V6.5h-2.91zM38.35 73.5h2.91v17.48h-2.91zM60.18 20.72c-5.29-5-11.59-7.62-18.92-7.89v16.62c2.34.25 4.33 1.25 5.97 3.01 1.56 1.67 2.49 3.7 2.77 6.09h18.54c-.39-7.01-3.18-12.95-8.36-17.83ZM32.71 48.19c-1.66-1.73-2.59-3.99-2.8-6.73H11.45c.26 7.24 3.01 13.37 8.26 18.38 5.14 4.92 11.36 7.54 18.64 7.88V51.06c-2.24-.31-4.12-1.27-5.64-2.87ZM50.07 41.46c-.22 2.68-1.15 4.91-2.84 6.69-1.65 1.73-3.63 2.72-5.97 2.97v16.6c7.33-.28 13.63-2.9 18.92-7.88 5.32-5.01 8.11-11.14 8.37-18.38H50.07ZM19.7 20.72c-5.1 4.88-7.85 10.82-8.24 17.83h18.51c.29-2.45 1.19-4.49 2.74-6.13 1.51-1.63 3.39-2.61 5.64-2.91V12.82c-7.28.34-13.5 2.97-18.64 7.89Z"
+            fill="#fff"
+          />
+        </g>
+        <g id="Layer_3">
+          <path
+            d="M73.5 38.54h17.48v2.91H73.5zM-10.98 38.54H6.5v2.91h-17.48z"
+            fill="#fff"
+          />
+        </g>
+      </svg>
     ),
     {
       ...size,
