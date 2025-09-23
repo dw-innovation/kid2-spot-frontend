@@ -1,3 +1,5 @@
+<img width="1280" height="200" alt="Github-Banner_spot" src="https://github.com/user-attachments/assets/7c07cb44-a4e1-4194-b63e-082640593e55" />
+
 # KID2 Spot Frontend
 
 This application is a web-based natural language interface querying OSM data. It allows users to submit natural language prompts for locations then query and displays the results on a map.
