@@ -41,7 +41,7 @@ const Footer = () => {
           DW Innovation
         </a>
         , &copy; map data{" "}
-        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>,
+        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>,{" "}
         <a href="https://github.com/dw-innovation/kid2-spot">GitHub</a>
       </div>
       |
