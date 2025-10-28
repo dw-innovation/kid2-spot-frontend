@@ -104,7 +104,9 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     })),
   dialogs: DIALOGS.map((dialog) => ({
     name: dialog,
-    isOpen: dialog === "inputStepper",
+    isOpen:
+      (process.env.NEXT_PUBLIC_MAINTENANCE && dialog === "maintenance") ||
+      (!process.env.NEXT_PUBLIC_MAINTENANCE && dialog === "inputStepper"),
   })),
   toggleDialog: (name, isOpen) =>
     set((state) => ({ dialogs: toggleDialog(state.dialogs, name, isOpen) })),
