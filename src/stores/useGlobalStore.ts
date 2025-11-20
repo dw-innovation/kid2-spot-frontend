@@ -102,10 +102,15 @@ const useGlobalStore = create<GlobalStoreInterface>((set) => ({
     set((state) => ({
       isStreetViewFullscreen: isFullScreen ?? !state.isStreetViewFullscreen,
     })),
-  dialogs: DIALOGS.map((dialog) => ({
-    name: dialog,
-    isOpen: dialog === "inputStepper",
-  })),
+  dialogs: DIALOGS.map((dialog) => {
+    const maintenance = process.env.NEXT_PUBLIC_MAINTENANCE;
+
+    const isOpen =
+      (maintenance === "on" && dialog === "maintenance") ||
+      (maintenance === "off" && dialog === "inputStepper");
+
+    return { name: dialog, isOpen };
+  }),
   toggleDialog: (name, isOpen) =>
     set((state) => ({ dialogs: toggleDialog(state.dialogs, name, isOpen) })),
   setDialogData: (name, data) =>
