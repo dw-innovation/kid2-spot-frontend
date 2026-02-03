@@ -11,7 +11,7 @@ const TileLayer = ({ layerType }: Props) => (
     {layerType === "osm" && (
       <LeafletTileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        /* attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' */
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
     )}
 
@@ -21,8 +21,10 @@ const TileLayer = ({ layerType }: Props) => (
 
     {layerType === "satellite" && (
       <LeafletTileLayer
-        url={`https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
-        attribution='© <a href="https://www.maptiler.com/">MapTiler</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url={`https://api.tomtom.com/map/1/tile/sat/main/{z}/{x}/{y}.jpg?key=${process.env.NEXT_PUBLIC_TOMTOM_KEY}`}
+        attribution='© <a href="https://www.tomtom.com/">TomTom</a>'
+        maxZoom={20}
+        minZoom={0}
       />
     )}
   </>
