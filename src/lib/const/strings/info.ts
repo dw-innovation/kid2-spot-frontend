@@ -75,7 +75,7 @@ This application uses third party services. Some of these services also need to 
 
 -   **Nominatim** – We use Nominatim (Bayreuther Str. 29, 01187 Dresden, Germany) to geocode the selected area in your interface (‘search current area’). Nominatim does not process or record any personal data from using the SPOT application. Nominatim is an open-source tool.  
 -   **Maptiler** – We use Maptiler to geocode an address entered in the address search box. Maptiler does not process or record any personal data from using the SPOT application.  
--   **Maptiler** – We use Maptiler to render satellite imagery. Maptiler does not process or record any personal data from using the SPOT application.  
+-   **TomTom** – We use TomTom to render satellite imagery. TomTom does not process or record any personal data from using the SPOT application.  
 -   **Mapbox** – We use Mapbox to render satellite tiles in the ‘hybrid map’ mode. Mapbox does not process or record any personal data from using the SPOT application.  
 -   **Versatiles** – We use Versatiles to render vector tiles in the ‘vector map’ mode. Versatiles does not process or record any personal data from using the SPOT application. Versatiles does not have a privacy policy.  
 -   **OSM Tiles** – We use OSM Tiles to render OSM style raster tiles in the ‘OSM style map’ mode. OSM Tiles does not process or record any personal data from using the SPOT application.  
