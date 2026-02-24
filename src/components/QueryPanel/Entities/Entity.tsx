@@ -1,6 +1,12 @@
 import { Edit2Icon } from "lucide-react";
 import React from "react";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import useGlobalStore from "@/stores/useGlobalStore";
 
 type Props = {
@@ -26,12 +32,21 @@ const Entity = ({ name, id, type }: Props) => {
       )}
       <div className="flex h-full">
         <span className="border-r-[1px] border-black " />
-        <button
-          onClick={() => handleEditClick()}
-          className="p-1 hover:bg-primary hover:text-white aspect-square"
-        >
-          <Edit2Icon size={10} />
-        </button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => handleEditClick()}
+                className="p-1 hover:bg-primary hover:text-white aspect-square"
+              >
+                <Edit2Icon size={10} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>edit OSM tag bundle</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   );
