@@ -7,7 +7,7 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import Dialog from "../Dialog";
 import ClosingButton from "./ClosingButton";
 import DetectedEntitiesBar from "./DetectedEntitiesBar";
-import ReportButton from "./ReportButton";
+import PromptAgainButton from "./PromptAgainButton";
 
 const DIALOG_NAME = "error";
 
@@ -20,13 +20,21 @@ const COMPONENTS = {
       return <DetectedEntitiesBar />;
     } else if (
       typeof props.children === "string" &&
-      props.children === "[[REPORT_BUTTON]]"
+      props.children === "[[PROMPT_AGAIN_BUTTON]]"
     ) {
-      return <ReportButton />;
+      return <PromptAgainButton />;
     } else {
       return <p {...props} />;
     }
   },
+  a: (props: React.HTMLProps<HTMLAnchorElement>) => (
+    <a
+      {...props}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline text-primary hover:text-primary/80"
+    />
+  ),
 };
 
 const ErrorDialog = () => {

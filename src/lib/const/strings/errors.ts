@@ -1,12 +1,16 @@
 export const STRINGS = {
   noResultsTitle: "No results in search area",
-  noResults: `If these detected entities are correct there are no matching results in OpenStreetMap data within the search area.
-  
-  [[DETECTED_ENTITIES]]
-  
-  If these entities are not correct please let us know.
-  
-  [[REPORT_BUTTON]]`,
+  noResults: `No matching results in OpenStreetMap data within the search area. Try the following fixes:
+
+1. Rephrase your search and prompt again
+
+[[PROMPT_AGAIN_BUTTON]]
+
+2. Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
+
+[[DETECTED_ENTITIES]]
+
+3. Suggest changes or new descriptors or tag bundles on the [Tag Editor](https://tags.findthatspot.io)`,
   areaExceedsLimitTitle: "Search area too large",
   areaExceedsLimit: "The search area is too large, zoom in on a smaller area.",
   noLocationsTitle: "Geocoding failed",
