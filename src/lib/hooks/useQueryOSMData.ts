@@ -42,6 +42,7 @@ const useQueryOSMData = ({
   const { data, error, isSuccess, isError } = queryResult;
 
   const previousSpotQuery = useRef(spotQuery);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
     if (
@@ -52,6 +53,7 @@ const useQueryOSMData = ({
   }, [JSON.stringify(spotQuery)]);
 
   useEffect(() => {
+    if (!hasMounted.current) return;
     if (isSuccess && data) {
       if (data.results.features.length === 0) {
         setResults(data);
@@ -72,6 +74,7 @@ const useQueryOSMData = ({
   }, [isSuccess, data]);
 
   useEffect(() => {
+    if (!hasMounted.current) return;
     if (isError && error) {
       // @ts-ignore
       setError(error.response.data.message || "");
@@ -89,10 +92,15 @@ const useQueryOSMData = ({
   }, [isError, error]);
 
   useEffect(() => {
+    if (!hasMounted.current) return;
     if ((isSuccess || isError) && onSettled) {
       onSettled();
     }
   }, [isSuccess, isError]);
+
+  useEffect(() => {
+    hasMounted.current = true;
+  }, []);
 
   const queryOSM = async () => {
     await queryClient.cancelQueries();
