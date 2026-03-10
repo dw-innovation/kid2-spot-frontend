@@ -8,9 +8,7 @@ export const STRINGS = {
 
 2. Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
 
-[[DETECTED_ENTITIES]]
-
-3. Suggest changes or new descriptors or tag bundles on the [Tag Editor](https://tags.findthatspot.io)`,
+[[DETECTED_ENTITIES]]`,
   areaExceedsLimitTitle: "Search area too large",
   areaExceedsLimit: "The search area is too large, zoom in on a smaller area.",
   noLocationsTitle: "Geocoding failed",
