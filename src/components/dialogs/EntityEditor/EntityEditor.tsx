@@ -9,6 +9,8 @@ import AddBar from "./AddBar";
 import ApplyButton from "./ApplyButton";
 import FilterTypeSwitch from "./FilterTypeSwitch";
 import Header from "./Header";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { InfoIcon } from "lucide-react";
 
 const DIALOG_NAME = "entityEditor";
 
@@ -65,17 +67,20 @@ const EntityEditor = () => {
           </div>
         </div>
       )}
-      <p>
-        Suggest changes, new descriptors or tag bundles with the{" "}
-        <a
-          href="https://tags.findthatspot.io"
-          target="_blank"
-          className="underline hover:no-underline"
-        >
-          SPOT Tag Editor
-        </a>
-        .
-      </p>
+      <div className="bg-blue-100 p-2 rounded-sm shadow-sm flex gap-2">
+        <InfoIcon className="text-black inline" />
+        <p>
+          Suggest changes, new descriptors or tag bundles with the{" "}
+          <a
+            href="https://tags.findthatspot.io"
+            target="_blank"
+            className="underline hover:no-underline"
+          >
+            SPOT Tag Editor
+          </a>
+          .
+        </p>
+      </div>
     </Dialog>
   );
 };
