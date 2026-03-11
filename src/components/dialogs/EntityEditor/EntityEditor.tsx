@@ -65,11 +65,17 @@ const EntityEditor = () => {
           </div>
         </div>
       )}
-      Suggest changes or new descriptors or tag bundles on the{" "}
-      <a href="https://tags.findthatspot.io" target="_blank">
-        SPOT Tag Editor
-      </a>
-      .
+      <p>
+        Suggest changes, new descriptors or tag bundles with the{" "}
+        <a
+          href="https://tags.findthatspot.io"
+          target="_blank"
+          className="underline hover:no-underline"
+        >
+          SPOT Tag Editor
+        </a>
+        .
+      </p>
     </Dialog>
   );
 };
