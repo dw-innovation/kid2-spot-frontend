@@ -1,3 +1,4 @@
+import { InfoIcon } from "lucide-react";
 import React from "react";
 
 import { Input } from "@/components/ui/input";
@@ -9,8 +10,6 @@ import AddBar from "./AddBar";
 import ApplyButton from "./ApplyButton";
 import FilterTypeSwitch from "./FilterTypeSwitch";
 import Header from "./Header";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
-import { InfoIcon } from "lucide-react";
 
 const DIALOG_NAME = "entityEditor";
 
