@@ -8,6 +8,8 @@ export const STRINGS = {
 
 ((2)) Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
 
+((3)) Edit the entities identified in this query
+
 [[DETECTED_ENTITIES]]`,
   areaExceedsLimitTitle: "Search area too large",
   areaExceedsLimit: "The search area is too large, zoom in on a smaller area.",
