@@ -23,19 +23,11 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   if (!address) return;
 
   try {
-    const response = await axios({
-      method: "GET",
-      url: `https://api.maptiler.com/geocoding/${address}.json`,
-      params: {
-        key: process.env.NEXT_PUBLIC_MAPTILER_KEY,
-        language: "en",
-        limit: 10,
-        types:
-          "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
-      },
+    const response = await axios.get("/api/geocode", {
+      params: { address },
     });
 
-    const { features } = await response.data;
+    const { features } = response.data;
     return features;
   } catch (e) {
     console.log(e);
