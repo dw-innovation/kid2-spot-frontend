@@ -11,19 +11,43 @@ import PromptAgainButton from "./PromptAgainButton";
 
 const DIALOG_NAME = "error";
 
+const NumberCircle = ({ number }: { number: number }) => (
+  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-medium shrink-0">
+    {number}
+  </span>
+);
+
 const COMPONENTS = {
   p: (props: React.HTMLProps<HTMLParagraphElement>) => {
     if (
       typeof props.children === "string" &&
       props.children === "[[DETECTED_ENTITIES]]"
     ) {
-      return <DetectedEntitiesBar />;
+      return <div className="pl-8"><DetectedEntitiesBar /></div>;
     } else if (
       typeof props.children === "string" &&
       props.children === "[[PROMPT_AGAIN_BUTTON]]"
     ) {
-      return <PromptAgainButton />;
+      return <div className="pl-8"><PromptAgainButton /></div>;
     } else {
+      const children = React.Children.toArray(props.children);
+      const first = children[0];
+      if (typeof first === "string") {
+        const match = first.match(/^\(\((\d+)\)\)\s*/);
+        if (match) {
+          const number = parseInt(match[1]);
+          const rest = first.slice(match[0].length);
+          return (
+            <p className="flex items-start gap-2">
+              <NumberCircle number={number} />
+              <span>
+                {rest}
+                {children.slice(1)}
+              </span>
+            </p>
+          );
+        }
+      }
       return <p {...props} />;
     }
   },

@@ -2,11 +2,11 @@ export const STRINGS = {
   noResultsTitle: "No results in search area",
   noResults: `No matching results in OpenStreetMap data within the search area. Try the following fixes:
 
-1. Rephrase your search and prompt again
+((1)) Rephrase your search and prompt again
 
 [[PROMPT_AGAIN_BUTTON]]
 
-2. Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
+((2)) Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
 
 [[DETECTED_ENTITIES]]`,
   areaExceedsLimitTitle: "Search area too large",
