@@ -2,13 +2,13 @@ export const STRINGS = {
   noResultsTitle: "No results in search area",
   noResults: `No matching results in OpenStreetMap data within the search area. Try the following fixes:
 
-((1)) Rephrase your search and prompt again
+((1)) Use different words and search again.
 
 [[PROMPT_AGAIN_BUTTON]]
 
-((2)) Search for semantically similar entities on the [Tag Editor](https://tags.findthatspot.io)
+((2)) If you need help with finding relevant search terms, or want to propose new search terms use our [Tag Editor](https://tags.findthatspot.io)
 
-((3)) Edit the entities identified in this query
+((3)) If you know your ways with OSM tags, edit the search tags here:
 
 [[DETECTED_ENTITIES]]`,
   areaExceedsLimitTitle: "Search area too large",
