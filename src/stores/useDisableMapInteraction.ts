@@ -1,7 +1,7 @@
 import L from "leaflet";
 import { RefObject, useEffect } from "react";
 
-const useDisableMapInteraction = (ref: RefObject<HTMLElement>) => {
+const useDisableMapInteraction = (ref: RefObject<HTMLElement | null>) => {
   useEffect(() => {
     if (!ref.current) return;
     L.DomEvent.disableClickPropagation(ref.current);
