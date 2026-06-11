@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
 type Props = {
-  mapContainerRef: React.RefObject<HTMLDivElement> | null;
+  mapContainerRef: React.RefObject<HTMLDivElement | null> | null;
 };
 
 const MapResizeHandler = ({ mapContainerRef }: Props) => {

@@ -1,12 +1,10 @@
-import { UUID } from "short-uuid";
-
 import AppStoreInterface from "./GlobalStore.interface";
 import MapStoreInterface from "./MapStore.interface";
 import SpotQueryStoreInterface from "./SpotQueryStore.interface";
 import StreetViewStoreInterface from "./StreetViewStore.interface";
 
 export type Session = {
-  id: UUID;
+  id: string;
   name: string;
   description: string;
   created: Date;

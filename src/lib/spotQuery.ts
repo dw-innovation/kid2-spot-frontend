@@ -1,4 +1,4 @@
-import { MultiPolygon, Polygon } from "@turf/turf";
+import type { MultiPolygon, Polygon } from "geojson";
 import _ from "lodash";
 
 import { SpotQuery } from "@/types/spotQuery";

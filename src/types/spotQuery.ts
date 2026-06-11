@@ -1,4 +1,4 @@
-import { MultiPolygon, Polygon } from "@turf/turf";
+import type { MultiPolygon, Polygon } from "geojson";
 
 export type LogicOperator = "and" | "or";
 

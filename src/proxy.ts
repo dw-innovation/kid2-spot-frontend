@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const [AUTH_USER, AUTH_PASS] = (process.env.HTTP_BASIC_AUTH || ":").split(":");
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   if (process.env.HTTP_BASIC_AUTH) {
     if (!isAuthenticated(req)) {
       return new NextResponse("Authentication required", {

@@ -1,6 +1,5 @@
-import { BBox, bbox } from "@turf/turf";
-import * as turf from "@turf/turf";
-import { GeoJsonProperties } from "geojson";
+import { bbox } from "@turf/turf";
+import type { BBox, FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
@@ -25,6 +24,7 @@ const ResultsOutsideAlert = () => {
   };
 
   const handleFlyToBounds = () => {
+    if (!geoJSON) return;
     handleCloseClick();
     let newBBox = bbox(geoJSON);
 
@@ -60,7 +60,7 @@ const ResultsOutsideAlert = () => {
 
       setShowAlert(
         !allFeaturesWithinBoundingBox(
-          geoJSON as turf.FeatureCollection<turf.Geometry, GeoJsonProperties>,
+          geoJSON as FeatureCollection<Geometry, GeoJsonProperties>,
           currentMapBoundsBBox
         )
       );

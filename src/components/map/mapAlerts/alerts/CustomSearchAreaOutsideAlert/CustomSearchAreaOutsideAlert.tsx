@@ -1,4 +1,5 @@
-import { BBox, bbox } from "@turf/turf";
+import { bbox } from "@turf/turf";
+import type { BBox } from "geojson";
 import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 

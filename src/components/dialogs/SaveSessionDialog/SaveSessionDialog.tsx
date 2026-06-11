@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { uuid } from "short-uuid";
+import shortUUID from "short-uuid";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,7 +53,7 @@ const SaveSessionDialog = () => {
         },
         created: date,
         modified: date,
-        id: uuid(),
+        id: shortUUID.generate(),
         description: sessionDescription,
       });
       setSessionName("");

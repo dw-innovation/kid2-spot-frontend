@@ -1,5 +1,5 @@
 import * as turf from "@turf/turf";
-import { type Feature, type FeatureCollection, type Point } from "geojson";
+import type { BBox, Feature, FeatureCollection, Geometry, Point, Position } from "geojson";
 import { LatLng } from "leaflet";
 
 import { MINSIZES } from "./const/const";
@@ -20,7 +20,7 @@ type Bounds = {
 
 export const isPolygonWithinBoundingBox = (
   polygon: [number, number][],
-  boundingBox: turf.BBox
+  boundingBox: BBox
 ): boolean => {
   try {
     if (polygon.length < 3) return true;
@@ -62,24 +62,24 @@ export const expandPolygonByDistance = (
     units: "meters",
   });
 
-  const enlargedPolygonCoordinates = bufferedPolygon.geometry
+  const enlargedPolygonCoordinates = bufferedPolygon!.geometry
     .coordinates[0] as Coordinate[];
 
   return enlargedPolygonCoordinates;
 };
 
 export const allFeaturesWithinBoundingBox = (
-  geojson: turf.FeatureCollection<turf.Geometry>,
-  boundingBox: turf.BBox
+  geojson: FeatureCollection<Geometry>,
+  boundingBox: BBox
 ): boolean => {
   const boundingBoxPolygon = turf.bboxPolygon(boundingBox);
   let allFeaturesWithin = true;
 
   turf.featureEach(geojson, (currentFeature) => {
     if (currentFeature.geometry.type === "MultiPolygon") {
-      (currentFeature.geometry.coordinates as turf.Position[][][]).forEach(
+      (currentFeature.geometry.coordinates as Position[][][]).forEach(
         (polygonCoordinates) => {
-          const polygon = turf.polygon(polygonCoordinates as turf.Position[][]);
+          const polygon = turf.polygon(polygonCoordinates as Position[][]);
           if (!turf.booleanContains(boundingBoxPolygon, polygon)) {
             allFeaturesWithin = false;
           }
