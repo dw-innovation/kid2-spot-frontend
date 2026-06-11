@@ -20,6 +20,8 @@ What can we do to improve the system? Any idea is weclome and will be carefully 
 
 Check out our [GitHub repository](https://github.com/dw-innovation/kid2-spot), and feel free to reach out if you'd like to collaborate with us on SPOT.
 
+Expand our database and request edits, and propose new OSM tag bundles here in our [SPOT OSM Tag Bundle Editor](https://tags.findthatspot.io/)
+
 **Feedback**
 
 Always remember, every investigation is worthwhile when it comes to strengthening your skills (quote by Bellingcat). We value your feedback and want to hear from you.
