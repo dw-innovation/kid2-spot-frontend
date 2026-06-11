@@ -1,6 +1,5 @@
 import tokml from "@jlandrum/tokml";
 import { area } from "@turf/turf";
-import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
 import {
   FeatureCollection,
@@ -284,11 +283,12 @@ export const trackAction = async (
   if (action) params.e_a = action;
   if (value) params.e_n = value;
 
-  await axios({
-    method: "get",
-    url: process.env.NEXT_PUBLIC_MATOMO_URL,
-    params,
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined) searchParams.set(key, String(value));
   });
+
+  await fetch(`${process.env.NEXT_PUBLIC_MATOMO_URL}?${searchParams}`);
 };
 
 export const createMailtoLink = ({

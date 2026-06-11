@@ -40,8 +40,8 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getServerSession();
 
   return (
-    <html lang="en" className={inter.variable}>
-      <body>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <SessionProvider session={session}>
           <ToastContainer
             position="top-center"

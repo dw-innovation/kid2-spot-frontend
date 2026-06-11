@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { SpotQuery } from "@/types/spotQuery";
 
 export const fetchOSMData = async ({
@@ -7,28 +5,29 @@ export const fetchOSMData = async ({
 }: {
   spotQuery: SpotQuery;
 }): Promise<any> => {
-  try {
-    const response = await axios.post("/api/queryOSM", spotQuery);
-    if (response.data) {
-      return response.data;
-    } else {
-      throw new Error("No data returned from API");
-    }
-  } catch (error) {
-    throw error;
+  const response = await fetch("/api/queryOSM", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spotQuery),
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || "No data returned from API");
   }
+  return response.json();
 };
 
 export const fetchGeocodeApiData = async (address: string): Promise<any> => {
   if (!address) return;
 
   try {
-    const response = await axios.get("/api/geocode", {
-      params: { address },
-    });
+    const response = await fetch(
+      `/api/geocode?address=${encodeURIComponent(address)}`
+    );
+    if (!response.ok) return null;
 
-    const { features } = response.data;
-    return features;
+    const data = await response.json();
+    return data.features;
   } catch (e) {
     console.log(e);
     return null;
@@ -38,72 +37,70 @@ export const fetchGeocodeApiData = async (address: string): Promise<any> => {
 export const fetchNLToSpotQueryTransformation = async (
   naturalLanguagePrompt: string
 ): Promise<any> => {
-  try {
-    const response = await axios({
-      method: "POST",
-      url: `/api/transformSentence`,
-      data: {
-        sentence: naturalLanguagePrompt,
-      },
-    });
+  const response = await fetch("/api/transformSentence", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sentence: naturalLanguagePrompt }),
+  });
 
-    const result = await response.data;
-    return result;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data.message;
-      if (serverError) {
-        throw new Error(serverError);
-      }
-    } else {
-      throw new Error("UnknownError");
-    }
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "UnknownError");
   }
+
+  return response.json();
 };
 
 export const validateSpotQuery = async (spotQuery: SpotQuery): Promise<any> => {
-  try {
-    const response = await axios({
-      method: "POST",
-      url: `/api/validateQuery`,
-      data: spotQuery,
-    });
+  const response = await fetch("/api/validateQuery", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spotQuery),
+  });
 
-    return response.data;
-  } catch (error) {
+  if (!response.ok) {
     throw new Error("spotQueryInvalid");
   }
+
+  return response.json();
 };
 
 export const fetchAreas = async (area: string): Promise<any> => {
-  const response = await axios.get(
-    process.env.NEXT_PUBLIC_NOMINATIM_API || "",
-    {
-      params: {
-        q: area,
-        format: "json",
-        polygon_geojson: 1,
-        "accept-language": "en",
-      },
-    }
-  );
+  const params = new URLSearchParams({
+    q: area,
+    format: "json",
+    polygon_geojson: "1",
+    "accept-language": "en",
+  });
 
-  return response.data.filter((item: any) => item.geojson.type !== "Point");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_NOMINATIM_API}?${params}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch areas");
+  }
+
+  const data = await response.json();
+  return data.filter((item: any) => item.geojson.type !== "Point");
 };
 
 export const getSession = async (id: string) => {
   const auth = process.env.HTTP_BASIC_AUTH?.split(":") || [];
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
-  const res = await axios.get(`${baseUrl}/api/getSession`, {
-    params: {
-      id: id,
-    },
-    auth: {
-      username: auth[0] || "",
-      password: auth[1] || "",
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+  const params = new URLSearchParams({ id });
+
+  const response = await fetch(`${baseUrl}/api/getSession?${params}`, {
+    headers: {
+      Authorization: `Basic ${btoa(`${auth[0] || ""}:${auth[1] || ""}`)}`,
     },
   });
-  return { props: { data: res.data.data } };
+  if (!response.ok) {
+    throw new Error("Failed to fetch session");
+  }
+
+  const res = await response.json();
+  return { props: { data: res.data } };
 };
 
 const fetchOSMValues = async (
@@ -111,19 +108,22 @@ const fetchOSMValues = async (
   page: number,
   resultsPerPage: number
 ) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values`,
-    {
-      params: {
-        key,
-        page,
-        rp: resultsPerPage,
-        sortname: "count_ways",
-        sortorder: "desc",
-      },
-    }
+  const params = new URLSearchParams({
+    key,
+    page: String(page),
+    rp: String(resultsPerPage),
+    sortname: "count_ways",
+    sortorder: "desc",
+  });
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values?${params}`
   );
-  return response.data;
+  if (!response.ok) {
+    throw new Error("Failed to fetch OSM values");
+  }
+
+  return response.json();
 };
 
 export const getOSMValueOptions = async (key: string) => {
@@ -140,26 +140,28 @@ export const getOSMValueOptions = async (key: string) => {
 };
 
 export const fetchTagInfo = async (key: string) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values`,
-    {
-      params: {
-        key,
-        rp: 200,
-        sortname: "count_all",
-        sortorder: "desc",
-      },
-    }
+  const params = new URLSearchParams({
+    key,
+    rp: "200",
+    sortname: "count_all",
+    sortorder: "desc",
+  });
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_TAG_INFO_API}/key/values?${params}`
   );
-  return response.data;
+  if (!response.ok) {
+    throw new Error("Failed to fetch tag info");
+  }
+
+  return response.json();
 };
 
 export const trackError = async (errorType: string, sessionLink: string) => {
-  const response = await axios.post(`/api/trackError`, {
-    params: {
-      errorType,
-      sessionLink,
-    },
+  const response = await fetch("/api/trackError", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ params: { errorType, sessionLink } }),
   });
-  return response.data;
+  return response.json();
 };

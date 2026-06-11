@@ -1,5 +1,4 @@
 import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 
 import useGlobalStore from "@/stores/useGlobalStore";
@@ -10,7 +9,7 @@ import { setResults } from "../utils";
 
 type Props = {
   onSuccessCallbacks?: ((data: OSMData) => void)[];
-  onErrorCallbacks?: ((error: AxiosError) => void)[];
+  onErrorCallbacks?: ((error: Error) => void)[];
   onSettled?: () => void;
 };
 
@@ -32,7 +31,7 @@ const useQueryOSMData = ({
 
   const queryKey: QueryKey = ["osmData", JSON.stringify(spotQuery)];
 
-  const queryResult = useQuery<OSMData, AxiosError>({
+  const queryResult = useQuery<OSMData, Error>({
     queryKey,
     queryFn: () => fetchOSMData({ spotQuery }),
     enabled: false,
@@ -76,8 +75,7 @@ const useQueryOSMData = ({
   useEffect(() => {
     if (!hasMounted.current) return;
     if (isError && error) {
-      // @ts-ignore
-      setError(error.response.data.message || "");
+      setError(error.message || "");
       toggleDialog("stepperError", true);
 
       if (onErrorCallbacks) {

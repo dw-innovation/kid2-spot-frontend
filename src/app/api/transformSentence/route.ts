@@ -1,6 +1,5 @@
 export const maxDuration = 60;
 
-import axios from "axios";
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
@@ -43,62 +42,55 @@ export async function POST(req: NextRequest) {
 
   const finalUsername = prefix ? `${prefix}-${hash.slice(-5)}` : hash.slice(-5);
 
-  try {
-    console.log({
-      ...data,
-      environment: process.env.ENVIRONMENT || "production",
-      username: finalUsername,
-      model: process.env.NLP_MODEL || "t5",
-    });
-    const results = await axios({
-      method: "POST",
-      url: `${process.env.NLP_API}/transform-sentence-to-imr`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        ...data,
-        environment: process.env.ENVIRONMENT || "production",
-        username: finalUsername,
-        model: process.env.NLP_MODEL || "t5",
-      },
-    });
+  const body = {
+    ...data,
+    environment: process.env.ENVIRONMENT || "production",
+    username: finalUsername,
+    model: process.env.NLP_MODEL || "t5",
+  };
 
-    return NextResponse.json(results.data, { status: 200 });
-  } catch (error) {
-    console.log(error);
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: error.response.data.message || "Unknown error occurred",
-          },
-          {
-            status: error.response.status,
-          }
-        );
-      } else {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: error.message || "Network or other error",
-          },
-          {
-            status: 500,
-          }
-        );
+  try {
+    console.log(body);
+    const response = await fetch(
+      `${process.env.NLP_API}/transform-sentence-to-imr`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
       }
-    } else {
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
       return NextResponse.json(
         {
           status: "error",
-          message: "An unexpected error occurred",
+          message: errorData.message || "Unknown error occurred",
         },
         {
-          status: 500,
+          status: response.status,
         }
       );
     }
+
+    const results = await response.json();
+    return NextResponse.json(results, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      {
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

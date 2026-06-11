@@ -10,9 +10,9 @@ import {
 import { cn } from "@/lib/utils";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const extractMaxWidth = (title: string | undefined): string | null => {
@@ -22,7 +22,8 @@ const extractMaxWidth = (title: string | undefined): string | null => {
   return match ? `${match[1]}px` : null;
 };
 
-const TutorialPage = async ({ params: { slug } }: Props) => {
+const TutorialPage = async ({ params }: Props) => {
+  const { slug } = await params;
   const content = loadMarkdownContent(slug);
   const tutorials = getOrderedSlugs();
 

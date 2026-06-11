@@ -1,6 +1,5 @@
 export const maxDuration = 60;
 
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
@@ -26,49 +25,45 @@ export async function POST(req: NextRequest) {
   const data = await req.json();
 
   try {
-    const results = await axios({
-      method: "POST",
-      url: `${process.env.OSM_API}/run-spot-query`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data,
-    });
-
-    return NextResponse.json(results.data, { status: 200 });
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: error.response.data.message || "Unknown error occurred",
-          },
-          {
-            status: error.response.status,
-          }
-        );
-      } else {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: error.message || "Network or other error",
-          },
-          {
-            status: 500,
-          }
-        );
+    const response = await fetch(
+      `${process.env.OSM_API}/run-spot-query`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
       }
-    } else {
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
       return NextResponse.json(
         {
           status: "error",
-          message: "An unexpected error occurred",
+          message: errorData.message || "Unknown error occurred",
         },
         {
-          status: 500,
+          status: response.status,
         }
       );
     }
+
+    const results = await response.json();
+    return NextResponse.json(results, { status: 200 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

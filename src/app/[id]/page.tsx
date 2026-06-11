@@ -6,13 +6,13 @@ import { getSession } from "@/lib/apiServices";
 import MapPage from "../page";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const SessionPage = async ({ params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const {
     props: { data },
   } = await getSession(id || "");

@@ -7,6 +7,7 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import Dialog from "../Dialog";
 import ClosingButton from "./ClosingButton";
 import DetectedEntitiesBar from "./DetectedEntitiesBar";
+import LoginButton from "./LoginButton";
 import PromptAgainButton from "./PromptAgainButton";
 
 const DIALOG_NAME = "error";
@@ -29,6 +30,11 @@ const COMPONENTS = {
       props.children === "[[PROMPT_AGAIN_BUTTON]]"
     ) {
       return <div className="pl-8"><PromptAgainButton /></div>;
+    } else if (
+      typeof props.children === "string" &&
+      props.children === "[[LOGIN_BUTTON]]"
+    ) {
+      return <LoginButton />;
     } else {
       const children = React.Children.toArray(props.children);
       const first = children[0];

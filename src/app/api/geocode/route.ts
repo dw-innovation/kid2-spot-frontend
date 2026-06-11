@@ -1,4 +1,3 @@
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -12,27 +11,29 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await axios.get(
-      `https://api.maptiler.com/geocoding/${encodeURIComponent(address)}.json`,
-      {
-        params: {
-          key: process.env.MAPTILER_KEY,
-          language: "en",
-          limit: 10,
-          types:
-            "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
-        },
-      }
+    const params = new URLSearchParams({
+      key: process.env.MAPTILER_KEY || "",
+      language: "en",
+      limit: "10",
+      types:
+        "region,subregion,county,joint_municipality,joint_submunicipality,municipality,municipal_district,locality",
+    });
+
+    const response = await fetch(
+      `https://api.maptiler.com/geocoding/${encodeURIComponent(address)}.json?${params}`
     );
 
-    return NextResponse.json(response.data, { status: 200 });
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error) && error.response) {
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
       return NextResponse.json(
-        { status: "error", message: error.response.data.message || "Geocoding request failed" },
-        { status: error.response.status }
+        { status: "error", message: errorData.message || "Geocoding request failed" },
+        { status: response.status }
       );
     }
+
+    const data = await response.json();
+    return NextResponse.json(data, { status: 200 });
+  } catch (error: unknown) {
     return NextResponse.json(
       { status: "error", message: "An unexpected error occurred" },
       { status: 500 }

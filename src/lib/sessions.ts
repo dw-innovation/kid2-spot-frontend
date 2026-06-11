@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import useGlobalStore from "@/stores/useGlobalStore";
 import useMapStore from "@/stores/useMapStore";
 import useSpotQueryStore from "@/stores/useSpotQueryStore";
@@ -29,11 +27,14 @@ export const saveSession = async (
     combinedStoreData[store.name] = storeData;
   }
 
-  const response = await axios.post("/api/saveSession", {
-    data: combinedStoreData,
+  const response = await fetch("/api/saveSession", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data: combinedStoreData }),
   });
 
-  return `${window.location.origin}/${response.data.id}`;
+  const result = await response.json();
+  return `${window.location.origin}/${result.id}`;
 };
 
 export const loadSession = async (sessionData: Record<string, any>) => {
