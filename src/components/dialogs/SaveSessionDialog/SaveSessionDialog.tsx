@@ -43,13 +43,26 @@ const SaveSessionDialog = () => {
     try {
       let date = new Date();
 
+      const bounds = useMapStore.getState().bounds;
+      const spotQueryState = useSpotQueryStore.getState();
+      const spotQueryForSession = {
+        ...spotQueryState,
+        spotQuery: {
+          ...spotQueryState.spotQuery,
+          area: {
+            type: "bbox" as const,
+            bbox: [bounds[0][1], bounds[0][0], bounds[1][1], bounds[1][0]],
+          },
+        },
+      };
+
       addSession({
         name: sessionName,
         data: {
           useGlobalStore: useGlobalStore.getState(),
           useMapStore: useMapStore.getState(),
           useStreetViewStore: useStreetViewStore.getState(),
-          useSpotQueryStore: useSpotQueryStore.getState(),
+          useSpotQueryStore: spotQueryForSession,
         },
         created: date,
         modified: date,

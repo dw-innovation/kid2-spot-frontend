@@ -6,6 +6,11 @@ import useStreetViewStore from "@/stores/useStreetViewStore";
 import { fetchOSMData } from "./apiServices";
 import { setResults } from "./utils";
 
+const convertAreaToBbox = (bounds: [number, number][]): { type: "bbox"; bbox: number[] } => ({
+  type: "bbox",
+  bbox: [bounds[0][1], bounds[0][0], bounds[1][1], bounds[1][0]],
+});
+
 export const saveSession = async (
   stores: { name: string; getState: () => Record<string, any> }[]
 ): Promise<string> => {
@@ -25,6 +30,17 @@ export const saveSession = async (
     }
 
     combinedStoreData[store.name] = storeData;
+  }
+
+  // Replace area with current bbox and strip geometry polygon
+  if (combinedStoreData.useSpotQueryStore?.spotQuery?.area && combinedStoreData.useMapStore?.bounds) {
+    combinedStoreData.useSpotQueryStore = {
+      ...combinedStoreData.useSpotQueryStore,
+      spotQuery: {
+        ...combinedStoreData.useSpotQueryStore.spotQuery,
+        area: convertAreaToBbox(combinedStoreData.useMapStore.bounds),
+      },
+    };
   }
 
   const response = await fetch("/api/saveSession", {
