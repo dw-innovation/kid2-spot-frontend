@@ -41,7 +41,6 @@ const Header = () => {
               <SpotLogo />
             </div>
             <div className="flex  items-baseline gap-2">
-              <BetaIcon className="w-10" />
               <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
             </div>
           </div>
