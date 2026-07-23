@@ -34,15 +34,16 @@ const Header = () => {
       <div className="flex items-center justify-between flex-1">
         <div className="flex items-end gap-5 ml-2">
           <div
-            className="flex gap-2 items-end"
+            className="flex gap-2 items-end flex-row"
             style={{ transform: "translateY(-4px)" }}
           >
             <div style={{ transform: "translateY(4px)" }}>
               <SpotLogo />
             </div>
-            <div className="flex  items-baseline gap-2">
-              <BetaIcon className="w-10" />
-              <p className="text-xs">{process.env.NEXT_PUBLIC_VERSION}</p>
+            <div className="flex items-baseline gap-2">
+              <p className="text-xs text-muted-foreground">
+                {process.env.NEXT_PUBLIC_VERSION}
+              </p>
             </div>
           </div>
         </div>
