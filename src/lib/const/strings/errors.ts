@@ -2,7 +2,7 @@ export const STRINGS = {
   noResultsTitle: "No results in search area",
   noResults: `No matching results in OpenStreetMap data within the search area. Try the following fixes:
 
-((1)) Use different words and search again.
+((1)) Use different words and search again. For example; change 'restaurant' to 'pub' or specify the distance different, e.g. from 'within' to 'nearby'.
 
 [[PROMPT_AGAIN_BUTTON]]
 
