@@ -28,9 +28,11 @@ export async function POST(req: NextRequest) {
   const data = await req.json();
   const APP_SALT = process.env.APP_SALT || "";
 
+  const isKid2 = userName.toLowerCase().includes("kid2");
+
   const prefix = [
     userEmail.toLowerCase().endsWith("@dw.com") ? "DW" : null,
-    userName.toLowerCase().includes("kid2") ? "KID2" : null,
+    isKid2 ? "KID2" : null,
   ]
     .filter(Boolean)
     .join("-");
@@ -40,7 +42,12 @@ export async function POST(req: NextRequest) {
     .update(userName + APP_SALT)
     .digest("hex");
 
-  const finalUsername = prefix ? `${prefix}-${hash.slice(-5)}` : hash.slice(-5);
+  // KID2 accounts are internal test users — keep them identifiable in the logs.
+  const finalUsername = isKid2
+    ? userName
+    : prefix
+      ? `${prefix}-${hash.slice(-5)}`
+      : hash.slice(-5);
 
   const body = {
     ...data,
