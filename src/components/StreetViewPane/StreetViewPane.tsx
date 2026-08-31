@@ -1,7 +1,7 @@
 "use client";
 
 import { Cross1Icon, MoveIcon, SizeIcon } from "@radix-ui/react-icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable } from "react-resizable";
 
@@ -10,6 +10,8 @@ import useGlobalStore from "@/stores/useGlobalStore";
 import useStreetViewStore from "@/stores/useStreetViewStore";
 
 const StreetViewPane = () => {
+  const nodeRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [dragData, setDragData] = useState({ x: 0, y: 0 });
   const [memoizedDragData, setMemoizedDragData] = useState<{
     x: number;
@@ -50,6 +52,9 @@ const StreetViewPane = () => {
     setDragData({ x: data.x, y: data.y });
   };
 
+  const handleDragStart = () => setIsDragging(true);
+  const handleDragStop = () => setIsDragging(false);
+
   useEffect(() => {
     return () => toggleStreetViewFullscreen(false);
   }, [toggleStreetViewFullscreen]);
@@ -60,9 +65,17 @@ const StreetViewPane = () => {
         isStreetViewFullscreen ? "relative" : "absolute bottom-0 right-0"
       )}
     >
-      <Draggable handle=".drag-handle" position={dragData} onDrag={handleDrag}>
+      <Draggable
+        nodeRef={nodeRef as React.RefObject<HTMLElement>}
+        handle=".drag-handle"
+        position={dragData}
+        onStart={handleDragStart}
+        onDrag={handleDrag}
+        onStop={handleDragStop}
+      >
         <Resizable width={600} height={400}>
           <div
+            ref={nodeRef}
             className={cn(
               "rounded-lg bg-white shadow-md cursor-grab",
               isStreetViewFullscreen
@@ -100,6 +113,7 @@ const StreetViewPane = () => {
                 height="100%"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                className={cn(isDragging && "pointer-events-none")}
               />
             </div>
           </div>
